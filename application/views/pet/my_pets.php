@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Header CSS -->
+  <?php $this->load->view('common/css');?>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <?php $this->load->view('common/main-nav');?>
+
+    <!-- Banner -->
+    <?php $this->load->view('common/banner');?>
+
+    <!-- Portfolio Grid Section -->
+    <section class="content">
+      <!-- 2nd Navbar -->
+      <?php $this->load->view('common/profile-nav');?>
+
+	  <div class="row m-t-10">
+          <!-- Left Navbar -->
+          <?php $this->load->view('common/left-nav');?>
+        
+          <!-- Main Content -->
+		  <div class="col-md-9 m-t-10 p-l-0 p-details">
+            <div class="panel panel-default bg-gray">
+				<div class="panel-heading pointed">
+					<span class="b-700 text-blue">My Pet Lists</span>
+					<a href="<?=base_url();?>home/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
+				</div>			
+				<div class="panel-body">
+
+                    <input type="hidden" value="<?=(isset($_SESSION['pet_msg'])) ? $_SESSION['pet_msg'] : '0';?>" id="getPetAlert">
+                    <div class="row f-list-wrap">
+                        <?php 
+                        if($get_pet_data){
+                            foreach($get_pet_data as $show_pet_data){ 
+                            $user_id=$show_pet_data->user_id;
+                            $pet_image = json_decode($show_pet_data->pet_images);
+                            @$img=$pet_image[0];
+                        ?>
+                            <div class="col-md-6">
+                                <div class="card bg-grey friend-card">
+                                    <div class="card-body">
+                                        <div class="friend-img">
+                                            <?php if (isset($img)){ ?>
+                                            <img src="<?=base_url();?><?= $img; ?>" alt="Profile Image">
+                                            <?php }else{ ?>
+                                            <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                            <?php } ?>
+                                        </div>
+                                        <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
+                                        <div class="dropdown-menu" aria-labelledby="f-menu">
+                                            <a class="dropdown-item" href="<?=base_url();?>home/add_new_pet/<?=$show_pet_data->pet_id; ?>">Edit Pet</a>
+                                            <a class="dropdown-item" href="javascript:;" onclick="delPet(<?=$show_pet_data->pet_id; ?>)">Delete Pet</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$show_pet_data->pet_id; ?>">Pet Details</a>
+                                        </div>
+
+                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$show_pet_data->pet_id; ?>"><?= $show_pet_data->pet_name; ?></a> </p>
+                                        <p class="text-desc"><?= $show_pet_data->description; ?></p>
+                                        <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $show_pet_data->cat_name; ?></span></p>
+                                        <p class="b-700 f-14">Bread: <span class="b-700 text-black"><?= $show_pet_data->breed_name; ?> </span></p>
+                                        <p class="b-700 f-14">Post Date: <span class="b-700 text-black"><?= $show_pet_data->date_added; ?> </span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } }else{ ?>
+                            <div class="col-md-12 m-t-20">
+                                <div class="card bg-grey friend-card">
+                                    <div class="card-body">
+                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>home/add_new_pet">here</a> to add your pet.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+			</div>
+          </div>
+          <!-- Close Main Content -->
+	  </div>
+    </section>
+
+    <!-- Footer -->
+    <?php $this->load->view('common/footer');?>
+
+  </body>
+
+</html>

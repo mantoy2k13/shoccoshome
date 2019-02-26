@@ -1,0 +1,74 @@
+<!-- Search Modal -->
+<?php 
+  $page = array('mainpage', 'about', 'contact', 'friends', 'friend_request', 'mail', 'sents', 'drafts', 'bio', 'view_bio');
+  if(!(in_array($is_page,$page))){ ?>
+  <?php $this->load->view('common/search_modal');?>
+<?php } ?>
+<footer class="footer text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 mb-5 mb-lg-0">
+            <p class="lead mb-0">
+				<img class="img-responsive" src="<?=base_url();?>assets/img/logo.png" alt="Navbar Logo">
+			</p>
+          </div>
+          <div class="col-md-3 text-left foot-links">
+            <p class="lead mb-0"><a href=""> About</a></p>
+            <p class="lead mb-0"><a href="">Discover</a> </p>
+            <p class="lead mb-0"><a href="">Terms and Conditions</a> </p>
+            <p class="lead mb-0"><a href="">Privacy Policy</a> </p>
+		  </div>
+		  <div class="col-md-3 text-left">
+            <p class="lead mb-0"><i class="fa fa-phone text-orange"></i> <a href="tel:000000" class="text-white">(000) 000-0000 </a></p>
+            <p class="lead mb-0"><i class="fa fa-envelope text-orange"></i> <a href="mailto:site@email.com" class="text-white">Email: site@email.com </a></p>
+            <p class="lead mb-0"><i class="fa fa-home text-orange"></i> 5042 Wilshire Blvd Los Angeles 90036 </p>
+		  </div>
+		  <div class="col-md-3 mb-5 mb-lg-0">
+            <h4 class="text-uppercase mb-4">Follow Us</h4>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fab fa-pinterest"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="#">
+                  <i class="fab fa-google-plus-g"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="copyright py-4 text-center text-white">
+      <div class="container">
+        <small>Copyright &copy; 2019 - Designed by TBL Tech Nerds</small>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-to-top position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- JS Files -->
+    <?php $this->load->view('common/js'); ?>

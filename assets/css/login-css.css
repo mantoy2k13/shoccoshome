@@ -1,0 +1,59 @@
+body { 
+    background: url('../img/bg.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  .panel-default {
+    opacity: 0.9;
+    margin-top:30px;
+  }
+  
+  
+  .rgba-black-strong {
+      background-color: rgba(0, 0, 0, .7) !important;
+  }
+  .overlay2 {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+  }
+  .form-group.last { margin-bottom:0px; }
+  
+  .login-wrapper {
+      text-align: center;
+      width: 370px;
+      margin: 0 auto;
+  }
+  
+  .text-white{
+      color:#fff;
+  }
+  img.login-logo {
+      width: 300px;
+      margin-bottom: 15px;
+  }
+
+  .btn-rounded {
+        border-radius: 50px;
+    }
+
+
+
+  
+@media only screen and (max-width: 410px){
+    .login-wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    img.login-logo {
+        width: 75%;
+    }
+}
