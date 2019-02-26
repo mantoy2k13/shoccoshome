@@ -20,13 +20,13 @@
 
         <?php if($email){ ?> 
         <li class="nav-item mx-0 mx-lg-1 ">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav" href="<?=base_url();?>home/mail">Messages 
+            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav <?=($is_page=="mail" || $is_page=="drafts" || $is_page=="sents") ? "active" : "";?>" href="<?=base_url();?>mail/mail">Messages 
                 <?php $cntMsg=$this->Mail_model->count_mail();?>
                 <span class="mainCntM"><?=($cntMsg!=0) ? '<span class="badge bg-red">'.$cntMsg.'</span>' : '';?></span>
             </a>
         </li>
         <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav" href="<?=base_url();?>home/account">Profile</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav <?=($is_page=="account") ? "active" : "";?>" href="<?=base_url();?>account/account">Profile</a>
         </li>
         <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav" href="javascript:;" onclick="logout()">Logout</a>
