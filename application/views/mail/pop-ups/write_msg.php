@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <?php if($my_friends){ ?>
-                                <label for="message_to">Message To:</label>
+                                <label for="message_to">Choose Friends:</label>
                                 <select class="multipleSelect form-control" multiple name="mail_to[]" required>
                                     <?php foreach($my_friends as $frnd){ extract($frnd); ?>
                                         <option value="<?=$id;?>"><?=($fullname) ? $fullname : "No Name";?></a> (<?=$email;?>)</option>
