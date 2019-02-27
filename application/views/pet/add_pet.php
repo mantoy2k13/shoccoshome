@@ -1,4 +1,3 @@
-
 <?php
  if($get_single_pet_data){
     $add_pet_title='Update Pet';

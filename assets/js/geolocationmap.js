@@ -29,6 +29,7 @@ function initialize() {
     var mapOptions = {
       zoom: 15,
       center: city
+      
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -47,23 +48,25 @@ function initialize() {
 
     update();
   }, function(positionError) {
-    //alert("getCurrentPosition failed: " + positionError.message);
-       var city = new google.maps.LatLng(34.052240, -118.243340);
-    var mapOptions = {
-      zoom: 15,
-      center: city
-      
-    };
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      //alert("getCurrentPosition failed: " + positionError.message);
+        var city = new google.maps.LatLng(34.052240, -118.243340);
+      var mapOptions = {
+        zoom: 15,
+        center: city,
+        nableHighAccuracy: false,
+        maximumAge: 50000
+        
+      };
+      map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
 
-    marker = new google.maps.Marker({
-      position: city,
-      map: map,
-      
-    });
+      marker = new google.maps.Marker({
+        position: city,
+        map: map,        
+      });
+ 
   }, {
-    enableHighAccuracy: true
+    enableHighAccuracy: false,
   });
 }
 

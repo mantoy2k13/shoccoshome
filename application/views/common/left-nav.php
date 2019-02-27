@@ -72,9 +72,38 @@
                         <input type="text" class="form-control" name="chipnumber" value="">
                     </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Color Tag</label>
-                        <input type="text" class="form-control" name="colortag" value="">
+                        <label class="text-black m-b-0 f-15">Collar Tag</label>
+                        <input type="text" class="form-control" name="collartag" value="" placeholder="Collar Tag">
                     </div>
+                  
+                            <div class="m-t-10">
+                                <label for="" class="text-black m-b-0 f-15">Country</label>
+                                <select name="country" id="country_id" class="form-control">
+                                    <option value="Select Country">Select Country</option>
+                                </select>
+                            </div>
+                            <div class="m-t-10">
+                                <label for="" class="text-black m-b-0 f-15">State</label>
+                                <select name="state"  class="form-control">
+                                    <option value="Select State"><?=@$get_single_pet_data[0]->state; ?></option>
+                                </select>
+                            </div>
+                       
+                       
+                            <div class="m-t-10">
+                                <label class="text-black m-b-0 f-15" >City</label>
+                                <input required name="city" value="<?php echo ($user_logindata) ? $user_logindata->city : '';?>" type="text" class="form-control" placeholder="City">
+                              </div> 
+                            <div class="m-t-10">
+                                <label class="text-black m-b-0 f-15">Street</label>
+                                <input  name="street" value="<?php echo ($user_logindata) ? $user_logindata->street : '';?>" type="text" class="form-control" placeholder="Street">
+                            </div>
+                            <div class="m-t-10">
+                                <label class="text-black m-b-0 f-15">Zip/Postal Code</label>
+                                <input  name="zip_code" value="<?php echo ($user_logindata) ? $user_logindata->zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code">
+                            </div>
+                             
+                        
                     <div class="text-center m-t-10">
                         <button type="submit" class="btn bg-orange text-white col-md-12">Perform Search</button>
                     </div>

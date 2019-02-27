@@ -89,11 +89,11 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <label class="m-b-0 text-black v-a-m">Color Tag </label>
+                <label class="m-b-0 text-black v-a-m">Collar Tag </label>
             </div>
             <div class="col-md-5">
                 <select class="form-control">
-                    <option value="color">Color Tag</option>
+                    <option value="color">Collar Tag</option>
                 </select>
             </div>
         </div>
@@ -102,7 +102,29 @@
                 <label class="m-b-0 text-black v-a-m">State: </label>
             </div>
             <div class="col-md-4">
-                <select name="state" class="form-control" id="one"></select>
+                <select name="state" class="form-control" id="one">
+                    <option value=""> Select State </option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="m-b-0 text-black v-a-m">Street </label>
+            </div>
+            <div class="col-md-5">
+                <input type="text" class="form-control" value="" placeholder="Street">
+            </div>
+        </div>
+        <div class="row m-t-20">
+            <div class="col-md-1">
+                <label class="m-b-0 text-black v-a-m">City: </label>
+            </div>
+            <div class="col-md-4">
+            <input type="text" class="form-control" value="" placeholder="City">
+            </div>
+            <div class="col-md-2">
+                <label class="m-b-0 text-black v-a-m">Zip/Postal Code </label>
+            </div>
+            <div class="col-md-5">
+            <input type="text" class="form-control" value="" placeholder="Zip/Postal Code ">
             </div>
         </div>
         <!--
