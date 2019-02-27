@@ -41,7 +41,7 @@
 
 <script src="<?=base_url();?>assets/vendor/crs/crs.js"></script>
 <script src="<?=base_url();?>assets/vendor/crs/jquery.crs.js"></script>
-
+<script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
 <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts"){ ?>
 <!-- Fast Select -->
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.min.js"></script>

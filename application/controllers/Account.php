@@ -29,6 +29,10 @@ class Account extends CI_Controller {
             'mobile_number'=>$this->input->post('mobile_number'),
             'gender'=>$this->input->post('gender'),
             'address'=>$this->input->post('address'),
+            'country'=>$this->input->post('country'),
+            'state'=>$this->input->post('state'),
+            'city'=>$this->input->post('city'),
+            'zip_code'=>$this->input->post('zip_code'),
             'bio'=>$this->input->post('bio'),
         );
 

@@ -15,8 +15,8 @@
             <p><?= $user_logindata->email; ?><br>
             <i class="fa fa-map-marker-alt text-blue"></i>
             <?php 
-                if($user_logindata->address){
-                    echo $user_logindata->address;
+                if($user_logindata->country){
+                    echo $user_logindata->country. ', ' .$user_logindata->state. ' '.$user_logindata->city;
                 }else{
                     echo "<a href='".base_url()."account/account#target_address'>Set Your Address</a>";
                 }

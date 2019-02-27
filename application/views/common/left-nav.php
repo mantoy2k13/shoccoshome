@@ -25,83 +25,70 @@
                         <input type="text" id="leftSearchInput" class="form-control f-15" placeholder="Search" />
                     </div>
                 </div>
-                <div class="left-search-grp col-md-12">
-                    <div class="m-t-10">
+                <div class="col-md-12">
+
                         <label class="text-black m-b-0 f-15">Pet:</label>
                         <select class="form-control f-15">
                             <option value="Select Pet">Select Pet</option>
-                            <option value="Tiger">Tiger</option>
-                            <option value="Smokey">Smokey</option>
-                            <option value="Oreo">Oreo</option>
-                            <option value="Sassy">Sassy</option>
-                            <option value="Simba">Simba</option>
-                            <option value="Oliver">Oliver</option>
+                            <option value="Bird">Bird</option>
+                            <option value="Cat">Cat</option>
+                            <option value="Dog">Dog</option>
+                            <option value="Fish">Fish</option>
+                            <option value="Horse">Horse</option>
+                            <option value="Other">Other</option>
+                            <option value="Reptile/Amphibian">Reptile/Amphibian</option>
+                            <option value="Small/Animal">Small/Animal</option>
                         </select>
-                    </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Status:</label>
+                        <label class="text-black m-b-0 f-15">Breed:</label>
                         <select class="form-control f-15">
-                            <option value="Host">Host</option>
-                            <option value="Guest">Guest</option>
+                            <option value="Host">Select Breed</option>
+                           
                         </select>
                     </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Gender:</label>
+                        <label class="text-black m-b-0 f-15">Sex:</label>
                         <select class="form-control f-15">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                         </select>
                     </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Age From:</label>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <select class="form-control f-15">
-                                    <?php for($i=1;$i<=100;$i++){?>
-                                        <option value="<?=$i;?>"><?=$i;?></option>
-                                    <?php }?>
-                                </select>
-                            </div>
-                            <div class="col-md-2"><span class="v-a-m text-black f-15">To</span></div>
-                            <div class="col-md-5">
-                                <select class="form-control f-15">
-                                    <?php for($i=1;$i<=100;$i++){?>
-                                        <option value="<?=$i;?>"><?=$i;?></option>
-                                    <?php }?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Members Rating:</label>
+                        <label class="text-black m-b-0 f-15">Color:</label>
                         <select class="form-control f-15">
-                            <?php for($i=1;$i<=100;$i++){?>
-                                <option value="<?=$i;?>"><?=$i;?></option>
-                            <?php }?>
+                            <option value="Host">Select Color:</option>
+                        </select>
+                    </div>
+                
+                    <div class="m-t-10">
+                        <label class="text-black m-b-0 f-15">Located:</label>
+                        <select class="form-control f-15">
+                            <option value="athome">At Home</option>
+                            <option value="atshelter">At Shelter</option>
                         </select>
                     </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">State:</label>
-                        <select class="form-control f-15">
-                            <option value="All States">All States</option>
-                            <option value="US">US</option>
-                        </select>
+                        <label class="text-black m-b-0 f-15">Chip Number:</label>
+                        <input type="text" class="form-control" name="chipnumber" value="">
                     </div>
                     <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Country:</label>
-                        <select class="form-control f-15">
-                            <option value="All Countries">All Countries</option>
-                            <option value="US">US</option>
-                        </select>
+                        <label class="text-black m-b-0 f-15">Color Tag</label>
+                        <input type="text" class="form-control" name="colortag" value="">
                     </div>
+                    <div class="text-center m-t-10">
+                        <button type="submit" class="btn bg-orange text-white col-md-12">Perform Search</button>
+                    </div>
+                </div>
+                <div class="left-search-grp col-md-12">
+                  
+                    
+                    <!--  
                     <div class="m-t-10">
                         <label class="text-black m-b-0 f-15">New Member Within:</label>
                         <div class="row">
                             <div class="col-md-8">
                                 <select class="form-control f-15">
-                                    <?php for($i=1;$i<=100;$i++){?>
-                                        <option value="<?=$i;?>"><?=$i;?></option>
-                                    <?php }?>
+                                  
                                 </select>
                             </div>
                             <div class="col-md-4 text-left"><span class="v-a-m text-black f-15">Days</span></div>
@@ -112,9 +99,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <select class="form-control f-15">
-                                    <?php for($i=1;$i<=100;$i++){?>
-                                        <option value="<?=$i;?>"><?=$i;?></option>
-                                    <?php }?>
+                                  
                                 </select>
                             </div>
                             <div class="col-md-4 text-left"><span class="v-a-m text-black f-15">Days</span></div>
@@ -165,9 +150,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center m-t-10">
-                        <button type="submit" class="btn bg-orange text-white col-md-12">Perform Search</button>
-                    </div>
+                -->
+                    
                 </div>
             </div>
         <?php } ?>
