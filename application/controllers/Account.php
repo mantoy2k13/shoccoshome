@@ -32,6 +32,7 @@ class Account extends CI_Controller {
             'country'=>$this->input->post('country'),
             'state'=>$this->input->post('state'),
             'city'=>$this->input->post('city'),
+            'street'=>$this->input->post('street'),
             'zip_code'=>$this->input->post('zip_code'),
             'bio'=>$this->input->post('bio'),
         );
