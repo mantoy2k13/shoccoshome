@@ -108,9 +108,9 @@ class Account extends CI_Controller {
 		if ($this->session->userdata('user_email'))
 		{
 			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'account';
-			$this->load->view('account/account', $data);
+            $this->load->view('account/account', $data);          
 		}
 		else { redirect('home/login'); }
     }

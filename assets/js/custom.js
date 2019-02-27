@@ -105,7 +105,6 @@ function getMailNotif(){
                     var notif = document.getElementById("notif"); 
                     notif.play(); 
                     $.ajax({ url: base_url + "mail/cNotif/"+key['mail_id'],success: function(result){}});
-                   
                 });
             }
         }
@@ -119,3 +118,4 @@ function instMsg(uid, email){
 }
 
 $(document).on('click', '.ncf-container p', function() {  window.location.href = base_url+"mail/mail" });
+

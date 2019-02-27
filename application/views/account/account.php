@@ -85,14 +85,12 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Country</label>
-                                <select name="country"  class="crs-country form-control" data-region-id="three">
-                                    <option value="Select Country">Select Country</option>
+                                <select name="country" id="country_id" class="crs-country form-control" data-region-id="three" >
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">State</label>
-                                <select name="state" id="three" class="form-control" data-value="shortcode">
-                                    <option value="Select State"><?=@$get_single_pet_data[0]->state; ?></option>
+                                <select name="state"  id="three" class="form-control" data-value="shortcode">
                                 </select>
                             </div>
                         </div>
