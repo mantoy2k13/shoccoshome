@@ -14,14 +14,16 @@ class Pet extends CI_Controller{
         
         define('UPLOAD_DIR', 'assets/img/pet/');
         for($i = 0; $i < $upimagecheck; $i++){
-        $aa=$uploadedImgs[$i];
-        $image_parts = explode(";base64,", $aa);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        $file = UPLOAD_DIR . uniqid() . '.png';
-        file_put_contents($file, $image_base64);
-        $image_name[]=$file;
+            $img_name = uniqid().'.png';
+            $aa=$uploadedImgs[$i];
+            $image_parts = explode(";base64,", $aa);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file = UPLOAD_DIR . $img_name;
+            file_put_contents($file, $image_base64);
+            $image_name[]=$file;
+            if($i==0) { $primary_pic = $img_name; }
         }
 
         $uploadedImgsJson = json_encode($image_name);
@@ -48,6 +50,8 @@ class Pet extends CI_Controller{
 			'city'=>$this->input->post('city'),
 			'street'=>$this->input->post('street'),
 			'zip_code'=>$this->input->post('zip_code'),
+			'vaccination'=>$this->input->post('vaccination'),
+			'vaccination_date'=>$this->input->post('vaccination_date'),
 			'activate_notice'=>$this->input->post('activate_notice'),
 			'notice_title'=>$this->input->post('notice_title'),
 			'collar_tag'=>$this->input->post('collar_tag'),
@@ -58,20 +62,18 @@ class Pet extends CI_Controller{
 			'contact_info'=>$this->input->post('contact_info'),
             'alt_contact_info'=>$this->input->post('alt_contact_info'),
             'pet_images'=>$uploadedImgsJson,
+            'primary_pic'=>$primary_pic,
         );
 
         $add_pet = $this->Pet_model->add_pet($petdata);
         if ($add_pet) {
-            // $this->session->set_flashdata('success_msg', '<strong><i class="fa fa-check"></i> Success!</strong> Your pet was added successfully. Click <a href="'.base_url().'home/my_pets">here</a> to view your pet.');
             $this->session->set_flashdata('pet_msg', 'Added');
             redirect('/home/add_new_pet');
         }
         else {
-            // $this->session->set_flashdata('error_msg', '<strong><i class="fa fa-times"></i> Error!</strong> There was a problem adding your pet. Please try again.');
             $this->session->set_flashdata('pet_msg', 'Error');
             redirect('/home/add_new_pet');
         }
-
     }
 
     public function update_pet(){
@@ -83,14 +85,15 @@ class Pet extends CI_Controller{
         
         define('UPLOAD_DIR', 'assets/img/pet/');
         for($i = 0; $i < $upimagecheck; $i++){
-        $aa=$uploadedImgs[$i];
-        $image_parts = explode(";base64,", $aa);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        $image_base64 = base64_decode($image_parts[1]);
-        $file = UPLOAD_DIR . uniqid() . '.png';
-        file_put_contents($file, $image_base64);
-        $image_name[$i]=$file;
+            $img_name = uniqid().'.png';
+            $aa=$uploadedImgs[$i];
+            $image_parts = explode(";base64,", $aa);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file = UPLOAD_DIR . $img_name;
+            file_put_contents($file, $image_base64);
+            $image_name[$i]=$file;
         }
 
         //print_r($image_name);
@@ -132,6 +135,8 @@ class Pet extends CI_Controller{
                 'city'=>$this->input->post('city'),
                 'street'=>$this->input->post('street'),
                 'zip_code'=>$this->input->post('zip_code'),
+                'vaccination'=>$this->input->post('vaccination'),
+			    'vaccination_date'=>$this->input->post('vaccination_date'),
                 'activate_notice'=>$this->input->post('activate_notice'),
                 'notice_title'=>$this->input->post('notice_title'),
                 'chip_no'=>$this->input->post('chip_no'),
@@ -147,12 +152,10 @@ class Pet extends CI_Controller{
             //print_r($petdataupdate);
             $update_pet = $this->Pet_model->updatepetdata($petdataupdate);
             if ($update_pet) {
-                // $this->session->set_flashdata('update_success_msg', 'Your pet update successfully.');
                 $this->session->set_flashdata('pet_msg', 'Updated');
                 redirect('/home/add_new_pet/'.$petid.'');
             }
             else {
-                // $this->session->set_flashdata('update_error_msg', 'Your pet update not successfully.');
                 $this->session->set_flashdata('pet_msg', 'Error');
                 redirect('/home/add_new_pet/'.$petid.'');
             }
@@ -213,7 +216,7 @@ class Pet extends CI_Controller{
         return $config;
     }
 
-    public function pet_image_remove(){
+    public function pet_image_remove($isPrimary){
         $path = $_POST['path'];
         $petid = $_POST['petid'];
         $linkimg='assets/img/pet/'.$path;
@@ -232,6 +235,9 @@ class Pet extends CI_Controller{
         $deleteimage=$this->Pet_model->updatepetimagesdata($petid,$updateimagearray);
         if($deleteimage){
             unlink($linkimg);
+            if($isPrimary){
+                $this->Pet_model->setPrimaryImg($petid, '');
+            }
             echo true;
         } else{
             echo false;
@@ -272,6 +278,13 @@ class Pet extends CI_Controller{
             $this->session->set_flashdata('pet_msg', 'Error');
             redirect('/home/my_pets');
         }
+    }
+
+    public function setPrimaryImg($pet_id, $img_name){
+		if ($this->session->userdata('user_email')){ 
+            echo $this->Pet_model->setPrimaryImg($pet_id, $img_name);
+        }
+		else { echo false; }
     }
 
 }

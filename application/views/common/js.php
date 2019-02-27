@@ -48,3 +48,9 @@
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.standalone.js"></script>
 <script src="<?=base_url();?>assets/js/initializations/mail.js"></script>
 <?php } ?>
+
+<?php if($this->session->userdata('user_email')){ if($is_page!="account"){ ?>
+    <?php $is_complete = $this->Account_model->is_complete();?>
+    <?php if(!$is_complete['is_complete']){ ?>
+    <script src="<?=base_url();?>assets/js/initializations/welcomeModal.js"></script>
+<?php } } } ?>

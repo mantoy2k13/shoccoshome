@@ -82,6 +82,10 @@
         font-size: 50px;
     }
 
+    .cust-mod-edit-prof {
+        top: 109px;
+    }
+
     .modal-xxl {
         max-width: 100%;
         margin: 20px 10px;
@@ -174,7 +178,12 @@
     }
 
     i.fa.upload-icon {
-        left: 50px;
+        left: 30px;
+        top: 30px;
+    }
+
+    .cust-mod-edit-prof {
+        top: 79px;
     }
 }
 
@@ -210,6 +219,15 @@
         width: 150px;
         height: 150px;
         margin: 0 auto;
+    }
+
+    i.fa.upload-icon {
+        left: 50px;
+        top: 50px;
+    }
+
+    .cust-mod-edit-prof {
+        top: 120px;
     }
 
     p.upload-text {

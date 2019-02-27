@@ -89,11 +89,10 @@
                                             <?php $my_pets = $this->Account_model->get_my_pets($id);?>
                                             <?php if($my_pets){foreach($my_pets as $pets){ extract($pets); ?>
                                                 <div class="col-md-6">
-                                                    <?php $json_pets = json_decode($pets['pet_images']); ?>
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
                                                             <div class="pet-bio-img">
-                                                                <img src="<?=base_url();?><?= ($json_pets) ? $json_pets[0] : 'assets/img/owner.png';?>" alt="Profile Image">
+                                                                <img src="<?=base_url();?><?= ($primary_pic) ? 'assets/img/pet/'.$primary_pic : 'assets/img/owner.png';?>" alt="Profile Image">
                                                             </div>
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">

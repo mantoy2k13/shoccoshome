@@ -30,7 +30,7 @@ class Account_model extends CI_Model {
     }
 
     public function get_my_pets($uid){
-        $this->db->select('sh_pets.pet_name, sh_pets.pet_id, sh_pets.pet_images, sh_category.cat_name, sh_breeds.breed_name, sh_pets.description')->from('sh_pets');
+        $this->db->select('sh_pets.pet_name, sh_pets.pet_id, sh_pets.primary_pic, sh_category.cat_name, sh_breeds.breed_name, sh_pets.description')->from('sh_pets');
         $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
         $this->db->where('sh_pets.user_id',$uid);
@@ -66,5 +66,26 @@ class Account_model extends CI_Model {
         } else {
             return date('l, j F, Y',$time ? $time : time());
         }
+    }
+
+    public function is_complete(){
+        $this->db->select('is_complete')->from('sh_users');
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $data = $this->db->get()->row_array();
+        return $data;
+    }
+
+    public function compLater(){
+        $this->db->set('is_complete', 2);
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $res = $this->db->update('sh_users');
+        return ($res) ? true : false;
+    }
+
+    public function getAddress(){
+        $this->db->select('country,state,city,street,zip_code')->from('sh_users');
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 }

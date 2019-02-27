@@ -33,49 +33,51 @@
                                 <?php  
                                 $user_img=$user_logindata->user_img;
                                 if($user_img) { ?>
-                                <img id="img-profile" src="<?=base_url();?>assets/img/profile_pics/<?=$user_logindata->user_img;?>" alt="Profile Image">
+                                    <img id="img-profile" src="<?=base_url();?>assets/img/profile_pics/<?=$user_logindata->user_img;?>" alt="Profile Image">
                                 <?php }else{ ?>
-                                <img id="img-profile" src="<?=base_url();?>assets/img/profile2.png" alt="Profile Image">
+                                    <img id="img-profile" src="<?=base_url();?>assets/img/profile2.png" alt="Profile Image">
                                 <?php } ?>
+                            
+                            <span class="cust-mod-edit-prof" onclick="" title="Choose image"><i class="fa fa-pen text-white"></i></span>
                             <i class="fa fa-upload upload-icon"></i>
                             <input type="file" name="user_img" class="input-img" id="input-img">
                         </div>
-                        <p class="m-t-10 text-blue f-15 upload-text">Drag or Click image to upload</p>
+                        <p class="m-t-10 text-blue f-15 upload-text">Choose from your Pictures</p>
                     </div>
                     <div class="col-md-9">
                         <p class="f-25 b-700 text-orange-d">Account</p>
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Fullname</label>
-                                <input type="text" value="<?= $user_logindata->fullname ? $user_logindata->fullname : '' ?>" name="fullname" class="form-control" placeholder="Fullname">
+                                <input type="text" value="<?= $user_logindata->fullname ? $user_logindata->fullname : '' ?>" name="fullname" class="form-control" placeholder="Fullname" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Occupation</label>
-                                <input type="text" value="<?= $user_logindata->occupation ? $user_logindata->occupation : '' ?>" name="occupation" class="form-control" placeholder="Occupation">
+                                <input type="text" value="<?= $user_logindata->occupation ? $user_logindata->occupation : '' ?>" name="occupation" class="form-control" placeholder="Occupation" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="" class="m-b-0">Email Address</label>
-                                <input type="text" value="<?= $user_logindata->email ? $user_logindata->email : '' ?>" name="email" class="form-control" placeholder="Email Address">
-                                <input type="hidden" value="<?= $user_logindata->id ? $user_logindata->id : '' ?>" name="id" class="form-control">
+                                <input type="text" value="<?= $user_logindata->email ? $user_logindata->email : '' ?>" name="email" class="form-control" placeholder="Email Address" required>
+                                <input type="hidden" value="<?= $user_logindata->id ? $user_logindata->id : '' ?>" name="id" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <label for="" class="m-b-0">Password</label>
-                                <input type="password"  name="password" class="form-control" placeholder="Password">
+                                <input type="password"  name="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
                         
                         <div class="form-group row" id="target_address">
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Mobile</label>
-                                <input type="number" value="<?= $user_logindata->mobile_number ? $user_logindata->mobile_number : '' ?>" name="mobile_number" class="form-control" placeholder="Mobile">
+                                <input type="text" value="<?= $user_logindata->mobile_number ? $user_logindata->mobile_number : '' ?>" name="mobile_number" class="form-control" placeholder="Mobile" required>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Gender</label>
-                                <select class="form-control" id="" name="gender">
+                                <select class="form-control" id="" name="gender" required>
                                     <option value="male" <?=$user_logindata->gender === 'male' ? 'selected' : ''?>>Male</option>
                                     <option value="female" <?=$user_logindata->gender === 'female' ? 'selected' : ''?>>Female</option>
                                 </select>
@@ -85,13 +87,13 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Country</label>
-                                <select name="country"  class="crs-country form-control" data-region-id="three">
+                                <select name="country"  class="crs-country form-control" data-region-id="three" required>
                                     <option value="Select Country">Select Country</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">State</label>
-                                <select name="state" id="three" class="form-control" data-value="shortcode">
+                                <select name="state" id="three" class="form-control" data-value="shortcode" required>
                                     <option value="Select State"><?=@$get_single_pet_data[0]->state; ?></option>
                                 </select>
                             </div>
@@ -99,15 +101,15 @@
                         <div class="row form-group">
                             <div class="col-md-4">
                                 <label class="">City</label>
-                                <input required name="city" value="<?php echo ($user_logindata) ? $user_logindata->city : '';?>" type="text" class="form-control" placeholder="City">
+                                <input required name="city" value="<?php echo ($user_logindata) ? $user_logindata->city : '';?>" type="text" class="form-control" placeholder="City" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="">Street</label>
-                                <input  name="street" value="<?php echo ($user_logindata) ? $user_logindata->street : '';?>" type="text" class="form-control" placeholder="Street">
+                                <input  name="street" value="<?php echo ($user_logindata) ? $user_logindata->street : '';?>" type="text" class="form-control" placeholder="Street" required>
                             </div>
                             <div class="col-md-4">
                                 <label class="">Zip/Postal Code</label>
-                                <input  name="zip_code" value="<?php echo ($user_logindata) ? $user_logindata->zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code">
+                                <input  name="zip_code" value="<?php echo ($user_logindata) ? $user_logindata->zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code" required>
                             </div>
                         </div>        
                         

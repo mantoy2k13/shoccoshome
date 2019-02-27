@@ -35,6 +35,7 @@ class Account extends CI_Controller {
             'street'=>$this->input->post('street'),
             'zip_code'=>$this->input->post('zip_code'),
             'bio'=>$this->input->post('bio'),
+            'is_complete'=>1,
         );
 
         // password check convert md5
@@ -124,6 +125,13 @@ class Account extends CI_Controller {
             $this->load->view('account/view_bio', $data);
         }
 		else { redirect('home/login'); }
+    }
+
+    public function compLater(){
+		if ($this->session->userdata('user_email')){ 
+            echo $this->Account_model->compLater();
+        }
+		else { echo false; }
     }
 
 }

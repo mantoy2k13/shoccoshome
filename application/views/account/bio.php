@@ -34,9 +34,6 @@
 		  <div class="col-md-9 m-t-10 bio-wrapper-info p-l-0">
                 <div class="row">
                     <div class="col-md-3">
-                        <!-- <div class="bio-img">
-                            <img src="<?=base_url();?><?=($user_img)?'assets/img/profile_pics/'.$user_img:'assets/img/profile2.png';?>" alt="Profile Image">
-                        </div> -->
                         <div class="profile-info-wrapper">
                             <p class="f-20 b-700 text-blue">Contact Info</p>
                             <p class="f-15"><span class="text-black b-700">Name</span><br>
@@ -47,7 +44,7 @@
                                 <?=($mobile_number)?$mobile_number:"No Number";?>
                             </p>
                             <p class="f-15"><span class="text-black b-700">Gender</span><br>
-                                <?=($gender)?$gender:"No Number";?>
+                                <?=($gender)?$gender:"No Gender";?>
                             </p>
                             <p class="f-15"><span class="text-black b-700">Occupation</span><br>
                                 <?=($occupation)?$occupation:"No Occupation";?>
@@ -86,11 +83,10 @@
                                             <?php $my_pets = $this->Account_model->get_my_pets($id);?>
                                             <?php if($my_pets){foreach($my_pets as $pets){ extract($pets); ?>
                                                 <div class="col-md-6">
-                                                    <?php $json_pets = json_decode($pets['pet_images']); ?>
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
                                                             <div class="pet-bio-img">
-                                                                <img src="<?=base_url();?><?= ($json_pets) ? $json_pets[0] : 'assets/img/owner.png';?>" alt="Profile Image">
+                                                                <img src="<?=base_url();?><?= ($primary_pic) ? 'assets/img/pet/'.$primary_pic : 'assets/img/owner.png';?>" alt="Profile Image">
                                                             </div>
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">

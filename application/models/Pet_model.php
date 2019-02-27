@@ -147,4 +147,11 @@ class Pet_model extends CI_model{
 		
 	}
 
+	public function setPrimaryImg($pet_id, $img_name){
+		$this->db->set('primary_pic', $img_name);
+		$this->db->where('pet_id', $pet_id);
+		$res = $this->db->update('sh_pets');
+		return ($res) ? true : false;
+    }
+
 }

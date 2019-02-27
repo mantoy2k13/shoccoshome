@@ -91,7 +91,7 @@ function crpImg(e,imgID){
     $("#showCropWindow").modal('show');
 }
 
-function delImgPet(pet_id, pet_img, imgID){
+function delImgPet(pet_id, pet_img, imgID, isPrimary){
     swal({
         title: "Delete Image?",
         text: "Are you sure you want to delete this image? This will not be recovered.",
@@ -106,7 +106,7 @@ function delImgPet(pet_id, pet_img, imgID){
         var imgname = pet_img.split('/',-1);
         var imglink = imgname[imgname.length-1];
         $.ajax({
-            url: base_url+'pet/pet_image_remove',
+            url: base_url+'pet/pet_image_remove/'+isPrimary,
             type: 'post',
             data: {path: imglink, petid : pet_id},
             success: function(response){
@@ -156,5 +156,37 @@ function delPet(pet_id){
     },
     function(){
         window.location.href = base_url+"pet/delete_pet/"+pet_id;
+    });
+}
+
+function setPrimary(pet_id, img_name){
+    swal({
+        title: "Set Primary?",
+        text: "This picture will be set as primary image.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, set it!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#2162e7"
+    },
+    function(){
+        $.ajax({
+            url: base_url+'pet/setPrimaryImg/'+'/'+pet_id+'/'+img_name,
+            success: function(response){
+                if(response){
+                    swal({
+                        title: 'Success!',
+                        text: "Image was successfully set as primary.",
+                        type: 'success',
+                        showConfirmButton:false,
+                        confirmButtonText: ''
+                    });
+                    setInterval(function(){ location.reload(); }, 1500);
+                } else{
+                    swal("Failed!", "There was a problem deleting your image", 'warning');
+                }
+            }
+        });
     });
 }

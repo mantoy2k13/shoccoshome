@@ -69,6 +69,27 @@
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
+    <?php if($this->session->userdata('user_email')){?>
+    <?php $is_complete = $this->Account_model->is_complete();?>
+    <?php if(!$is_complete['is_complete']){ ?>
+    <!-- Modal -->
+    <div class="modal fade welcomeModal" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModal" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Hi! Welcome to Shocco's Home!</h5>
+          </div>
+          <div class="modal-body">
+                You can not add your pets if profile is not completed. Adding of pets needs your profile address. Do you want to update your profile now? <br>
+          </div>
+          <div class="modal-footer">
+            <a href="javascript:;" onclick="compLater()" class="btn btn-danger">Maybe, Later</a>
+            <a href="<?=base_url();?>account/account" class="btn btn-primary">Yes, Update it!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php } } ?>
 
     <!-- JS Files -->
     <?php $this->load->view('common/js'); ?>

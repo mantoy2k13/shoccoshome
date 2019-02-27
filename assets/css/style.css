@@ -926,6 +926,16 @@ a.icon-btn:hover{
     font-size: 11px;
 }
 
+.cust-mod-edit-prof {
+    position: absolute;
+    right: 0;
+    top: 144px;
+    background: #ff9b28;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 11px;
+}
+
 .cust-mod-edit:hover{
     background: #0bc9c2;
 }
@@ -1110,6 +1120,24 @@ input.drag-files {
     margin-right: 10px !important;
 }
 
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.welcomeModal .modal-footer, .welcomeModal .modal-header{
+    border: 0;
+}
+
+.welcomeModal .modal-content{
+    border-radius: 0;
+}
+
+.welcomeModal h5.modal-title {
+    color: #272626;
+    font-size: 22px;
+    font-weight: 100;
+}
 /*Daryl code*/
 
 div.prof-desc {

@@ -43,7 +43,7 @@
     </div>
     
     <div class="nav-brand">
-        <a href="#page-top">
+        <a href="<?=base_url();?>">
             <img src="<?=base_url();?>assets/img/logo.png" alt="Navbar Logo">
         </a>
     </div>
@@ -70,7 +70,7 @@
                         <?php } ?>
                     </div>
                     <div class="dropdown-menu prof-menu-custom" aria-labelledby="profile-menus">
-                        <a class="dropdown-item" href="<?=base_url();?>home/homepage"><i class="fa fa-user"></i> Profile</a>
+                        <a class="dropdown-item" href="<?=base_url();?>account/account"><i class="fa fa-user"></i> Profile</a>
                         <a  class="dropdown-item" href="javascript:;" onclick="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </a>

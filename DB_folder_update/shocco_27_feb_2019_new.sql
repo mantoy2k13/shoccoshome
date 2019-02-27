@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2019 at 03:38 AM
+-- Generation Time: Feb 27, 2019 at 02:00 PM
 -- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -760,6 +760,9 @@ CREATE TABLE `sh_pets` (
   `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `street` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `zip_code` int(255) NOT NULL,
+  `vaccination` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `vaccination_date` date NOT NULL,
+  `primary_pic` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `activate_notice` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `notice_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `chip_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -777,9 +780,12 @@ CREATE TABLE `sh_pets` (
 -- Dumping data for table `sh_pets`
 --
 
-INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `description`, `country`, `state`, `city`, `street`, `zip_code`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `date_added`) VALUES
-(5, 13, 'Affenpinscher', '[\"assets\\/img\\/pet\\/5c6e37ca3611f.png\",\"assets\\/img\\/pet\\/5c6e37ca3976e.png\",\"assets\\/img\\/pet\\/5c6e37ca40f8a.png\"]', 3, 87, 'Tag tags', 'female', 28, '12', '12', '2018-01-20', 'Dog Food', 'Jumping', 'None', 'athome', 'no', 'The hounds are the original hunting dogs, many pre-dating the gun-assisting hunters in their sporting group. There is a great deal of diversity, both behavioral and physical, within this group, a history of hunting assistance often being the only common b', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', 6014, 'No', 'None', '', '1231', '1231', 'Mandaue', '2018-01-20', '', '123', '124', '2019-02-21 05:31:54'),
-(6, 15, 'kathy', '[\"assets\\/img\\/pet\\/5c6e8aaea3c11.png\",\"assets\\/img\\/pet\\/5c6e8aaea4e25.png\",\"assets\\/img\\/pet\\/5c6e8aaea62cd.png\",\"assets\\/img\\/pet\\/5c6e8aaea7cf7.png\"]', 2, 39, '123', 'female', 1, '213123', '12321312', '2019-02-21', '123213', '123213', '213123', 'atshelter', 'no', 'k;lasdlkashjkdh', 'Azerbaijan', 'DAS', '213123', '213213', 6000, 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '2019-02-21 11:25:34');
+INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `description`, `country`, `state`, `city`, `street`, `zip_code`, `vaccination`, `vaccination_date`, `primary_pic`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `date_added`) VALUES
+(5, 13, 'Affenpinscher', '[\"assets\\/img\\/pet\\/5c6e37ca3976e.png\",\"assets\\/img\\/pet\\/5c6e37ca40f8a.png\"]', 3, 87, 'Tag tags', 'Male', 28, '12', '12', '2018-01-20', 'Dog Food', 'Jumping', 'None', 'At Home', 'Yes', 'The hounds are the original hunting dogs, many pre-dating the gun-assisting hunters in their sporting group. There is a great deal of diversity, both behavioral and physical, within this group, a history of hunting assistance often being the only common b', '', '', 'Mandaue', 'H Abellana Street', 6014, '', '0000-00-00', '5c6e37ca3976e.png', 'No', 'None', '', '1231', '1231', 'Mandaue', '2018-01-20', '', '123', '124', '2019-02-21 05:31:54'),
+(6, 15, 'kathy', '[\"assets\\/img\\/pet\\/5c6e8aaea3c11.png\",\"assets\\/img\\/pet\\/5c6e8aaea4e25.png\",\"assets\\/img\\/pet\\/5c6e8aaea62cd.png\",\"assets\\/img\\/pet\\/5c6e8aaea7cf7.png\"]', 2, 39, '123', 'female', 1, '213123', '12321312', '2019-02-21', '123213', '123213', '213123', 'atshelter', 'no', 'k;lasdlkashjkdh', 'Azerbaijan', 'DAS', '213123', '213213', 6000, '', '0000-00-00', '5c6e8aaea3c11.png', 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '2019-02-21 11:25:34'),
+(7, 13, 'Alizza', '[\"assets\\/img\\/pet\\/5c7648856d528.png\",\"assets\\/img\\/pet\\/5c7648857154d.png\"]', 2, 38, 'No Tags', 'Male', 24, '12', '12', '2019-02-27', 'Fish', 'Sleeping', 'None', 'At Home', 'Yes', 'My pet is cat her name is alizza', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', 6014, 'Rabbies', '2019-02-14', '5c7648856d528.png', 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '2019-02-27 08:21:25'),
+(8, 13, 'Chow Chow', '[\"assets\\/img\\/pet\\/5c76503b05fa8.png\"]', 3, 98, 'No tags', 'Male', 1, '12', '12', '2019-02-27', 'Bones', 'Jumps', 'None', 'At Home', 'Yes', 'My Description', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', 6014, 'Rabbies', '2019-12-31', '5c76503b05fa8.png', 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '2019-02-27 08:54:19'),
+(9, 14, 'Affenpinscher', '[\"assets\\/img\\/pet\\/5c7652d941965.png\",\"assets\\/img\\/pet\\/5c7662f2beb8b.png\"]', 1, 1, 'Tag tags', 'Female', 3, '12', '12', '2018-12-26', 'Dog Food', 'Jumping', 'None', 'At Shelter', 'Yes', 'My Description', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', 6014, 'rabbies', '2018-01-26', '5c7652d941965.png', 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '2019-02-27 09:05:29');
 
 -- --------------------------------------------------------
 
@@ -849,6 +855,7 @@ CREATE TABLE `sh_users` (
   `bio` text NOT NULL,
   `user_img` varchar(255) NOT NULL,
   `cover_photo` varchar(255) NOT NULL,
+  `is_complete` tinyint(1) NOT NULL COMMENT '0 Not Complete, 1 Complete, 2 CompleteLater',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -856,31 +863,12 @@ CREATE TABLE `sh_users` (
 -- Dumping data for table `sh_users`
 --
 
-INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `address`, `country`, `state`, `city`, `street`, `zip_code`, `bio`, `user_img`, `cover_photo`, `date_created`) VALUES
-(13, 'Tom', 'None', 'tom@yopmail.com', '202cb962ac59075b964b07152d234b70', 0, 'male', '', '', '', '0', '0', '0', '', '', '', '2019-02-19 06:42:48'),
-(14, 'Tom2', 'Business Man', 'tom2@yopmail.com', '202cb962ac59075b964b07152d234b70', 123, 'female', 'Los Angeles California', '', '', '0', '0', '0', 'Los Angeles California, Los Angeles California, Los Angeles California', 'pp_1550634089.jpg', '', '2019-02-20 03:37:36'),
-(15, 'testing', 'occuipation', 'test@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1234, 'female', '', 'Philippines', '00', 'guadalupedddd', 'singson', '6000', 'asdasdasd', '', '', '2019-02-21 09:34:38'),
-(16, '', '', 'test2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', '', '', '', '0', '0', '0', '', '', '', '2019-02-21 09:36:47');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `oauth_provider` enum('','facebook','google','twitter') COLLATE utf8_unicode_ci NOT NULL,
-  `oauth_uid` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `first_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `gender` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `picture` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `link` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `created` datetime NOT NULL,
-  `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `address`, `country`, `state`, `city`, `street`, `zip_code`, `bio`, `user_img`, `cover_photo`, `is_complete`, `date_created`) VALUES
+(13, 'Tom', 'None', 'tom@yopmail.com', '202cb962ac59075b964b07152d234b70', 12311, 'male', '', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', '6014', 'About myself', '', '', 1, '2019-02-19 06:42:48'),
+(14, 'Tom2', 'Business Man', 'tom2@yopmail.com', '202cb962ac59075b964b07152d234b70', 123, 'female', '', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', '6014', 'Featured snippet from the web\r\nClick on the table you want to work with, which will take you to the list of columns in the table. Underneath the list of columns, where is says \"add 1 column(s)\" click the Go button to add 1 column. Define the column by entering the following information: Name the Column.', 'pp_1550634089.jpg', '', 1, '2019-02-20 03:37:36'),
+(15, 'testing', 'occuipation', 'test@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1234, 'female', '', 'Philippines', '00', 'guadalupedddd', 'singson', '6000', 'asdasdasd', '', '', 0, '2019-02-21 09:34:38'),
+(16, '', '', 'test2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 0, '', '', '', '', '0', '0', '0', '', '', '', 0, '2019-02-21 09:36:47'),
+(17, 'Tom 3', 'Web Analys', 'tom3@yopmail.com', '202cb962ac59075b964b07152d234b70', 123, 'male', '', 'Philippines', 'CEB', 'Mandaue', 'H Abellana Street', '6014', 'About me and you dude', 'pp_1551270087.jpg', '', 1, '2019-02-27 10:59:33');
 
 --
 -- Indexes for dumped tables
@@ -965,12 +953,6 @@ ALTER TABLE `sh_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1026,7 +1008,7 @@ ALTER TABLE `sh_mail`
 -- AUTO_INCREMENT for table `sh_pets`
 --
 ALTER TABLE `sh_pets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sh_pet_images`
@@ -1050,13 +1032,7 @@ ALTER TABLE `sh_posts`
 -- AUTO_INCREMENT for table `sh_users`
 --
 ALTER TABLE `sh_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

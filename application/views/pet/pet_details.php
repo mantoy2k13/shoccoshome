@@ -48,26 +48,28 @@
                                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                                         </ol>
                                         <div class="carousel-inner carousel-inner300">
+										
+											<div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
+												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$show_get_all_pet_data->primary_pic;?>" alt="Primary Image">
+											</div>
                                             <?php 
-                                                $i  = 1;
                                                 $pet_images = $show_get_all_pet_data->pet_images;
                                                 $json_pet_images = json_decode($pet_images);
-                                                if(is_array($json_pet_images) || is_object($json_pet_images)):
-                                                    foreach($json_pet_images as $pet_img):
-                                                    $item_class = ($i == 1) ? 'active' : 'item';
+                                                if(is_array($json_pet_images) || is_object($json_pet_images)){
+                                                    foreach($json_pet_images as $pet_img){
+													$pet_img = substr($pet_img, 15);
                                             ?>
-                                                <div class="pet-details-img carousel-item <?php echo $item_class;?> c-img-wrapper pet-slider">
-                                                    <img class="d-block w-100 c-px" src="<?=base_url();?><?php echo $pet_img;?>" alt="Slide Image">
+											<?php if($pet_img!=$show_get_all_pet_data->primary_pic){?>
+                                                <div class="pet-details-img carousel-item item c-img-wrapper pet-slider">
+                                                    <img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$pet_img;?>" alt="Slide Image">
                                                 </div>
-                                            <?php 
-                                                    $i++;
-                                                    endforeach;	
-                                            ?>
-                                            <?php else:?>
+											<?php } ?>
+
+                                            <?php } } else{ ?>
                                                     <div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
                                                     <img class="d-block w-100" src="<?=base_url();?>assets/img/image-icon.png" alt="Slide Image">
                                                 </div>
-                                            <?php endif;?>
+											<?php } ?>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                 <span class="sr-only">Previous</span>

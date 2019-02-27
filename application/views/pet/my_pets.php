@@ -35,18 +35,18 @@
                         <?php 
                         if($get_pet_data){
                             foreach($get_pet_data as $show_pet_data){ 
-                            $user_id=$show_pet_data->user_id;
-                            $pet_image = json_decode($show_pet_data->pet_images);
-                            @$img=$pet_image[0];
+                            // $user_id=$show_pet_data->user_id;
+                            // $pet_image = json_decode($show_pet_data->pet_images);
+                            // @$img=$pet_image[0];
                         ?>
                             <div class="col-md-6">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
                                         <div class="friend-img">
-                                            <?php if (isset($img)){ ?>
-                                            <img src="<?=base_url();?><?= $img; ?>" alt="Profile Image">
+                                            <?php if ($show_pet_data->primary_pic){ ?>
+                                                <img src="<?=base_url();?>assets/img/pet/<?=$show_pet_data->primary_pic; ?>" alt="Profile Image">
                                             <?php }else{ ?>
-                                            <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                                <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
                                             <?php } ?>
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
