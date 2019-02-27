@@ -22,54 +22,43 @@
             </div>
             <div class="col-md-4">
                 <select class="form-control">
-                    <option value="Select Pet">Select Pet</option>
-                    <option value="Tiger">Tiger</option>
-                    <option value="Smokey">Smokey</option>
-                    <option value="Oreo">Oreo</option>
-                    <option value="Sassy">Sassy</option>
-                    <option value="Simba">Simba</option>
-                    <option value="Oliver">Oliver</option>
+                <option value="Select Pet">Select Pet</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Cat">Cat</option>
+                    <option value="Dog">Dog</option>
+                    <option value="Fish">Fish</option>
+                    <option value="Horse">Horse</option>
+                    <option value="Other">Other</option>
+                    <option value="Reptile/Amphibian">Reptile/Amphibian</option>
+                    <option value="Small/Animal">Small/Animal</option>
                 </select>
             </div>
+           
             <div class="col-md-2">
-                <label class="m-b-0 text-black v-a-m">Age From: </label>
+                <label class="m-b-0 text-black v-a-m">Color</label>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-5">
                 <select class="form-control">
-                    <?php for($i=1;$i<=100;$i++){?>
-                        <option value="<?=$i;?>"><?=$i;?></option>
-                    <?php }?>
-                </select>
-            </div>
-            <div class="col-md-1 text-center">
-                <label class="m-b-0 text-black v-a-m"><b>To</b></label>
-            </div>
-            <div class="col-md-2">
-                <select class="form-control">
-                    <?php for($i=1;$i<=100;$i++){?>
-                        <option value="<?=$i;?>"><?=$i;?></option>
-                    <?php }?>
+                    <option value="athome">Select Color</option>
                 </select>
             </div>
         </div>
         <div class="row m-t-20">
             <div class="col-md-1">
-                <label class="m-b-0 text-black v-a-m">Status: </label>
+                <label class="m-b-0 text-black v-a-m">Breed: </label>
             </div>
             <div class="col-md-4">
                 <select class="form-control">
-                    <option value="Host">Host</option>
-                    <option value="Guest">Guest</option>
+                    <option value="Host">Select Breed</option>
                 </select>
             </div>
             <div class="col-md-2">
-                <label class="m-b-0 text-black v-a-m">Members Rating: </label>
+                <label class="m-b-0 text-black v-a-m">Located: </label>
             </div>
             <div class="col-md-5">
                 <select class="form-control">
-                    <?php for($i=1;$i<=100;$i++){?>
-                        <option value="<?=$i;?>"><?=$i;?></option>
-                    <?php }?>
+                    <option value="athome">At Home</option>
+                    <option value="atshelter">At Shelter</option>
                 </select>
             </div>
         </div>
@@ -84,10 +73,10 @@
                 </select>
             </div>
             <div class="col-md-2">
-                <label class="m-b-0 text-black v-a-m">City Lookup: </label>
+                <label class="m-b-0 text-black v-a-m">Chip Number </label>
             </div>
             <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="City lookup" />
+                <input type="text" class="form-control" placeholder="Chip Number" />
             </div>
         </div>
         <div class="row m-t-20">
@@ -99,18 +88,13 @@
                     <option value="Select Country">Select Country</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <label class="m-b-0 text-black v-a-m">New Member Within: </label>
+            <div class="col-md-2">
+                <label class="m-b-0 text-black v-a-m">Color Tag </label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <select class="form-control">
-                    <?php for($i=1;$i<=100;$i++){?>
-                        <option value="<?=$i;?>"><?=$i;?></option>
-                    <?php }?>
+                    <option value="color">Color Tag</option>
                 </select>
-            </div>
-            <div class="col-md-1">
-                <label class="m-b-0 text-black v-a-m">Days </label>
             </div>
         </div>
         <div class="row m-t-20">
@@ -120,20 +104,8 @@
             <div class="col-md-4">
                 <select name="state" class="form-control" id="one"></select>
             </div>
-            <div class="col-md-3">
-                <label class="m-b-0 text-black v-a-m">Last Online Within: </label>
-            </div>
-            <div class="col-md-3">
-                <select class="form-control">
-                    <?php for($i=1;$i<=100;$i++){?>
-                        <option value="<?=$i;?>"><?=$i;?></option>
-                    <?php }?>
-                </select>
-            </div>
-            <div class="col-md-1">
-                <label class="m-b-0 text-black v-a-m">Days </label>
-            </div>
         </div>
+        <!--
         <div class="row m-t-20">
             <div class="col-md-12">
                 <label class="m-b-0 text-black b-700 v-a-m">Include Members: </label>
@@ -175,6 +147,7 @@
                 </label>
             </div>
         </div>
+        -->
         <div class="row m-t-20">
             <div class="col-md-12 text-center">
                 <button type="submit" class="btn bg-orange sub-btn">Perform Search</button>

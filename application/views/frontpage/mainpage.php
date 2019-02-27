@@ -50,42 +50,7 @@
     <?php $this->load->view('common/footer');?>
 
   </body>
-    <script>
+ 
 
-    //Check if browser supports W3C Geolocation API
-   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-   } 
-   else {
-      alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
-   }
-
-   function successFunction(position) {
-      var lat = position.coords.latitude;
-      var long = position.coords.longitude;
-      var mapProp= {
-                center:new google.maps.LatLng(lat,long),
-                zoom:15,
-      };
-      var map = new google.maps.Map(document.getElementById("map"),mapProp);
-      var marker = new google.maps.Marker({
-         position: mapProp.center,
-         title:"Hello World!"
-      });
-      marker.setMap(map);
-   }
-   function errorFunction(position) {
-	   alert('Error!');
-   }
-   
-      //   function myMap() {
-      //       var mapProp= {
-      //           center:new google.maps.LatLng(51.508742,-0.120850),
-      //           zoom:5,
-      //       };
-      //       var map = new google.maps.Map(document.getElementById("map"),mapProp);
-      //   }
-    </script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&callback=successFunction"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&callback=initialize"></script>
 </html>

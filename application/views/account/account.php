@@ -99,15 +99,15 @@
                         <div class="row form-group">
                             <div class="col-md-4">
                                 <label class="">City</label>
-                                <input required name="city" value="<?= @$get_single_pet_data[0]->city ? @$get_single_pet_data[0]->city : '' ?>" type="text" class="form-control" placeholder="City">
+                                <input required name="city" value="<?php echo ($user_logindata) ? $user_logindata->city : '';?>" type="text" class="form-control" placeholder="City">
                             </div>
                             <div class="col-md-4">
                                 <label class="">Street</label>
-                                <input  name="street" value="<?= @$get_single_pet_data[0]->street ? @$get_single_pet_data[0]->street : '' ?>" type="text" class="form-control" placeholder="Street">
+                                <input  name="street" value="<?php echo ($user_logindata) ? $user_logindata->street : '';?>" type="text" class="form-control" placeholder="Street">
                             </div>
                             <div class="col-md-4">
                                 <label class="">Zip/Postal Code</label>
-                                <input  name="zip_code" value="<?= @$get_single_pet_data[0]->zip_code ? @$get_single_pet_data[0]->zip_code : '' ?>" type="text" class="form-control" placeholder="Zip/Postal Code">
+                                <input  name="zip_code" value="<?php echo ($user_logindata) ? $user_logindata->zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code">
                             </div>
                         </div>        
                         
