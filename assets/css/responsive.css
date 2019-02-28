@@ -1,7 +1,7 @@
 @media only screen and (max-width: 1308px){
-    .btn-menu {
+    /* .btn-menu {
         width: 11%;
-    }
+    } */
 }
 
 @media only screen and (max-width: 1201px){
@@ -48,13 +48,8 @@
 
 @media only screen and (max-width: 1021px){
     .btn-menu {
-        width: 20%;
         margin-bottom: 5px;
         font-size: 15px;
-    }
-
-    .home-menu.btn-menu {
-        width: 12%;
     }
 
     .left-menu {
@@ -143,6 +138,13 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .col-xs-8r,
+    .col-sm-8r,
+    .col-md-8r,
+    .col-lg-8r {
+        width: 25%;
     }
     
 }
@@ -281,14 +283,15 @@
 }
 
 @media only screen and (max-width: 565px){
-    .btn-menu {
-        width: 25%
-    }
     .btn-nav {
         text-align: right;
     }
     .bio-pet-grp .col-md-6 {
         max-width: 100%;
+    }
+
+    .col-xs-8r, .col-sm-8r, .col-md-8r, .col-lg-8r {
+        width: 50%;
     }
 }
 

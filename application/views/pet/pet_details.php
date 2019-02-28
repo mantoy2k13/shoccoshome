@@ -29,7 +29,7 @@
 		  <div class="col-md-9 m-t-10 p-l-0 p-details">
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
-					<span class="b-700 text-blue">More Details</span>
+					<span class="b-700 text-blue"><i class="fa fa-paw"></i> Pet Details</span>
 					<a href="javascript:;" class="btn btn-sm text-white bg-black-l">Booking History</a>
 				</div>			
 				<div class="panel-body">
