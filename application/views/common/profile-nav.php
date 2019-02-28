@@ -67,7 +67,7 @@
                         <a href="<?=base_url();?>account/account" class="btn-menu btn bg-blue <?=($is_page=="account") ? 'active' : ''; ?>">Account</a>
                     </div>
                     <div class="col-md-8r">
-                        <a href="<?=base_url();?>home/pictures" class="btn-menu btn bg-blue <?=($is_page=="pictures") ? 'active' : ''; ?>">Pictures</a>
+                        <a href="<?=base_url();?>home/pictures" class="btn-menu btn bg-blue <?=($is_page=="pictures" || $is_page=="albums") ? 'active' : ''; ?>">Pictures</a>
                     </div>
                 </div>
             </div>
