@@ -31,7 +31,6 @@
                         <div class="col-md-12 m-t-10">
                             <a href="javascript:;" class="p-nav b-700 f-14 active">All Photos</a>
                             <a href="javascript:;" class="p-nav b-700 f-14">Albums</a>
-                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right m-l-10"><i class="fa fa-plus"></i> Add Photos</a>
                             <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right"><i class="fa fa-plus"></i> Create Album</a>
                         </div>
                     </div>
@@ -42,11 +41,12 @@
                     -->
                     <?php if(count($all_pictures) > 0):?>
                         <?php if(is_array($all_pictures) || is_object($all_pictures)):?>
+                            <div class="row">
                             <?php foreach($all_pictures as $all_pics):
                                 $pet_images = $all_pics->pet_images;
                                 $all_pets = json_decode($pet_images);
                             ?>
-                            <div class="row">
+                            
                                 <?php foreach($all_pets as $all_pet):?>
                                      <div class="col-md-3">
                                         <div class="thumbnail">
@@ -58,8 +58,9 @@
                                         </div>
                                     </div>
                                 <?php endforeach;?>
-                            </div>
+                          
                             <?php endforeach;?>
+                              </div>
                             <?php else:?>
                                  <div class="gal-img">
                                     <img src="<?=base_url();?>assets/img/owner.png" style="width:100%" alt="Profile Image">
