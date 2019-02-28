@@ -54,3 +54,4 @@
     <?php if(!$is_complete['is_complete']){ ?>
     <script src="<?=base_url();?>assets/js/initializations/welcomeModal.js"></script>
 <?php } } } ?>
+<script src="<?=base_url();?>assets/js/initializations/init_album.js"></script>
