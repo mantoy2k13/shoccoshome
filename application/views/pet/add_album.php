@@ -1,11 +1,18 @@
 <!-- Modal -->  
 <div class="modal fade msgModalCustom" id="addAlbum" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="<?=base_url();?>mail/send_message" method="POST">
+        <form action="<?=base_url();?>album/add_album" method="POST">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> Create New Album</p>
+                    <h1>
+                        <?php 
+                            // echo '<pre>';
+                            //     print_r($user_logindata);
+                            // echo '</pre>';
+                        ?>
+                    </h1>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -21,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="user_id" value="<?php echo ($user_logindata) ? $user_logindata->id: ''; ?>">
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
