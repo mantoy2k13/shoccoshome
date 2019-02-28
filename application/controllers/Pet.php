@@ -249,12 +249,26 @@ class Pet extends CI_Controller{
         if($this->input->post('categories')){
             $categories_id = $this->input->post('categories');
             $breeddata = $this->Pet_model->breed_data_dependancy_cat($categories_id);
-            $allbreeddata = '<option value="" required>Select Breed</option>'; 
+            $allbreeddata = '<option value="">Select Breed</option>'; 
             foreach($breeddata as $breedlist){
                 //$statedatas[$statelist->id] = $statelist->name;
                 $allbreeddata = $allbreeddata . '<option value="'. $breedlist->breed_id .'">'.$breedlist->breed_name.'</option>'; 
             }		
             echo $allbreeddata;	
+        }
+    }
+
+    public function get_breeds($cat_id){
+        if($cat_id){
+            $breeddata = $this->Pet_model->breed_data_dependancy_cat($cat_id);
+            $allbreeddata = '<option value="">Select Breed</option>'; 
+            foreach($breeddata as $breedlist){
+                //$statedatas[$statelist->id] = $statelist->name;
+                $allbreeddata = $allbreeddata . '<option value="'. $breedlist->breed_id .'">'.$breedlist->breed_name.'</option>'; 
+            }		
+            echo $allbreeddata;	
+        } else{
+            echo '<option value="">-</option>';
         }
     }
 	
@@ -270,11 +284,9 @@ class Pet extends CI_Controller{
         }
         $delete_pet = $this->Pet_model->deletepet($pet_id);
         if ($delete_pet) {
-            // $this->session->set_flashdata('delete_success_msg', 'Your pet delete successfully.');
             $this->session->set_flashdata('pet_msg', 'Deleted');
             redirect('/home/my_pets');
         }else {
-            // $this->session->set_flashdata('delete_error_msg', 'Your pet delete successfully.');
             $this->session->set_flashdata('pet_msg', 'Error');
             redirect('/home/my_pets');
         }
@@ -286,5 +298,22 @@ class Pet extends CI_Controller{
         }
 		else { echo false; }
     }
+
+    public function search_pets()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page'] = 'search_pets';
+            
+            //$data['keywords'] = rtrim($this->input->get('keywords'));
+            $data['search_results'] = $this->Pet_model->search_pets();
+            $this->load->view('pet/search_pets_results', $data);
+		}
+		else{
+			redirect('home/login');
+		}
+	}
 
 }

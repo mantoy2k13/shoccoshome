@@ -35,9 +35,6 @@
                         <?php 
                         if($get_pet_data){
                             foreach($get_pet_data as $show_pet_data){ 
-                            // $user_id=$show_pet_data->user_id;
-                            // $pet_image = json_decode($show_pet_data->pet_images);
-                            // @$img=$pet_image[0];
                         ?>
                             <div class="col-md-6">
                                 <div class="card bg-grey friend-card">
@@ -59,7 +56,7 @@
                                         <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$show_pet_data->pet_id; ?>"><?= $show_pet_data->pet_name; ?></a> </p>
                                         <p class="text-desc"><?= $show_pet_data->description; ?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $show_pet_data->cat_name; ?></span></p>
-                                        <p class="b-700 f-14">Bread: <span class="b-700 text-black"><?= $show_pet_data->breed_name; ?> </span></p>
+                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $show_pet_data->breed_name; ?> </span></p>
                                         <p class="b-700 f-14">Post Date: <span class="b-700 text-black"><?= $show_pet_data->date_added; ?> </span></p>
                                     </div>
                                 </div>

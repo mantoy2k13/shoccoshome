@@ -65,7 +65,7 @@
                                 <?php } ?>
                                 <p class="f-30 b-700 text-orange-d m-b-0"><?=$getName;?></p>
                                 <p class="f-25 b-700 text-blue m-b-0"><?=($occupation)?$occupation:'No Occupation';?></p>
-                                <p class="f-20 m-b-0 text-black-l"> <?=($address)?$address:'No Address';?></p>
+                                <p class="f-20 m-b-0 text-black-l"> <?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
                             </div>
                             <div class="col-md-12 m-t-10">
                                 <div class="prof-desc">

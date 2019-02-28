@@ -1,5 +1,15 @@
 var base_url = $('#base_url').val();
 
+function setBreeds(){
+    var get_id = $('.selCategory').val();
+    cat_id = (get_id) ? get_id : 0;
+    $.ajax({ url: base_url + "pet/get_breeds/"+cat_id, 
+        success: (data)=> {
+            $('.selBreed').html(data);
+        }
+    });
+}
+
 function getHostGuest(val)
 {
     if(val.value == "Be a Guest"){
@@ -13,7 +23,7 @@ function getHostGuest(val)
     }
 }
 
-$("#leftSearchInput").click(function(){
+$("#leftSearchInput").click(()=>{
     $( ".left-search-grp" ).slideToggle( "slow" );
 });
 
@@ -28,13 +38,13 @@ function logout(){
         closeOnConfirm: false,
         confirmButtonColor: "#e11641"
     },
-    function(){
+    ()=>{
         window.location.href = base_url+"auth/user_logout";
     });
 }
 
 // zoomable images
-$('img.zoomable').css({cursor: 'pointer'}).on('click', function () {
+$('img.zoomable').css({cursor: 'pointer'}).on('click', () => {
     var img = $(this);
     var bigImg = $('<img />').css({
       'max-width': '100%',
@@ -57,8 +67,8 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function () {
       'cursor': 'pointer',
       'z-index': 9999,
       'text-align': 'center'
-    }).append(bigImg).bind('click', function () {
-      $(this).fadeOut(300, function () {
+    }).append(bigImg).bind('click', () => {
+      $(this).fadeOut(300, () => {
         $(this).remove();
       });
     }).insertAfter(this).animate({
@@ -67,13 +77,13 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function () {
 });
 
 getMailNotif();
-setInterval(function () {
+setInterval(() => {
     getMailNotif()
 }, 30000);
 
 function getMailNotif(){
     $.ajax({ url: base_url + "mail/cntUnrMsg", 
-        success: function(cnt){
+        success: (cnt) => {
             if(cnt!=0){
                 $('.mainCntM').html('<span class="badge bg-red">'+cnt+'</span>');
                 $('.mainCnt').html('<span class="badge bg-red cust-badge">'+cnt+'</span>');
@@ -117,5 +127,5 @@ function instMsg(uid, email){
     $('#instMsg').modal('show')
 }
 
-$(document).on('click', '.ncf-container p', function() {  window.location.href = base_url+"mail/mail" });
+$(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"mail/mail" });
 

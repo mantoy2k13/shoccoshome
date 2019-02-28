@@ -34,6 +34,13 @@
                 </div>
                 <?php //var_dump($get_drafts);?>
                 <?php if($get_drafts){ foreach($get_drafts as $mails){ extract($mails); ?>
+                    <?php 
+                        if($fullname){ $getName = $fullname; }
+                        else{
+                            $explodeResultArrayname = explode("@", $email);
+                            $getName = ucfirst($explodeResultArrayname[0]);
+                        }
+                    ?>
                     <div id="emptyMsg"></div>
                     <div id="mailInbox<?=$mail_id;?>" class="mail-wrapper">
                         <div class="row">
@@ -43,7 +50,7 @@
                                         <?=($is_read) ? '<i class="fa fa-envelope-open text-blue"></i> ' : '<i class="fa fa-envelope text-blue"></i> ';?>
                                     </span> 
                                     <a class="text-blue" href="<?=base_url();?>account/view_bio/<?=$user_id;?>">
-                                    <?=$fullname.' ('.$email.')';?></a>
+                                    <?=$getName;?> (<?=$email;?>)</a>
                                 </p>
                             </div>
                             <div class="col-md-7" onclick="readMsg2(<?=$mail_id;?>, 3)" title="Click to view Message">

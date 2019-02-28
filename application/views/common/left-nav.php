@@ -1,5 +1,8 @@
 <!-- Get Messages to count -->
-<?php $cntMsg=$this->Mail_model->count_mail();?>
+<?php   $cntMsg            = $this->Mail_model->count_mail();
+        $get_all_pet_color = $this->Pet_model->get_all_pet_color();
+        $categories        = $this->Pet_model->get_all_pet_cat();
+?>
 
 <div class="col-md-3 m-t-10 p-r-0">
     <div class="left-menu">
@@ -17,172 +20,75 @@
         <?php 
             $page = array('mail', 'sents', 'drafts');
             if(!(in_array($is_page,$page))){ ?>
-            <div class="row">
-                <div class="col-md-12 m-t-10 text-center">
-                    <p class="text-center text-blue m-b-0 f-15">Search</p>
-                    <div class="inner-addon right-addon">
-                        <img class="s-icon" src="<?=base_url();?>assets/img/search_icon.png" alt="Search icon">
-                        <input type="text" id="leftSearchInput" class="form-control f-15" placeholder="Search" />
+            <form action="<?=base_url();?>pet/search_pets" method="GET">
+                <div class="row">
+                    <div class="col-md-12 m-t-10">
+                        <p class="text-center b-700 text-blue m-b-0 f-15 text-center">Search</p>
+                        <label class="text-black m-b-0 f-15">Keywords:</label>
+                        <div class="inner-addon right-addon">
+                            <img class="s-icon" src="<?=base_url();?>assets/img/search_icon.png" alt="Search icon">
+                            <input name="keywords" value="<?=(isset($_GET['keywords'])) ? $_GET['keywords'] : ''; ?>" type="text" class="form-control f-15" placeholder="Keywords" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-
-                        <label class="text-black m-b-0 f-15">Pet:</label>
-                        <select class="form-control f-15">
-                            <option value="Select Pet">Select Pet</option>
-                            <option value="Bird">Bird</option>
-                            <option value="Cat">Cat</option>
-                            <option value="Dog">Dog</option>
-                            <option value="Fish">Fish</option>
-                            <option value="Horse">Horse</option>
-                            <option value="Other">Other</option>
-                            <option value="Reptile/Amphibian">Reptile/Amphibian</option>
-                            <option value="Small/Animal">Small/Animal</option>
+                    <div class="col-md-12">
+                        <label class="text-black m-b-0 f-15 m-t-10">Category:</label>
+                        <select name="cat_id" class="form-control f-15 selCategory" onchange="setBreeds()">
+                            <option value="">Select Category</option>
+                            <?php foreach($categories as $cat){ ?>
+                                <option value="<?= $cat->cat_id ?>" <?=(isset($_GET['cat_id'])) ? (($_GET['cat_id']==$cat->cat_id) ? 'selected' : '' ) : ''; ?>> <?= $cat->cat_name ?> </option>
+                            <?php } ?>
                         </select>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Breed:</label>
-                        <select class="form-control f-15">
-                            <option value="Host">Select Breed</option>
-                           
-                        </select>
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Sex:</label>
-                        <select class="form-control f-15">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Color:</label>
-                        <select class="form-control f-15">
-                            <option value="Host">Select Color:</option>
-                        </select>
-                    </div>
-                
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Located:</label>
-                        <select class="form-control f-15">
-                            <option value="athome">At Home</option>
-                            <option value="atshelter">At Shelter</option>
-                        </select>
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Chip Number:</label>
-                        <input type="text" class="form-control" name="chipnumber" value="">
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Collar Tag</label>
-                        <input type="text" class="form-control" name="collartag" value="" placeholder="Collar Tag">
-                    </div>
-                  
-                            <div class="m-t-10">
-                                <label for="" class="text-black m-b-0 f-15">Country</label>
-                                <select name="country" id="country_id" class="form-control">
-                                    <option value="Select Country">Select Country</option>
-                                </select>
-                            </div>
-                            <div class="m-t-10">
-                                <label for="" class="text-black m-b-0 f-15">State</label>
-                                <select name="state"  class="form-control">
-                                    <option value="Select State"><?=@$get_single_pet_data[0]->state; ?></option>
-                                </select>
-                            </div>
-                       
-                       
-                            <div class="m-t-10">
-                                <label class="text-black m-b-0 f-15" >City</label>
-                                <input required name="city" value="<?php echo ($user_logindata) ? $user_logindata->city : '';?>" type="text" class="form-control" placeholder="City">
-                              </div> 
-                            <div class="m-t-10">
-                                <label class="text-black m-b-0 f-15">Street</label>
-                                <input  name="street" value="<?php echo ($user_logindata) ? $user_logindata->street : '';?>" type="text" class="form-control" placeholder="Street">
-                            </div>
-                            <div class="m-t-10">
-                                <label class="text-black m-b-0 f-15">Zip/Postal Code</label>
-                                <input  name="zip_code" value="<?php echo ($user_logindata) ? $user_logindata->zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code">
-                            </div>
-                             
-                        
-                    <div class="text-center m-t-10">
-                        <button type="submit" class="btn bg-orange text-white col-md-12">Perform Search</button>
-                    </div>
-                </div>
-                <div class="left-search-grp col-md-12">
-                  
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Breed:</label>
+                            <select name="breed_id" class="form-control f-15 selBreed">
+                                <option value="">-</option>
+                            </select>
+                        </div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Gender:</label>
+                            <select name="gender" class="form-control f-15">
+                                <option value="">Select Gender</option>
+                                <option value="Male" <?=(isset($_GET['gender'])) ? (($_GET['gender']=='Male') ? 'selected' : '' ) : ''; ?>>Male</option>
+                                <option value="Female" <?=(isset($_GET['gender'])) ? (($_GET['gender']=='Female') ? 'selected' : '' ) : ''; ?>>Female</option>
+                            </select>
+                        </div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Color:</label>
+                            <select name="color_id" class="form-control f-15">
+                                <option value="">Select Color</option>
+                                <?php foreach($get_all_pet_color as $show_all_pet_color){ ?>
+                                    <option value="<?= $show_all_pet_color->color_id ?>" <?=(isset($_GET['color_id'])) ? (($_GET['color_id']==$show_all_pet_color->color_id) ? 'selected' : '' ) : ''; ?>> <?= $show_all_pet_color->color_name ?> </option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     
-                    <!--  
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">New Member Within:</label>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <select class="form-control f-15">
-                                  
-                                </select>
-                            </div>
-                            <div class="col-md-4 text-left"><span class="v-a-m text-black f-15">Days</span></div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Located:</label>
+                            <select name="located" class="form-control f-15">
+                                <option value="">Select Location</option>
+                                <option value="At Home" <?=(isset($_GET['located'])) ? (($_GET['located']=='Male') ? 'At Home' : '' ) : ''; ?>>At Home</option>
+                                <option value="At Shelter" <?=(isset($_GET['gender'])) ? (($_GET['gender']=='Male') ? 'At Shelter' : '' ) : ''; ?>>At Shelter</option>
+                            </select>
+                        </div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Chip Number:</label>
+                            <input name="chip_no" type="text" class="form-control" value="<?=(isset($_GET['chip_no'])) ? $_GET['chip_no'] : ''; ?>" placeholder="Chip Number">
+                        </div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Collar Tag:</label>
+                            <input name="collar_tag" type="text" class="form-control" value="<?=(isset($_GET['collar_tag'])) ? $_GET['collar_tag'] : ''; ?>" placeholder="Collar Tag">
+                        </div>
+                        <div class="m-t-10">
+                            <label class="text-black m-b-0 f-15">Zip Code:</label>
+                            <input name="zip_code" type="text" class="form-control" value="<?=(isset($_GET['zip_code'])) ? $_GET['zip_code'] : ''; ?>" placeholder="Zip Code">
+                        </div>
+                            
+                        <div class="text-center m-t-10">
+                            <button type="submit" class="btn bg-orange text-white col-md-12"><i class="fa fa-search"></i> Search Pets</button>
                         </div>
                     </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">Last Online Within:</label>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <select class="form-control f-15">
-                                  
-                                </select>
-                            </div>
-                            <div class="col-md-4 text-left"><span class="v-a-m text-black f-15">Days</span></div>
-                        </div>
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15">City Lookup:</label>
-                        <input type="text" class="form-control f-15" placeholder="City Lookup">
-                    </div>
-                    <div class="m-t-10">
-                        <label class="text-black m-b-0 f-15 b-700">Include Members:</label>
-                    </div>
-                    <div class="on-off-menu">
-                        <div class="row">
-                            <div class="col-md-8"><span class="v-a-m text-black f-15">Online</span></div>
-                            <div class="col-md-4">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8"><span class="v-a-m text-black f-15">With Photo</span></div>
-                            <div class="col-md-4">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8"><span class="v-a-m text-black f-15">With Video</span></div>
-                            <div class="col-md-4">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8"><span class="v-a-m text-black f-15">Certified 100% Real</span></div>
-                            <div class="col-md-4">
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                -->
-                    
                 </div>
-            </div>
+            </form>    
         <?php } ?>
 
         <?php if($is_page=="mail" || $is_page=="sents" || $is_page=="drafts"){?>

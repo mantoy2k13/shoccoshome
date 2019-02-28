@@ -45,7 +45,7 @@
                                     <p class="text-head"><a href="javascript:;">Tigger</a> </p>
                                     <p class="text-desc">Los Angeles, CA, USA</p>
                                     <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Bread: <span class="b-700 text-black">Dog</span> </p>
+                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
                                     <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                     <p class="text-head"><a href="javascript:;">Tigger</a> </p>
                                     <p class="text-desc">Los Angeles, CA, USA</p>
                                     <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Bread: <span class="b-700 text-black">Dog</span> </p>
+                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
                                     <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                     <p class="text-head"><a href="javascript:;">Tigger</a> </p>
                                     <p class="text-desc">Los Angeles, CA, USA</p>
                                     <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Bread: <span class="b-700 text-black">Dog</span> </p>
+                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
                                     <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                     <p class="text-head"><a href="javascript:;">Tigger</a> </p>
                                     <p class="text-desc">Los Angeles, CA, USA</p>
                                     <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Bread: <span class="b-700 text-black">Dog</span> </p>
+                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
                                     <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
                                 </div>
                             </div>

@@ -14,13 +14,8 @@
             </p>
             <p><?= $user_logindata->email; ?><br>
             <i class="fa fa-map-marker-alt text-blue"></i>
-            <?php 
-                if($user_logindata->country){
-                    echo $user_logindata->country. ', ' .$user_logindata->state. ' '.$user_logindata->city;
-                }else{
-                    echo "<a href='".base_url()."account/account#target_address'>Set Your Address</a>";
-                }
-            ?>
+
+            <?=$user_logindata->street.' '.$user_logindata->city.', '.$user_logindata->zip_code.', '.$user_logindata->state.', '.$user_logindata->country;?>
             </p>
         </div>
     </div>
@@ -49,7 +44,7 @@
                         <a href="<?=base_url();?>home/homepage" class="home-menu btn-menu"><i class="fa fa-home f-40 text-blue <?=($is_page=="homepage") ? 'active' : ''; ?>"></i></a>
                     </div>
                     <div class="col-md-8r">
-                        <a href="<?=base_url();?>home/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet") ? 'active' : ''; ?>">My Pets</a>
+                        <a href="<?=base_url();?>home/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet" || $is_page=="search_pets") ? 'active' : ''; ?>">My Pets</a>
                     </div>
                     <div class="col-md-8r">
                         <a href="<?=base_url();?>home/booking" class="btn-menu btn bg-blue <?=($is_page=="booking" || $is_page=="booking_list") ? 'active' : ''; ?>">Booking</a>

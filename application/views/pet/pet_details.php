@@ -35,7 +35,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<p class="f-20 b-700 text-blue m-b-0"><?= $show_get_all_pet_data->pet_name; ?></p>
-									<p class="f-15 m-b-0"><?= $show_get_all_pet_data->city; ?>, <?= $show_get_all_pet_data->state; ?>, <?= $show_get_all_pet_data->country; ?></p>
+									<p class="f-15 m-b-0"><?php if($show_get_all_pet_data->street&&$show_get_all_pet_data->city&&$show_get_all_pet_data->zip_code&&$show_get_all_pet_data->state&&$show_get_all_pet_data->country){ ?> <?=$show_get_all_pet_data->street.' '.$show_get_all_pet_data->city.', '.$show_get_all_pet_data->zip_code.', '.$show_get_all_pet_data->state.', '.$show_get_all_pet_data->country;?><?php } else { echo 'No Address'; }?></p>
 								</div>
 								<div class="col-md-12">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
 									<p class="b-700 m-t-10 f-15 m-b-0"><span class="text-black">Category:</span>  <?= $show_get_all_pet_data->cat_name; ?></p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Bread: </span><?= $show_get_all_pet_data->breed_name; ?> </p>
+									<p class="b-700 f-15 m-b-0"><span class="text-black">Breed: </span><?= $show_get_all_pet_data->breed_name; ?> </p>
 									<p class="b-700 f-15 m-b-0"><span class="text-black">Post Date:</span> <?= $show_get_all_pet_data->date_added; ?> </p>
 									<p class="f-15 m-b-0 m-t-10 text-black">
 									    <?= @$show_get_all_pet_data->description ? @$show_get_all_pet_data->description : 'No description available' ?>
@@ -89,7 +89,7 @@
 												<span class="text-blue b-700">Category:</span> <?= @$show_get_all_pet_data->cat_name ? @$show_get_all_pet_data->cat_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Bread:</span> <?= @$show_get_all_pet_data->breed_name ? @$show_get_all_pet_data->breed_name : 'No data' ?>
+												<span class="text-blue b-700">Breed:</span> <?= @$show_get_all_pet_data->breed_name ? @$show_get_all_pet_data->breed_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
 												<span class="text-blue b-700">Color:</span> <?= @$show_get_all_pet_data->color_name ? @$show_get_all_pet_data->color_name : 'No data' ?>

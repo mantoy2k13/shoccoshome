@@ -154,4 +154,30 @@ class Pet_model extends CI_model{
 		return ($res) ? true : false;
     }
 
+    public function search_pets(){
+        $keywords = array(
+            'sh_pets.pet_name'   => rtrim($this->input->get('keywords')),
+            'sh_pets.chip_no'    => rtrim($this->input->get('chip_no')),
+            'sh_pets.collar_tag' => rtrim($this->input->get('collar_tag')),
+        );
+
+        $fixed_keywords = array(
+            'sh_pets.cat_id'     => rtrim($this->input->get('cat_id')),
+            'sh_pets.breed_id'   => rtrim($this->input->get('breed_id')),
+            'sh_pets.gender'     => rtrim($this->input->get('gender')),
+            'sh_pets.color_id'   => rtrim($this->input->get('color_id')),
+            'sh_pets.located'    => rtrim($this->input->get('located')),
+            'sh_pets.zip_code'   => rtrim($this->input->get('zip_code')),
+        );
+
+        $this->db->select('sh_pets.*,  sh_users.*, sh_category.cat_name, sh_breeds.breed_name, sh_color.color_name')->from('sh_pets');
+		$this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
+		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
+        $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
+        $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
+        $this->db->where($fixed_keywords);
+        $this->db->or_where($keywords);
+        return $this->db->get()->result_array();
+	}
+
 }
