@@ -25,14 +25,25 @@ class Album extends CI_Controller {
 	
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-				echo $this->input->post('album_name');
-				echo '<br />';
-				echo $this->input->post('album_desc');
-				echo $this->input->post('user_id');
+			$albumdata = array(
+				'user_id'=>$this->input->post('user_id'),
+				'album_name'=>$this->input->post('album_name'),
+				'album_desc'=>$this->input->post('album_desc')
+			);
+			$add_album = $this->Album_model->add_albums($albumdata);
+			if ($add_album) {
+				$this->session->set_flashdata('album_msg', 'Added');
+				redirect('/home/pictures');
+			}
+			else {
+				$this->session->set_flashdata('album_msg', 'Error');
+				redirect('/home/pictures');
+			}
 			// $user_id = $data['user_logindata']->id;
 			// $data['is_page'] = 'albums';
 			// $data['all_pictures'] = $this->Pet_model->get_all_pictures($user_id);
 			// $this->load->view('pet/albums', $data);
+
 	}
 
 }
