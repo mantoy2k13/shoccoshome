@@ -36,6 +36,9 @@
                     </div>
                 </div>
                 <div class="gal-wrapper">
+                    <!-- daryl 
+                        fetch all pets
+                    -->
                     <?php if(count($all_pictures) > 0):?>
                         <?php if(is_array($all_pictures) || is_object($all_pictures)):?>
                             <div class="row">
@@ -49,10 +52,14 @@
                                         <div class="thumbnail">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
-                                                    <img class="zoomable" src="<?=base_url();?><?php echo $all_pet;?>" style="width:100%" alt="Profile Image">
+                                                    <img src="<?=base_url();?><?php echo $all_pet;?>" style="width:100%" alt="Profile Image">
                                                 </div>
                                             </a>
+                                            <p class="m-t-10 m-b-0 f-15 text-center text-black">Album Name</p>
+                                            <p class="m-b-0 f-12 text-center album-desc">Album Name</p>
+                                            <p class="f-12 text-center album-desc">10 Photos</p>
                                         </div>
+                                        
                                     </div>
                                 <?php endforeach;?>
                           

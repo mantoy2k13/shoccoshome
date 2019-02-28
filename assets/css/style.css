@@ -1088,32 +1088,6 @@ input.drag-files {
     float: left;
 }
 
-/* .col-md-8r {
-    width: 12.5%;
-    float: left;
-} */
-/* 
-@media (min-width: 768px) {
-    .col-sm-8r {
-        width: 12.5%;
-        float: left;
-    }
-}
-
-@media (min-width: 992px) {
-    .col-md-8r {
-        width: 12.5%;
-        float: left;
-    }
-}
-
-@media (min-width: 1200px) {
-    .col-lg-8r {
-        width: 12.5%;
-        float: left;
-    }
-} */
-
 /* Scroll Bars ============================= */
 /* width */
 ::-webkit-scrollbar {
@@ -1168,19 +1142,26 @@ input.drag-files {
     opacity: 1;
 }
 
-.welcomeModal .modal-footer, .welcomeModal .modal-header{
+.modal-footer, .modal-header{
     border: 0;
 }
 
-.welcomeModal .modal-content{
+.modal-content{
     border-radius: 0;
 }
 
-.welcomeModal h5.modal-title {
+h5.modal-title {
     color: #272626;
     font-size: 22px;
     font-weight: 100;
 }
+
+.album-desc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*Daryl code*/
 
 div.prof-desc {
