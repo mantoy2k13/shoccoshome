@@ -87,11 +87,13 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">Country</label>
+                                <input type="hidden" id="defCountry" value="<?=($user_logindata) ? $user_logindata->country : '';?>">
                                 <select name="country" id="country_id" class="crs-country form-control" data-region-id="three" required >
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="m-b-0">State</label>
+                                <input type="hidden" id="defState" value="<?=($user_logindata) ? $user_logindata->state : '';?>">
                                 <select name="state"  id="three" class="form-control" data-value="shortcode" required >
                                 </select>
                             </div>

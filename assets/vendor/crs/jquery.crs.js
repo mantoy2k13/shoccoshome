@@ -27,7 +27,7 @@
 
     var _countryClass = "crs-country";
     var _defaultCountryStr = "Select country";
-    var _defaultRegionStr = "Select region";
+    var _defaultRegionStr = "Select state";
     var _showEmptyCountryOption = true;
     var _showEmptyRegionOption = true;
     var _countries = [];
