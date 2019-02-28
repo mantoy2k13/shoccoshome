@@ -22,9 +22,6 @@
           <?php $this->load->view('common/left-nav');?>
         
           <!-- Main Content -->
-          <!-- Column testing -->
-          		
-          <!-- end column testing-->
 		  <?php foreach($get_all_pet_data as $show_get_all_pet_data) { ?>
 		  <div class="col-md-9 m-t-10 p-l-0 p-details">
 			<div class="panel panel-default bg-gray">
