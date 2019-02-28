@@ -3,13 +3,13 @@
         <div class="prof-info text-center">
             <p class="text-blue b-700">
              <?php 
-             if($user_logindata->fullname){
-               echo $user_logindata->fullname;
-             }else{
-                $c_email=$user_logindata->email;
-                $explodeResultArrayname = explode("@", $c_email);
-                echo ucfirst($explodeResultArrayname[0]);
-             }
+                if($user_logindata->fullname){
+                    echo $user_logindata->fullname;
+                }else{
+                    $c_email=$user_logindata->email;
+                    $explodeResultArrayname = explode("@", $c_email);
+                    echo ucfirst($explodeResultArrayname[0]);
+                }
              ?>
             </p>
             <p><?= $user_logindata->email; ?><br>
@@ -44,14 +44,32 @@
     <?php } ?>
         <div class="main-wrapper">
             <div class="btn-nav">
-                <a href="<?=base_url();?>home/homepage" class="home-menu btn-menu"><i class="fa fa-home f-40 text-blue <?=($is_page=="homepage") ? 'active' : ''; ?>"></i></a>
-                <a href="<?=base_url();?>home/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet") ? 'active' : ''; ?>">My Pets</a>
-                <a href="<?=base_url();?>home/booking" class="btn-menu btn bg-blue <?=($is_page=="booking" || $is_page=="booking_list") ? 'active' : ''; ?>">Booking</a>
-                <a href="<?=base_url();?>account/bio" class="btn-menu btn bg-blue <?=($is_page=="bio" || $is_page=="view_bio") ? 'active' : ''; ?>">Bio</a>
-                <a href="<?=base_url();?>friends/friend_list" class="btn-menu btn bg-blue <?=($is_page=="friends" || $is_page=="friend_request") ? 'active' : ''; ?>">Friends</a>
-                <a href="<?=base_url();?>mail/mail" class="btn-menu btn bg-blue <?=($is_page=="mail" || $is_page=="drafts" || $is_page=="sents") ? 'active' : ''; ?>">Mail</a>
-                <a href="<?=base_url();?>account/account" class="btn-menu btn bg-blue <?=($is_page=="account") ? 'active' : ''; ?>">Account</a>
-                <a href="<?=base_url();?>home/pictures" class="btn-menu btn bg-blue <?=($is_page=="pictures") ? 'active' : ''; ?>">Pictures</a>
+                <div class="row m-auto">
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>home/homepage" class="home-menu btn-menu"><i class="fa fa-home f-40 text-blue <?=($is_page=="homepage") ? 'active' : ''; ?>"></i></a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>home/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet") ? 'active' : ''; ?>">My Pets</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>home/booking" class="btn-menu btn bg-blue <?=($is_page=="booking" || $is_page=="booking_list") ? 'active' : ''; ?>">Booking</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>account/bio" class="btn-menu btn bg-blue <?=($is_page=="bio" || $is_page=="view_bio") ? 'active' : ''; ?>">Bio</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>friends/friend_list" class="btn-menu btn bg-blue <?=($is_page=="friends" || $is_page=="friend_request") ? 'active' : ''; ?>">Friends</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>mail/mail" class="btn-menu btn bg-blue <?=($is_page=="mail" || $is_page=="drafts" || $is_page=="sents") ? 'active' : ''; ?>">Mail</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>account/account" class="btn-menu btn bg-blue <?=($is_page=="account") ? 'active' : ''; ?>">Account</a>
+                    </div>
+                    <div class="col-md-8r">
+                        <a href="<?=base_url();?>home/pictures" class="btn-menu btn bg-blue <?=($is_page=="pictures") ? 'active' : ''; ?>">Pictures</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
