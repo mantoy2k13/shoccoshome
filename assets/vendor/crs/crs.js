@@ -26,12 +26,13 @@
     
     //console.log(country);
     
-    var country = "";
+    var country = document.getElementById('defCountry').value;
+    var defState = document.getElementById('defState').value;
     "use strict";
 
     var _countryClass = "crs-country";
     var _defaultCountryStr = country;
-    var _defaultRegionStr ="Select region";
+    var _defaultRegionStr ="Select state";
     var _showEmptyCountryOption = true;
     var _showEmptyRegionOption = true;
     var _countries = [];
@@ -70,7 +71,7 @@ var _data = [["Afghanistan","AF","Badakhshan~BDS|Badghis~BDG|Baghlan~BGL|Balkh~B
         var foundIndex = 0;
 
         if (_showEmptyCountryOption) {
-            countryElement.options[0] = new Option(defaultOptionStr, '');
+            countryElement.options[0] = new Option(defaultOptionStr, _defaultCountryStr);
         }
 
         // parses the region data into a more manageable format
@@ -135,13 +136,13 @@ var _data = [["Afghanistan","AF","Badakhshan~BDS|Badghis~BDG|Baghlan~BGL|Balkh~B
 
     var _initRegionField = function (el) {
         var customOptionStr = el.getAttribute("data-blank-option");
-        var defaultOptionStr = customOptionStr ? customOptionStr : "-";
+        var defaultOptionStr = customOptionStr ? customOptionStr : defState;
         var showEmptyOption = el.getAttribute("data-show-default-option");
         _showEmptyRegionOption = (showEmptyOption === null) ? true : (showEmptyOption === "true");
 
         el.length = 0;
         if (_showEmptyRegionOption) {
-            el.options[0] = new Option(defaultOptionStr, "");
+            el.options[0] = new Option(defaultOptionStr, defState);
             el.selectedIndex = 0;
         }
     };
