@@ -39,31 +39,29 @@
                     <!-- daryl 
                         fetch all pets
                     -->
-                    <?php if(count($all_pictures) > 0):?>
-                        <?php if(is_array($all_pictures) || is_object($all_pictures)):?>
-                            <div class="row">
-                            <?php foreach($all_pictures as $all_pics):
-                                $pet_images = $all_pics->pet_images;
-                                $all_pets = json_decode($pet_images);
-                            ?>
-                            
-                                <?php foreach($all_pets as $all_pet):?>
+                    <?php if(count($all_albums) > 0):?>
+                        <?php if(is_array($all_albums) || is_object($all_albums)):?>
+                            <div class="row">    
+                                <?php foreach($all_albums as $album):?>
                                      <div class="col-md-3">
                                         <div class="thumbnail">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
-                                                    <img src="<?=base_url();?><?php echo $all_pet;?>" style="width:100%" alt="Profile Image">
+                                                    <!-- <img src="<?=base_url();?>" style="width:100%" alt="Profile Image"> -->
                                                 </div>
                                             </a>
-                                            <p class="m-t-10 m-b-0 f-15 text-center text-black">Album Name</p>
-                                            <p class="m-b-0 f-12 text-center album-desc">Album Name</p>
+                                            <p class="m-t-10 m-b-0 f-15 text-center text-black"><?php echo $album->album_name;?></p>
+                                            <p class="m-b-0 f-12 text-center album-desc"><?php echo $album->album_desc;?></p>
                                             <p class="f-12 text-center album-desc">10 Photos</p>
+                                            <p>
+                                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onclick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')"><i class="fa fa-edit" style="font-size:28px;color:red"></i> </a>
+                                            
+                                                
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </p>
                                         </div>
-                                        
                                     </div>
                                 <?php endforeach;?>
-                          
-                            <?php endforeach;?>
                               </div>
                             <?php else:?>
                                  <div class="gal-img">
@@ -85,6 +83,5 @@
     <!-- Footer -->
     <?php $this->load->view('pet/add_album');?>
     <?php $this->load->view('common/footer');?>
-
   </body>
 </html>

@@ -10,9 +10,8 @@ class Album extends CI_Controller {
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$user_id = $data['user_logindata']->id;
-			$data['user_id'] = $user_id;
 			$data['is_page'] = 'albums';
-			$data['all_pictures'] = $this->Pet_model->get_all_pictures($user_id);
+			$data['all_albums'] = $this->Album_model->get_all_albums($user_id);
 			$this->load->view('pet/albums', $data);
 		}
 		else
@@ -22,9 +21,8 @@ class Album extends CI_Controller {
 	}
 
 	public function add_album(){
-	
+		
 			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$albumdata = array(
 				'user_id'=>$this->input->post('user_id'),
 				'album_name'=>$this->input->post('album_name'),
@@ -32,18 +30,28 @@ class Album extends CI_Controller {
 			);
 			$add_album = $this->Album_model->add_albums($albumdata);
 			if ($add_album) {
-				$this->session->set_flashdata('album_msg', 'Added');
-				redirect('/home/pictures');
+				$this->session->set_flashdata('album_msg', 'successfully added albums');
+				redirect('/album/albums');
 			}
 			else {
 				$this->session->set_flashdata('album_msg', 'Error');
-				redirect('/home/pictures');
+				redirect('/album/albums');
 			}
-			// $user_id = $data['user_logindata']->id;
-			// $data['is_page'] = 'albums';
-			// $data['all_pictures'] = $this->Pet_model->get_all_pictures($user_id);
-			// $this->load->view('pet/albums', $data);
+	}
 
+	public function update_album($album_id){
+		$albumdata = array(
+			'album_name'=> $this->input->post('album_name'),
+			'album_desc'=>$this->input->post('album_desc'));
+		$update_album = $this->Album_model->update_album($album_id,$albumdata);
+		if ($update_album) {
+			$this->session->set_flashdata('album_msg', 'successfully update albums');
+			redirect('/album/albums');
+		}
+		else {
+			$this->session->set_flashdata('album_msg', 'Error');
+			redirect('/album/albums');
+		}
 	}
 
 }
