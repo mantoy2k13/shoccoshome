@@ -72,6 +72,9 @@ class Album extends CI_Controller {
 				redirect('album/albums');
 			}
 		}
+		else{
+			redirect('home/login');
+		}
 	}
 
 }

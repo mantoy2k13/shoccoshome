@@ -32,7 +32,7 @@
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>home/pictures" class="p-nav b-700 f-14 <?=($is_page=="pictures") ? 'active' : '';?>">All Photos</a>
                             <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14 <?=($is_page=="albums") ? 'active' : '';?>">Albums</a>
-                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right text-white" data-toggle="modal" data-target="#addAlbum"><i class="fa fa-plus"></i> Create Album</a>
+                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right text-white"  onClick="add_album()"><i class="fa fa-plus"></i> Create Album</a>
                         </div>
                     </div>
                 </div>
@@ -48,21 +48,20 @@
                                         <div class="thumbnail">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
-                                                    <!-- <img src="<?=base_url();?>" style="width:100%" alt="Profile Image"> -->
+                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Profile Image">
                                                 </div>
                                             </a>
                                             <p class="m-t-10 m-b-0 f-15 text-center text-black"><?php echo $album->album_name;?></p>
                                             <p class="m-b-0 f-12 text-center album-desc"><?php echo $album->album_desc;?></p>
                                             <p class="f-12 text-center album-desc">10 Photos</p>
                                             <p>
-                                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onClick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')">
-                                            <i class="fa fa-edit" style="font-size:28px;color:red"></i>
+                                            <a href="javascript:;" onClick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')">
+                                            <span class="cust-mod-edit"  title="Crop Image">
+                                            <i class="fa fa-pen text-white"></i>
+                                            </span>
                                              </a>
-                                            
-                                                
-                                             <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onClick="delete_album(<?= $album->album_id?>)">
-                                            
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                             <a href="javascript:;"  onClick="delete_album(<?= $album->album_id?>)">
+                                             <span class="cust-mod-close rmImg" title="Remove Image" ><i class="fa fa-times text-white"></i></span>
                                             </a>
                                             </p>
                                         </div>
@@ -71,7 +70,7 @@
                               </div>
                             <?php else:?>
                                  <div class="gal-img">
-                                    <img src="<?=base_url();?>assets/img/owner.png" style="width:100%" alt="Profile Image">
+                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Profile Image">
                                  </div>
                         <?php endif;?>
                     <?php else:?>

@@ -15,7 +15,7 @@ $(document).ready(function(){
             case 'Deleted':
                 var title = "Album Deleted!";
                 var msg   = "Your Album was successfully Deleted!";
-                var type  = 'warning';
+                var type  = 'success';
             break;
             case 'Error':
                 var title = "Oops!!";
@@ -31,6 +31,14 @@ $(document).ready(function(){
 
 function getAlbumAlert(title, msg, type){
     swal(title, msg, type);
+}
+
+function add_album(){
+    $('#albumform').attr('action', base_url+ 'album/add_album');
+    $('#album_name').val('');
+    $('#album_desc').val('');
+    $('#title').html('<i class="fa fa-image"></i> Create New Album');
+    $('#addAlbum').modal('show');
 }
 
 function update_album(album_id, album_name, album_desc){
