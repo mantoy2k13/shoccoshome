@@ -79,7 +79,7 @@
                                     </div>
 									<p class="b-700 m-t-10 f-15 m-b-0"><span class="text-black">Category:</span>  <?= $show_get_all_pet_data->cat_name; ?></p>
 									<p class="b-700 f-15 m-b-0"><span class="text-black">Breed: </span><?= $show_get_all_pet_data->breed_name; ?> </p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Post Date:</span> <?= $show_get_all_pet_data->date_added; ?> </p>
+									<p class="b-700 f-15 m-b-0"><span class="text-black">Skills:</span> <?= @$show_get_all_pet_data->skills ? @$show_get_all_pet_data->skills : 'No data' ?> </p>
 									<p class="f-15 m-b-0 m-t-10 text-black">
 									    <?= @$show_get_all_pet_data->description ? @$show_get_all_pet_data->description : 'No description available' ?>
 									</p>
@@ -119,7 +119,7 @@
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Act:</span> <?= @$show_get_all_pet_data->fav_food ? @$show_get_all_pet_data->fav_food : 'No data' ?>
+												<span class="text-blue b-700">Located:</span> <?= @$show_get_all_pet_data->located ? @$show_get_all_pet_data->located : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
 												<span class="text-blue b-700">Skills:</span> <?= @$show_get_all_pet_data->skills ? @$show_get_all_pet_data->skills : 'No data' ?>
@@ -130,35 +130,35 @@
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Located:</span> <?= @$show_get_all_pet_data->located ? @$show_get_all_pet_data->located : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
 												<span class="text-blue b-700">Adoptable:</span> <?= @$show_get_all_pet_data->adoptable ? @$show_get_all_pet_data->adoptable : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
 												<span class="text-blue b-700">Status:</span> <?= @$show_get_all_pet_data->fav_food ? @$show_get_all_pet_data->fav_food : 'No data' ?>
 											</div>
-										</div>
-										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
 												<span class="text-blue b-700">Tags:</span> <?= @$show_get_all_pet_data->tags ? @$show_get_all_pet_data->tags : 'No data' ?>
 											</div>
+										</div>
+										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Pet Street:</span> <?= @$show_get_all_pet_data->street ? @$show_get_all_pet_data->street : 'No data' ?>
+												<span class="text-blue b-700">Chip No:</span> <?= @$show_get_all_pet_data->chip_no ? @$show_get_all_pet_data->chip_no : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Pet City:</span> <?= @$show_get_all_pet_data->city ? @$show_get_all_pet_data->city : 'No data' ?>
+												<span class="text-blue b-700">Collar Tag:</span> <?= @$show_get_all_pet_data->collar_tag ? $show_get_all_pet_data->collar_tag : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Zip Code:</span> <?= @$show_get_all_pet_data->zip_code ? $show_get_all_pet_data->zip_code : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Pet State:</span> <?= @$show_get_all_pet_data->state ? @$show_get_all_pet_data->state : 'No data' ?>
+												<span class="text-blue b-700">Vaccination:</span> <?= @$show_get_all_pet_data->vaccination ? @$show_get_all_pet_data->vaccination : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Pet Country:</span> <?= @$show_get_all_pet_data->country ? @$show_get_all_pet_data->country : 'No data' ?>
+												<span class="text-blue b-700">Vaccination Date:</span> <?= @$show_get_all_pet_data->vaccination_date ? $show_get_all_pet_data->vaccination_date : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Others:</span> No data
+												<span class="text-blue b-700">Others:</span> <?= @$show_get_all_pet_data->other_info ? $show_get_all_pet_data->other_info : 'No data' ?>
 											</div>
 										</div>
 									</div>

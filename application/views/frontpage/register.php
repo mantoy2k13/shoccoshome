@@ -21,7 +21,6 @@
                         </a>
                         <h3 class="text-white mb-3">Register</h3>
 
-
                         <?php
                             $error_msg=$this->session->flashdata('error_msg');
                             if($error_msg){
@@ -48,7 +47,11 @@
                                 <input type="password" name="password" class="form-control" id="password" aria-describedby="password" placeholder="Password" required="">
                             </div>
                             <div class="form-group">
-                                                        </div>
+                                <div class="custom-control custom-checkbox m-b-5">
+                                    <input type="checkbox" class="custom-control-input" name="agree" id="agree" required>
+                                    <label class="custom-control-label text-white" for="agree"> I agree the <a href="<?=base_url();?>home/terms_and_conditions" target="_blank"> Terms and Conditions</a></label>
+                                </div>
+                            </div>
                             <button type="submit" id="sublog" name="sublog" class="btn btn-primary btn-block btn-rounded mb-3">Sign Up</button>
                         </form>
                     </div>

@@ -30,6 +30,30 @@ class Home extends CI_Controller {
 		$this->load->view('frontpage/contact', $data);
 	}
 
+	public function user_agreement()
+	{
+		@$user_email  = $this->session->userdata('user_email');
+		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+		$data['is_page'] = 'user_agreement';
+		$this->load->view('frontpage/user_agreement', $data);
+	}
+
+	public function terms_and_conditions()
+	{
+		@$user_email  = $this->session->userdata('user_email');
+		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+		$data['is_page'] = 'terms_and_conditions';
+		$this->load->view('frontpage/terms_cons', $data);
+	}
+
+	public function policy()
+	{
+		@$user_email  = $this->session->userdata('user_email');
+		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+		$data['is_page'] = 'policy';
+		$this->load->view('frontpage/policy', $data);
+	}
+
 	public function news_feed()
 	{
 		if ($this->session->userdata('user_email'))

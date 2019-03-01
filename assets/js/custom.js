@@ -10,6 +10,16 @@ function setBreeds(){
     });
 }
 
+function setBreeds2(){
+    var get_id = $('.selCategory2').val();
+    cat_id = (get_id) ? get_id : 0;
+    $.ajax({ url: base_url + "pet/get_breeds/"+cat_id, 
+        success: (data)=> {
+            $('.selBreed2').html(data);
+        }
+    });
+}
+
 function getHostGuest(val)
 {
     if(val.value == "Be a Guest"){

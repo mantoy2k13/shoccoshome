@@ -178,6 +178,29 @@ class Pet_model extends CI_model{
         $this->db->where($fixed_keywords);
         $this->db->or_where($keywords);
         return $this->db->get()->result_array();
+    }
+    
+    public function search_pet_keywords(){
+        $input_keywords = rtrim($this->input->get('keywords'));
+        $keywords = array(
+            'sh_pets.pet_name'     => $input_keywords,
+            'sh_pets.chip_no'      => $input_keywords,
+            'sh_pets.collar_tag'   => $input_keywords,
+            'sh_category.cat_name' => $input_keywords,
+            'sh_breeds.breed_name' => $input_keywords,
+            'sh_pets.gender'       => $input_keywords,
+            'sh_color.color_name'  => $input_keywords,
+            'sh_pets.located'      => $input_keywords,
+            'sh_pets.zip_code'     => $input_keywords,
+        );
+
+        $this->db->select('sh_pets.*,  sh_users.*, sh_category.cat_name, sh_breeds.breed_name, sh_color.color_name')->from('sh_pets');
+		$this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
+		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
+        $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
+        $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
+        $this->db->or_like($keywords);
+        return $this->db->get()->result_array();
 	}
 
 }

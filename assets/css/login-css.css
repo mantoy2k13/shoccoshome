@@ -44,8 +44,21 @@ body {
         border-radius: 50px;
     }
 
+    .custom-control-input:checked ~ .custom-control-label::before {
+        border-color: #dc3545;
+        background-color: #dc3545;
+    }
 
+    .custom-control-label::before, .custom-control-label::after{
+        border-color: #dc3545;
+        width: 20px;
+        height: 20px;
+        border-radius: 0 !important;
+    }
 
+    .text-white{
+        color: #fff;
+    }
   
 @media only screen and (max-width: 410px){
     .login-wrapper {

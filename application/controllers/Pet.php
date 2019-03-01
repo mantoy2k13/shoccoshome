@@ -306,9 +306,22 @@ class Pet extends CI_Controller{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page'] = 'search_pets';
-            
-            //$data['keywords'] = rtrim($this->input->get('keywords'));
             $data['search_results'] = $this->Pet_model->search_pets();
+            $this->load->view('pet/search_pets_results', $data);
+		}
+		else{
+			redirect('home/login');
+		}
+    }
+    
+    public function search_pet_keywords()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page'] = 'search_pets';
+            $data['search_results'] = $this->Pet_model->search_pet_keywords();
             $this->load->view('pet/search_pets_results', $data);
 		}
 		else{

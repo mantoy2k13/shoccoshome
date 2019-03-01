@@ -1053,6 +1053,12 @@ input.drag-files {
     height: auto !important;
 }
 
+.fc-unthemed td.fc-today {
+    background: #ff9b28 !important;
+    border-color: #ff9b28;
+    color: #fff;
+}
+
 .cust-slider-img {
     display: block;
     max-width: 100%;
