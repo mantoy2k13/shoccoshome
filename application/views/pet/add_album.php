@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-12 m-t-10">
                             <label for="album_name">Album Name:</label>
-                            <input type="text" id="album_name" class="form-control" placeholder="Album Name" name="album_name" required>
+                            <input type="text" id="album_name" class="form-control" placeholder="Album Name" name="album_name" required value="">
                         </div>
                     </div>
                     <div class="row m-t-10">
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="user_id" value="<?php echo ($user_logindata) ? $user_logindata->id: ''; ?>">
+                <input type="hidden" name="user_id" id="user_id" value="<?php echo ($user_logindata) ? $user_logindata->id: ''; ?>">
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
