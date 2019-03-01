@@ -3,16 +3,21 @@ $(document).ready(function(){
     if(alertMsg!=0){
         switch(alertMsg){
             case 'Added':
-                var title = "Profile Updated!";
+                var title = "Added Album!";
                 var msg   = "Your Album was successfully added!";
                 var type  = 'success';
             break;
             case 'Updated':
-                var title = "Oops!";
+                var title = "Album Updated!";
                 var msg   = "Your Album was successfully Updated!.";
                 var type  = 'success';
             break;
             case 'Deleted':
+                var title = "Album Deleted!";
+                var msg   = "Your Album was successfully Deleted!";
+                var type  = 'warning';
+            break;
+            case 'Error':
                 var title = "Oops!!";
                 var msg   = "Your Album was successfully Deleted!";
                 var type  = 'warning';
@@ -39,7 +44,7 @@ function update_album(album_id, album_name, album_desc){
 
 function delete_album(album_id){
     swal({
-        title: "Delete Album?" + album_id,
+        title: "Delete Album?",
         text: "Are you sure you want to delete this Pet? This will not be recovered.",
         type: "warning",
         showCancelButton: true,
