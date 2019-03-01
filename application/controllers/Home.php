@@ -212,13 +212,23 @@ class Home extends CI_Controller {
 	}
 
 	public function login()
-	{
-		$this->load->view('frontpage/login');
+	{	
+		if ($this->session->userdata('user_email')){
+			redirect(base_url());
+		}
+		else{
+			$this->load->view('frontpage/login');
+		}
 	}
 
 	public function register()
 	{
-		$this->load->view('frontpage/register');
+		if ($this->session->userdata('user_email')){
+			redirect(base_url());
+		}
+		else{
+			$this->load->view('frontpage/register');
+		}
 	}
 
 	public function forgot_password()

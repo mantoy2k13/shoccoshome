@@ -33,10 +33,6 @@ function getHostGuest(val)
     }
 }
 
-$("#leftSearchInput").click(()=>{
-    $( ".left-search-grp" ).slideToggle( "slow" );
-});
-
 function logout(){
     swal({
         title: "Logout?",
@@ -54,7 +50,7 @@ function logout(){
 }
 
 // zoomable images
-$('img.zoomable').css({cursor: 'pointer'}).on('click', () => {
+$('img.zoomable').css({cursor: 'pointer'}).on('click', function() {
     var img = $(this);
     var bigImg = $('<img />').css({
       'max-width': '100%',
@@ -77,8 +73,8 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', () => {
       'cursor': 'pointer',
       'z-index': 9999,
       'text-align': 'center'
-    }).append(bigImg).bind('click', () => {
-      $(this).fadeOut(300, () => {
+    }).append(bigImg).bind('click', function() {
+      $(this).fadeOut(300, function() {
         $(this).remove();
       });
     }).insertAfter(this).animate({

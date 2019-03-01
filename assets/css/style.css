@@ -1167,6 +1167,10 @@ h5.modal-title {
     text-overflow: ellipsis;
 }
 
+a.btn-menu.btn.bg-blue:active:focus {
+    color: #fff;
+}
+
 /*Daryl code*/
 
 div.prof-desc {

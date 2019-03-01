@@ -8,7 +8,7 @@ class Friends_model extends CI_Model {
 	}
 
 	public function search_keywords($keywords){
-        $this->db->select('fullname,id,address,email,user_img')->from('sh_users');
+        $this->db->select('*')->from('sh_users');
         $this->db->or_like(array('fullname' => $keywords, 'email' => $keywords));
         return $this->db->get()->result_array();   
 	}
