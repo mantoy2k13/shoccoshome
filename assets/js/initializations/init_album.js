@@ -19,7 +19,7 @@ $(document).ready(function(){
             break;
             case 'Error':
                 var title = "Oops!!";
-                var msg   = "Your Album was successfully Deleted!";
+                var msg   = "A problem occured. Please try again!";
                 var type  = 'warning';
             break;
           
@@ -27,41 +27,47 @@ $(document).ready(function(){
 
         getAlbumAlert(title, msg, type);
     }
+
+    add_album = ()=>{
+        $('#albumform').attr('action', base_url+ 'album/add_album');
+         $('#album_name').val('');
+         $('#album_desc').val('');
+         $('#title').html('<i class="fa fa-image"></i> Create New Album');
+         $('#addAlbum').modal('show'); 
+     }
+ 
+     update_album = (album_id, album_name, album_desc) => {
+         $('#albumform').attr('action', base_url+ 'album/update_album/' +album_id);
+         $('#album_name').val(album_name);
+         $('#album_desc').val(album_desc);
+         $('#title').html('<i class="fa fa-edit"></i> Update Album');
+         $('#addAlbum').modal('show');
+     }
+ 
+     delete_album = (album_id)=> {
+         swal({
+             title: "Delete Album?",
+             text: "Are you sure you want to delete this Album? This will not be recovered.",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonClass: "btn-danger",
+             confirmButtonText: "Yes, delete it!",
+             closeOnConfirm: false,
+             confirmButtonColor: "#e11641"
+         },
+         ()=>{
+             window.location.href = base_url+"album/delete_album/"+album_id;
+         });
+     }
+
 });
 
-function getAlbumAlert(title, msg, type){
+getAlbumAlert = (title, msg, type)=> {
     swal(title, msg, type);
 }
 
-function add_album(){
-    $('#albumform').attr('action', base_url+ 'album/add_album');
-    $('#album_name').val('');
-    $('#album_desc').val('');
-    $('#title').html('<i class="fa fa-image"></i> Create New Album');
-    $('#addAlbum').modal('show');
-}
-
-function update_album(album_id, album_name, album_desc){
-    $('#albumform').attr('action', base_url+ 'album/update_album/' +album_id);
-    $('#album_name').val(album_name);
-    $('#album_desc').val(album_desc);
-    $('#title').html('<i class="fa fa-edit"></i> Update Album');
-    $('#addAlbum').modal('show');
-}
 
 
-function delete_album(album_id){
-    swal({
-        title: "Delete Album?",
-        text: "Are you sure you want to delete this Pet? This will not be recovered.",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Yes, delete it!",
-        closeOnConfirm: false,
-        confirmButtonColor: "#e11641"
-    },
-    function(){
-        window.location.href = base_url+"album/delete_album/"+album_id;
-    });
-}
+
+
+
