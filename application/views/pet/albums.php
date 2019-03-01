@@ -23,8 +23,9 @@
         
           <!-- Main Content -->
 		  <div class="col-md-9 m-t-10 p-l-0">
-                <div class="pic-head bg-greyish">
+                <div class="pic-head bg-greyish">                
                     <div class="row">
+                    <input type="hidden" value="<?=(isset($_SESSION['album_msg'])) ? $_SESSION['album_msg'] : '0';?>" id="getAlbumAlert">
                         <div class="col-md-12">
                             <i class="fa fa-image f-25 text-blue"></i> Photos
                         </div>
@@ -54,10 +55,15 @@
                                             <p class="m-b-0 f-12 text-center album-desc"><?php echo $album->album_desc;?></p>
                                             <p class="f-12 text-center album-desc">10 Photos</p>
                                             <p>
-                                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onclick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')"><i class="fa fa-edit" style="font-size:28px;color:red"></i> </a>
+                                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onClick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')">
+                                            <i class="fa fa-edit" style="font-size:28px;color:red"></i>
+                                             </a>
                                             
                                                 
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                             <a href="javascript:;" class="btn bg-orange-l btn-xs pull-left text-white" onClick="delete_album(<?= $album->album_id?>)">
+                                            
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </a>
                                             </p>
                                         </div>
                                     </div>
@@ -83,5 +89,6 @@
     <!-- Footer -->
     <?php $this->load->view('pet/add_album');?>
     <?php $this->load->view('common/footer');?>
+    
   </body>
 </html>
