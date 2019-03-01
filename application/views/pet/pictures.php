@@ -24,6 +24,7 @@
           <!-- Main Content -->
 		  <div class="col-md-9 m-t-10 p-l-0">
                 <div class="pic-head bg-greyish">
+                <input type="hidden" value="<?=(isset($_SESSION['album_msg'])) ? $_SESSION['album_msg'] : '0';?>" id="getAlbumAlert">
                     <div class="row">
                         <div class="col-md-12">
                             <i class="fa fa-image f-25 text-blue"></i> Photos

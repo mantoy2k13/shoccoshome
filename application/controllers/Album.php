@@ -21,36 +21,56 @@ class Album extends CI_Controller {
 	}
 
 	public function add_album(){
-		
-			$user_email  = $this->session->userdata('user_email');
-			$albumdata = array(
-				'user_id'=>$this->input->post('user_id'),
-				'album_name'=>$this->input->post('album_name'),
-				'album_desc'=>$this->input->post('album_desc')
-			);
-			$add_album = $this->Album_model->add_albums($albumdata);
-			if ($add_album) {
-				$this->session->set_flashdata('album_msg', 'successfully added albums');
-				redirect('/album/albums');
-			}
-			else {
-				$this->session->set_flashdata('album_msg', 'Error');
-				redirect('/album/albums');
-			}
+	
+		if ($this->session->userdata('user_email'))
+		{
+				$insert_album = $this->Album_model->add_albums();
+				if ($insert_album) {
+					$this->session->set_flashdata('album_msg', 'Added');
+					redirect('album/albums');
+				}
+				else {
+					$this->session->set_flashdata('album_msg', 'Error');
+					redirect('album/albums');
+				}
+		}
+		else
+		{
+			redirect('home/login');
+		}
 	}
 
 	public function update_album($album_id){
-		$albumdata = array(
-			'album_name'=> $this->input->post('album_name'),
-			'album_desc'=>$this->input->post('album_desc'));
-		$update_album = $this->Album_model->update_album($album_id,$albumdata);
-		if ($update_album) {
-			$this->session->set_flashdata('album_msg', 'successfully update albums');
-			redirect('/album/albums');
+		if ($this->session->userdata('user_email')){
+			$albumdata = array(
+				'album_name'=> $this->input->post('album_name'),
+				'album_desc'=>$this->input->post('album_desc'));
+			$update_album = $this->Album_model->update_album($album_id,$albumdata);
+			if ($update_album) {
+				$this->session->set_flashdata('album_msg', 'Updated');
+				redirect('album/albums');
+			}
+			else {
+				$this->session->set_flashdata('album_msg', 'Error');
+				redirect('album/albums');
+			}
 		}
-		else {
-			$this->session->set_flashdata('album_msg', 'Error');
-			redirect('/album/albums');
+		else{
+			redirect('home/login');
+		}
+	}
+
+	public function delete_album($album_id){
+		if($this->session->userdata('user_email')){
+			$delete_album = $this->Album_model->delete_album($album_id);
+			if ($update_album) {
+				$this->session->set_flashdata('album_msg', 'Deleted');
+				redirect('album/albums');
+			}
+			else {
+				$this->session->set_flashdata('album_msg', 'Error');
+				redirect('album/albums');
+			}
 		}
 	}
 

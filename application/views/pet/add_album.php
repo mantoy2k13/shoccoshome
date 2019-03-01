@@ -3,7 +3,7 @@
 <div class="modal fade msgModalCustom" id="addAlbum" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         
-        <form id="albumform" action="<?=base_url();?>album/add_album" method="post" enctype="multipart/form-data">
+        <form id="albumform" action="<?=base_url();?>album/add_album" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
