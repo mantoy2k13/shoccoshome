@@ -38,9 +38,9 @@
                         <div class="card-body">
                             <div class="friend-img">
                                 <?php if($user_img){ ?>
-                                    <img src="<?=base_url();?>assets/img/profile_pics/<?=$user_img;?>" alt="Profile Image">
+                                    <img src="<?=base_url();?>assets/img/profile_pics/<?=$user_img;?>" alt="Friend Image">
                                 <?php } else {?>
-                                    <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                    <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
                                 <?php }?>
                             </div>
                             <?php $uid = $this->session->userdata('user_id');?>

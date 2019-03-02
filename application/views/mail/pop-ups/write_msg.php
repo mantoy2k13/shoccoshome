@@ -10,18 +10,13 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <?php if($my_friends){ ?>
-                                <label for="message_to">Choose Friends:</label>
-                                <select class="multipleSelect form-control" multiple name="mail_to[]" required>
-                                    <?php foreach($my_friends as $frnd){ extract($frnd); ?>
-                                        <option value="<?=$id;?>"><?=($fullname) ? $fullname : "No Name";?></a> (<?=$email;?>)</option>
-                                </select>
-                                <input type="hidden" class="form-control" name="parent_id" value="0">
-                            <?php } } else { ?>
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <strong><i class="fa fa-check"></i> Empty!</strong> You have no friends to send messages.
-                                </div>
-                            <?php } ?>
+                            <label for="message_to">Choose Friends:</label>
+                            <select class="multipleSelect form-control" multiple name="mail_to[]" required>
+                                <?php foreach($my_friends as $frnd){ extract($frnd); ?>
+                                    <option value="<?=$id;?>"><?=($fullname) ? $fullname : "No Name";?>(<?=$email;?>)</option>
+                                <?php } ?>
+                            </select>
+                            <input type="hidden" class="form-control" name="parent_id" value="0">
                         </div>
                     </div>
                     <div class="row">

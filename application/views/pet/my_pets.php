@@ -41,9 +41,9 @@
                                     <div class="card-body">
                                         <div class="friend-img">
                                             <?php if ($show_pet_data->primary_pic){ ?>
-                                                <img src="<?=base_url();?>assets/img/pet/<?=$show_pet_data->primary_pic; ?>" alt="Profile Image">
+                                                <img src="<?=base_url();?>assets/img/pet/<?=$show_pet_data->primary_pic; ?>" alt="Pet Image">
                                             <?php }else{ ?>
-                                                <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                                <img src="<?=base_url();?>assets/img/owner.png" alt="Pet Image">
                                             <?php } ?>
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>

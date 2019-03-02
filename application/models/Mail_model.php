@@ -19,7 +19,6 @@ class Mail_model extends CI_Model {
             );
 
             $res = $this->db->insert('sh_mail', $data);
-           
         } 
         return ($res) ? true : false;
     }
@@ -124,8 +123,7 @@ class Mail_model extends CI_Model {
 		$this->db->where("mail_to ", $my_id);
 		$this->db->where("is_read ", false);
 		$query = $this->db->get("sh_mail");
-
-		return $query->num_rows();
+        return ($query) ? $query->num_rows() : false;
     }
     
     public function count_mail_w_notif(){
@@ -135,7 +133,7 @@ class Mail_model extends CI_Model {
 		$this->db->where("sh_mail.mail_to ", $my_id);
         $this->db->where("sh_mail.notify ", false);
 		$query = $this->db->get()->result_array();
-		return $query;
+        return ($query) ? $query : false;
     }
     
     public function cNotif($mid){

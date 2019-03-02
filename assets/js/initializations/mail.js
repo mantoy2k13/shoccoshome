@@ -21,6 +21,14 @@ $(document).ready(function(){
 
         setAlertMsg(title, msg, type);
     }
+
+    writeMsg = (type)=> {
+        if(!type){
+            swal('Oops!', 'You cannot compose message if you have no friends in your list. You can search an user and send them messages directly. You can add them as a friend too.', 'warning');
+        } else{
+            $('#writeMsg').modal('show');
+        }
+    }
 });
 
 function setAlertMsg(title, msg, type){
@@ -37,7 +45,8 @@ function delMsg(mid, type){
         confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#e11641"
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({
@@ -253,7 +262,8 @@ function moveToDrafts(mid){
         confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, move it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#f77506"
+        confirmButtonColor: "#f77506",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({

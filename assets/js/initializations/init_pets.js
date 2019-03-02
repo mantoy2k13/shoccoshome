@@ -100,7 +100,8 @@ function delImgPet(pet_id, pet_img, imgID, isPrimary){
         confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#e11641"
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
     },
     function(){
         var imgname = pet_img.split('/',-1);

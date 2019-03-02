@@ -42,7 +42,8 @@ function logout(){
         confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, logout!",
         closeOnConfirm: false,
-        confirmButtonColor: "#e11641"
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
     },
     ()=>{
         window.location.href = base_url+"auth/user_logout";

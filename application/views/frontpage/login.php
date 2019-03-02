@@ -17,7 +17,7 @@
                 <div class="container">
                     <div class="login-wrapper">
                         <a href="<?=base_url();?>"> 
-                            <img class="login-logo" src="<?=base_url();?>assets/img/logo.png">
+                            <img class="login-logo" src="<?=base_url();?>assets/img/logo.png" alt="Shocco's Logo">
                         </a>
                         <h3 class="text-white mb-3">Login</h3>
 

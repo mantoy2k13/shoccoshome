@@ -47,7 +47,7 @@
                                         <div class="carousel-inner carousel-inner300">
 										
 											<div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$show_get_all_pet_data->primary_pic;?>" alt="Primary Image">
+												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$show_get_all_pet_data->primary_pic;?>" alt="Slider Image">
 											</div>
                                             <?php 
                                                 $pet_images = $show_get_all_pet_data->pet_images;
@@ -58,13 +58,13 @@
                                             ?>
 											<?php if($pet_img!=$show_get_all_pet_data->primary_pic){?>
                                                 <div class="pet-details-img carousel-item item c-img-wrapper pet-slider">
-                                                    <img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$pet_img;?>" alt="Slide Image">
+                                                    <img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$pet_img;?>" alt="Slider Image">
                                                 </div>
 											<?php } ?>
 
                                             <?php } } else{ ?>
                                                     <div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-                                                    <img class="d-block w-100" src="<?=base_url();?>assets/img/image-icon.png" alt="Slide Image">
+                                                    <img class="d-block w-100" src="<?=base_url();?>assets/img/image-icon.png" alt="Slider Image">
                                                 </div>
 											<?php } ?>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

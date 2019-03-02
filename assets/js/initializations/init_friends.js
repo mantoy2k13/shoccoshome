@@ -25,7 +25,8 @@ function request_friends(uid, type, email){
         showCancelButton: true,
         confirmButtonText: btn,
         closeOnConfirm: false,
-        confirmButtonColor: "#1684e1"
+        confirmButtonColor: "#1684e1",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({
@@ -99,7 +100,8 @@ function process_request(rid, uid, type, email){
         showCancelButton: true,
         confirmButtonText: btn,
         closeOnConfirm: false,
-        confirmButtonColor: "#1684e1"
+        confirmButtonColor: "#1684e1",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({

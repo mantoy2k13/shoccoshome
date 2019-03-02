@@ -48,7 +48,7 @@
                                         <div class="thumbnail">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
-                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Profile Image">
+                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
                                                 </div>
                                             </a>
                                             <p class="m-t-10 m-b-0 f-15 text-center text-black"><?php echo $album->album_name;?></p>
@@ -70,7 +70,7 @@
                               </div>
                             <?php else:?>
                                  <div class="gal-img">
-                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Profile Image">
+                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
                                  </div>
                         <?php endif;?>
                     <?php else:?>

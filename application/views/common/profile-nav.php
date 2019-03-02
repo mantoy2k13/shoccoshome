@@ -15,7 +15,7 @@
             <p><?= $user_logindata->email; ?><br>
             <i class="fa fa-map-marker-alt text-blue"></i>
 
-            <?=$user_logindata->street.' '.$user_logindata->city.', '.$user_logindata->zip_code.', '.$user_logindata->state.', '.$user_logindata->country;?>
+            <?php if($user_logindata->street&&$user_logindata->city&&$user_logindata->zip_code&&$user_logindata->state&&$user_logindata->country){ ?> <?=$user_logindata->street.' '.$user_logindata->city.', '.$user_logindata->zip_code.', '.$user_logindata->state.', '.$user_logindata->country;?> <?php } else{ echo "<a href='".base_url()."account/account#target_address'>Set up your address</a>"; } ?>
             </p>
         </div>
     </div>

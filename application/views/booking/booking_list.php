@@ -54,7 +54,7 @@
                             <div class="card bg-grey friend-card">
                                 <div class="card-body">
                                     <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
                                     </div>
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
@@ -73,7 +73,7 @@
                             <div class="card bg-grey friend-card">
                                 <div class="card-body">
                                     <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
                                     </div>
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
@@ -92,7 +92,7 @@
                             <div class="card bg-grey friend-card">
                                 <div class="card-body">
                                     <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
+                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
                                     </div>
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">

@@ -53,7 +53,8 @@ $(document).ready(function(){
              confirmButtonClass: "btn-danger",
              confirmButtonText: "Yes, delete it!",
              closeOnConfirm: false,
-             confirmButtonColor: "#e11641"
+             confirmButtonColor: "#e11641",
+             showLoaderOnConfirm: true
          },
          ()=>{
              window.location.href = base_url+"album/delete_album/"+album_id;

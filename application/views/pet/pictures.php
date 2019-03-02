@@ -50,7 +50,7 @@
                                         <div class="thumbnail">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
-                                                    <img class="zoomable" src="<?=base_url();?><?php echo $all_pet;?>" style="width:100%" alt="Profile Image">
+                                                    <img class="zoomable" src="<?=base_url();?><?php echo $all_pet;?>" style="width:100%" alt="Zoomable Image">
                                                 </div>
                                             </a>
                                         </div>
@@ -61,7 +61,7 @@
                               </div>
                             <?php else:?>
                                  <div class="gal-img">
-                                    <img src="<?=base_url();?>assets/img/owner.png" style="width:100%" alt="Profile Image">
+                                    <img src="<?=base_url();?>assets/img/owner.png" style="width:100%" alt="Photos">
                                  </div>
                         <?php endif;?>
                     <?php else:?>
