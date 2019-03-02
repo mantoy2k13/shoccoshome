@@ -62,7 +62,7 @@ $(document).ready(function(){
 
 });
 
-getAlbumAlert = (title, msg, type)=> {
+const getAlbumAlert = (title, msg, type)=> {
     swal(title, msg, type);
 }
 
