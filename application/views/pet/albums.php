@@ -55,12 +55,12 @@
                                             <p class="m-b-0 f-12 text-center album-desc"><?php echo $album->album_desc;?></p>
                                             <p class="f-12 text-center album-desc">10 Photos</p>
                                             <p>
-                                            <a href="javascript:;" onclick="update_album(<?= $album->album_id?>,'<?= $album->album_name?>','<?= $album->album_desc?>')">
+                                            <a href="javascript:;" id="<?= $album->album_id?>" class="update_album">
                                             <span class="cust-mod-edit"  title="Crop Image">
                                             <i class="fa fa-pen text-white"></i>
                                             </span>
                                              </a>
-                                             <a href="javascript:;"  onclick="delete_album(<?= $album->album_id?>)">
+                                             <a href="javascript:;" id="<?= $album->album_id?>"  onclick="delete_album(<?= $album->album_id?>)">
                                              <span class="cust-mod-close rmImg" title="Remove Image" ><i class="fa fa-times text-white"></i></span>
                                             </a>
                                             </p>

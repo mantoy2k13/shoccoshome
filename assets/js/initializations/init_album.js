@@ -36,13 +36,13 @@ $(document).ready(function(){
          $('#addAlbum').modal('show'); 
      }
  
-     update_album = (album_id, album_name, album_desc) => {
-         $('#albumform').attr('action', base_url+ 'album/update_album/' +album_id);
-         $('#album_name').val(album_name);
-         $('#album_desc').val(album_desc);
-         $('#title').html('<i class="fa fa-edit"></i> Update Album');
-         $('#addAlbum').modal('show');
-     }
+    //  update_album = (album_id, album_name, album_desc) => {
+    //      $('#albumform').attr('action', base_url+ 'album/update_album/' +album_id);
+    //      $('#album_name').val(album_name);
+    //      $('#album_desc').val(album_desc);
+    //      $('#title').html('<i class="fa fa-edit"></i> Update Album');
+    //      $('#addAlbum').modal('show');
+    //  }
  
      delete_album = (album_id)=> {
          swal({
@@ -66,7 +66,23 @@ getAlbumAlert = (title, msg, type)=> {
     swal(title, msg, type);
 }
 
-
+$(document).on('click', '.update_album', function(event){
+    
+    var album_id = $(this).attr('id');
+    $.ajax({
+        url:'getalbum',
+        method:'POST',
+        data:{album_id:album_id},
+        dataType:'json',
+        success:function(data){
+            $('#albumform').attr('action', base_url+ 'album/update_album/' +album_id);
+            $('#album_name').val(data[0].album_name);
+            $('#album_desc').val(data[0].album_desc);
+            $('#title').html('<i class="fa fa-edit"></i> Update Album');
+            $('#addAlbum').modal('show');
+        }
+    });
+});
 
 
 
