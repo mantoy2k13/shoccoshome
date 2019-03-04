@@ -76,5 +76,14 @@ class Album extends CI_Controller {
 			redirect('home/login');
 		}
 	}
+	public function getalbum(){
+		if($this->session->userdata('user_email')){
+			$this->Album_model->get_album();
+			
+		}
+		else{
+			redirect('home/login');
+		}			
+	}
 
 }

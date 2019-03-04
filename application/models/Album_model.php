@@ -39,5 +39,16 @@ class Album_model extends CI_Model {
 		$res = $this->db->delete('sh_albums');
 		return ($res) ? true : false;
 	}
+
+	public function get_album(){
+		if(isset($_POST["album_id"])){
+			$album_id = $_POST['album_id'];
+			$this->db->select('*');
+			$this->db->from('sh_albums');
+			$this->db->where('album_id', $album_id);
+			$query = $this->db->get();
+			echo json_encode($query->result());
+		}
+	}
 			
 }
