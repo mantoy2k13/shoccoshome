@@ -56,12 +56,12 @@
                                             <p class="f-12 text-center album-desc">10 Photos</p>
                                             <p>
                                             <a href="javascript:;" id="<?= $album->album_id?>" class="update_album">
-                                            <span class="cust-mod-edit"  title="Crop Image">
+                                            <span class="cust-mod-edit"  title="Edit Albums">
                                             <i class="fa fa-pen text-white"></i>
                                             </span>
                                              </a>
                                              <a href="javascript:;" id="<?= $album->album_id?>"  onclick="delete_album(<?= $album->album_id?>)">
-                                             <span class="cust-mod-close rmImg" title="Remove Image" ><i class="fa fa-times text-white"></i></span>
+                                             <span class="cust-mod-close rmImg" title="Remove Albums" ><i class="fa fa-times text-white"></i></span>
                                             </a>
                                             </p>
                                         </div>
