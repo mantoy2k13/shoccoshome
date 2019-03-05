@@ -71,7 +71,7 @@ $(document).on('click', '.update_album', function(event){
     
     var album_id = $(this).attr('id');
     $.ajax({
-        url:'getalbum',
+        url: base_url+'album/getalbum',
         method:'POST',
         data:{album_id:album_id},
         dataType:'json',
