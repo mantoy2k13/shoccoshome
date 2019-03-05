@@ -1171,6 +1171,51 @@ a.btn-menu.btn.bg-blue:active:focus {
     color: #fff;
 }
 
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+
+.nav::before{
+    display: table;
+    content: " ";
+}
+
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+
+.nav > li {
+    position: relative;
+    display: block;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: rgb(221, 221, 221);
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    color: #555;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+
+
+
 /*Daryl code*/
 
 div.prof-desc {

@@ -10,17 +10,17 @@ $(document).ready(function(){
             case 'Exist':
                 var title = "Oops!";
                 var msg   = "Email already exists. Please enter a valid email address.";
-                var type  = 'success';
+                var type  = 'error';
             break;
             case 'Error':
                 var title = "Error!";
                 var msg   = "A problem occured while updating your profile. Please try again!";
-                var type  = 'warning';
+                var type  = 'error';
             break;
             case 'ErrorImg':
                 var title = "Oops!";
                 var msg   = "A problem occured while updating your image. Please try again!";
-                var type  = 'warning';
+                var type  = 'error';
             break;
         }
 
@@ -30,6 +30,68 @@ $(document).ready(function(){
 
 function setProfAlert(title, msg, type){
     swal(title, msg, type);
+}
+
+var navTabs = (type)=> {
+    if(type==1){
+        $('.nav2').removeClass('active');
+        $('.nav1').addClass('active');
+    } else{
+        $('.nav1').removeClass('active');
+        $('.nav2').addClass('active');
+    }
+}
+
+var checkPass = ()=>{
+    var curPass = $('#curPassword').val();
+    var npass   = $('#nPassword').val();
+    var cpass   = $('#cPassword').val();
+
+    if(curPass&&npass&&cpass){
+        if(npass!=cpass){
+            $('#pass-err-msg').html(''+
+                '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                    '<strong><i class="fa fa-check"></i> Failed!</strong> New password must be equal to confirm password.'+
+                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                    '</button>'+
+                '</div>'
+            );
+        } else{
+            $.ajax({
+                url: base_url+'account/change_password',
+                type: 'POST',
+                data: { npass: npass, curPass: curPass },
+                success: (res)=>{
+                    if(res!=0){
+                        swal("Change!", "Password change successfully.","success");
+                    } else{
+                        $('#pass-err-msg').html(''+
+                            '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                                '<strong><i class="fa fa-check"></i> Oopss!</strong> Current password is incorrect.'+
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                    '<span aria-hidden="true">&times;</span>'+
+                                '</button>'+
+                            '</div>'
+                        );
+                    }
+                }
+            });
+        }
+    } else{
+        $('#pass-err-msg').html(''+
+            '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                '<strong><i class="fa fa-check"></i> Oops!</strong> Please fill out all fields below.'+
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+            '</div>'
+        );
+    }
+}
+
+var errClear = ()=>{
+    $('#pass-err-msg').html('');
 }
 
 function readURL(input) {

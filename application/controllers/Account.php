@@ -106,6 +106,15 @@ class Account extends CI_Controller {
         }
     }
 
+    public function change_password(){
+        if ($this->session->userdata('user_email'))
+		{
+            $res = $this->Account_model->change_password();
+            echo ($res) ? 1 : 0;
+		}
+		else { echo 0; }
+    }
+
 	public function account()
 	{
 		if ($this->session->userdata('user_email'))

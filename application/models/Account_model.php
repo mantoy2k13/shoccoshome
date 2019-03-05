@@ -88,4 +88,21 @@ class Account_model extends CI_Model {
         $data = $this->db->get()->result_array();
         return $data;
     }
+
+    public function change_password(){
+        $uid     = $this->session->userdata('user_id');
+        $curPass = md5($this->input->post('curPass'));
+        $npass   = md5($this->input->post('npass'));
+        $this->db->where('id', $uid);
+        $this->db->where('password', $curPass);
+        $query = $this->db->get('sh_users');
+        if($query->num_rows() > 0){
+            $this->db->set('password', $npass);
+            $this->db->where('id', $uid);
+            $res = $this->db->update('sh_users');
+            return ($res) ? true : false;
+        } else{
+            return false;
+        }
+    }
 }
