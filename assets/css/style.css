@@ -1213,7 +1213,15 @@ a.btn-menu.btn.bg-blue:active:focus {
     padding: 10px 15px;
 }
 
+.pname-err {
+    font-size: 15px;
+    color: #e31414;
+}
 
+.pname-suc {
+    font-size: 15px;
+    color: #16aa3c;
+}
 
 
 /*Daryl code*/

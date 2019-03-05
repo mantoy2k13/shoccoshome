@@ -65,7 +65,7 @@
  
 					<div class="row text-center">
 						<div class="col-md-12">
-							<button type="submit" class="btn bg-orange sub-btn"><i class="fa fa-search"></i> Find Pets</button>
+							<button type="submit" class="btn bg-orange sub-btn"><i class="fa fa-search"></i> Find a Home</button>
 						</div>
 					</div>
 				</div>

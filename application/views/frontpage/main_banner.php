@@ -71,7 +71,7 @@
                             </div>
                             <div class="row form-group text-center">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn bg-orange sub-btn m-t-10"><i class="fa fa-search"></i> Find Pets</button>
+                                    <button type="submit" class="btn bg-orange sub-btn m-t-10"><i class="fa fa-search"></i> Find a Home</button>
                                 </div>
                             </div>
                         </div>

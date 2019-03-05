@@ -17,29 +17,6 @@
 
   <!-- Header CSS -->
   <?php $this->load->view('common/css');?>
-
-    <?php 
-    if($get_single_pet_data){
-    $get_country_name=$get_single_pet_data[0]->country;
-    $get_state_name=$get_single_pet_data[0]->state;
-    echo "
-      <script>
-        var country='$get_country_name';
-        var state='$get_state_name';
-      </script>
-    ";
-    }else{
-    $get_country_name='Select country';
-    $get_state_name='Select region';
-    echo "
-        <script>
-        var country='$get_country_name';
-        var state='$get_state_name';
-        </script>
-    ";
-    }
-    ?>
-
   <body id="page-top">
 
     <!-- Navigation -->
@@ -85,9 +62,11 @@
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Pet Details</div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Pet Name</label>
-                                    <input required name="pet_name" value="<?= @$get_single_pet_data[0]->pet_name ? @$get_single_pet_data[0]->pet_name : '' ?>" type="text" class="form-control" placeholder="Pet Name">
+                                    <input onchange="checkPetName()" required id="petName" name="pet_name" value="<?= @$get_single_pet_data[0]->pet_name ? @$get_single_pet_data[0]->pet_name : '' ?>" type="text" class="form-control" placeholder="Pet Name">
+                                    <input id="oldName" value="<?= @$get_single_pet_data[0]->pet_name ? @$get_single_pet_data[0]->pet_name : '' ?>" type="hidden">
                                     <input name="user_id" value="<?= $user_logindata->id; ?>" type="hidden" class="form-control" placeholder="user id">
                                     <input name="pet_id" value="<?= @$get_single_pet_data[0]->pet_id ? @$get_single_pet_data[0]->pet_id : '' ?>" type="hidden" class="form-control" placeholder="Pet Id">
+                                    <div id="chk-pname-msg"></div>
                                 </div>
 
                                 <div class="col-md-4">
@@ -116,8 +95,10 @@
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Gender</label>
                                     <select name="gender" class="form-control">
-                                        <option value="Male" <?=@$get_single_pet_data[0]->gender === 'Male' ? 'selected' : ''?>>Male</option>
-                                        <option value="Female" <?=@$get_single_pet_data[0]->gender === 'Female' ? 'selected' : ''?>>Female</option>
+                                        <option value="Male (neutered)" <?=@$get_single_pet_data[0]->gender === 'Male (neutered)' ? 'selected' : ''?>>Male (neutered)</option>
+                                        <option value="Male (NOT neutered)" <?=@$get_single_pet_data[0]->gender === 'Male (NOT neutered)' ? 'selected' : ''?>>Male (NOT neutered)</option>
+                                        <option value="Female (spayed)" <?=@$get_single_pet_data[0]->gender === 'Female (spayed)' ? 'selected' : ''?>>Female (spayed)</option>
+                                        <option value="Female (NOT spayed)" <?=@$get_single_pet_data[0]->gender === 'Female (NOT spayed)' ? 'selected' : ''?>>Female (NOT spayed)</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -173,8 +154,20 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="f-15 text-black">Vaccination</label>
-                                    <input name="vaccination" value="<?= @$get_single_pet_data[0]->vaccination ? @$get_single_pet_data[0]->vaccination : '' ?>"  type="text" class="form-control" placeholder="Vaccination" required>
+                                    <label class="f-15 text-black">Vaccinations</label>
+                                    <!-- <input name="vaccination" value="<?= @$get_single_pet_data[0]->vaccination ? @$get_single_pet_data[0]->vaccination : '' ?>"  type="text" class="form-control" placeholder="Vaccination" required> -->
+                                    <select name="vaccination" class="form-control">
+                                        <option value="Parvovirus (CPV)" <?=@$get_single_pet_data[0]->vaccination === 'Parvovirus (CPV)' ? 'selected' : ''?>>Parvovirus (CPV)</option>
+                                        <option value="Canine distemper virus (CDV)" <?=@$get_single_pet_data[0]->vaccination === 'Canine distemper virus (CDV)' ? 'selected' : ''?>>Canine distemper virus (CDV)</option>
+                                        <option value="Canine adenovirus (CAV)" <?=@$get_single_pet_data[0]->vaccination === 'Canine adenovirus (CAV)' ? 'selected' : ''?>>Canine adenovirus (CAV)</option>
+                                        <option value="Rabies" <?=@$get_single_pet_data[0]->vaccination === 'Rabies' ? 'selected' : ''?>>Rabies</option>
+                                        <option value="Canine parainfluenza virus (CPiV)" <?=@$get_single_pet_data[0]->vaccination === 'Canine parainfluenza virus (CPiV)' ? 'selected' : ''?>>Canine parainfluenza virus (CPiV)</option>
+                                        <option value="Distemper-measles combination vaccine" <?=@$get_single_pet_data[0]->vaccination === 'Distemper-measles combination vaccine' ? 'selected' : ''?>>Distemper-measles combination vaccine</option>
+                                        <option value="Bordetella bronchiseptica (Kennel Cough)" <?=@$get_single_pet_data[0]->vaccination === 'Bordetella bronchiseptica (Kennel Cough)' ? 'selected' : ''?>>Bordetella bronchiseptica (Kennel Cough)</option>
+                                        <option value="Leptospira spp" <?=@$get_single_pet_data[0]->vaccination === 'Leptospira spp' ? 'selected' : ''?>>Leptospira spp</option>
+                                        <option value="Borrelia burgdorferi (Lyme)" <?=@$get_single_pet_data[0]->vaccination === 'Borrelia burgdorferi (Lyme)' ? 'selected' : ''?>>Borrelia burgdorferi (Lyme)</option>
+                                        <option value="Giardia" <?=@$get_single_pet_data[0]->vaccination === 'Giardia' ? 'selected' : ''?>>Giardia</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Vaccination Date</label>
@@ -183,8 +176,20 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
-                                    <label class="f-15 text-black">Description</label>
-                                    <textarea name="description" class="form-control" cols="30" rows="3" placeholder="Pet Description..."><?= @$get_single_pet_data[0]->description ? @$get_single_pet_data[0]->description : '' ?></textarea>
+                                    <label class="f-15 text-black">Pet Description</label>
+                                    <textarea name="description" class="form-control" cols="30" rows="3" placeholder="Write here..."><?= @$get_single_pet_data[0]->description ? @$get_single_pet_data[0]->description : '' ?></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="f-15 text-black">Please list any of your pet's known allergies and medical/health issues</label>
+                                    <textarea name="health_issues" class="form-control" cols="30" rows="3" placeholder="Write here..."><?= @$get_single_pet_data[0]->health_issues ? @$get_single_pet_data[0]->health_issues : '' ?></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <label class="f-15 text-black">Does your pet take any medications? If so, please provide medication and dosage requirements</label>
+                                    <textarea name="medications" class="form-control" cols="30" rows="3" placeholder="Write here..."><?= @$get_single_pet_data[0]->medications ? @$get_single_pet_data[0]->medications : '' ?></textarea>
                                 </div>
                             </div>
 
@@ -338,7 +343,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn bg-orange sub-btn"><i class="fa fa-save"></i> <?= $submit_pet; ?></button>
+                                    <button type="submit" id="addPetBtn" class="btn bg-orange sub-btn" disabled><i class="fa fa-save"></i> <?= $submit_pet; ?></button>
                                 </div>
                             </div>
                         </form>

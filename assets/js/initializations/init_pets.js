@@ -68,7 +68,7 @@ if (window.File && window.FileList && window.FileReader) {
     swal('Failed', "Your browser doesn't support to File API", 'warning');
 }
 
-function rmimg(e){
+var rmimg = (e) => {
     $(e).parent().remove();
     var img_uploaded = $('.img_uploaded').length;
     if(img_uploaded == 0){
@@ -81,7 +81,7 @@ function rmimg(e){
     }
 }
 
-function crpImg(e,imgID){
+var crpImg = (e,imgID) => {
     var imgUrl = $('.u-img'+imgID).attr('src');
     $('#imgID').val(imgID);
     $("#imgToCrop").attr('src',imgUrl);
@@ -91,7 +91,7 @@ function crpImg(e,imgID){
     $("#showCropWindow").modal('show');
 }
 
-function delImgPet(pet_id, pet_img, imgID, isPrimary){
+var delImgPet = (pet_id, pet_img, imgID, isPrimary) => {
     swal({
         title: "Delete Image?",
         text: "Are you sure you want to delete this image? This will not be recovered.",
@@ -144,7 +144,7 @@ $(document).on('change', '#cat_id', function(){
     });
 });
 
-function delPet(pet_id){
+var delPet = (pet_id)=>{
     swal({
         title: "Delete Pet?",
         text: "Are you sure you want to delete this Pet? This will not be recovered.",
@@ -160,7 +160,7 @@ function delPet(pet_id){
     });
 }
 
-function setPrimary(pet_id, img_name){
+var setPrimary = (pet_id, img_name)=>{
     swal({
         title: "Set Primary?",
         text: "This picture will be set as primary image.",
@@ -190,4 +190,34 @@ function setPrimary(pet_id, img_name){
             }
         });
     });
+}
+
+var checkPetName = ()=>{
+    var petName = $('#petName').val();
+    var oldName = $('#oldName').val();
+
+    if(petName){
+        if(petName!=oldName){
+            $.ajax({
+                url: base_url+'pet/checkPetName',
+                type: 'POST',
+                data: { petName:petName },
+                success: (res)=>{
+                    if(res==0){
+                        $('#chk-pname-msg').html('<span class="pname-suc"><i class="fa fa-check"></i> Pet name is available!</span>');
+                        $('#addPetBtn').removeAttr('disabled');
+                    } else{
+                        $('#chk-pname-msg').html('<span class="pname-err"><i class="fa fa-times"></i> Pet name already exist.</span>');
+                        $('#petName').focus();
+                        $('#addPetBtn').attr('disabled', '');
+                    }
+                }
+            });
+        }
+    } else{
+        $('#chk-pname-msg').html('<span class="pname-err"><i class="fa fa-times"></i> Please enter pet name.</span>');
+        $('#petName').focus();
+        $('#addPetBtn').attr('disabled', '');
+    }
+
 }

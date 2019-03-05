@@ -23,6 +23,13 @@ class Pet_model extends CI_model{
 		return $insert_id;
     }
 
+    public function checkPetName($petName){
+        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->where('pet_name', $petName);
+        $query = $this->db->get('sh_pets');
+        return ($query->num_rows() > 0) ? true : false;
+    }
+
 
 	// user id wise
  	  public function get_pet_data($id) {

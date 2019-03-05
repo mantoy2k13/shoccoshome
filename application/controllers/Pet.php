@@ -44,6 +44,8 @@ class Pet extends CI_Controller{
 			'vet_clinic'=>$this->input->post('vet_clinic'),
 			'located'=>$this->input->post('located'),
 			'adoptable'=>$this->input->post('adoptable'),
+			'health_issues'=>$this->input->post('health_issues'),
+			'medications'=>$this->input->post('medications'),
 			'description'=>$this->input->post('description'),
 			'country'=>$this->input->post('country'),
 			'state'=>$this->input->post('state'),
@@ -68,11 +70,11 @@ class Pet extends CI_Controller{
         $add_pet = $this->Pet_model->add_pet($petdata);
         if ($add_pet) {
             $this->session->set_flashdata('pet_msg', 'Added');
-            redirect('/home/add_new_pet');
+            redirect('home/add_new_pet');
         }
         else {
             $this->session->set_flashdata('pet_msg', 'Error');
-            redirect('/home/add_new_pet');
+            redirect('home/add_new_pet');
         }
     }
 
@@ -129,6 +131,8 @@ class Pet extends CI_Controller{
                 'vet_clinic'=>$this->input->post('vet_clinic'),
                 'located'=>$this->input->post('located'),
                 'adoptable'=>$this->input->post('adoptable'),
+                'health_issues'=>$this->input->post('health_issues'),
+			    'medications'=>$this->input->post('medications'),
                 'description'=>$this->input->post('description'),
                 'country'=>$this->input->post('country'),
                 'state'=>$this->input->post('state'),
@@ -149,7 +153,6 @@ class Pet extends CI_Controller{
                 'alt_contact_info'=>$this->input->post('alt_contact_info'),
                 'pet_images'=>$uploadedImgsJson,
             );
-            //print_r($petdataupdate);
             $update_pet = $this->Pet_model->updatepetdata($petdataupdate);
             if ($update_pet) {
                 $this->session->set_flashdata('pet_msg', 'Updated');
@@ -243,6 +246,15 @@ class Pet extends CI_Controller{
             echo false;
         }
     }
+
+    public function checkPetName(){
+        if($this->input->post('petName')){
+            $petName = $this->input->post('petName');
+            $res = $this->Pet_model->checkPetName($petName);
+            echo ($res) ? 1 : 0;
+        }
+    }
+
 
     public function categories_wise_breed_data(){
         
