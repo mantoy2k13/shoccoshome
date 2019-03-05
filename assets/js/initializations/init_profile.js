@@ -65,6 +65,7 @@ var checkPass = ()=>{
                 success: (res)=>{
                     if(res!=0){
                         swal("Change!", "Password change successfully.","success");
+                        $('#pass-err-msg').html('');
                     } else{
                         $('#pass-err-msg').html(''+
                             '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
