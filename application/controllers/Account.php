@@ -66,8 +66,10 @@ class Account extends CI_Controller {
                 $useremail=$this->input->post('email');
                 $userdetils=$this->Auth_model->fetchuserlogindata($useremail);
                 $userimage=$userdetils->user_img;
+					 if($userimage){
                 $proimglink= 'assets/img/profile_pics/'.$userimage;
                 unlink($proimglink);
+					 }
                 $this->session->set_flashdata('prof_msg', 'Updated');
             }
           

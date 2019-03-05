@@ -457,9 +457,11 @@
         width:100%;
         height: auto;
     }
+	 
     p.text-head {
-        float: left;
+       /* float: left; */
     }
+	 
     
     p.b-700.f-14.m-t-20 {
         float: left;
