@@ -213,6 +213,9 @@ var checkPetName = ()=>{
                     }
                 }
             });
+        } else{
+            $('#chk-pname-msg').html('');
+            $('#addPetBtn').removeAttr('disabled');
         }
     } else{
         $('#chk-pname-msg').html('<span class="pname-err"><i class="fa fa-times"></i> Please enter pet name.</span>');

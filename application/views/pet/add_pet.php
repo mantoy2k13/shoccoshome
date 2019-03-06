@@ -343,7 +343,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" id="addPetBtn" class="btn bg-orange sub-btn" disabled><i class="fa fa-save"></i> <?= $submit_pet; ?></button>
+                                    <button type="submit" id="addPetBtn" class="btn bg-orange sub-btn" <?=($get_single_pet_data) ? '' : 'disabled';?>><i class="fa fa-save"></i> <?= $submit_pet; ?></button>
                                 </div>
                             </div>
                         </form>
