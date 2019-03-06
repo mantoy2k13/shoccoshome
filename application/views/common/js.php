@@ -57,3 +57,5 @@
 <?php if($is_page=="albums"  || $is_page=="pictures"){ ?>
 <script src="<?=base_url();?>assets/js/initializations/init_album.js"></script>
 <?php }?>
+
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>

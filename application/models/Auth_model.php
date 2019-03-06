@@ -116,4 +116,57 @@ class Auth_model extends CI_model{
         }
         return false;
     }
+
+    public function loginGoogle(){
+        $email = $this->input->post('email');
+        $fullname = $this->input->post('fullname');
+        $imgURL = $this->input->post('imgURL');
+        $this->db->where("email", $email);
+		$query = $this->db->get("sh_users");
+        if($query->num_rows() > 0){
+            foreach($query->result() as $rows){
+				$userdata = array(
+					'user_id' 		  => $rows->id,
+					'fullname' 		  => $rows->fullname,
+					'user_email'      => $rows->email,
+                    'is_logged_in' 	  => TRUE,
+                    'is_social'       => 'google'
+				);
+			}
+            $this->session->set_userdata($userdata);
+            return true;
+        } else{
+            $data = array(
+                'email'    => $email,
+                'fullname' => $fullname
+            );
+            $this->db->insert('sh_users', $data);
+            $uid = $this->db->insert_id();
+            
+            if($uid){
+                define('DIRECTORY', './assets/img/profile_pics/');
+                $content = file_get_contents($imgURL);
+                $filename = 'pp_'.time().'.png';
+                $res = file_put_contents(DIRECTORY . $filename, $content);
+
+                if($res){
+                    $this->db->set('user_img', $filename);
+                    $this->db->where('id', $uid);
+                    $update = $this->db->update('sh_users');
+                    if($update){
+                        $userdata = array(
+                            'user_id' 		  => $uid,
+                            'fullname' 		  => $fullname,
+                            'user_email'      => $email,
+                            'is_logged_in' 	  => TRUE,
+                            'is_social'       => 'google'
+                        );
+                        $this->session->set_userdata($userdata);
+                        return true;
+                    } else{ return false; } 
+                } else{ return false; } 
+            } else{ return false; }   
+        }
+        return false;
+    }
 }

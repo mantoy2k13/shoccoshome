@@ -76,7 +76,14 @@ function logout(social){
                 }
             });    
         } else if(social=="google"){
-            window.location.href = base_url+"auth/user_logout";
+            //signOut()
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                //window.location.href = base_url+"auth/user_logout";
+                console.log('Sign Out')
+            });
+            auth2.disconnect();
+            setTimeout(window.location.href = base_url+"auth/user_logout",1000);
         } else{
             window.location.href = base_url+"auth/user_logout";
         }
