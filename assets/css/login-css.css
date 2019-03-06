@@ -59,6 +59,26 @@ body {
     .text-white{
         color: #fff;
     }
+
+    
+    .fb-login-button {
+        width: 100%;
+    }
+    .or {
+        margin: 7px auto 10px auto;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .agtext {
+        font-size: 13px;
+    }
+
+    .abcRioButton.abcRioButtonLightBlue {
+        width: 100% !important;
+        margin-top: 10px;
+    }
   
 @media only screen and (max-width: 410px){
     .login-wrapper {

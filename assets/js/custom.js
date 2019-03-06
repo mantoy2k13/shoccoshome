@@ -1,5 +1,24 @@
 var base_url = $('#base_url').val();
 
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '413901082706208',
+        cookie     : true,  // enable cookies to allow the server to access 
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v3.2' // The Graph API version to use for the call
+    });
+};
+
+// Load the SDK asynchronously
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
 function setBreeds(){
     var get_id = $('.selCategory').val();
     cat_id = (get_id) ? get_id : 0;
@@ -33,7 +52,7 @@ function getHostGuest(val)
     }
 }
 
-function logout(){
+function logout(social){
     swal({
         title: "Logout?",
         text: "Are you sure you want to leave",
@@ -46,7 +65,21 @@ function logout(){
         showLoaderOnConfirm: true
     },
     ()=>{
-        window.location.href = base_url+"auth/user_logout";
+        if(social=="fb"){
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    FB.logout(function(response) {
+                        window.location.href = base_url+"auth/user_logout";
+                    });
+                } else{
+                    window.location.href = base_url+"auth/user_logout";
+                }
+            });    
+        } else if(social=="google"){
+            window.location.href = base_url+"auth/user_logout";
+        } else{
+            window.location.href = base_url+"auth/user_logout";
+        }
     });
 }
 

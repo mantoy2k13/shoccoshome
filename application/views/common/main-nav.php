@@ -29,7 +29,7 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav <?=($is_page=="account") ? "active" : "";?>" href="<?=base_url();?>account/account">Profile</a>
         </li>
         <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav" href="javascript:;" onclick="logout()">Logout</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded h-nav" href="javascript:;" onclick="logout('<?=$this->session->userdata('is_social')?>')">Logout</a>
         </li>
         <?php } else { ?>
         <li class="nav-item mx-0 mx-lg-1">
@@ -71,7 +71,7 @@
                     </div>
                     <div class="dropdown-menu prof-menu-custom" aria-labelledby="profile-menus">
                         <a class="dropdown-item" href="<?=base_url();?>account/account"><i class="fa fa-user"></i> Profile</a>
-                        <a  class="dropdown-item" href="javascript:;" onclick="logout()"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                        <a  class="dropdown-item" href="javascript:;" onclick="logout('<?=$this->session->userdata('is_social')?>')"><i class="fa fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </a>
             </li>

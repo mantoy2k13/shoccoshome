@@ -44,10 +44,12 @@
                     <p class="m-t-10 text-blue f-15 upload-text">Choose from your Pictures</p>
                 </div>
                 <div class="col-md-9">
-                    <p class="f-25 b-700 text-orange-d">Account</p>
+                    <p class="f-25 b-700 text-orange-d">Account<?=$this->session->userdata('is_social');?></p>
                     <ul class="nav nav-tabs">
                         <li class="active nav1" onclick="navTabs(1)"><a data-toggle="tab" href="#account">Basic Info</a></li>
-                        <li class="nav2" onclick="navTabs(2)"><a data-toggle="tab" href="#change-acc">Password Settings</a></li>
+                        <?php if(!$this->session->userdata('is_social')){ ?>
+                        <li class="nav2" onclick="navTabs(2)"><a data-toggle="tab" href="#change-acc">Password Settings </a></li>
+                        <?php } ?>
                     </ul>
 
                     <div class="tab-content">
@@ -124,6 +126,7 @@
                                 </div>
                             </form>
                         </div>
+                        <?php if(!$this->session->userdata('is_social')){ ?>
                         <div id="change-acc" class="tab-pane fade">
                             <form action="<?=base_url();?>account/change_password" role="form" id="formChangePass" method="post" enctype="multipart/form-data" onkeypress="errClear()">
                                 <div id="pass-err-msg"> </div>
@@ -152,6 +155,7 @@
                                 </div>
                             </form>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
