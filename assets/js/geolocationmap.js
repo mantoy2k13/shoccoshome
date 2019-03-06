@@ -14,13 +14,9 @@ function initialize() {
   marker = new google.maps.Marker({
     position: defaultLocation,
     map: map,
-    draggable: true,
+    draggable: true
   });
-  google.maps.event.addListener(marker, 'position_changed',
-
-    function(event) {
-      update();
-    });
+ 
   navigator.geolocation.getCurrentPosition(function(location) {
     lat = location.coords.latitude;
     lon = location.coords.longitude;
@@ -36,19 +32,12 @@ function initialize() {
 
     marker = new google.maps.Marker({
       position: city,
-      map: map,
+      map: map
       
     });
 
-    google.maps.event.addListener(marker, 'position_changed',
-
-      function(event) {
-        update();
-      });
-
-    update();
   }, function(positionError) {
-      //alert("getCurrentPosition failed: " + positionError.message);
+    console.log(positionError);
         var city = new google.maps.LatLng(34.052240, -118.243340);
       var mapOptions = {
         zoom: 15,
@@ -62,11 +51,11 @@ function initialize() {
 
       marker = new google.maps.Marker({
         position: city,
-        map: map,        
+        map: map        
       });
  
   }, {
-    enableHighAccuracy: false,
+    enableHighAccuracy: false
   });
 }
 
