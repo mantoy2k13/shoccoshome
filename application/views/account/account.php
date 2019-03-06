@@ -44,7 +44,7 @@
                     <p class="m-t-10 text-blue f-15 upload-text">Choose from your Pictures</p>
                 </div>
                 <div class="col-md-9">
-                    <p class="f-25 b-700 text-orange-d">Account<?=$this->session->userdata('is_social');?></p>
+                    <p class="f-25 b-700 text-orange-d">Account</p>
                     <ul class="nav nav-tabs">
                         <li class="active nav1" onclick="navTabs(1)"><a data-toggle="tab" href="#account">Basic Info</a></li>
                         <?php if(!$this->session->userdata('is_social')){ ?>
