@@ -27,11 +27,11 @@
                     <div class="row">
                     <input type="hidden" value="<?=(isset($_SESSION['album_msg'])) ? $_SESSION['album_msg'] : '0';?>" id="getAlbumAlert">
                         <div class="col-md-12">
-                            <i class="fa fa-image f-25 text-blue"></i> Photos
+                            <i class="fa fa-image f-25 text-blue"></i> Albums
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>home/pictures" class="p-nav b-700 f-14 <?=($is_page=="pictures") ? 'active' : '';?>">All Photos</a>
-                            <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14 <?=($is_page=="albums") ? 'active' : '';?>">Albums</a>
+                            <a href="<?=base_url();?>pictures/pictures" class="p-nav b-700 f-14">All Photos</a>
+                            <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14 active">Albums</a>
                             <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right text-white"  onClick="add_album()"><i class="fa fa-plus"></i> Create Album</a>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <?php endif;?>
                     <?php else:?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no pet pictures uploaded.
+                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no albums added.
                         </div>
                     <?php endif?>
                     <!-- end fetch pets-->
@@ -86,7 +86,7 @@
     </section>
 
     <!-- Footer -->
-    <?php $this->load->view('pet/add_album');?>
+    <?php $this->load->view('pictures/add_album');?>
     <?php $this->load->view('common/footer');?>
     
   </body>

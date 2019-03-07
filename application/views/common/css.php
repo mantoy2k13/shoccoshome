@@ -28,10 +28,15 @@
     <link href="<?=base_url();?>assets/vendor/notifications/notifications.css" rel="stylesheet">
 
     <!-- Cropper -->
-    <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
+    <?php if($is_page=="add_photos" || $is_page=="add_pet"){ ?>
+      <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
+    <?php }?>
+    
+    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts"){ ?>
     <!-- Fast Select -->
     <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
+    <?php }?>
     
     <?php if($is_page=="homepage" || $is_page=="pet_details"){ ?>
     <!-- Calendar -->

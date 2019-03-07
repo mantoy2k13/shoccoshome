@@ -12,7 +12,7 @@ class Album extends CI_Controller {
 			$user_id = $data['user_logindata']->id;
 			$data['is_page'] = 'albums';
 			$data['all_albums'] = $this->Album_model->get_all_albums($user_id);
-			$this->load->view('pet/albums', $data);
+			$this->load->view('pictures/albums', $data);
 		}
 		else
 		{
