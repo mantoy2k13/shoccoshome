@@ -303,7 +303,7 @@
                                                     if(!$json_pet_images){
                                                         @$imgalert.='
                                                             <div class="alert alert-danger f-15" role="alert">
-                                                                <strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 1 mb of size).
+                                                                <strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 3 mb of size).
                                                             </div>
                                                         ';  
                                                     }
@@ -327,7 +327,7 @@
                                                     <?php 
                                                         @$imgalert.='
                                                             <div class="alert alert-danger f-15" role="alert">
-                                                                <strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 1 mb of size).
+                                                                <strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 3 mb of size).
                                                             </div>
                                                         ';
                                                     ?>

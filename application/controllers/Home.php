@@ -177,23 +177,6 @@ class Home extends CI_Controller {
 			redirect('home/login');
 		}
 	}
-	
-	public function pictures()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$user_id = $data['user_logindata']->id;
-			$data['is_page'] = 'pictures';
-			$data['all_pictures'] = $this->Pet_model->get_all_pictures($user_id);
-			$this->load->view('pet/pictures', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
 
 	public function homepage()
 	{

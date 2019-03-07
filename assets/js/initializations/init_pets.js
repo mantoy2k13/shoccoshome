@@ -20,7 +20,7 @@ $(document).ready(function(){
             case 'Error':
                 var title = "Error!";
                 var msg   = "A problem occured. Please try again!";
-                var type  = 'warning';
+                var type  = 'error';
             break;
         }
 
@@ -39,7 +39,7 @@ if (window.File && window.FileList && window.FileReader) {
         for (var i = 0; i < filesLength; i++) {
             var f = files[i];
             var fileReader = new FileReader();
-            if(f.size < 1000000){
+            if(f.size < 3000000){
                 fileReader.onload = (function(e) {
                     var img_uploaded = $('.img_uploaded').length;
                     if(img_uploaded > 3){
