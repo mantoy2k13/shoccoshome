@@ -83,7 +83,8 @@ class Pet extends CI_Controller{
 
         $image_name = [];
         $uploadedImgs=$this->input->post('pet_images');
-        $upimagecheck=count($uploadedImgs);
+
+        $upimagecheck = ($uploadedImgs) ? count($uploadedImgs) : 0;
         
         define('UPLOAD_DIR', 'assets/img/pet/');
         for($i = 0; $i < $upimagecheck; $i++){
