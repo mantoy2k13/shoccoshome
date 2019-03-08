@@ -38,18 +38,30 @@
                 </div>
                 <div class="gal-wrapper">
                     <?php if($all_pictures){ ?>
+                        <div class="row img-btn-set">
+                            <div class="col-md-12 text-center">
+                                <a href="javascript:;" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
+                                <a href="javascript:;" class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
+                                <a href="javascript:;" class="btn bg-orange-l text-white btn-xs"><i class="fa fa-times"></i> Remove </a>
+                            </div>
+                        </div>
                         <div class="row">
                             <?php foreach($all_pictures as $pics){ extract($pics); ?>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="albumImg<?=$img_id;?>">
                                     <div class="thumbnail">
                                         <a href="javascript:;">
                                             <div class="gal-img">
                                                 <img class="zoomable" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Image <?=$img_name;?>">
                                             </div>
+                                           
+                                            <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>')">
+                                                <span class="cust-mod-close bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-times text-white"></i></span>
+                                            </a>
                                         </a>
                                     </div>
                                 </div>
                             <?php } ?>
+                            <div class="col-md-12 emptyImgMsg"></div>
                         </div>
                     <?php } else { ?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">

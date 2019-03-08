@@ -154,3 +154,40 @@ var crpImg = (e,imgID) => {
     $("#result-img").attr('src',base_url+'assets/img/image-icon.png');
     $("#showCropWindow").modal('show');
 }
+
+
+var delpicture = (id, imgName) => {
+    swal({
+        title: "Delete?",
+        text: "This image will be deleted permamently.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Delete it!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
+    },
+    ()=>{
+        $.ajax({
+            url: base_url+'pictures/delete_image/'+id+'/'+imgName,
+            success: (res)=>{
+                if(res==1){
+                    $('#albumImg'+id).remove();
+                    var img_uploaded = $('.thumbnail').length;
+                    if(img_uploaded == 0){
+                        $(".emptyImgMsg").html(''+
+                            '<div class="alert alert-success f-15 m-t-10" role="alert">'+
+                                '<strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.'+
+                            '</div>'
+                        );
+                        $('.img-btn-set').remove();
+                    }
+                    swal('Removed', "Image was removed from this album.", 'success');
+                } else{
+                    swal('Failed', "There was a problem removing your image.", 'error');
+                }
+            }
+        });
+    });
+}
