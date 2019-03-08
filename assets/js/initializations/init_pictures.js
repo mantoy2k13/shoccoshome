@@ -191,3 +191,7 @@ var delpicture = (id, imgName) => {
         });
     });
 }
+
+var select_all=(type)=>{
+   
+}
