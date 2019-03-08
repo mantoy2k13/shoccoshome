@@ -216,7 +216,7 @@ i.fa.upload-icon {
 }
 
 .bg-red{
-    background-color: #ff2c00;
+    background-color: #ff2c00 !important;
 }
 
 .bg-grey{
@@ -230,7 +230,7 @@ i.fa.upload-icon {
 }
 
 .bg-blue{
-    background-color: #008593;
+    background-color: #008593 !important;
     color: #fff;
 }
 
@@ -246,9 +246,21 @@ i.fa.upload-icon {
     color: #675d69;
 }
 
+.bg-orange-l-a{
+    background-color: #ff9b28 !important;
+}
 
 .text-blue{
     color: #008593;
+}
+
+.bg-blue-a{
+    background-color: #008593;
+    border:0;
+}
+
+.bg-blue-a:hover{
+    background-color: #054b53;
 }
 
 .bg-orange{
@@ -624,6 +636,7 @@ a.p-nav.active,a.p-nav:hover{
     -webkit-transition: border .2s ease-in-out;
     -o-transition: border .2s ease-in-out;
     transition: border .2s ease-in-out;
+    cursor: pointer;
 }
 
 .thumbnail:hover{
@@ -1223,6 +1236,37 @@ a.btn-menu.btn.bg-blue:active:focus {
     color: #16aa3c;
 }
 
+.m-r-5{
+    margin-right: 5px;
+}
+
+.chooseLocal, .chooseAlbum {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    border: 1px solid #bdb8b8;
+    padding: 15px 0;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6f6a6a;
+}
+
+.chooseLocal:hover, .chooseAlbum:hover{
+    text-decoration: none;
+    border: 1px dashed #ef6012;
+    cursor: pointer;
+    color: #ef6012;
+}
+
+.or{
+    text-align: center;
+    display: block;
+    margin: 5px auto;
+    font-size: 17px;
+    color: #6f6e6e;
+}
 
 /*Daryl code*/
 

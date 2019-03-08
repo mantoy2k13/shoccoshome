@@ -1,5 +1,9 @@
 var base_url = $('#base_url').val();
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '413901082706208',

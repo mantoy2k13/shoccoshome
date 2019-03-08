@@ -7,8 +7,8 @@ class Pictures_model extends CI_Model {
 		parent::__construct();
     }
 
-    public function insert_images($imgName, $uid){
-		$data = array('img_name'=> $imgName, 'user_id'=>$uid);
+    public function insert_images($imgName, $uid, $album_id){
+		$data = array('img_name'=> $imgName, 'user_id'=>$uid, 'album_id'=>$album_id);
 		$result = $this->db->insert('sh_images', $data);
 		return ($result) ? true : false;
     }

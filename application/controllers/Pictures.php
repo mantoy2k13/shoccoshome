@@ -33,8 +33,9 @@ class Pictures extends CI_Controller {
         else { redirect('home/login'); }
 	}
 	
-	public function add_all_photos(){
+	public function add_all_photos($is_page){
 		if($this->session->userdata('user_email')){ 
+			$album_id = $this->input->post('album_id');
 			$uid = $this->session->userdata('user_id');
 			$target_path = './assets/img/pictures/';
 			if($this->input->post()){
@@ -50,19 +51,23 @@ class Pictures extends CI_Controller {
 					$decoded = base64_decode($data[1]);
 					$status =file_put_contents($target_path.$imgName,$decoded); 
 					if($status){
-						$res = $this->Pictures_model->insert_images($imgName,$uid);
+						$res = $this->Pictures_model->insert_images($imgName,$uid,$album_id);
 					}else{
 						$this->session->set_flashdata('upl_msg', 'Error');
-						redirect('pictures/add_photos');
+						if($is_page=="add_photos") { redirect('pictures/add_photos'); }
+						else{ redirect('album/view_album/'.$album_id); }
+						
 					}
 				}
 
 				if($res){
 					$this->session->set_flashdata('upl_msg', 'Added');
-					redirect('pictures/pictures');
+					if($is_page=="add_photos") { redirect('pictures/add_photos'); }
+					else{ redirect('album/view_album/'.$album_id); }
 				} else{
 					$this->session->set_flashdata('upl_msg', 'Error');
-					redirect('pictures/add_photos');
+					if($is_page=="add_photos") { redirect('pictures/add_photos'); }
+					else{ redirect('album/view_album/'.$album_id); }
 				}
 			}
 		}

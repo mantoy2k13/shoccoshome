@@ -69,7 +69,6 @@
                                     <div class="col-md-12">
                                         <label for="" class="m-b-0">Email Address</label>
                                         <input type="text" value="<?= $user_logindata->email ? $user_logindata->email : '' ?>" name="email" class="form-control" placeholder="Email Address" required>
-                                        <input type="hidden" value="<?= $user_logindata->id ? $user_logindata->id : '' ?>" name="id" class="form-control" required>
                                     </div>
                                 </div>                   
                                 <div class="form-group row" id="target_address">

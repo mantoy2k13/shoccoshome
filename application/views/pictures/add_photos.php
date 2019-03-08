@@ -35,7 +35,7 @@
                             <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14">Albums</a>
                         </div>
                     </div>
-                    <form action="<?=base_url();?>pictures/add_all_photos" method="POST" enctype="multipart/form-data">
+                    <form action="<?=base_url();?>pictures/add_all_photos/add_photos" method="POST" enctype="multipart/form-data">
                         <!-- Upload Pets Images -->
                         <div class="row form-group">
                             <div class="col-md-12 m-t-20">
@@ -49,6 +49,7 @@
                             </div>
                             <div class="col-md-12 m-t-20 my-upload-pets text-center">
                                 <label for="">Uploaded Images</label>
+                                <input type="hidden" name="album_id" value="0">
                                 <div class="card">
                                     <div class="card-body uploaded-images">
                                         <div class="row uploaded-files">

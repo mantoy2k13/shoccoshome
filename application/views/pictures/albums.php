@@ -37,48 +37,38 @@
                     </div>
                 </div>
                 <div class="gal-wrapper">
-                    <!-- daryl 
-                        fetch all pets
-                    -->
-                    <?php if(count($all_albums) > 0):?>
-                        <?php if(is_array($all_albums) || is_object($all_albums)):?>
-                            <div class="row">    
-                                <?php foreach($all_albums as $album):?>
-                                     <div class="col-md-3">
-                                        <div class="thumbnail">
-                                            <a href="javascript:;">
-                                                <div class="gal-img">
-                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
-                                                </div>
+                    <?php if($all_albums){?>
+                        <div class="row">    
+                            <?php foreach($all_albums as $album){ extract($album); ?>
+                                <div class="col-md-3">
+                                    <div class="thumbnail" onclick="location.href='<?=base_url();?>album/view_album/<?=$album_id;?>'">
+                                        <a href="javascript:;">
+                                            <div class="gal-img">
+                                                <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
+                                            </div>
+                                        </a>
+                                        <p class="m-t-10 m-b-0 f-15 text-center text-black"><?=$album_name;?></p>
+                                        <p class="m-b-0 f-12 text-center album-desc"><?=$album_desc;?></p>
+                                        <p class="f-12 text-center album-desc">10 Photos</p>
+                                        <p>
+                                            <a href="javascript:;" id="<?=$album_id?>" class="update_album">
+                                                <span class="cust-mod-edit" data-toggle="tooltip" data-html="true" data-placement="left" title="Edit Albums">
+                                                    <i class="fa fa-pen text-white"></i>
+                                                </span>
                                             </a>
-                                            <p class="m-t-10 m-b-0 f-15 text-center text-black"><?php echo $album->album_name;?></p>
-                                            <p class="m-b-0 f-12 text-center album-desc"><?php echo $album->album_desc;?></p>
-                                            <p class="f-12 text-center album-desc">10 Photos</p>
-                                            <p>
-                                            <a href="javascript:;" id="<?= $album->album_id?>" class="update_album">
-                                            <span class="cust-mod-edit"  title="Edit Albums">
-                                            <i class="fa fa-pen text-white"></i>
-                                            </span>
-                                             </a>
-                                             <a href="javascript:;" id="<?= $album->album_id?>"  onclick="delete_album(<?= $album->album_id?>)">
-                                             <span class="cust-mod-close rmImg" title="Remove Albums" ><i class="fa fa-times text-white"></i></span>
+                                            <a href="javascript:;" id="<?=$album_id?>" onclick="delete_album(<?= $album_id?>)">
+                                                <span class="cust-mod-close rmImg" title="Remove Album"  data-toggle="tooltip" data-placement="left" data-html="true"><i class="fa fa-times text-white"></i></span>
                                             </a>
-                                            </p>
-                                        </div>
+                                        </p>
                                     </div>
-                                <?php endforeach;?>
-                              </div>
-                            <?php else:?>
-                                 <div class="gal-img">
-                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
-                                 </div>
-                        <?php endif;?>
-                    <?php else:?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    <?php } else{ ?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">
                             <strong><i class="fa fa-check"></i> Empty!</strong> You have no albums added.
                         </div>
-                    <?php endif?>
-                    <!-- end fetch pets-->
+                    <?php } ?>
                 </div>
           </div>
           <!-- Close Main Content -->

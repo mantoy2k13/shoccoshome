@@ -18,14 +18,10 @@ class Album_model extends CI_Model {
 	}
 
 	public function get_all_albums($user_id) {
-		$this->db->select('a.album_id,a.album_name, a.album_desc, a.album_img, a.created_at');
-		$this->db->from('sh_albums a');
-		$this->db->join('sh_users u', 'a.user_id=u.id', 'inner');
-		$this->db->order_by("a.album_id", "desc");
-		$this->db->where('a.user_id',$user_id);
-		$query = $this->db->get();
-		return $query->result();
-		
+		$this->db->select('*')->from('sh_albums');
+		$this->db->where('user_id', $user_id);
+		$this->db->order_by("album_id", "desc");
+		return $this->db->get()->result_array();
 	}
 
 	public function update_album($album_id,$data){
@@ -50,5 +46,16 @@ class Album_model extends CI_Model {
 			echo json_encode($query->result());
 		}
 	}
-			
+
+	public function view_album($album_id) {
+		$this->db->select('album_name, album_desc, album_id')->from('sh_albums');
+		$this->db->where('album_id', $album_id);
+		return $this->db->get()->row_array();
+	}
+
+	public function view_album_images($album_id) {
+		$this->db->select('*')->from('sh_images');
+		$this->db->where('album_id', $album_id);
+		return $this->db->get()->result_array();
+	}		
 }

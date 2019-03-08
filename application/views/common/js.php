@@ -58,7 +58,7 @@
 <script src="<?=base_url();?>assets/js/initializations/init_album.js"></script>
 <?php }?>
 
-<?php if($is_page=="add_photos" || $is_page=="pictures"){ ?>
+<?php if($is_page=="add_photos" || $is_page=="pictures" || $is_page=="view_album"){ ?>
 <script src="<?=base_url();?>assets/vendor/cropper/cropper.js"></script>
 <script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
 <script src="<?=base_url();?>assets/vendor/cropper/initCropper.js"></script>

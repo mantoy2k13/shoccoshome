@@ -79,7 +79,29 @@ class Album extends CI_Controller {
 	public function getalbum(){
 		if($this->session->userdata('user_email')){
 			$this->Album_model->get_album();
-			
+		}
+		else{
+			redirect('home/login');
+		}			
+	}
+
+	public function view_album($album_id){
+		if($this->session->userdata('user_email')){
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data['is_page'] = 'view_album';
+			$data['view_album'] = $this->Album_model->view_album($album_id);
+			$data['view_album_images'] = $this->Album_model->view_album_images($album_id);
+			$this->load->view('pictures/view_album', $data);
+		}
+		else{
+			redirect('home/login');
+		}			
+	}
+
+	public function add_photos_to_album($album_id){
+		if($this->session->userdata('user_email')){
+			$res = $this->Album_model->add_photos_to_album($album_id);
 		}
 		else{
 			redirect('home/login');
