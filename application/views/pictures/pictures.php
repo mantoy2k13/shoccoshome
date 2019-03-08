@@ -45,7 +45,7 @@
                                 <a href="javascript:;" class="btn bg-orange-l text-white btn-xs"><i class="fa fa-times"></i> Remove </a>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row m-t-10">
                             <?php foreach($all_pictures as $pics){ extract($pics); ?>
                                 <div class="col-md-3" id="albumImg<?=$img_id;?>">
                                     <div class="thumbnail">
