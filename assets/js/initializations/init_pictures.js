@@ -22,6 +22,16 @@ function getUplAlert(title, msg, type){
     swal(title, msg, type);
 }
 
+var selectAll = (type) => {
+    if(type==1){
+        $('#selAll').html('<i class="fa fa-copy"></i> Deselect All').attr('onclick', 'selectAll(2)');
+        $('.ai_box').prop('checked', true);
+    } else{
+        $('#selAll').html('<i class="fa fa-copy"></i> Select All').attr('onclick', 'selectAll(1)');
+        $('.ai_box').prop('checked', false);
+    }
+}
+
 if (window.File && window.FileList && window.FileReader) {
     $("#uploadFiles").on("change", function(e) {
         var files = e.target.files,

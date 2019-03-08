@@ -45,7 +45,7 @@
                     <?php if($view_album_images){?>
                         <div class="row img-btn-set">
                             <div class="col-md-12 text-center">
-                                <a href="javascript:;" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
+                                <a href="javascript:;" id="selAll" onclick="selectAll(1)" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
                                 <a href="javascript:;" class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
                                 <a href="javascript:;" class="btn bg-orange-l text-white btn-xs"><i class="fa fa-times"></i> Remove </a>
                             </div>
@@ -64,6 +64,10 @@
                                             <a href="javascript:;" onclick="delImg(<?= $img_id?>, '<?= $img_name?>')">
                                                 <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
                                             </a>
+                                            <div class="custom-control custom-checkbox m-b-5 floatCBox">
+                                                <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="album_images[]" value="<?=$img_id?>">
+                                                <label class="custom-control-label" for="<?=$img_id?>"></label>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>
