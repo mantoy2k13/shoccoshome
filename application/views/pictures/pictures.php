@@ -57,6 +57,10 @@
                                             <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>')">
                                                 <span class="cust-mod-close bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-times text-white"></i></span>
                                             </a>
+                                            <div class="custom-control custom-checkbox m-b-5 floatCBox">
+                                                <input type="checkbox" class="custom-control-input" id="<?=$img_id?>" name="sel_images[]" value="<?=$img_id?>">
+                                                <label class="custom-control-label" for="<?=$img_id?>"></label>
+                                            </div>
                                         </a>
                                     </div>
                                 </div>

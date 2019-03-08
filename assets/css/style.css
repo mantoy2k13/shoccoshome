@@ -1268,6 +1268,12 @@ a.btn-menu.btn.bg-blue:active:focus {
     color: #6f6e6e;
 }
 
+.custom-control.floatCBox {
+    position: absolute;
+    right: 19px;
+    bottom: 12px;
+}
+
 /*Daryl code*/
 
 div.prof-desc {
