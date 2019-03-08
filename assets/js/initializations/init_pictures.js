@@ -204,4 +204,13 @@ var delpicture = (id, imgName) => {
 
 var select_all=(type)=>{
    
+    if(type==1){
+        $('#selectAll').html('<i class="fa fa-copy"></i> Deselect').attr('onclick', 'select_all(2)');
+        $('.custom-control-input').prop('checked', true);
+   }
+   else{
+       $('#selectAll').html('<i class="fa fa-copy"></i> Select All').attr('onclick','select_all(1)');
+        $('.custom-control-input').prop('checked', false);
+   }
+ 
 }

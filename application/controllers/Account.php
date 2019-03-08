@@ -25,6 +25,7 @@ class Account extends CI_Controller {
             'fullname'=>$this->input->post('fullname'),
             'occupation'=>$this->input->post('occupation'),
             'email'=>$this->input->post('email'),
+            'id'=>$this->input->post('id'),
             'mobile_number'=>$this->input->post('mobile_number'),
             'gender'=>$this->input->post('gender'),
             'address'=>$this->input->post('address'),
@@ -37,6 +38,11 @@ class Account extends CI_Controller {
             'is_complete'=>1,
         );
 
+        // password check convert md5
+        if ($this->input->post('password') !== '') {
+            $user['password'] = md5($this->input->post('password'));
+        }
+        
         // image uploding
         if (!empty($_FILES['user_img']['name'])) {
 
@@ -47,6 +53,9 @@ class Account extends CI_Controller {
             $config['file_name']            = $filename;
             $config['upload_path']          = './assets/img/profile_pics/';
             $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = '0';
+            $config['max_width']            = '0';
+            $config['max_height']           = '0';
 
             $this->load->library('upload', $config);
 
@@ -57,10 +66,8 @@ class Account extends CI_Controller {
                 $useremail=$this->input->post('email');
                 $userdetils=$this->Auth_model->fetchuserlogindata($useremail);
                 $userimage=$userdetils->user_img;
-					 if($userimage){
                 $proimglink= 'assets/img/profile_pics/'.$userimage;
                 unlink($proimglink);
-					 }
                 $this->session->set_flashdata('prof_msg', 'Updated');
             }
           
@@ -95,15 +102,6 @@ class Account extends CI_Controller {
                 redirect('account/account');
             }
         }
-    }
-
-    public function change_password(){
-        if ($this->session->userdata('user_email'))
-		{
-            $res = $this->Account_model->change_password();
-            echo ($res) ? 1 : 0;
-		}
-		else { echo 0; }
     }
 
 	public function account()

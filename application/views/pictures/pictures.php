@@ -41,7 +41,7 @@
                         <div class="row img-btn-set">
                             <div class="col-md-12 text-center">
                                 <a href="javascript:;"  id="selectAll" onclick="select_all(1)" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
-                                <a href="javascript:;" class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
+                                <a href="javascript:;"  class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
                                 <a href="javascript:;" class="btn bg-orange-l text-white btn-xs"><i class="fa fa-times"></i> Remove </a>
                             </div>
                         </div>
