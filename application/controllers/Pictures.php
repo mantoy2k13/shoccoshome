@@ -62,7 +62,7 @@ class Pictures extends CI_Controller {
 
 				if($res){
 					$this->session->set_flashdata('upl_msg', 'Added');
-					if($is_page=="add_photos") { redirect('pictures/add_photos'); }
+					if($is_page=="add_photos") { redirect('pictures/pictures'); }
 					else{ redirect('album/view_album/'.$album_id); }
 				} else{
 					$this->session->set_flashdata('upl_msg', 'Error');
@@ -72,6 +72,22 @@ class Pictures extends CI_Controller {
 			}
 		}
 		else { redirect('home/login'); }
+	}
+
+	public function remove_from_album($imgID){
+        if ($this->session->userdata('user_email')){ 
+			$res = $this->Pictures_model->remove_from_album($imgID);
+			echo ($res) ? 1 : 0;
+        }
+        else { redirect('home/login'); }
+	}
+
+	public function delete_image($imgID, $imgName){
+        if ($this->session->userdata('user_email')){ 
+			$res = $this->Pictures_model->delete_image($imgID, $imgName);
+			echo ($res) ? 1 : 0;
+        }
+        else { redirect('home/login'); }
 	}
     
 }

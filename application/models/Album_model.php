@@ -58,4 +58,10 @@ class Album_model extends CI_Model {
 		$this->db->where('album_id', $album_id);
 		return $this->db->get()->result_array();
 	}		
+
+	public function count_images($album_id){
+		$this->db->where("album_id ", $album_id);
+		$query = $this->db->get("sh_images");
+        return ($query) ? $query->num_rows() : 0;
+    }
 }

@@ -216,7 +216,7 @@ i.fa.upload-icon {
 }
 
 .bg-red{
-    background-color: #ff2c00 !important;
+    background-color: #ff2c00;
 }
 
 .bg-grey{
@@ -230,7 +230,7 @@ i.fa.upload-icon {
 }
 
 .bg-blue{
-    background-color: #008593 !important;
+    background-color: #008593;
     color: #fff;
 }
 
@@ -487,8 +487,8 @@ i.fa.upload-icon {
     font-weight: 700;
 }
 
-.btn.bg-orange:hover, .btn.bg-orange-l:hover {
-    background-color:#d8482d;
+.btn.bg-orange:hover, .btn.bg-orange-l:hover, .bg-orange-l-a:hover, .bg-red:hover {
+    background-color:#d8482d !important;
     color: #fff;
 }
 

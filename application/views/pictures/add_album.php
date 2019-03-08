@@ -19,7 +19,7 @@
                     <div class="row m-t-10">
                         <div class="col-md-12">
                             <label for="album_desc">Description:</label>
-                            <textarea name="album_desc" id="album_desc" class="form-control" cols="30" rows="5" placeholder="Your album description here..." required></textarea>
+                            <textarea name="album_desc" id="album_desc" class="form-control" cols="30" rows="5" placeholder="Your album description here..."></textarea>
                         </div>
                     </div>
                 </div>

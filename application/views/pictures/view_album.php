@@ -27,7 +27,7 @@
                 <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">
                     <div class="row">
                         <div class="col-md-12">
-                            <i class="fa fa-image f-25 text-blue"></i> <?=$view_album["album_name"];?>
+                            <i class="fa fa-image f-25 text-blue"></i> <?=$view_album["album_name"];?> (12)
                         </div>
                         <div class="col-md-12">
                            <p class="album-desc f-12 m-t-10 m-b-0"><?=$view_album["album_desc"];?></p>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="gal-wrapper">
                     <?php if($view_album_images){?>
-                        <div class="row">
+                        <div class="row img-btn-set">
                             <div class="col-md-12 text-center">
                                 <a href="javascript:;" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
                                 <a href="javascript:;" class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
@@ -52,26 +52,27 @@
                         </div>
                         <div class="row m-t-10">  
                             <?php foreach($view_album_images as $images){ extract($images); ?>
-                                <div class="col-md-3">
+                                <div class="col-md-3" id="albumImg<?=$img_id;?>">
                                     <div class="thumbnail">
                                         <a href="javascript:;">
                                             <div class="gal-img">
                                                 <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
                                             </div>
-                                            <a href="javascript:;" id="<?=$album_id?>" onclick="remFromAlbum(<?= $album_id?>)">
-                                                <span class="cust-mod-close bg-orange-l-a rmImg" title="Remove Albums" ><i class="fa fa-times text-white"></i></span>
+                                            <a href="javascript:;" onclick="remFromAlbum(<?= $img_id?>)">
+                                                <span class="cust-mod-close bg-orange-l-a rmImg"  data-toggle="tooltip" data-placement="left" data-html="true" title="Remove"><i class="fa fa-times text-white"></i></span>
                                             </a>
-                                            <a href="javascript:;" id="<?=$album_id?>" onclick="delImg(<?= $album_id?>)">
-                                                <span class="cust-mod-edit bg-red rmImg" title="Remove Albums" ><i class="fa fa-trash text-white"></i></span>
+                                            <a href="javascript:;" onclick="delImg(<?= $img_id?>, '<?= $img_name?>')">
+                                                <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
                                             </a>
                                         </a>
                                     </div>
                                 </div>
                             <?php } ?>
+                            <div class="col-md-12 emptyImgMsg"></div>
                         </div>
                     <?php } else{ ?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album "<?=$view_album["album_name"];?>".
+                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.
                         </div>
                     <?php } ?>
                 </div>
