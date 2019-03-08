@@ -216,7 +216,7 @@ i.fa.upload-icon {
 }
 
 .bg-red{
-    background-color: #ff2c00;
+    background-color: #ff2c00 !important;
 }
 
 .bg-grey{

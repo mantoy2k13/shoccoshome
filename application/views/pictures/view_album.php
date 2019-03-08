@@ -27,10 +27,10 @@
                 <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">
                     <div class="row">
                         <div class="col-md-12">
-                            <i class="fa fa-image f-25 text-blue"></i> <?=$view_album["album_name"];?> (12)
+                            <i class="fa fa-image f-25 text-blue"></i> <?=$view_album["album_name"];?> (<?=$this->Album_model->count_images($view_album["album_id"]);?>)
                         </div>
                         <div class="col-md-12">
-                           <p class="album-desc f-12 m-t-10 m-b-0"><?=$view_album["album_desc"];?></p>
+                           <p class="album-desc f-12 m-t-10 m-b-0"><?=($view_album["album_desc"]) ? $view_album["album_desc"] : "No Desription.";?></p>
                         </div>
                         <div class="col-md-12">
                             <a href="<?=base_url();?>pictures/pictures" class="p-nav b-700 f-14 active">Album Photos</a>
@@ -56,7 +56,7 @@
                                     <div class="thumbnail">
                                         <a href="javascript:;">
                                             <div class="gal-img">
-                                                <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
+                                                <img class="zoomable" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
                                             </div>
                                             <a href="javascript:;" onclick="remFromAlbum(<?= $img_id?>)">
                                                 <span class="cust-mod-close bg-orange-l-a rmImg"  data-toggle="tooltip" data-placement="left" data-html="true" title="Remove"><i class="fa fa-times text-white"></i></span>
@@ -103,8 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                    </div>
+                    <div class="modal-footer"></div>
                 </div>
             </form>
         </div>
@@ -166,8 +165,23 @@
                         <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> Choose from photos</p>
                     </div>
                     <div class="modal-body">
-                        <form action="<?=base_url();?>pictures/add_all_photos" method="POST" enctype="multipart/form-data">
-
+                        <form action="<?=base_url();?>pictures/add_photo_to_album" method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                <?php //foreach($all_pictures as $pics){ extract($pics); ?>
+                                    <div class="col-md-3">
+                                        <div class="thumbnail">
+                                            <a href="javascript:;">
+                                                <div class="gal-img">
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr17/p17_5c8234f7e4fab.jpg" style="width:100%" alt="Image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php// } ?>
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" id="savePhotosBtn" class="btn bg-orange sub-btn" disabled><i class="fa fa-save"></i> Add to Albums</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">

@@ -27,7 +27,7 @@
                     <div class="row">
                     <input type="hidden" value="<?=(isset($_SESSION['album_msg'])) ? $_SESSION['album_msg'] : '0';?>" id="getAlbumAlert">
                         <div class="col-md-12">
-                            <i class="fa fa-image f-25 text-blue"></i> Albums
+                            <i class="fa fa-image f-25 text-blue"></i> Albums (<?=$this->Album_model->count_album($this->session->userdata('user_id'));?>)
                         </div>
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>pictures/pictures" class="p-nav b-700 f-14">All Photos</a>
@@ -42,13 +42,18 @@
                             <?php foreach($all_albums as $album){ extract($album); ?>
                                 <div class="col-md-3">
                                     <div class="thumbnail" onclick="location.href='<?=base_url();?>album/view_album/<?=$album_id;?>'">
+                                        <?php $getImg = $this->Album_model->get_single_image($album_id);?>
                                         <a href="javascript:;">
                                             <div class="gal-img">
-                                                <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
+                                                <?php if($getImg){ ?>
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$getImg['user_id'];?>/<?=$getImg['img_name'];?>" style="width:100%" alt="Picture">
+                                                <?php } else{ ?>
+                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
+                                                <?php } ?>
                                             </div>
                                         </a>
-                                        <p class="m-t-10 m-b-0 f-15 b-700 text-center text-black"><?=$album_name;?> (10)</p>
-                                        <p class="m-b-0 f-12 text-center album-desc"><?=$album_desc;?></p>
+                                        <p class="m-t-10 m-b-0 f-15 b-700 text-center text-black"><?=$album_name;?> (<?=$this->Album_model->count_images($album_id);?>)</p>
+                                        <p class="m-b-0 f-12 text-center album-desc"><?=($album_desc) ? $album_desc : "No Desription.";?></p>
                                     </div>
                                     <a href="javascript:;" id="<?=$album_id?>" class="update_album">
                                         <span class="cust-mod-edit" data-toggle="tooltip" data-html="true" data-placement="left" title="Edit Albums">
