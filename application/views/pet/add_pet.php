@@ -357,7 +357,6 @@
   
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-<!-- Footer -->
     <?php $this->load->view('pet/img_crop');?>
 
   </body>

@@ -1027,7 +1027,7 @@ a.icon-btn:hover{
 }
 
 .card-body.drop-images:hover {
-    border: 2px dashed #939393 !important;
+    border: 2px dashed #ff9b28 !important;
 }
 
 input.drag-files {
@@ -1238,34 +1238,6 @@ a.btn-menu.btn.bg-blue:active:focus {
 
 .m-r-5{
     margin-right: 5px;
-}
-
-.chooseLocal, .chooseAlbum {
-    text-align: center;
-    text-decoration: none;
-    width: 100%;
-    display: block;
-    border: 1px solid #bdb8b8;
-    padding: 15px 0;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #6f6a6a;
-}
-
-.chooseLocal:hover, .chooseAlbum:hover{
-    text-decoration: none;
-    border: 1px dashed #ef6012;
-    cursor: pointer;
-    color: #ef6012;
-}
-
-.or{
-    text-align: center;
-    display: block;
-    margin: 5px auto;
-    font-size: 17px;
-    color: #6f6e6e;
 }
 
 .custom-control.floatCBox {

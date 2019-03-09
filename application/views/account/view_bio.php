@@ -58,10 +58,39 @@
                                 <div class="bio-img">
                                     <img src="<?=base_url();?><?=($user_img)?'assets/img/profile_pics/'.$user_img:'assets/img/profile2.png';?>" alt="Profile Image">
                                 </div>
-                                <?php if($id==$my_id){ ?>
-                                    <a href="<?=base_url();?>account/account" class="btn bg-orange text-white pull-right btn-sm"><i class="fa fa-edit"></i> Edit Bio</a>
-                                <?php } else{ ?>
-                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" href="javascript:;" class="btn bg-orange text-white pull-right btn-sm"><i class="fa fa-comment"></i> Send Message</a>
+                                <?php $uid = $this->session->userdata('user_id');?>
+                                <?php if($this->Friends_model->check_if_friends($id)){ ?>
+                                    <?php if($uid != $id){?>
+                                        <div class="options<?=$id;?>">
+                                            <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
+                                                <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                    <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
+                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                </div>
+                                        </div>
+                                    <?php } ?>
+                                <?php } else {?>
+                                    <?php if($this->Friends_model->check_friend_request($id)){ ?>
+                                        <?php if($uid != $id){?>
+                                            <div class="options<?=$id;?>">
+                                                <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
+                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                        <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
+                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                    </div>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } else {?>
+                                        <?php if($uid != $id){?>
+                                            <div class="options<?=$id;?>">
+                                                <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
+                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                        <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
+                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                    </div>
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
                                 <?php } ?>
                                 <p class="f-30 b-700 text-orange-d m-b-0"><?=$getName;?></p>
                                 <p class="f-25 b-700 text-blue m-b-0"><?=($occupation)?$occupation:'No Occupation';?></p>

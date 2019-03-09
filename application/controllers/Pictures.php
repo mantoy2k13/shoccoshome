@@ -23,19 +23,20 @@ class Pictures extends CI_Controller {
 		}
 	}
 
-    public function add_photos(){
+    public function add_photos($type, $album_id){
         if ($this->session->userdata('user_email')){ 
             $user_email  = $this->session->userdata('user_email');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page'] = 'add_photos';
+            $data['type'] = $type;
+            $data['album_id'] = $album_id;
             $this->load->view('pictures/add_photos', $data);
         }
         else { redirect('home/login'); }
 	}
 	
-	public function add_all_photos($is_page){
+	public function add_all_photos($type, $album_id){
 		if($this->session->userdata('user_email')){ 
-			$album_id = $this->input->post('album_id');
 			$uid = $this->session->userdata('user_id');
 			$target_path = './assets/img/pictures/';
 			if($this->input->post()){
@@ -54,19 +55,19 @@ class Pictures extends CI_Controller {
 						$res = $this->Pictures_model->insert_images($imgName,$uid,$album_id);
 					}else{
 						$this->session->set_flashdata('upl_msg', 'Error');
-						if($is_page=="add_photos") { redirect('pictures/add_photos'); }
-						else{ redirect('album/view_album/'.$album_id); }
+						if($type==1) { clearstatcache(); redirect('pictures/add_photos'); }
+						else{ clearstatcache(); redirect('album/view_album/'.$album_id); }
 						
 					}
 				}
 
 				if($res){
 					$this->session->set_flashdata('upl_msg', 'Added');
-					if($is_page=="add_photos") { redirect('pictures/pictures'); }
-					else{ redirect('album/view_album/'.$album_id); }
+					if($type==1) { clearstatcache(); redirect('pictures/pictures'); }
+					else{ clearstatcache(); redirect('album/view_album/'.$album_id); }
 				} else{
 					$this->session->set_flashdata('upl_msg', 'Error');
-					if($is_page=="add_photos") { redirect('pictures/add_photos'); }
+					if($type==1) { redirect('pictures/add_photos'); }
 					else{ redirect('album/view_album/'.$album_id); }
 				}
 			}
@@ -76,16 +77,50 @@ class Pictures extends CI_Controller {
 
 	public function remove_from_album($imgID){
         if ($this->session->userdata('user_email')){ 
-			$res = $this->Pictures_model->remove_from_album($imgID);
+			$res = $this->Pictures_model->update_img_album($imgID, 0);
 			echo ($res) ? 1 : 0;
         }
         else { redirect('home/login'); }
 	}
 
-	public function delete_image($imgID, $imgName){
+	public function delete_image($imgID, $imgName, $type){
         if ($this->session->userdata('user_email')){ 
-			$res = $this->Pictures_model->delete_image($imgID, $imgName);
+			if($type==1){
+				$res = $this->Pictures_model->delete_image($imgID, $imgName);
+			}else{
+				$res = $this->Pictures_model->delete_all_image();
+			}
+			
 			echo ($res) ? 1 : 0;
+        }
+        else { redirect('home/login'); }
+	}
+
+	public function delSelectedImages($type){
+        if ($this->session->userdata('user_email')){ 
+			if($this->input->post()){
+				foreach($this->input->post('img_id') as $k => $imgID){
+					if($type==1){
+						$get_name = $this->Pictures_model->get_image_name($imgID);
+						$res = $this->Pictures_model->delete_image($imgID, $get_name['img_name']);
+					} else{
+						$res = $this->Pictures_model->update_img_album($imgID, 0);
+					}
+				}
+				echo ($res) ? 1 : 0;
+			}
+        }
+        else { redirect('home/login'); }
+	}
+
+	public function addPhotoAlbum($album_id){
+        if ($this->session->userdata('user_email')){ 
+			if($this->input->post()){
+				foreach($this->input->post('img_id') as $k => $imgID){
+					$res = $this->Pictures_model->update_img_album($imgID, $album_id);
+				}
+				echo ($res) ? 1 : 0;
+			}
         }
         else { redirect('home/login'); }
 	}

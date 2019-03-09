@@ -56,7 +56,7 @@
                                         <p class="m-b-0 f-12 text-center album-desc"><?=($album_desc) ? $album_desc : "No Desription.";?></p>
                                     </div>
                                     <a href="javascript:;" id="<?=$album_id?>" class="update_album">
-                                        <span class="cust-mod-edit" data-toggle="tooltip" data-html="true" data-placement="left" title="Edit Albums">
+                                        <span class="cust-mod-edit" data-toggle="tooltip" data-html="true" data-placement="left" title="Edit Album">
                                             <i class="fa fa-pen text-white"></i>
                                         </span>
                                     </a>

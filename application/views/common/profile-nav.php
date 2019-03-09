@@ -33,8 +33,8 @@
         <form action="<?=base_url();?>pet/search_pet_keywords" type="get">
             <div class="input-group mb-3">                
                 <input type="search" name="keywords" class="form-control cust-search-btn" placeholder="Search any pet details and press enter..." required value="<?=isset($_GET['keywords']) ? $_GET['keywords'] : "";?>" title="Type any keywords and press enter">
-                <div class="input-group-append">
-                    <button class="btn bg-orange post-btn" data-toggle="modal" data-target="#searchModal" type="button" title="Advance Search"><i class="fa fa-search"></i></button>
+                <div class="input-group-append" data-toggle="tooltip" data-placement="left" title="Advance Search">
+                    <button class="btn bg-orange post-btn" data-toggle="modal" data-target="#searchModal" type="button"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </form>

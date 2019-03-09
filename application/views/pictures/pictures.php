@@ -32,41 +32,46 @@
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>pictures/pictures" class="p-nav b-700 f-14 active">All Photos</a>
                             <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14">Albums</a>
-                            <a href="<?=base_url();?>pictures/add_photos" class="btn bg-orange-l btn-xs pull-right text-white"><i class="fa fa-plus"></i> Add Photos</a>
+
+                            <?php $cntPhotos = $this->Pictures_model->count_all_photos();?>
+                            <?php if($cntPhotos > 0){?>
+                                <span class="btn bg-blue-a btn-xs pull-right text-white dropdown-toggle" id="option-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
+                                <div class="dropdown-menu option-menu" aria-labelledby="option-menu">
+                                    <a onclick="selectAll(1)" class="dropdown-item selAll" href="javascript:;">Select All</a>
+                                    <a onclick="delSelected()" class="dropdown-item delSelBtn" href="javascript:;">Delete Selected</a>
+                                    <a onclick="delImg(0, 0, 2)" class="dropdown-item" href="javascript:;">Delete All</a>
+                                </div>
+                            <?php } ?>
+                            <a href="<?=base_url();?>pictures/add_photos/1/0" class="btn bg-orange-l btn-xs btn-xs pull-right text-white m-r-5"><i class="fa fa-plus"></i> Add Photos</a>
                         </div>
                     </div>
                 </div>
                 <div class="gal-wrapper">
                     <?php if($all_pictures){ ?>
-                        <div class="row img-btn-set">
-                            <div class="col-md-12 text-center">
-                                <a href="javascript:;"  id="selectAll" onclick="select_all(1)" class="btn bg-blue-a text-white btn-xs"><i class="fa fa-copy"></i> Select All </a>
-                                <a href="javascript:;"  class="btn bg-orange text-white btn-xs"><i class="fa fa-trash"></i> Delete </a>
-                                <a href="javascript:;" class="btn bg-orange-l text-white btn-xs"><i class="fa fa-times"></i> Remove </a>
-                            </div>
-                        </div>
-                        <div class="row m-t-10">
-                            <?php foreach($all_pictures as $pics){ extract($pics); ?>
-                                <div class="col-md-3" id="albumImg<?=$img_id;?>">
-                                    <div class="thumbnail">
-                                        <a href="javascript:;">
-                                            <div class="gal-img">
-                                                <img class="zoomable" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Image <?=$img_name;?>">
-                                            </div>
-                                           
-                                            <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>')">
-                                                <span class="cust-mod-close bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-times text-white"></i></span>
+                        <form action="javascript:;" id="formImgData">
+                            <div class="row">
+                                <?php foreach($all_pictures as $pics){ extract($pics); ?>
+                                    <div class="col-md-3 albumImg" id="albumImg<?=$img_id;?>">
+                                        <?php $album = $this->Pictures_model->get_album_name($album_id);?>
+                                        <div class="thumbnail myAlbumImg" data-toggle="tooltip" title="<?=($album['album_name']) ? $album['album_name'] : 'No Album' ?>">
+                                            <a href="javascript:;">
+                                                <div class="gal-img">
+                                                    <img class="zoomable" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Image <?=$img_name;?>">
+                                                </div>
+                                                <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
+                                                    <span class="cust-mod-close bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-times text-white"></i></span>
+                                                </a>
+                                                <div class="custom-control custom-checkbox m-b-5 floatCBox">
+                                                    <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
+                                                    <label class="custom-control-label" for="<?=$img_id?>"></label>
+                                                </div>
                                             </a>
-                                            <div class="custom-control custom-checkbox m-b-5 floatCBox">
-                                                <input type="checkbox" class="custom-control-input" id="<?=$img_id?>" name="sel_images[]" value="<?=$img_id?>">
-                                                <label class="custom-control-label" for="<?=$img_id?>"></label>
-                                            </div>
-                                        </a>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php } ?>
-                            <div class="col-md-12 emptyImgMsg"></div>
-                        </div>
+                                <?php } ?>
+                                <div class="col-md-12" id="emptyImg"></div>
+                            </div>
+                        </form>
                     <?php } else { ?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">
                             <strong><i class="fa fa-check"></i> Empty!</strong> You have no pet pictures uploaded.

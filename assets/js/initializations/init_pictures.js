@@ -24,10 +24,10 @@ function getUplAlert(title, msg, type){
 
 var selectAll = (type) => {
     if(type==1){
-        $('#selAll').html('<i class="fa fa-copy"></i> Deselect All').attr('onclick', 'selectAll(2)');
+        $('.selAll').html('Deselect All').attr('onclick', 'selectAll(2)');
         $('.ai_box').prop('checked', true);
     } else{
-        $('#selAll').html('<i class="fa fa-copy"></i> Select All').attr('onclick', 'selectAll(1)');
+        $('.selAll').html('Select All').attr('onclick', 'selectAll(1)');
         $('.ai_box').prop('checked', false);
     }
 }
@@ -47,7 +47,7 @@ if (window.File && window.FileList && window.FileReader) {
                     } else {
                         var imgID = Math.floor(e.timeStamp);
 
-                        $(".emptyImgMsg").hide();
+                        $("#emptyImg").hide();
                         $("#saveImgBtn").removeAttr('disabled');
                         $(".uploaded-files").append('<div class="col-md-3 img_uploaded">'+
                             '<div class="u-pet-img">'+
@@ -87,14 +87,13 @@ var remFromAlbum = (id) => {
             success: (res)=>{
                 if(res==1){
                     $('#albumImg'+id).remove();
-                    var img_uploaded = $('.thumbnail').length;
+                    var img_uploaded = $('.myAlbumImg').length;
                     if(img_uploaded == 0){
-                        $(".emptyImgMsg").html(''+
+                        $("#emptyImg").html(''+
                             '<div class="alert alert-success f-15 m-t-10" role="alert">'+
                                 '<strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.'+
                             '</div>'
                         );
-                        $('.img-btn-set').remove();
                     }
                     swal('Removed', "Image was removed from this album.", 'success');
                 } else{
@@ -105,10 +104,10 @@ var remFromAlbum = (id) => {
     });
 }
 
-var delImg = (id, imgName) => {
+var delImg = (id, imgName, type) => {
     swal({
-        title: "Delete?",
-        text: "This image will be deleted permamently.",
+        title: (type==1) ? "Delete?" : "Delete All?",
+        text: "Images will be deleted permamently.",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -119,20 +118,34 @@ var delImg = (id, imgName) => {
     },
     ()=>{
         $.ajax({
-            url: base_url+'pictures/delete_image/'+id+'/'+imgName,
+            url: base_url+'pictures/delete_image/'+id+'/'+imgName+'/'+type,
             success: (res)=>{
                 if(res==1){
-                    $('#albumImg'+id).remove();
-                    var img_uploaded = $('.thumbnail').length;
+                    if(type==1){
+                        $('#albumImg'+id).remove();
+                    } else{
+                        $('.albumImg').remove();
+                        $('#option-menu').remove();
+                        $('.option-menu').remove();
+                    }
+                    
+                    var img_uploaded = $('.myAlbumImg').length;
                     if(img_uploaded == 0){
-                        $(".emptyImgMsg").html(''+
+                        $("#emptyImg").html(''+
                             '<div class="alert alert-success f-15 m-t-10" role="alert">'+
                                 '<strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.'+
                             '</div>'
                         );
-                        $('.img-btn-set').remove();
+                        
+                        $('#option-menu').remove();
+                        $('.option-menu').remove();
                     }
-                    swal('Removed', "Image was removed from this album.", 'success');
+                    if(type==1){
+                        swal('Deleted!', "Image was successfully deleted.", 'success');
+                    } else{
+                        swal('Deleted!', "All images was successfully deleted.", 'success');
+                    }
+                    
                 } else{
                     swal('Failed', "There was a problem removing your image.", 'error');
                 }
@@ -141,16 +154,70 @@ var delImg = (id, imgName) => {
     });
 }
 
+var delSelected = (type)=>{
+    var cntImg = $('.ai_box:checked').length;
+    if(cntImg>0){
+        swal({
+            title: (type==1) ? 'Delete' : 'Remove' +" Selected?",
+            text: (type==1) ? 'All image will be deleted permamently' : 'All image will be remove from this album',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: (type==1) ? 'Delete it!' : 'Remove it!',
+            closeOnConfirm: false,
+            confirmButtonColor: "#e11641",
+            showLoaderOnConfirm: true
+        },
+        ()=>{
+            var form = $('#formImgData');
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                url: base_url+'pictures/delSelectedImages/'+type,
+                data: $(form).serialize(),
+                success: function(res) {
+                    if(res==1){
+                        $.each($(".ai_box:checked"), function(){            
+                            $('#albumImg'+$(this).val()).remove();        
+                        });
+                        var img_uploaded = $('.myAlbumImg').length;
+                        if(img_uploaded == 0){
+                            $("#emptyImg").html(''+
+                                '<div class="alert alert-success f-15 m-t-10" role="alert">'+
+                                    '<strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.'+
+                                '</div>'
+                            );
+                            
+                            $('#option-menu').remove();
+                            $('.option-menu').remove();
+                        }
+                        if(type==1){
+                            swal('Deleted!', "Selected image was successfully deleted.", 'success');
+                        } else{
+                            swal('Removed!', "Selected image was successfully removed.", 'success');
+                        }
+                        
+                    } else{
+                        swal('Failed', "There was a problem removing your image.", 'error');
+                    }
+                }
+            });
+        });
+    } else{
+        swal('Oops', "Please check atleast 1 image to continue.", 'warning');
+    }
+}
+
 var rmimg = (e) => {
     $(e).parent().remove();
     var img_uploaded = $('.img_uploaded').length;
     if(img_uploaded == 0){
-        $(".emptyImgMsg").html(''+
+        $("#emptyImg").html(''+
             '<div class="alert alert-danger f-15 m-t-10" role="alert">'+
                 '<strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 3 mb of size).'+
             '</div>'
         );
-        $(".emptyImgMsg").show();
+        $("#emptyImg").show();
         $("#saveImgBtn").attr('disabled', true);
     }
 }
@@ -184,9 +251,9 @@ var delpicture = (id, imgName) => {
             success: (res)=>{
                 if(res==1){
                     $('#albumImg'+id).remove();
-                    var img_uploaded = $('.thumbnail').length;
+                    var img_uploaded = $('.myAlbumImg').length;
                     if(img_uploaded == 0){
-                        $(".emptyImgMsg").html(''+
+                        $("#emptyImg").html(''+
                             '<div class="alert alert-success f-15 m-t-10" role="alert">'+
                                 '<strong><i class="fa fa-check"></i> Empty!</strong> You have no photos on this album.'+
                             '</div>'
@@ -202,15 +269,31 @@ var delpicture = (id, imgName) => {
     });
 }
 
-var select_all=(type)=>{
-   
-    if(type==1){
-        $('#selectAll').html('<i class="fa fa-copy"></i> Deselect').attr('onclick', 'select_all(2)');
-        $('.custom-control-input').prop('checked', true);
-   }
-   else{
-       $('#selectAll').html('<i class="fa fa-copy"></i> Select All').attr('onclick','select_all(1)');
-        $('.custom-control-input').prop('checked', false);
-   }
- 
+var transImgToAlbum = (album_id)=>{
+    var cntImg = $('.selFromAlbumBox:checked').length;
+    if(cntImg>0){
+        var form = $('#addPhotoAlbumForm');
+        $.ajax({
+            type: 'POST',
+            cache: false,
+            url: base_url+'pictures/addPhotoAlbum/'+album_id,
+            data: $(form).serialize(),
+            success: function(res) {
+                if(res==1){
+                    $('#selPics').modal('hide');
+                    swal('Images Added!', "Selected image was successfully added to this album.", 'success');
+                    $("#reload").html(''+
+                        '<div class="alert alert-success f-15 m-t-5">'+
+                            '<strong><i class="fa fa-history"></i> Reloading!</strong> Please wait...'+
+                        '</div>'
+                    );
+                    setTimeout("location.reload()" ,2000);
+                } else{
+                    swal('Failed', "There was a problem adding your image.", 'error');
+                }
+            }
+        });
+    } else{
+        swal('Oops', "Please check atleast 1 image to continue.", 'warning');
+    }
 }
