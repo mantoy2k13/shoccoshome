@@ -58,6 +58,7 @@
                                 <div class="form-group row m-t-20">
                                     <div class="col-md-6">
                                         <label for="" class="m-b-0">Fullname</label>
+                                        <input type="hidden" value="<?= $user_logindata->id ?>" name="id" class="form-control" placeholder="id" required>
                                         <input type="text" value="<?= $user_logindata->fullname ? $user_logindata->fullname : '' ?>" name="fullname" class="form-control" placeholder="Fullname" required>
                                     </div>
                                     <div class="col-md-6">

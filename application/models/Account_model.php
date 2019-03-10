@@ -16,6 +16,8 @@ class Account_model extends CI_Model {
     }
 
     public function updateuserdata($user_up){
+        //echo $this->session->userdata('user_id');
+        //exit();
         $this->db->set($user_up);
         $this->db->where('id', $this->session->userdata('user_id'));
         $data = $this->db->update('sh_users');
