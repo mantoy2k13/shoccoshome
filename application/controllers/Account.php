@@ -43,6 +43,10 @@ class Account extends CI_Controller {
             $user['password'] = md5($this->input->post('password'));
         }
         
+        //$_FILES['user_img']['name'];
+        // echo $this->input->post('user_img');
+        // exit();
+
         // image uploding
         if (!empty($_FILES['user_img']['name'])) {
 
@@ -66,8 +70,10 @@ class Account extends CI_Controller {
                 $useremail=$this->input->post('email');
                 $userdetils=$this->Auth_model->fetchuserlogindata($useremail);
                 $userimage=$userdetils->user_img;
-                $proimglink= 'assets/img/profile_pics/'.$userimage;
-                unlink($proimglink);
+                if($userimage){
+                    $proimglink= 'assets/img/profile_pics/'.$userimage;
+                    unlink($proimglink);
+                }
                 $this->session->set_flashdata('prof_msg', 'Updated');
             }
           

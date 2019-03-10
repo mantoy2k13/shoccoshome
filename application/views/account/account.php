@@ -28,6 +28,7 @@
 
             <div class="row">
                 <div class="col-md-3">
+                <form action="<?=base_url();?>account/account_update" role="form" id="adminlog" method="post" enctype="multipart/form-data" >
                     <div class="acc-img">
                             <?php  
                             $user_img=$user_logindata->user_img;
@@ -54,7 +55,7 @@
 
                     <div class="tab-content">
                         <div id="account" class="tab-pane fade in active show">
-                            <form action="<?=base_url();?>account/account_update" role="form" id="adminlog" method="post" enctype="multipart/form-data" >
+                            
                                 <div class="form-group row m-t-20">
                                     <div class="col-md-6">
                                         <label for="" class="m-b-0">Fullname</label>
