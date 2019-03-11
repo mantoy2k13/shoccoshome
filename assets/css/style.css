@@ -728,6 +728,10 @@ a.delMsgBtn i:hover {
     color: #fa5637;
 }
 
+.input-img{
+    opacity: 0;
+}
+
 .custom-control-input:checked ~ .custom-control-label::before {
     border-color: #dc3545;
     background-color: #dc3545;

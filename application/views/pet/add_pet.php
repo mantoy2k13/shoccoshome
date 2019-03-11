@@ -155,7 +155,6 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Vaccinations</label>
-                                    <!-- <input name="vaccination" value="<?= @$get_single_pet_data[0]->vaccination ? @$get_single_pet_data[0]->vaccination : '' ?>"  type="text" class="form-control" placeholder="Vaccination" required> -->
                                     <select name="vaccination" class="form-control">
                                         <option value="Parvovirus (CPV)" <?=@$get_single_pet_data[0]->vaccination === 'Parvovirus (CPV)' ? 'selected' : ''?>>Parvovirus (CPV)</option>
                                         <option value="Canine distemper virus (CDV)" <?=@$get_single_pet_data[0]->vaccination === 'Canine distemper virus (CDV)' ? 'selected' : ''?>>Canine distemper virus (CDV)</option>
