@@ -6,75 +6,24 @@ class Pet extends CI_Controller{
     public function __construct(){
         parent::__construct();
     }
-    
+
     public function add_pet(){
-
-        $uploadedImgs=$this->input->post('pet_images');
-        $upimagecheck=count($uploadedImgs);
-        
-        define('UPLOAD_DIR', 'assets/img/pet/');
-        for($i = 0; $i < $upimagecheck; $i++){
-            $img_name = uniqid().'.png';
-            $aa=$uploadedImgs[$i];
-            $image_parts = explode(";base64,", $aa);
-            $image_type_aux = explode("image/", $image_parts[0]);
-            $image_type = $image_type_aux[1];
-            $image_base64 = base64_decode($image_parts[1]);
-            $file = UPLOAD_DIR . $img_name;
-            file_put_contents($file, $image_base64);
-            $image_name[]=$file;
-            if($i==0) { $primary_pic = $img_name; }
-        }
-
-        $uploadedImgsJson = json_encode($image_name);
-
-		$petdata=array(
-			'user_id'=>$this->input->post('user_id'),
-			'pet_name'=>$this->input->post('pet_name'),
-			'cat_id'=>$this->input->post('cat_id'),
-			'breed_id'=>$this->input->post('breed_id'),
-			'tags'=>$this->input->post('tags'),
-			'gender'=>$this->input->post('gender'),
-			'color_id'=>$this->input->post('color_id'),
-			'height'=>$this->input->post('height'),
-			'weight'=>$this->input->post('weight'),
-			'dob'=>$this->input->post('dob'),
-			'fav_food'=>$this->input->post('fav_food'),
-			'skills'=>$this->input->post('skills'),
-			'vet_clinic'=>$this->input->post('vet_clinic'),
-			'located'=>$this->input->post('located'),
-			'adoptable'=>$this->input->post('adoptable'),
-			'health_issues'=>$this->input->post('health_issues'),
-			'medications'=>$this->input->post('medications'),
-			'description'=>$this->input->post('description'),
-			'country'=>$this->input->post('country'),
-			'state'=>$this->input->post('state'),
-			'city'=>$this->input->post('city'),
-			'street'=>$this->input->post('street'),
-			'zip_code'=>$this->input->post('zip_code'),
-			'vaccination'=>$this->input->post('vaccination'),
-			'vaccination_date'=>$this->input->post('vaccination_date'),
-			'activate_notice'=>$this->input->post('activate_notice'),
-			'notice_title'=>$this->input->post('notice_title'),
-			'collar_tag'=>$this->input->post('collar_tag'),
-			'reward'=>$this->input->post('reward'),
-			'lost_location'=>$this->input->post('lost_location'),
-			'lost_date'=>$this->input->post('lost_date'),
-			'other_info'=>$this->input->post('other_info'),
-			'contact_info'=>$this->input->post('contact_info'),
-            'alt_contact_info'=>$this->input->post('alt_contact_info'),
-            'pet_images'=>$uploadedImgsJson,
-            'primary_pic'=>$primary_pic,
-        );
-
-        $add_pet = $this->Pet_model->add_pet($petdata);
-        if ($add_pet) {
-            $this->session->set_flashdata('pet_msg', 'Added');
-            redirect('home/add_new_pet');
-        }
-        else {
-            $this->session->set_flashdata('pet_msg', 'Error');
-            redirect('home/add_new_pet');
+        if($this->input->post()){
+            $pet_id = $this->Pet_model->add_pet();
+            if($pet_id){
+                $img_res = $this->Pet_model->insert_pet_img($pet_id);
+                if($img_res){
+                    $this->session->set_flashdata('pet_msg', 'Added');
+                    redirect('home/add_new_pet');
+                }
+                $this->session->set_flashdata('pet_msg', 'Added');
+                redirect('home/add_new_pet');
+            } else {
+                $this->session->set_flashdata('pet_msg', 'Error');
+                redirect('home/add_new_pet');
+            }
+        } else{
+            redirect('pet/add_pet');
         }
     }
 
