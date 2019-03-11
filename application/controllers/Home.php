@@ -90,11 +90,7 @@ class Home extends CI_Controller {
 		{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$userid=$data["user_logindata"]->id;
-
-			$pet_data = $this->Pet_model->get_pet_data($userid);
-			$data['get_pet_data']=$pet_data;
-
+			$data['get_pet_data'] = $this->Pet_model->get_pet_data();
 			$data['is_page'] = 'my_pets';
 			$this->load->view('pet/my_pets', $data);
 		}
@@ -104,39 +100,24 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function add_new_pet()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$id = $this->uri->segment(3);
-			$data["get_single_pet_data"]=$this->Pet_model->get_single_pet_data($id);
-
-			$data["get_all_pet_cat"]=$this->Pet_model->get_all_pet_cat();
-			$data["get_all_pet_breed"]=$this->Pet_model->get_all_pet_breed();
-			$data["get_all_pet_color"]=$this->Pet_model->get_all_pet_color();
-
-
+	public function add_new_pet(){
+		if ($this->session->userdata('user_email')){
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'add_pet';
 			$this->load->view('pet/add_pet', $data);
-		}
-		else
-		{
+		} else {
 			redirect('home/login');
 		}
 	}
 
-	public function pet_details()
+	public function pet_details($pet_id)
 	{
 		if ($this->session->userdata('user_email'))
 		{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-
-			$id = $this->uri->segment(3);
-			$data["get_all_pet_data"]=$this->Pet_model->get_all_pet_data($id);
-
+			$data["pet_details"] = $this->Pet_model->get_pet_details($pet_id);
 			$data['is_page'] = 'pet_details';
 			$this->load->view('pet/pet_details', $data);
 		}
