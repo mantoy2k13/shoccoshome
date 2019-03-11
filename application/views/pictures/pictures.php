@@ -38,7 +38,7 @@
                                 <span class="btn bg-blue-a btn-xs pull-right text-white dropdown-toggle" id="option-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
                                 <div class="dropdown-menu option-menu" aria-labelledby="option-menu">
                                     <a onclick="selectAll(1)" class="dropdown-item selAll" href="javascript:;">Select All</a>
-                                    <a onclick="delSelected()" class="dropdown-item delSelBtn" href="javascript:;">Delete Selected</a>
+                                    <a onclick="delSelected(1)" class="dropdown-item delSelBtn" href="javascript:;">Delete Selected</a>
                                     <a onclick="delImg(0, 0, 2)" class="dropdown-item" href="javascript:;">Delete All</a>
                                 </div>
                             <?php } ?>

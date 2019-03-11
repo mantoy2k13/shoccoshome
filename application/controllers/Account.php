@@ -20,7 +20,7 @@ class Account extends CI_Controller {
 		else { redirect('home/login'); }
     }
     
-    public function account_update(){
+    public function account_update2(){
         $user=array(
             'fullname'=>$this->input->post('fullname'),
             'occupation'=>$this->input->post('occupation'),
@@ -37,12 +37,7 @@ class Account extends CI_Controller {
             'bio'=>$this->input->post('bio'),
             'is_complete'=>1,
         );
-
-        // password check convert md5
-        if ($this->input->post('password') !== '') {
-            $user['password'] = md5($this->input->post('password'));
-        }
-        
+  
         // image uploding
         if (!empty($_FILES['user_img']['name'])) {
 
@@ -104,12 +99,17 @@ class Account extends CI_Controller {
         }
     }
 
+    public function account_update(){
+
+    }
+
 	public function account()
 	{
 		if ($this->session->userdata('user_email'))
 		{
 			$user_email  = $this->session->userdata('user_email');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data["user_info"] = $this->Account_model->get_user_info();
 			$data['is_page'] = 'account';
             $this->load->view('account/account', $data);          
 		}

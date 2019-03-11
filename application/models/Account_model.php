@@ -22,6 +22,13 @@ class Account_model extends CI_Model {
         return $data;
     }
 
+    public function get_user_info(){
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
     public function view_bio($uid){
         $this->db->select('*')->from('sh_users');
         $this->db->where('id',$uid);
