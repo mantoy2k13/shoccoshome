@@ -7,12 +7,11 @@ class Account_model extends CI_Model {
 		parent::__construct();
     }
     
-    public function email_check($email){
-        $this->db->select('*');
-        $this->db->from('sh_users');
-        $this->db->where('email',$email);
-        $query=$this->db->get();
-        return ($query->num_rows()>0) ? false : true;
+    public function check_email($email){
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('email', $email);
+        $query = $this->db->get();
+        return ($query->num_rows() > 0) ? true : false;
     }
 
     public function updateuserdata($user_up){
@@ -21,6 +20,73 @@ class Account_model extends CI_Model {
         $this->db->set($user_up);
         $this->db->where('id', $this->session->userdata('user_id'));
         $data = $this->db->update('sh_users');
+        return $data;
+    }
+
+    public function update_profile_info($email){
+        $uid = $this->session->userdata('user_id');
+        $data = array(
+            'fullname'      => $this->input->post('fullname'),
+            'email'         => $email,
+            'occupation'    => $this->input->post('occupation'),
+            'mobile_number' => $this->input->post('mobile_number'),
+            'gender'        => $this->input->post('gender'),
+            'address'       => $this->input->post('address'),
+            'country'       => $this->input->post('country'),
+            'state'         => $this->input->post('state'),
+            'city'          => $this->input->post('city'),
+            'street'        => $this->input->post('street'),
+            'zip_code'      => $this->input->post('zip_code'),
+            'bio'           => $this->input->post('bio'),
+            'is_complete'   => 1,
+        );
+        $this->db->where('id', $uid);
+        $res = $this->db->update('sh_users', $data);
+        if($res){
+            $data = array('user_email' => $email);
+            $this->session->set_userdata($data);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function update_profile_pic(){
+        $uid         = $this->session->userdata('user_id');
+        $img_data    = $this->input->post('prof_img_data');
+        $old_img    = $this->input->post('prof_old_img');
+        $target_path = './assets/img/pictures/';
+        
+        $filename = './assets/img/pictures/usr'.$uid."/".$old_img;
+        if(file_exists($filename)){
+            unlink($filename);
+        }
+
+        if (!is_dir('./assets/img/pictures/usr'.$uid."/")) {
+            mkdir('./assets/img/pictures/usr'.$uid."/");
+            $target_path = './assets/img/pictures/usr'.$uid."/";
+        } else{
+            $target_path = "./assets/img/pictures/usr".$uid."/";
+        }
+
+        $imgName = 'p'.$uid.'_'.uniqid().".jpg"; 
+        $data    = explode(',', $img_data);
+        $decoded = base64_decode($data[1]);
+        $status  = file_put_contents($target_path.$imgName,$decoded); 
+        if($status){
+            $data = array('user_img' => $imgName);
+            $this->db->where('id', $uid);
+            $res = $this->db->update('sh_users', $data);
+            return ($res) ? true : false;
+        }else{
+            return false;
+        }
+    }
+
+    public function get_user_info(){
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
         return $data;
     }
 

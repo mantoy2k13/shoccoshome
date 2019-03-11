@@ -83,7 +83,7 @@ function logout(social){
             //signOut()
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-                //window.location.href = base_url+"auth/user_logout";
+                window.location.href = base_url+"auth/user_logout";
                 console.log('Sign Out')
             });
             auth2.disconnect();

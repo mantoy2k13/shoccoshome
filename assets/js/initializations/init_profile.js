@@ -58,11 +58,13 @@ var checkPass = ()=>{
                 '</div>'
             );
         } else{
+            console.log('nasulod')
             $.ajax({
                 url: base_url+'account/change_password',
                 type: 'POST',
                 data: { npass: npass, curPass: curPass },
                 success: (res)=>{
+                    console.log(res)
                     if(res!=0){
                         swal("Change!", "Password change successfully.","success");
                         $('#pass-err-msg').html('');
@@ -110,6 +112,7 @@ function readURL(input) {
                 $('#img-profile').attr('src', e.target.result);
                 $('#img-profile').hide();
                 $('#img-profile').fadeIn(650);
+                $('#prof_img_data').val(e.target.result);
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -139,3 +142,21 @@ function fileValidation(){
 $("#input-img").change(function() {
     readURL(this);
 });
+
+var cImgChange = (type) => {
+    var text = (type==1) ? 'Pictures' : 'Albums';
+    swal({
+        title: "Note!",
+        text: "You will be redirected to "+text+" page. Do you want to continue?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, continue!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+        confirmButtonColor: "#fa9737",
+    },
+    ()=>{
+        window.location.href = (type==1) ? base_url+"pictures/pictures" : base_url+"album/albums";
+    });
+}

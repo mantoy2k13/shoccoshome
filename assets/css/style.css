@@ -146,17 +146,13 @@ header.masthead {
 
 .acc-img {
     position: relative;
-    width: 175px;
-    height: 175px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
     background: #fff;
     cursor: pointer;
     border: 2px solid #8f9090;
-}
-
-.acc-img:hover {
-    border: 2px dashed #8f9090;
-    opacity: 0.5;
+    margin: 0 auto;
 }
 
 i.fa.upload-icon {
@@ -732,17 +728,6 @@ a.delMsgBtn i:hover {
     color: #fa5637;
 }
 
-.input-img {
-    position: absolute;
-    right: 0;
-    left: 0;
-    height: 100%;
-    top: 0;
-    width: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-
 .custom-control-input:checked ~ .custom-control-label::before {
     border-color: #dc3545;
     background-color: #dc3545;
@@ -946,6 +931,10 @@ a.icon-btn:hover{
     border-radius: 50%;
     padding: 5px 8px;
     font-size: 11px;
+}
+
+.cust-mod-edit-prof:hover{
+    background: #da7c10;
 }
 
 .cust-mod-edit:hover{
