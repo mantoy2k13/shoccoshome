@@ -1268,6 +1268,31 @@ body {
 img.d-block.w-100.c-px {
     width: auto !important;
 }
+
+
+span.btmleft_set_pri {
+    position: absolute;
+    top: 114px;
+    left: 7px;
+    background:#0a7cf1;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 11px;
+}
+
+span.btmleft_set_cver {
+    position: absolute;
+    top: 114px;
+    left: 37px;
+    background: #11b4ae;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 11px;
+}
+
+span.cust-mod-close.bg-green {
+    background: green;
+}
 /*end daryl code*/
 
 

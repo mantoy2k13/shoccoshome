@@ -16,7 +16,7 @@
 <script src="<?=base_url();?>assets/js/sweetalert.min.js"></script>
 
 <!-- Initializations -->
-<?php if($is_page=="add_pet" || $is_page=="my_pets"){ ?>
+<?php if($is_page=="add_pet" || $is_page=="my_pets" ){ ?>
 <script src="<?=base_url();?>assets/js/initializations/init_pets.js"></script>
 <?php } ?>
 

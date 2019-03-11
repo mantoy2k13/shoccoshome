@@ -110,4 +110,11 @@ class Account extends CI_Controller {
 		else { echo 0; }
     }
 
+    public function setPhotoPrimary($img_name){
+        if ($this->session->userdata('user_email')){ 
+            echo $this->Account_model->setPrimaryImg($img_name);
+        }
+		else { echo false; }
+    }
+
 }

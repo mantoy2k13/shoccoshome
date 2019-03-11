@@ -297,3 +297,35 @@ var transImgToAlbum = (album_id)=>{
         swal('Oops', "Please check atleast 1 image to continue.", 'warning');
     }
 }
+
+var setPriPhoto = (img_name)=>{
+    swal({
+        title: "Set Primary?",
+        text: "This picture will be set as primary image.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, set it!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#2162e7"
+    },
+    function(){
+        $.ajax({
+            url: base_url+'account/setPhotoPrimary/'+img_name,
+            success: function(response){
+                if(response){
+                    swal({
+                        title: 'Success!',
+                        text: "Image was successfully set as primary.",
+                        type: 'success',
+                        showConfirmButton:false,
+                        confirmButtonText: ''
+                    });
+                    setInterval(function(){ location.reload(); }, 1500);
+                } else{
+                    swal("Failed!", "There was a problem deleting your image", 'warning');
+                }
+            }
+        });
+    });
+}

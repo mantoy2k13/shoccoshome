@@ -173,4 +173,11 @@ class Account_model extends CI_Model {
             return false;
         }
     }
+
+    public function setPrimaryImg($img_name){
+        $this->db->set('user_img', $img_name);
+		$this->db->where('id', $this->session->userdata('user_id'));
+		$res = $this->db->update('sh_users');
+		return ($res) ? true : false;
+    }
 }
