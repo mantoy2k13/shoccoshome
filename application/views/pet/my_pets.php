@@ -26,7 +26,7 @@
             <div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
 					<span class="b-700 text-blue">My Pet Lists</span>
-					<a href="<?=base_url();?>home/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
+					<a href="<?=base_url();?>pet/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
 				</div>			
 				<div class="panel-body">
 
@@ -45,7 +45,7 @@
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a class="dropdown-item" href="<?=base_url();?>home/add_new_pet/<?=$pet_id; ?>">Edit Pet</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id; ?>">Edit Pet</a>
                                             <a class="dropdown-item" href="javascript:;" onclick="delPet(<?=$pet_id; ?>)">Delete Pet</a>
                                             <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id; ?>">Pet Details</a>
                                         </div>
@@ -62,7 +62,7 @@
                             <div class="col-md-12 m-t-20">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
-                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>home/add_new_pet">here</a> to add your pet.</p>
+                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add your pet.</p>
                                     </div>
                                 </div>
                             </div>

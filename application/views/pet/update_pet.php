@@ -19,21 +19,12 @@
 	  <div class="row m-t-10">
           <!-- Left Navbar -->
           <?php $this->load->view('common/left-nav');?>
-          <?php if($pd){
-                $btnText = 'Update Pet';
-                $formTxt = 'Update Pet Details';
-                $formUrl = 'pet/update_this_pet/'.$pd['pet_id'];
-            } else{
-                $btnText = 'Save Pet';
-                $formTxt = 'Add New Pet';
-                $formUrl = 'pet/add_pet';
-            }
-           ?>
+        
           <!-- Main Content -->
 		  <div class="col-md-9 m-t-10 p-l-0 p-details">
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
-					<span class="b-700 text-blue"><?=$formTxt; ?></span>
+					<span class="b-700 text-blue">Update Pet</span>
                     <a href="<?=base_url();?>home/my_pets" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-paw"></i> My Pets</a>
 				</div>			
 				<div class="panel-body">
@@ -44,43 +35,43 @@
                             <strong><i class="fa fa-check"></i> Oops!</strong> You can not add your pets if profile is not completed. Adding of pets needs your profile address. Click <a href="<?=base_url()?>account/account">here</a> to update your profile now.
                         </div>
                     <?php } else { ?>
-                        <form  action="<?=base_url().$formUrl;?>" method="post" enctype="multipart/form-data">
+                        <form  action="<?=base_url();?>pet/add_pet" method="post" enctype="multipart/form-data">
                             <!-- Pet Details -->
                             <div class="row form-group">
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Pet Details</div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Pet Name</label>
-                                    <input onchange="checkPetName()" required id="petName" name="pet_name" value="<?=($pd) ? $pd['pet_name'] : ''; ?>" type="text" class="form-control" placeholder="Pet Name">
-                                    <input id="oldName" value="<?=($pd) ? $pd['pet_name'] : ''; ?>" type="hidden">
+                                    <input onchange="checkPetName()" required id="petName" name="pet_name" value="" type="text" class="form-control" placeholder="Pet Name">
+                                    <input id="oldName" value="" type="hidden">
                                     <div id="chk-pname-msg"></div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Category</label>
                                     <select name="cat_id" id="cat_id" class="form-control" required>
-                                        <option value="">Select Category</option>
+                                        <option value="" selected="selected">Select Category</option>
                                         <?php foreach($this->Pet_model->get_all_pet_cat() as $cat){ extract($cat); ?>
-                                            <option value="<?=$cat_id;?>" <?=($pd) ? (($pd['cat_id']==$cat_id) ? 'selected' : '') : ''; ?>> <?=$cat_name;?> </option>
+                                            <option value="<?=$cat_id;?>"> <?=$cat_name;?> </option>
                                         <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Breed</label>
-                                    <?php $bName = ($pd) ? $this->Pet_model->get_breed_name($pd['breed_id']) : ''; ?>
                                     <select name="breed_id" id="breed_id" class="form-control" reqired>
-                                        <option value="<?=($pd) ? $pd['breed_id'] : ''; ?>"><?=($pd) ? $bName['breed_name'] : 'Select Breed';?></option>
+                                        <option value="">Select Breed</option>
                                     </select>
                                 </div>
+
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Gender</label>
                                     <select name="gender" class="form-control">
-                                        <option value="Male (neutered)" <?=($pd) ? (($pd['gender']=="Male (neutered)") ? 'selected' : '') : ''; ?>>Male (neutered)</option>
-                                        <option value="Male (NOT neutered)" <?=($pd) ? (($pd['gender']=="Male (NOT neutered") ? 'selected' : '') : ''; ?>>Male (NOT neutered)</option>
-                                        <option value="Female (spayed)" <?=($pd) ? (($pd['gender']=="Female (spayed)") ? 'selected' : '') : ''; ?>>Female (spayed)</option>
-                                        <option value="Female (NOT spayed)" <?=($pd) ? (($pd['gender']=="Female (NOT spayed)") ? 'selected' : '') : ''; ?>>Female (NOT spayed)</option>
+                                        <option value="Male (neutered)">Male (neutered)</option>
+                                        <option value="Male (NOT neutered)">Male (NOT neutered)</option>
+                                        <option value="Female (spayed)">Female (spayed)</option>
+                                        <option value="Female (NOT spayed)">Female (NOT spayed)</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
@@ -88,92 +79,85 @@
                                     <select name="color_id" class="form-control">
                                         <option value="">Select Color</option>
                                         <?php foreach($this->Pet_model->get_all_pet_color() as $color){ extract($color); ?>
-                                            <option value="<?=$color_id;?>" <?=($pd) ? (($pd['color_id']==$color_id) ? 'selected' : '') : ''; ?>><?=$color_name;?></option>
+                                            <option value="<?=$color_id;?>"><?=$color_name;?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Located</label>
                                     <select name="located" class="form-control">
-                                        <option value="At Home" <?=($pd) ? (($pd['color_id']=="At Home") ? 'selected' : '') : ''; ?>>At Home</option>
-                                        <option value="At Shelter" <?=($pd) ? (($pd['color_id']=="At Shelter") ? 'selected' : '') : ''; ?>>At Shelter</option>
+                                        <option value="At Home">At Home</option>
+                                        <option value="At Shelter">At Shelter</option>
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Adoptable</label>
                                     <select name="adoptable" class="form-control">
-                                        <option value="Yes" <?=($pd) ? (($pd['color_id']=="Yes") ? 'selected' : '') : ''; ?>>Yes</option>
-                                        <option value="No" <?=($pd) ? (($pd['color_id']=="No") ? 'selected' : '') : ''; ?>>No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-5">
                                     <label class="f-15 text-black">Tags</label>
-                                    <input  name="tags" value="<?=($pd) ? $pd['tags'] : ''; ?>" type="text" class="form-control" placeholder="Tags">
+                                    <input  name="tags" value="" type="text" class="form-control" placeholder="Tags">
                                 </div>
                                 <div class="col-md-2">
                                     <label class="f-15 text-black">Height</label>
-                                    <input value="<?=($pd) ? $pd['height'] : ''; ?>" name="height" type="text" class="form-control" placeholder="Height">
+                                    <input  name="height" type="text" class="form-control" placeholder="Height">
                                 </div>
                                 <div class="col-md-2">
                                     <label class="f-15 text-black">Weight</label>
-                                    <input value="<?=($pd) ? $pd['weight'] : ''; ?>" name="weight" type="text" class="form-control" placeholder="Weight">
+                                    <input  name="weight" type="text" class="form-control" placeholder="Weight">
                                 </div>
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Date of Birth</label>
-                                    <input value="<?=($pd) ? $pd['dob'] : ''; ?>" name="dob" type="date" class="form-control" placeholder="Date of Birth">
+                                    <input  name="dob" type="date" class="form-control" placeholder="Date of Birth">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Favorite Food</label>
-                                    <input value="<?=($pd) ? $pd['fav_food'] : ''; ?>" name="fav_food" type="text" class="form-control" placeholder="Favorite Food">
+                                    <input  name="fav_food" type="text" class="form-control" placeholder="Favorite Food">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Skills</label>
-                                    <input value="<?=($pd) ? $pd['skills'] : ''; ?>" name="skills" type="text" class="form-control" placeholder="Skills">
+                                    <input  name="skills" type="text" class="form-control" placeholder="Skills">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Vet Clinic</label>
-                                    <input value="<?=($pd) ? $pd['vet_clinic'] : ''; ?>" name="vet_clinic" type="text" class="form-control" placeholder="Vet Clinic">
+                                    <input  name="vet_clinic" type="text" class="form-control" placeholder="Vet Clinic">
                                 </div>
                             </div>
                             <!-- Vaccinations -->
                             <div class="row form-group vacc-wrapper">
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Vaccinations</div>
-                                <?php $vacc_date = json_decode($pd['vaccination_date']); ?>
-								<?php $i=0; foreach(json_decode($pd['vaccination']) as $vacc){ ?>
                                 <div class="col-md-12 vacc-parent">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="f-15 text-black">Vaccination Type</label>
                                             <select name="vaccination[]" class="form-control" required>
                                                 <option value="">Select Type</option>
-                                                <option value="Parvovirus (CPV)" <?= ($vacc=='Parvovirus (CPV)') ? 'selected' : '' ?>>Parvovirus (CPV)</option>
-                                                <option value="Canine distemper virus (CDV)" <?= ($vacc=='Parvovirus (CPV)') ? 'selected' : '' ?>>Canine distemper virus (CDV)</option>
-                                                <option value="Canine adenovirus (CAV)" <?= ($vacc=='Canine adenovirus (CAV)') ? 'selected' : '' ?>>Canine adenovirus (CAV)</option>
-                                                <option value="Rabies" <?= ($vacc=='Rabies') ? 'selected' : '' ?>>Rabies</option>
-                                                <option value="Canine parainfluenza virus (CPiV)" <?= ($vacc=='Canine parainfluenza virus (CPiV)') ? 'selected' : '' ?>>Canine parainfluenza virus (CPiV)</option>
-                                                <option value="Distemper-measles combination vaccine" <?= ($vacc=='Distemper-measles combination vaccine') ? 'selected' : '' ?>>Distemper-measles combination vaccine</option>
-                                                <option value="Bordetella bronchiseptica (Kennel Cough)" <?= ($vacc=='Bordetella bronchiseptica (Kennel Cough)') ? 'selected' : '' ?>>Bordetella bronchiseptica (Kennel Cough)</option>
-                                                <option value="Leptospira spp" <?= ($vacc=='Leptospira spp') ? 'selected' : '' ?>>Leptospira spp</option>
-                                                <option value="Borrelia burgdorferi (Lyme)" <?= ($vacc=='Borrelia burgdorferi (Lyme)') ? 'selected' : '' ?>>Borrelia burgdorferi (Lyme)</option>
-                                                <option value="Giardia" <?= ($vacc=='Giardia') ? 'selected' : '' ?>>Giardia</option>
+                                                <option value="Parvovirus (CPV)">Parvovirus (CPV)</option>
+                                                <option value="Canine distemper virus (CDV)">Canine distemper virus (CDV)</option>
+                                                <option value="Canine adenovirus (CAV)">Canine adenovirus (CAV)</option>
+                                                <option value="Rabies">Rabies</option>
+                                                <option value="Canine parainfluenza virus (CPiV)">Canine parainfluenza virus (CPiV)</option>
+                                                <option value="Distemper-measles combination vaccine">Distemper-measles combination vaccine</option>
+                                                <option value="Bordetella bronchiseptica (Kennel Cough)">Bordetella bronchiseptica (Kennel Cough)</option>
+                                                <option value="Leptospira spp">Leptospira spp</option>
+                                                <option value="Borrelia burgdorferi (Lyme)">Borrelia burgdorferi (Lyme)</option>
+                                                <option value="Giardia">Giardia</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="f-15 text-black">Vaccination Date</label>
-                                            <input value="<?=$vacc_date[$i];?>" name="vaccination_date[]" type="date" class="form-control" placeholder="Vaccination" required>
+                                            <input name="vaccination_date[]" type="date" class="form-control" placeholder="Vaccination" required>
                                         </div>
                                     </div>
-                                    <?php if($i==0){ ?>
-                                        <span onclick="addRemVacInfo(1,this)" class="vacc-btn-add" data-toggle="tooltip" title="Add Vaccination Info"><i class="fa fa-plus"></i></span>
-                                    <?php }else{ ?>
-                                        <span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Remove Info"><i class="fa fa-times"></i></span>
-                                    <?php } ?>
+                                    <span onclick="addRemVacInfo(1,this)" class="vacc-btn-add" data-toggle="tooltip" title="Add Vaccination Info"><i class="fa fa-plus"></i></span>
                                 </div>
-                                <?php $i+=1; } ?>
                             </div>
                             
                             <!-- Where I live -->
@@ -202,19 +186,19 @@
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Additional Info</div>
                                 <div class="col-md-12">
                                     <label class="f-15 text-black">Pet Description</label>
-                                    <textarea name="description" class="form-control" cols="30" rows="3" placeholder="Write here..."><?=($pd) ? $pd['description'] : ''; ?></textarea>
+                                    <textarea name="description" class="form-control" cols="30" rows="3" placeholder="Write here..."></textarea>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="f-15 text-black">Please list any of your pet's known allergies and medical/health issues</label>
-                                    <textarea name="health_issues" class="form-control" cols="30" rows="3" placeholder="Write here..."><?=($pd) ? $pd['health_issues'] : ''; ?></textarea>
+                                    <textarea name="health_issues" class="form-control" cols="30" rows="3" placeholder="Write here..."></textarea>
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <label class="f-15 text-black">Does your pet take any medications? If so, please provide medication and dosage requirements</label>
-                                    <textarea name="medications" class="form-control" cols="30" rows="3" placeholder="Write here..."><?=($pd) ? $pd['medications'] : ''; ?></textarea>
+                                    <textarea name="medications" class="form-control" cols="30" rows="3" placeholder="Write here..."></textarea>
                                 </div>
                             </div>
                             <!-- Lost Notice (For Lost Pets)  -->
@@ -223,51 +207,51 @@
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Activate Notice</label>
                                     <select name="activate_notice" class="form-control">
-                                        <option value="Yes" <?=($pd) ? (($pd['activate_notice']=="Yes") ? 'selected' : '') : ''; ?>>Yes</option>
-                                        <option value="No" <?=($pd) ? (($pd['activate_notice']=="Yes") ? 'selected' : '') : ''; ?>>No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Notice Title</label>
-                                    <input value="<?=($pd) ? $pd['notice_title'] : ''; ?>" name="notice_title" type="text" class="form-control" placeholder="Notice Title">
+                                    <input  name="notice_title" type="text" class="form-control" placeholder="Notice Title">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Chip Number</label>
-                                    <input value="<?=($pd) ? $pd['chip_no'] : ''; ?>" name="chip_no" type="text" class="form-control" placeholder="Chip Number">
+                                    <input  name="chip_no" type="text" class="form-control" placeholder="Chip Number">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Collar Tag</label>
-                                    <input value="<?=($pd) ? $pd['collar_tag'] : ''; ?>" name="collar_tag" type="text" class="form-control" placeholder="Collar Tag">
+                                    <input  name="collar_tag" type="text" class="form-control" placeholder="Collar Tag">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Reward</label>
-                                    <input value="<?=($pd) ? $pd['reward'] : ''; ?>" name="reward" type="text" class="form-control" placeholder="Reward">
+                                    <input  name="reward" type="text" class="form-control" placeholder="Reward">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Lost Location</label>
-                                    <input value="<?=($pd) ? $pd['lost_location'] : ''; ?>" name="lost_location" type="text" class="form-control" placeholder="Lost Location">
+                                    <input  name="lost_location" type="text" class="form-control" placeholder="Lost Location">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-6">
                                     <label class="f-15 text-black">Lost Date</label>
-                                    <input value="<?=($pd) ? $pd['lost_date'] : ''; ?>" name="lost_date" type="date" class="form-control" placeholder="Lost Date">
+                                    <input  name="lost_date" type="date" class="form-control" placeholder="Lost Date">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="f-15 text-black">Other Info</label>
-                                    <input value="<?=($pd) ? $pd['other_info'] : ''; ?>" name="other_info" type="text" class="form-control" placeholder="Other Info">
+                                    <input  name="other_info" type="text" class="form-control" placeholder="Other Info">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-6">
                                     <label class="f-15 text-black">Contact Info</label>
-                                    <input value="<?=($pd) ? $pd['contact_info'] : ''; ?>" name="contact_info" type="text" class="form-control" placeholder="Contact Info">
+                                    <input  name="contact_info" type="text" class="form-control" placeholder="Contact Info">
                                 </div>
                                 <div class="col-md-6">
                                     <label class="f-15 text-black">Alternate Contact Info</label>
-                                    <input value="<?=($pd) ? $pd['alt_contact_info'] : ''; ?>" name="alt_contact_info" type="text" class="form-control" placeholder="Alternate Contact Info">
+                                    <input  name="alt_contact_info" type="text" class="form-control" placeholder="Alternate Contact Info">
                                 </div>
                             </div>
                             <!-- Upload Pets Images -->
@@ -299,7 +283,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
+                                    <button type="submit" id="addPetBtn" class="btn bg-orange sub-btn" disabled><i class="fa fa-save"></i> Save Pet</button>
                                 </div>
                             </div>
                         </form>

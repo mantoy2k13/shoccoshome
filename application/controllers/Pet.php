@@ -7,6 +7,30 @@ class Pet extends CI_Controller{
         parent::__construct();
     }
 
+    public function add_new_pet(){
+		if ($this->session->userdata('user_email')){
+            $pet_id = $this->uri->segment(3);
+            $data['pd'] = ($pet_id) ? $this->Pet_model->get_single_pet_data($pet_id) : null;
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data['is_page'] = 'add_pet';
+			$this->load->view('pet/add_pet', $data);
+		} else {
+			redirect('home/login');
+		}
+    }
+    
+    public function update_pet(){
+		if ($this->session->userdata('user_email')){
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data['is_page'] = 'update_pet';
+			$this->load->view('pet/update_pet', $data);
+		} else {
+			redirect('home/login');
+		}
+	}
+
     public function add_pet(){
         if($this->input->post()){
             $pet_id = $this->Pet_model->add_pet();
@@ -27,7 +51,7 @@ class Pet extends CI_Controller{
         }
     }
 
-    public function update_pet(){
+    public function update_this_pet(){
         $petid=$this->input->post('pet_id');
 
         $image_name = [];

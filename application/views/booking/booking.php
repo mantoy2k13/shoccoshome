@@ -53,10 +53,10 @@
 							</div>
 							<div class="host-list">
 								<label for="">Choose your pet</label>
-								<?php foreach($categories as $cat){ ?>
+								<?php foreach($categories as $cat){ extract($cat); ?>
 									<div class="custom-control custom-checkbox m-b-5">
-										<input type="checkbox" class="custom-control-input" id="<?=$cat->cat_id;?>" name="example1">
-										<label class="custom-control-label" for="<?=$cat->cat_id;?>"><?=$cat->cat_name;?></label>
+										<input type="checkbox" class="custom-control-input" id="<?=$cat_id;?>" name="example1">
+										<label class="custom-control-label" for="<?=$cat_id;?>"><?=$cat_name;?></label>
 									</div>
 								<?php } ?>
 							</div>

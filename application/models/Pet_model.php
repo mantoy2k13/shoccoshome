@@ -123,13 +123,10 @@ class Pet_model extends CI_model{
 
 	// pet id wise
  	  public function get_single_pet_data($id) {
-    $this->db->select('*');
-		$this->db->from('sh_pets');
+   		$this->db->select('*')->from('sh_pets');
 		$this->db->where('pet_id', $id);
-		$this->db->order_by("pet_id", "desc");
-		$query = $this->db->get();
-		return $query->result();
-		}
+		return$this->db->get()->row_array();
+	}
 		
 		//update pets table
 		public function updatepetdata($pet_up){
@@ -163,6 +160,13 @@ class Pet_model extends CI_model{
 			$this->db->order_by("breed_name", "asc");
 			$query = $this->db->get();
 			return $query->result();
+		}
+
+
+		public function get_breed_name($pid){
+			$this->db->select('breed_name')->from('sh_breeds');
+			$this->db->where("breed_id", $pid);
+			return $this->db->get()->row_array();
 		}
 
 		// get all pet color 

@@ -251,7 +251,7 @@ var addRemVacInfo = (type, e) => {
                     '<input name="vaccination_date[]" type="date" class="form-control" placeholder="Vaccination" required>'+
                 '</div>'+
             '</div>'+
-            '<span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Add Vaccination Info"><i class="fa fa-times"></i></span>'+
+            '<span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Remove Info"><i class="fa fa-times"></i></span>'+
         '</div>'
         );
     } else{

@@ -70,88 +70,104 @@
                                             </a>
                                         </div>
                                     </div>
-									<p class="b-700 m-t-10 f-15 m-b-0"><span class="text-black">Category:</span>  <?= $cat_name; ?></p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Breed: </span><?= $breed_name; ?> </p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Skills:</span> <?= @$skills ? @$skills : 'No data' ?> </p>
 									<p class="f-15 m-b-0 m-t-10 text-black">
-									    <?= @$description ? @$description : 'No description available' ?>
+									    <b>Pet Description</b><br>
+										<?=$description ? $description : 'No description available' ?>
 									</p>
 									<div class="detail-list m-t-20">
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Category:</span> <?= @$cat_name ? @$cat_name : 'No data' ?>
+												<span class="text-blue b-700">Category:</span> <?=$cat_name ? $cat_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Breed:</span> <?= @$breed_name ? @$breed_name : 'No data' ?>
+												<span class="text-blue b-700">Breed:</span> <?=$breed_name ? $breed_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Color:</span> <?= @$color_name ? @$color_name : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">DOB:</span> <?= @$dob ? @$dob : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Gender:</span> <?= @$gender ? @$gender : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Height:</span> <?= @$height ? @$height : 'No data' ?>
+												<span class="text-blue b-700">Color:</span> <?=$color_name ? $color_name : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Weight:</span> <?= @$weight ? @$weight : 'No data' ?>
+												<span class="text-blue b-700">DOB:</span> <?=$dob ? $dob : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Food:</span> <?= @$fav_food ? @$fav_food : 'No data' ?>
+												<span class="text-blue b-700">Gender:</span> <?=$gender ? $gender : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Sports:</span> <?= @$fav_food ? @$fav_food : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Located:</span> <?= @$located ? @$located : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Skills:</span> <?= @$skills ? @$skills : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Clinic:</span> <?= @$vet_clinic ? @$vet_clinic : 'No data' ?>
+												<span class="text-blue b-700">Height:</span> <?=$height ? $height : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Adoptable:</span> <?= @$adoptable ? @$adoptable : 'No data' ?>
+												<span class="text-blue b-700">Weight:</span> <?=$weight ? $weight : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Status:</span> <?= @$fav_food ? @$fav_food : 'No data' ?>
+												<span class="text-blue b-700">Food:</span> <?=$fav_food ? $fav_food : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Tags:</span> <?= @$tags ? @$tags : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Chip No:</span> <?= @$chip_no ? @$chip_no : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Collar Tag:</span> <?= @$collar_tag ? $collar_tag : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Zip Code:</span> <?= @$zip_code ? $zip_code : 'No data' ?>
+												<span class="text-blue b-700">Sports:</span> <?=$fav_food ? $fav_food : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination:</span> <?= @$vaccination ? @$vaccination : 'No data' ?>
+												<span class="text-blue b-700">Located:</span> <?=$located ? $located : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination Date:</span> <?= @$vaccination_date ? $vaccination_date : 'No data' ?>
+												<span class="text-blue b-700">Skills:</span> <?=$skills ? $skills : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Others:</span> <?= @$other_info ? $other_info : 'No data' ?>
+												<span class="text-blue b-700">Clinic:</span> <?=$vet_clinic ? $vet_clinic : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Adoptable:</span> <?=$adoptable ? $adoptable : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Status:</span> <?=$fav_food ? $fav_food : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Tags:</span> <?=$tags ? $tags : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Chip No:</span> <?=$chip_no ? $chip_no : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Collar Tag:</span> <?=$collar_tag ? $collar_tag : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Zip Code:</span> <?=$zip_code ? $zip_code : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-12 f-15 d-lbl text">
+												<span class="text-blue b-700">Vaccinations:</span>
+											</div>
+										</div>
+										<?php $vacc_date = json_decode($vaccination_date); ?>
+										<?php $i=0; foreach(json_decode($vaccination) as $vacc){ ?>
+										<div class="row">
+											<div class="col md-6 f-15 d-lbl">
+												<span class="text-blue b-700">Vaccination Type:</span> <?= $vacc ? $vacc : 'No data' ?>
+											</div>
+											<div class="col md-6 f-15 d-lbl">
+												<span class="text-blue b-700">Vaccination Date:</span> <?= $vacc_date[$i] ? $vacc_date[$i] : 'No data' ?>
+											</div>
+										</div>
+										<?php $i+=1; } ?>
+										<div class="row">
+											<div class="col md-12 f-15 d-lbl">
+												<span class="text-blue b-700">Additional Info:</span> <br>
+												<p class="f-15 m-b-0 m-t-20 text-black">
+													<b>Please list any of your pet's known allergies and medical/health issues</b><br>
+													<?=$health_issues ? $health_issues : 'No health issues available' ?>
+												</p>
+												<p class="f-15 m-b-0 m-t-10 text-black">
+													<b>Does your pet take any medications? If so, please provide medication and dosage requirements</b><br>
+													<?=$medications ? $medications : 'No medications available' ?>
+												</p>
 											</div>
 										</div>
 									</div>

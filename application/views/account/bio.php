@@ -55,7 +55,11 @@
                         <div class="row">
                             <div class="col-md-12 bio-head">
                                 <div class="bio-img">
-                                    <img src="<?=base_url();?><?=($user_img)?'assets/img/profile_pics/'.$user_img:'assets/img/profile2.png';?>" alt="Profile Image">
+                                    <?php if($user_img) { ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
                                 </div>
                                 <a href="<?=base_url();?>account/account" class="btn bg-orange text-white pull-right btn-sm"><i class="fa fa-edit"></i> Edit Bio</a>
                                 <p class="f-30 b-700 text-orange-d m-b-0"><?=$getName;?></p>
@@ -86,7 +90,11 @@
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
                                                             <div class="pet-bio-img">
-                                                                <img src="<?=base_url();?><?= ($primary_pic) ? 'assets/img/pet/'.$primary_pic : 'assets/img/owner.png';?>" alt="Profile Image">
+                                                                <?php if($primary_pic) { ?>
+                                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$primary_pic;?>" alt="Pet Image">
+                                                                <?php }else{ ?>
+                                                                    <img src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Default Pet Image">
+                                                                <?php } ?>
                                                             </div>
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">

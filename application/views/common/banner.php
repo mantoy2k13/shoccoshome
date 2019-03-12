@@ -1,5 +1,5 @@
 <header class="masthead bg-primary text-white text-center">	
-    <button class="btn banner-btn"><i class="fa fa-camera fa-2x"></i> Add Banner</button>
+    <button class="btn banner-btn"><i class="fa fa-camera fa-2x"></i> Change Cover</button>
     <div class="profile-big">
         <?php $user_img=$user_logindata->user_img; 
             $uid = $this->session->userdata('user_id');

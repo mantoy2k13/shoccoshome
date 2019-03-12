@@ -100,17 +100,6 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function add_new_pet(){
-		if ($this->session->userdata('user_email')){
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'add_pet';
-			$this->load->view('pet/add_pet', $data);
-		} else {
-			redirect('home/login');
-		}
-	}
-
 	public function pet_details($pet_id)
 	{
 		if ($this->session->userdata('user_email'))
