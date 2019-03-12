@@ -22,7 +22,7 @@
           <?php $this->load->view('common/left-nav');?>
         
           <!-- Main Content -->
-		  <?php foreach($get_all_pet_data as $show_get_all_pet_data) { ?>
+		  <?php foreach($pet_details as $data) { extract($data); ?>
 		  <div class="col-md-9 m-t-10 p-l-0 p-details">
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
@@ -34,8 +34,8 @@
 						<div class="col-md-6 col-sm-12">
 							<div class="row">
 								<div class="col-md-12">
-									<p class="f-20 b-700 text-blue m-b-0"><?= $show_get_all_pet_data->pet_name; ?></p>
-									<p class="f-15 m-b-0"><?php if($show_get_all_pet_data->street&&$show_get_all_pet_data->city&&$show_get_all_pet_data->zip_code&&$show_get_all_pet_data->state&&$show_get_all_pet_data->country){ ?> <?=$show_get_all_pet_data->street.' '.$show_get_all_pet_data->city.', '.$show_get_all_pet_data->zip_code.', '.$show_get_all_pet_data->state.', '.$show_get_all_pet_data->country;?><?php } else { echo 'No Address'; }?></p>
+									<p class="f-20 b-700 text-blue m-b-0"><?= $pet_name; ?></p>
+									<p class="f-15 m-b-0"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
 								</div>
 								<div class="col-md-12">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -47,24 +47,17 @@
                                         <div class="carousel-inner carousel-inner300">
 										
 											<div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$show_get_all_pet_data->primary_pic;?>" alt="Slider Image">
+												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$primary_pic;?>" alt="Slider Image">
 											</div>
-                                            <?php 
-                                                $pet_images = $show_get_all_pet_data->pet_images;
-                                                $json_pet_images = json_decode($pet_images);
-                                                if(is_array($json_pet_images) || is_object($json_pet_images)){
-                                                    foreach($json_pet_images as $pet_img){
-													$pet_img = substr($pet_img, 15);
-                                            ?>
-											<?php if($pet_img!=$show_get_all_pet_data->primary_pic){?>
-                                                <div class="pet-details-img carousel-item item c-img-wrapper pet-slider">
-                                                    <img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pet/<?=$pet_img;?>" alt="Slider Image">
-                                                </div>
-											<?php } ?>
-
-                                            <?php } } else{ ?>
-                                                    <div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-                                                    <img class="d-block w-100" src="<?=base_url();?>assets/img/image-icon.png" alt="Slider Image">
+                                            <?php $json_pet_images = json_decode($pet_images);
+                                                   if($json_pet_images){ foreach($json_pet_images as $img){ 
+												   if($primary_pic!=$img){ ?>
+													<div class="pet-details-img carousel-item item c-img-wrapper pet-slider">
+														<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img;?>" alt="Slider Image">
+													</div>
+                                            <?php } } } else{ ?>
+                                                <div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
+													<img class="d-block w-100" src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Slider Image">
                                                 </div>
 											<?php } ?>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -77,88 +70,113 @@
                                             </a>
                                         </div>
                                     </div>
-									<p class="b-700 m-t-10 f-15 m-b-0"><span class="text-black">Category:</span>  <?= $show_get_all_pet_data->cat_name; ?></p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Breed: </span><?= $show_get_all_pet_data->breed_name; ?> </p>
-									<p class="b-700 f-15 m-b-0"><span class="text-black">Skills:</span> <?= @$show_get_all_pet_data->skills ? @$show_get_all_pet_data->skills : 'No data' ?> </p>
 									<p class="f-15 m-b-0 m-t-10 text-black">
-									    <?= @$show_get_all_pet_data->description ? @$show_get_all_pet_data->description : 'No description available' ?>
+									    <b>Pet Description</b><br>
+										<?=$description ? $description : 'No description available' ?>
 									</p>
 									<div class="detail-list m-t-20">
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Category:</span> <?= @$show_get_all_pet_data->cat_name ? @$show_get_all_pet_data->cat_name : 'No data' ?>
+												<span class="text-blue b-700">Category:</span> <?=$cat_name ? $cat_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Breed:</span> <?= @$show_get_all_pet_data->breed_name ? @$show_get_all_pet_data->breed_name : 'No data' ?>
+												<span class="text-blue b-700">Breed:</span> <?=$breed_name ? $breed_name : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Color:</span> <?= @$show_get_all_pet_data->color_name ? @$show_get_all_pet_data->color_name : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">DOB:</span> <?= @$show_get_all_pet_data->dob ? @$show_get_all_pet_data->dob : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Gender:</span> <?= @$show_get_all_pet_data->gender ? @$show_get_all_pet_data->gender : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Height:</span> <?= @$show_get_all_pet_data->height ? @$show_get_all_pet_data->height : 'No data' ?>
+												<span class="text-blue b-700">Color:</span> <?=$color_name ? $color_name : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Weight:</span> <?= @$show_get_all_pet_data->weight ? @$show_get_all_pet_data->weight : 'No data' ?>
+												<span class="text-blue b-700">DOB:</span> <?=$dob ? $dob : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Food:</span> <?= @$show_get_all_pet_data->fav_food ? @$show_get_all_pet_data->fav_food : 'No data' ?>
+												<span class="text-blue b-700">Gender:</span> <?=$gender ? $gender : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Sports:</span> <?= @$show_get_all_pet_data->fav_food ? @$show_get_all_pet_data->fav_food : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Located:</span> <?= @$show_get_all_pet_data->located ? @$show_get_all_pet_data->located : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Skills:</span> <?= @$show_get_all_pet_data->skills ? @$show_get_all_pet_data->skills : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Clinic:</span> <?= @$show_get_all_pet_data->vet_clinic ? @$show_get_all_pet_data->vet_clinic : 'No data' ?>
+												<span class="text-blue b-700">Height:</span> <?=$height ? $height : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Adoptable:</span> <?= @$show_get_all_pet_data->adoptable ? @$show_get_all_pet_data->adoptable : 'No data' ?>
+												<span class="text-blue b-700">Weight:</span> <?=$weight ? $weight : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Status:</span> <?= @$show_get_all_pet_data->fav_food ? @$show_get_all_pet_data->fav_food : 'No data' ?>
+												<span class="text-blue b-700">Food:</span> <?=$fav_food ? $fav_food : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Tags:</span> <?= @$show_get_all_pet_data->tags ? @$show_get_all_pet_data->tags : 'No data' ?>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Chip No:</span> <?= @$show_get_all_pet_data->chip_no ? @$show_get_all_pet_data->chip_no : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Collar Tag:</span> <?= @$show_get_all_pet_data->collar_tag ? $show_get_all_pet_data->collar_tag : 'No data' ?>
-											</div>
-											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Zip Code:</span> <?= @$show_get_all_pet_data->zip_code ? $show_get_all_pet_data->zip_code : 'No data' ?>
+												<span class="text-blue b-700">Sports:</span> <?=$fav_food ? $fav_food : 'No data' ?>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination:</span> <?= @$show_get_all_pet_data->vaccination ? @$show_get_all_pet_data->vaccination : 'No data' ?>
+												<span class="text-blue b-700">Located:</span> <?=$located ? $located : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination Date:</span> <?= @$show_get_all_pet_data->vaccination_date ? $show_get_all_pet_data->vaccination_date : 'No data' ?>
+												<span class="text-blue b-700">Skills:</span> <?=$skills ? $skills : 'No data' ?>
 											</div>
 											<div class="col md-4 f-15 d-lbl">
-												<span class="text-blue b-700">Others:</span> <?= @$show_get_all_pet_data->other_info ? $show_get_all_pet_data->other_info : 'No data' ?>
+												<span class="text-blue b-700">Clinic:</span> <?=$vet_clinic ? $vet_clinic : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Adoptable:</span> <?=$adoptable ? $adoptable : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Status:</span> <?=$fav_food ? $fav_food : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Tags:</span> <?=$tags ? $tags : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Chip No:</span> <?=$chip_no ? $chip_no : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Collar Tag:</span> <?=$collar_tag ? $collar_tag : 'No data' ?>
+											</div>
+											<div class="col md-4 f-15 d-lbl">
+												<span class="text-blue b-700">Zip Code:</span> <?=$zip_code ? $zip_code : 'No data' ?>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col md-12 f-15 d-lbl text">
+												<span class="text-blue b-700">Vaccinations:</span>
+											</div>
+										</div>
+										<?php $vacc_date = json_decode($vaccination_date); ?>
+										<?php $i=0; if($vaccination){ foreach(json_decode($vaccination) as $vacc){ ?>
+										<div class="row">
+											<div class="col md-6 f-15 d-lbl">
+												<span class="text-blue b-700">Vaccination Type:</span> <?= $vacc; ?>
+											</div>
+											<div class="col md-6 f-15 d-lbl">
+												<span class="text-blue b-700">Vaccination Date:</span> <?= $vacc_date[$i]; ?>
+											</div>
+										</div>
+										<?php $i+=1; } } else{ ?>
+											<div class="row">
+												<div class="col md-6 f-15 d-lbl">
+													<span class="text-blue b-700">Vaccination Type:</span> No data
+												</div>
+												<div class="col md-6 f-15 d-lbl">
+													<span class="text-blue b-700">Vaccination Date:</span> No data
+												</div>
+											</div>
+										<?php } ?>
+										<div class="row">
+											<div class="col md-12 f-15 d-lbl">
+												<span class="text-blue b-700">Additional Info:</span> <br>
+												<p class="f-15 m-b-0 m-t-20 text-black">
+													<b>Please list any of your pet's known allergies and medical/health issues</b><br>
+													<?=$health_issues ? $health_issues : 'No health issues available' ?>
+												</p>
+												<p class="f-15 m-b-0 m-t-10 text-black">
+													<b>Does your pet take any medications? If so, please provide medication and dosage requirements</b><br>
+													<?=$medications ? $medications : 'No medications available' ?>
+												</p>
 											</div>
 										</div>
 									</div>
@@ -177,8 +195,8 @@
 							</div>
 							<div id='calendar'></div>
 							<div class="col-md-12">
-							<?php if($show_get_all_pet_data->user_id == $this->session->userdata('user_id')){ ?>
-									<a href="<?=base_url();?>home/add_new_pet/<?= ($show_get_all_pet_data->pet_id) ? $show_get_all_pet_data->pet_id : '' ?>" class="btn bg-orange sub-btn w-100"><i class="fa fa-edit"></i> Edit Pet</a>
+							<?php if($user_id == $this->session->userdata('user_id')){ ?>
+									<a href="<?=base_url();?>home/add_new_pet/<?= ($pet_id) ? $pet_id : '' ?>" class="btn bg-orange sub-btn w-100"><i class="fa fa-edit"></i> Edit Pet</a>
 							<?php } ?>
 							</div>
 						</div>

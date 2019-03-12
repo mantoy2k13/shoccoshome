@@ -14,15 +14,6 @@ class Account_model extends CI_Model {
         return ($query->num_rows() > 0) ? true : false;
     }
 
-    public function updateuserdata($user_up){
-        //echo $this->session->userdata('user_id');
-        //exit();
-        $this->db->set($user_up);
-        $this->db->where('id', $this->session->userdata('user_id'));
-        $data = $this->db->update('sh_users');
-        return $data;
-    }
-
     public function update_profile_info($email){
         $uid = $this->session->userdata('user_id');
         $data = array(
@@ -54,7 +45,7 @@ class Account_model extends CI_Model {
     public function update_profile_pic(){
         $uid         = $this->session->userdata('user_id');
         $img_data    = $this->input->post('prof_img_data');
-        $old_img    = $this->input->post('prof_old_img');
+        $old_img     = $this->input->post('prof_old_img');
         $target_path = './assets/img/pictures/';
         
         $filename = './assets/img/pictures/usr'.$uid."/".$old_img;

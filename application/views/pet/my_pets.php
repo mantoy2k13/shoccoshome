@@ -26,38 +26,35 @@
             <div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
 					<span class="b-700 text-blue">My Pet Lists</span>
-					<a href="<?=base_url();?>home/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
+					<a href="<?=base_url();?>pet/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
 				</div>			
 				<div class="panel-body">
 
                     <input type="hidden" value="<?=(isset($_SESSION['pet_msg'])) ? $_SESSION['pet_msg'] : '0';?>" id="getPetAlert">
                     <div class="row f-list-wrap">
-                        <?php 
-                        if($get_pet_data){
-                            foreach($get_pet_data as $show_pet_data){ 
-                        ?>
+                        <?php if($get_pet_data){ foreach($get_pet_data as $data){ extract($data); ?>
                             <div class="col-md-6">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
                                         <div class="friend-img">
-                                            <?php if ($show_pet_data->primary_pic){ ?>
-                                                <img src="<?=base_url();?>assets/img/pet/<?=$show_pet_data->primary_pic; ?>" alt="Pet Image">
+                                            <?php if($primary_pic){ ?>
+                                                <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$primary_pic;?>" alt="Pet Image">
                                             <?php }else{ ?>
-                                                <img src="<?=base_url();?>assets/img/owner.png" alt="Pet Image">
+                                                <img src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Pet Image">
                                             <?php } ?>
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a class="dropdown-item" href="<?=base_url();?>home/add_new_pet/<?=$show_pet_data->pet_id; ?>">Edit Pet</a>
-                                            <a class="dropdown-item" href="javascript:;" onclick="delPet(<?=$show_pet_data->pet_id; ?>)">Delete Pet</a>
-                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$show_pet_data->pet_id; ?>">Pet Details</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id; ?>">Edit Pet</a>
+                                            <a class="dropdown-item" href="javascript:;" onclick="delPet(<?=$pet_id; ?>)">Delete Pet</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id; ?>">Pet Details</a>
                                         </div>
 
-                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$show_pet_data->pet_id; ?>"><?= $show_pet_data->pet_name; ?></a> </p>
-                                        <p class="text-desc"><?= $show_pet_data->description; ?></p>
-                                        <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $show_pet_data->cat_name; ?></span></p>
-                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $show_pet_data->breed_name; ?> </span></p>
-                                        <p class="b-700 f-14">Post Date: <span class="b-700 text-black"><?= $show_pet_data->date_added; ?> </span></p>
+                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$pet_id; ?>"><?= $pet_name; ?></a> </p>
+                                        <p class="text-desc"><?= $description; ?></p>
+                                        <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $cat_name; ?></span></p>
+                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $breed_name; ?> </span></p>
+                                        <p class="b-700 f-14">Post Date: <span class="b-700 text-black"><?= $date_added; ?> </span></p>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +62,7 @@
                             <div class="col-md-12 m-t-20">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
-                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>home/add_new_pet">here</a> to add your pet.</p>
+                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add your pet.</p>
                                     </div>
                                 </div>
                             </div>
