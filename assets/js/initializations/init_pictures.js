@@ -75,7 +75,6 @@ var remFromAlbum = (id) => {
         text: "This image will be removed from this album.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Remove it!",
         closeOnConfirm: false,
         confirmButtonColor: "#e11641",
@@ -110,7 +109,6 @@ var delImg = (id, imgName, type) => {
         text: "Images will be deleted permamently.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Delete it!",
         closeOnConfirm: false,
         confirmButtonColor: "#e11641",
@@ -239,7 +237,6 @@ var delpicture = (id, imgName) => {
         text: "This image will be deleted permamently.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Delete it!",
         closeOnConfirm: false,
         confirmButtonColor: "#e11641",
@@ -304,10 +301,10 @@ var setPriPhoto = (img_name)=>{
         text: "This picture will be set as primary image.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, set it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#2162e7"
+        confirmButtonColor: "#2162e7",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({

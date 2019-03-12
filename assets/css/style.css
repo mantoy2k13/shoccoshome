@@ -1265,6 +1265,14 @@ a.btn-menu.btn.bg-blue:active:focus {
     background: #b60b29;
 }
 
+.or {
+    display: block;
+    margin: 10px auto;
+    font-size: 15px;
+    font-weight: 700;
+    color: #7a7f87;
+}
+
 
 /*Daryl code*/
 

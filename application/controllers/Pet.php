@@ -12,42 +12,58 @@ class Pet extends CI_Controller{
             $pet_id = $this->uri->segment(3);
             $data['pd'] = ($pet_id) ? $this->Pet_model->get_single_pet_data($pet_id) : null;
 			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['all_pictures'] = $this->Pictures_model->get_all_pictures();
 			$data['is_page'] = 'add_pet';
 			$this->load->view('pet/add_pet', $data);
 		} else {
 			redirect('home/login');
 		}
     }
-    
-    public function update_pet(){
-		if ($this->session->userdata('user_email')){
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'update_pet';
-			$this->load->view('pet/update_pet', $data);
-		} else {
-			redirect('home/login');
-		}
-	}
 
     public function add_pet(){
         if($this->input->post()){
-            $pet_id = $this->Pet_model->add_pet();
+            $pid = $this->uri->segment(3);
+            $postType = $this->input->post('postType');
+            $pet_id = $this->Pet_model->add_pet($postType, $pid);
             if($pet_id){
-                $img_res = $this->Pet_model->insert_pet_img($pet_id);
+                $img_res = $this->Pet_model->insert_pet_img($postType, $pet_id);
                 if($img_res){
                     $this->session->set_flashdata('pet_msg', 'Added');
-                    redirect('home/add_new_pet');
+                    redirect('pet/add_new_pet/'.$pet_id);
                 }
                 $this->session->set_flashdata('pet_msg', 'Added');
-                redirect('home/add_new_pet');
+                redirect('pet/add_new_pet'.$pet_id);
             } else {
                 $this->session->set_flashdata('pet_msg', 'Error');
-                redirect('home/add_new_pet');
+                redirect('pet/add_new_pet');
             }
         } else{
             redirect('pet/add_pet');
+        }
+    }
+
+    public function rem_vacc_info($pet_id, $num){
+        if($this->input->post()){
+            $vacc = $this->Pet_model->get_vacc($pet_id);
+            $vaccination = json_decode($vacc['vaccination']);
+            $vaccination_date = json_decode($vacc['vaccination_date']);
+            $i=0; $j=0;
+            foreach ($vaccination as $v) {
+                if($i!=$num){
+                    $n_vacc[] = $v;
+                }
+                $i+=1;
+            }
+            foreach ($vaccination_date as $vd) {
+                if($j!=$num){
+                    $n_vd[] = $vd;
+                }
+                $j+=1;
+            }
+
+            $res = $this->Pet_model->update_vacc($pet_id,json_encode($n_vacc), json_encode($n_vd));
+            echo ($res) ? 1 : 0;
         }
     }
 
@@ -82,7 +98,7 @@ class Pet extends CI_Controller{
             if($count_final_images>4){
                 $petid=$this->input->post('pet_id');
                 $this->session->set_flashdata('update_over_img_success_msg', 'Sorry ! You Max 4 images Uploaded.');
-                redirect('/home/add_new_pet/'.$petid.'');
+                redirect('pet/add_new_pet/'.$petid.'');
             }else{
 
             $uploadedImgsJson=json_encode($final_images);
@@ -130,11 +146,11 @@ class Pet extends CI_Controller{
             $update_pet = $this->Pet_model->updatepetdata($petdataupdate);
             if ($update_pet) {
                 $this->session->set_flashdata('pet_msg', 'Updated');
-                redirect('/home/add_new_pet/'.$petid.'');
+                redirect('pet/add_new_pet/'.$petid.'');
             }
             else {
                 $this->session->set_flashdata('pet_msg', 'Error');
-                redirect('/home/add_new_pet/'.$petid.'');
+                redirect('pet/add_new_pet/'.$petid.'');
             }
 
         }
@@ -193,31 +209,18 @@ class Pet extends CI_Controller{
         return $config;
     }
 
-    public function pet_image_remove($isPrimary){
-        $path = $_POST['path'];
-        $petid = $_POST['petid'];
-        $linkimg='assets/img/pet/'.$path;
-
-        $get_single_pet_data=$this->Pet_model->get_single_pet_data($petid);
-        $get_pet_images=$get_single_pet_data[0]->pet_images;
-
-        $only_pet_image= json_decode($get_pet_images); //db
-        $rval = [];
-        foreach($only_pet_image as $i=>$imgp) {
-            if($imgp !== $linkimg) {
-                $rval[$i] = $imgp;
+    public function pet_image_remove($pet_id){
+        if($this->input->post()){
+            $pd = $this->Pet_model->get_single_pet_data($pet_id);
+            foreach(json_decode($pd['pet_images']) as $img){
+                if($this->input->post('imgName')!=$img){
+                    $n_img[] = $img;
+                }
             }
-        }
-        $updateimagearray=json_encode(array_values($rval));
-        $deleteimage=$this->Pet_model->updatepetimagesdata($petid,$updateimagearray);
-        if($deleteimage){
-            unlink($linkimg);
-            if($isPrimary){
-                $this->Pet_model->setPrimaryImg($petid, '');
-            }
-            echo true;
+            $res = $this->Pet_model->update_pet_img($pet_id, json_encode($n_img));
+            echo ($res) ? 1 : 0;
         } else{
-            echo false;
+            echo 0;
         }
     }
 
