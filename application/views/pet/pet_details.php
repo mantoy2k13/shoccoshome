@@ -147,16 +147,25 @@
 											</div>
 										</div>
 										<?php $vacc_date = json_decode($vaccination_date); ?>
-										<?php $i=0; foreach(json_decode($vaccination) as $vacc){ ?>
+										<?php $i=0; if($vaccination){ foreach(json_decode($vaccination) as $vacc){ ?>
 										<div class="row">
 											<div class="col md-6 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination Type:</span> <?= $vacc ? $vacc : 'No data' ?>
+												<span class="text-blue b-700">Vaccination Type:</span> <?= $vacc; ?>
 											</div>
 											<div class="col md-6 f-15 d-lbl">
-												<span class="text-blue b-700">Vaccination Date:</span> <?= $vacc_date[$i] ? $vacc_date[$i] : 'No data' ?>
+												<span class="text-blue b-700">Vaccination Date:</span> <?= $vacc_date[$i]; ?>
 											</div>
 										</div>
-										<?php $i+=1; } ?>
+										<?php $i+=1; } } else{ ?>
+											<div class="row">
+												<div class="col md-6 f-15 d-lbl">
+													<span class="text-blue b-700">Vaccination Type:</span> No data
+												</div>
+												<div class="col md-6 f-15 d-lbl">
+													<span class="text-blue b-700">Vaccination Date:</span> No data
+												</div>
+											</div>
+										<?php } ?>
 										<div class="row">
 											<div class="col md-12 f-15 d-lbl">
 												<span class="text-blue b-700">Additional Info:</span> <br>

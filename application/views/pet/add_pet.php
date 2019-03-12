@@ -143,7 +143,7 @@
                             <div class="row form-group vacc-wrapper">
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Vaccinations</div>
                                 <?php $vacc_date = json_decode($pd['vaccination_date']); ?>
-								<?php $i=0; foreach(json_decode($pd['vaccination']) as $vacc){ ?>
+								<?php $i=0; if($pd['vaccination']){ foreach(json_decode($pd['vaccination']) as $vacc){ ?>
                                 <div class="col-md-12 vacc-parent">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -151,7 +151,7 @@
                                             <select name="vaccination[]" class="form-control" required>
                                                 <option value="">Select Type</option>
                                                 <option value="Parvovirus (CPV)" <?= ($vacc=='Parvovirus (CPV)') ? 'selected' : '' ?>>Parvovirus (CPV)</option>
-                                                <option value="Canine distemper virus (CDV)" <?= ($vacc=='Parvovirus (CPV)') ? 'selected' : '' ?>>Canine distemper virus (CDV)</option>
+                                                <option value="Canine distemper virus (CDV)" <?= ($vacc=='Canine distemper virus (CDV)') ? 'selected' : '' ?>>Canine distemper virus (CDV)</option>
                                                 <option value="Canine adenovirus (CAV)" <?= ($vacc=='Canine adenovirus (CAV)') ? 'selected' : '' ?>>Canine adenovirus (CAV)</option>
                                                 <option value="Rabies" <?= ($vacc=='Rabies') ? 'selected' : '' ?>>Rabies</option>
                                                 <option value="Canine parainfluenza virus (CPiV)" <?= ($vacc=='Canine parainfluenza virus (CPiV)') ? 'selected' : '' ?>>Canine parainfluenza virus (CPiV)</option>
@@ -173,7 +173,37 @@
                                         <span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Remove Info"><i class="fa fa-times"></i></span>
                                     <?php } ?>
                                 </div>
-                                <?php $i+=1; } ?>
+                                <?php $i+=1; } } else{ ?>
+                                    <div class="col-md-12 vacc-parent">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="f-15 text-black">Vaccination Type</label>
+                                            <select name="vaccination[]" class="form-control" required>
+                                                <option value="">Select Type</option>
+                                                <option value="Parvovirus (CPV)">Parvovirus (CPV)</option>
+                                                <option value="Canine distemper virus (CDV)">Canine distemper virus (CDV)</option>
+                                                <option value="Canine adenovirus (CAV)">Canine adenovirus (CAV)</option>
+                                                <option value="Rabies">Rabies</option>
+                                                <option value="Canine parainfluenza virus (CPiV)">Canine parainfluenza virus (CPiV)</option>
+                                                <option value="Distemper-measles combination vaccine">Distemper-measles combination vaccine</option>
+                                                <option value="Bordetella bronchiseptica (Kennel Cough)">Bordetella bronchiseptica (Kennel Cough)</option>
+                                                <option value="Leptospira spp">Leptospira spp</option>
+                                                <option value="Borrelia burgdorferi (Lyme)">Borrelia burgdorferi (Lyme)</option>
+                                                <option value="Giardia">Giardia</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="f-15 text-black">Vaccination Date</label>
+                                            <input name="vaccination_date[]" type="date" class="form-control" placeholder="Vaccination" required>
+                                        </div>
+                                    </div>
+                                    <?php if($i==0){ ?>
+                                        <span onclick="addRemVacInfo(1,this)" class="vacc-btn-add" data-toggle="tooltip" title="Add Vaccination Info"><i class="fa fa-plus"></i></span>
+                                    <?php }else{ ?>
+                                        <span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Remove Info"><i class="fa fa-times"></i></span>
+                                    <?php } ?>
+                                </div>
+                                <?php } ?>
                             </div>
                             
                             <!-- Where I live -->
