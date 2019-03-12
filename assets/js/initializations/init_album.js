@@ -50,7 +50,6 @@ $(document).ready(function(){
              text: "Are you sure you want to delete this Album? This will not be recovered.",
              type: "warning",
              showCancelButton: true,
-             confirmButtonClass: "btn-danger",
              confirmButtonText: "Yes, delete it!",
              closeOnConfirm: false,
              confirmButtonColor: "#e11641",

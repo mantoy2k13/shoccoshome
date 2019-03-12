@@ -13,7 +13,7 @@ class Pet_model extends CI_model{
 		return $insert_id;
     }
     
-    public function add_pet(){
+    public function add_pet($postType,$pid){
         foreach($this->input->post('vaccination') as $k=>$v){ $vacc[] = $v; }
         foreach($this->input->post('vaccination_date') as $l=>$m){ $v_date[] = $m; }
         $vaccination = json_encode($vacc);
@@ -55,13 +55,18 @@ class Pet_model extends CI_model{
             'vaccination'      =>$vaccination,
             'vaccination_date' =>$vacc_date
         );
-
-        $this->db->insert('sh_pets', $data);
-        $pet_id = $this->db->insert_id();
-        return $pet_id;
+		if($postType == "add"){
+			$this->db->insert('sh_pets', $data);
+			$pet_id = $this->db->insert_id();
+			return $pet_id;
+		} else{
+			$this->db->where('pet_id', $pid);
+			$res = $this->db->update('sh_pets', $data);
+			return ($res) ? $pid : false;
+		}
 	}
 
-    public function insert_pet_img($pet_id){
+    public function insert_pet_img($postType,$pet_id){
 		$uid         = $this->session->userdata('user_id');
         $target_path = './assets/img/pictures/';
 
@@ -70,26 +75,36 @@ class Pet_model extends CI_model{
             $target_path = './assets/img/pictures/usr'.$uid."/";
         } else{
             $target_path = "./assets/img/pictures/usr".$uid."/";
-        }
+		}
+		
+		if($this->input->post('pet_images')){
+			foreach($this->input->post('pet_images') as $k=>$v){
+				$imgName = 'p'.$uid.'_'.uniqid().".jpg"; 
+				$data    = explode(',', $v);
+				$decoded = base64_decode($data[1]);
+				$status  = file_put_contents($target_path.$imgName,$decoded); 
+				$pet_images[] = $imgName;
+				$this->Pictures_model->insert_images($imgName, $uid, 0);
+			}
+		}
 
-        foreach($this->input->post('pet_images') as $k=>$v){
-            $imgName = 'p'.$uid.'_'.uniqid().".jpg"; 
-            $data    = explode(',', $v);
-            $decoded = base64_decode($data[1]);
-            $status  = file_put_contents($target_path.$imgName,$decoded); 
-            $pet_images[] = $imgName;
-        }
+		if($this->input->post('imgFromPics')){
+			foreach($this->input->post('imgFromPics') as $k=>$v){
+				$pet_images[] = $v;
+				$imgName =$v;
+			}
+		}
 
         if($pet_images){
-            $my_pet_img = json_encode($pet_images);
-            $data = array('pet_images' => $my_pet_img, 'primary_pic' => $imgName);
+			$my_pet_img = json_encode($pet_images);
+			$data = ($postType=="add") ? array('pet_images' => $my_pet_img, 'primary_pic' => $imgName) : array('pet_images' => $my_pet_img);;
+             
             $this->db->where('pet_id', $pet_id);
             $res = $this->db->update('sh_pets', $data);
             return ($res) ? true : false;
         }else{
             return false;
         }
-        
     }
 
     public function checkPetName($petName){
@@ -102,12 +117,25 @@ class Pet_model extends CI_model{
 	// user id wise
  	public function get_pet_data() {
         $id = $this->session->userdata('user_id');
-        $this->db->select('*')->from('sh_pets a');;
+        $this->db->select('*')->from('sh_pets a');
 		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
         $this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
 		$this->db->where('a.user_id', $id);
 		$this->db->order_by("a.pet_id", "desc");
 		return $this->db->get()->result_array();
+	}
+	
+	public function get_vacc($pet_id) {
+        $this->db->select('vaccination, vaccination_date')->from('sh_pets');
+		$this->db->where('pet_id', $pet_id);
+		return $this->db->get()->row_array();
+	}
+	
+	public function update_vacc($pet_id,$n_vacc,$n_vd) {
+		$data = array('vaccination'=>$n_vacc, 'vaccination_date'=>$n_vd);
+        $this->db->where('pet_id', $pet_id);
+		$res = $this->db->update('sh_pets', $data);
+		return ($res) ? true : false;
     }
 
 	// pet id wise
@@ -138,11 +166,11 @@ class Pet_model extends CI_model{
 
 
 		//update pets delete iamge table
-		public function updatepetimagesdata($data,$pet_images){
-			$this->db->set('pet_images', $pet_images);
-			$this->db->where('pet_id',$data);
-			$data = $this->db->update('sh_pets');
-			return $data;
+		public function update_pet_img($pet_id, $n_img){
+			$this->db->set('pet_images', $n_img);
+			$this->db->where('pet_id', $pet_id);
+			$res = $this->db->update('sh_pets');
+			return ($res) ? true : false;
 		}
 		
 		// get all pet categories 

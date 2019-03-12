@@ -126,7 +126,7 @@
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                                 <?php if($id==$my_id){ ?>
-                                                                <a class="dropdown-item" href="<?=base_url();?>home/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
+                                                                <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
                                                                 <?php } ?>
                                                                 <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id;?>">Pet Details</a>
                                                             </div>
@@ -139,7 +139,7 @@
                                             <?php } } else { ?>
                                                 <div class="col-md-12">
                                                     <div class="alert alert-info f-15">
-                                                        <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>home/add_new_pet">here</a> to add new pets.
+                                                        <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add new pets.
                                                     </div>
                                                 </div>
                                             <?php } ?>

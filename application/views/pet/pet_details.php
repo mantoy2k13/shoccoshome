@@ -196,7 +196,7 @@
 							<div id='calendar'></div>
 							<div class="col-md-12">
 							<?php if($user_id == $this->session->userdata('user_id')){ ?>
-									<a href="<?=base_url();?>home/add_new_pet/<?= ($pet_id) ? $pet_id : '' ?>" class="btn bg-orange sub-btn w-100"><i class="fa fa-edit"></i> Edit Pet</a>
+									<a href="<?=base_url();?>pet/add_new_pet/<?= ($pet_id) ? $pet_id : '' ?>" class="btn bg-orange sub-btn w-100"><i class="fa fa-edit"></i> Edit Pet</a>
 							<?php } ?>
 							</div>
 						</div>
