@@ -1239,33 +1239,6 @@ a.btn-menu.btn.bg-blue:active:focus {
     bottom: 12px;
 }
 
-.vacc-btn-add, .vacc-btn-rem{
-    position: absolute;
-    right: 0;
-    top: 38px;
-    border-radius: 50%;
-    color: #fff;
-}
-
-.vacc-btn-add {
-    background: #17a2b8;
-    padding: 0 5px;
-}
-
-.vacc-btn-add:hover{
-    background: #107586;
-}
-
-.vacc-btn-rem {
-    background: #ef0c34;
-    padding: 0 7px;
-}
-
-.vacc-btn-rem:hover{
-    background: #b60b29;
-}
-
-
 /*Daryl code*/
 
 div.prof-desc {
