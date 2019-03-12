@@ -1276,7 +1276,7 @@ span.btmleft_set_pri {
     left: 7px;
     background:#0a7cf1;
     border-radius: 50%;
-    padding: 5px 8px;
+    padding: 5px 7px;
     font-size: 11px;
 }
 
@@ -1286,13 +1286,10 @@ span.btmleft_set_cver {
     left: 37px;
     background: #11b4ae;
     border-radius: 50%;
-    padding: 5px 8px;
+    padding: 5px 7px;
     font-size: 11px;
 }
 
-span.cust-mod-close.bg-green {
-    background: green;
-}
 /*end daryl code*/
 
 

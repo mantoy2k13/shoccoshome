@@ -117,4 +117,11 @@ class Account extends CI_Controller {
 		else { echo false; }
     }
 
+    public function setCoverPrimary($img_name){
+        if($this->session->userdata('user_email')){
+            echo $this->Account_model->setCoverImg($img_name);
+        }
+        else{ echo false;}
+    }
+
 }

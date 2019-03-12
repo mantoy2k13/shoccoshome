@@ -93,6 +93,10 @@ class Album extends CI_Controller {
 			$data['view_album'] = $this->Album_model->view_album($album_id);
 			$data['view_album_images'] = $this->Album_model->view_album_images($album_id);
 			$data['get_img_no_album'] = $this->Pictures_model->get_img_no_album();
+			echo '<pre>';
+			// print_r($data['view_album_images']);
+			// print_r($data['user_logindata']);
+			echo '</pre>';
 			$this->load->view('pictures/view_album', $data);
 		}
 		else{
