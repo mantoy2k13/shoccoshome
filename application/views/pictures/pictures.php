@@ -22,13 +22,6 @@
           <?php $this->load->view('common/left-nav');?>
         
           <!-- Main Content -->
-          <?php 
-            echo '<pre>';
-            // print_r($user_logindata);
-            // print_r($all_pictures);
-         
-            echo '</pre>';
-          ?>
 		  <div class="col-md-9 m-t-10 p-l-0">
                 <div class="pic-head bg-greyish">
                 <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">

@@ -25,8 +25,6 @@
 		  <div class="col-md-9 m-t-10 p-l-0">
                 <div class="pic-head bg-greyish">
                 <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">
-                <?php $user_img    = $user_logindata->user_img; ?>
-                <?php $cover_photo = $user_logindata->cover_photo; ?>
                     <div class="row">
                         <div class="col-md-12">
                             <i class="fa fa-image f-25 text-blue"></i> <?=$view_album["album_name"];?> (<?=$this->Album_model->count_images($view_album["album_id"]);?>)
@@ -75,14 +73,30 @@
                                                 <a href="javascript:;" onclick="remFromAlbum(<?= $img_id?>)">
                                                     <span class="cust-mod-close bg-orange-l-a rmImg"  data-toggle="tooltip" data-placement="left" data-html="true" title="Remove"><i class="fa fa-times text-white"></i></span>
                                                 </a>
-                                                <span class="btmleft_set_pri" data-toggle="tooltip" <?=($img_name==$user_img) ? 'title="Used as profile image"' : "onclick=\"setPriPhoto('".$img_name."')\"  title='Set as primary image'";?>>
-                                                    <i class="fa fa-<?=($img_name==$user_img) ? 'check' : 'user';?> text-white"></i>
-                                                </span>
-                                                <span class="btmleft_set_cver" data-toggle="tooltip" <?=($img_name==$cover_photo) ? 'title="Used as cover photo"' : "onclick=\"setCoverPhoto('".$img_name."')\"  title='Set as cover photo'";?>>
-                                                    <i class="fa fa-<?=($img_name==$cover_photo) ? 'check' : 'image';?> text-white"></i>
-                                                </span>
-                                                <?php $imgD = array($user_img, $cover_photo); ?>
-                                                <?php if(!(in_array($img_name,$imgD))){ ?>
+                                               
+                                                <?php if($user_logindata->user_img === $img_name){?>
+                                                    <a href="javascript:;">
+                                                        <span class="btmleft_set_pri" data-toggle="tooltip" data-placement="left" data-html="true" title="Used as Profile" ><i class="fa fa-check text-white"></i></span>
+                                                    </a>
+                                                    <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
+                                                            <i class="fa fa-image text-white"></i>
+                                                    </span>                                             
+                                                <?php }else if($user_logindata->cover_photo === $img_name){?>
+                                                    <a href="javascript:;">
+		                                                <span class="btmleft_set_cver" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Used as CoverPhoto" aria-describedby="tooltip"><i class="fa fa-check text-white"></i></span>
+		                                            </a>
+                                                    <a href="javascript:;">
+                                                        <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
+                                                            <i class="fa fa-user text-white"></i>
+                                                        </span>
+                                                    </a>
+                                                <?php } else{?>
+                                                    <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
+                                                        <i class="fa fa-user text-white"></i>
+                                                    </span>
+                                                    <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
+			                                            <i class="fa fa-image text-white"></i>
+		                                            </span>
                                                     <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
                                                         <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
                                                     </a>
@@ -90,7 +104,7 @@
                                                         <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
                                                         <label class="custom-control-label" for="<?=$img_id?>"></label>
                                                     </div>
-                                                <?php } ?>
+                                                <?php } ?> 
                                             </a>
                                         </div>
                                     </div>
