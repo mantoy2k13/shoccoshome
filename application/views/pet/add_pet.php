@@ -73,7 +73,7 @@
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Breed</label>
                                     <?php $bName = ($pd) ? $this->Pet_model->get_breed_name($pd['breed_id']) : ''; ?>
-                                    <select name="breed_id" id="breed_id" class="form-control" reqired>
+                                    <select name="breed_id" id="breed_id" class="form-control" required>
                                         <option value="<?=($pd) ? $pd['breed_id'] : ''; ?>"><?=($pd) ? $bName['breed_name'] : 'Select Breed';?></option>
                                     </select>
                                 </div>
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label class="f-15 text-black">Color</label>
-                                    <select name="color_id" class="form-control">
+                                    <select name="color_id" class="form-control" required>
                                         <option value="">Select Color</option>
                                         <?php foreach($this->Pet_model->get_all_pet_color() as $color){ extract($color); ?>
                                             <option value="<?=$color_id;?>" <?=($pd) ? (($pd['color_id']==$color_id) ? 'selected' : '') : ''; ?>><?=$color_name;?></option>
