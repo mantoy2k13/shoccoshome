@@ -80,7 +80,7 @@
                                                     </a>
                                                     <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
                                                             <i class="fa fa-image text-white"></i>
-                                                    </span>
+                                                    </span>                                             
                                                 <?php }else if($user_logindata->cover_photo === $img_name){?>
                                                     <a href="javascript:;">
 		                                                <span class="btmleft_set_cver" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Used as CoverPhoto" aria-describedby="tooltip"><i class="fa fa-check text-white"></i></span>
