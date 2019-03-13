@@ -35,6 +35,14 @@ class Friends_model extends CI_Model {
 		$this->db->where('sh_friend_request.user_req_to ', $uid);
 		return $this->db->get()->result_array();   
 	}
+
+	public function get_friend_i_request(){
+		$uid = $this->session->userdata('user_id');
+		$this->db->select('*')->from('sh_friend_request');
+		$this->db->join('sh_users', 'sh_users.id=sh_friend_request.user_req_to', 'left');
+		$this->db->where('sh_friend_request.user_id', $uid);
+		return $this->db->get()->result_array();   
+	}
 	
 	public function request_friends($uid, $type){
 		$my_id = $this->session->userdata('user_id');

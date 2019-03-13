@@ -22,13 +22,6 @@
           <?php $this->load->view('common/left-nav');?>
         
           <!-- Main Content -->
-          <?php 
-            echo '<pre>';
-            // print_r($user_logindata);
-            // print_r($all_pictures);
-         
-            echo '</pre>';
-          ?>
 		  <div class="col-md-9 m-t-10 p-l-0">
                 <div class="pic-head bg-greyish">
                 <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">
@@ -58,7 +51,7 @@
                         <form action="javascript:;" id="formImgData">
                             <div class="row">
                                 <?php foreach($all_pictures as $pics){ extract($pics); ?>
-                                    <div class="col-md-3 albumImg" id="albumImg<?=$img_id;?>">
+                                    <div class="col-lg-3 col-md-6 albumImg" id="albumImg<?=$img_id;?>">
                                         <?php $album = $this->Pictures_model->get_album_name($album_id);?>
                                         <div class="thumbnail myAlbumImg" data-toggle="tooltip" title="<?=($album['album_name']) ? $album['album_name'] : 'No Album' ?>">
                                             <a href="javascript:;">

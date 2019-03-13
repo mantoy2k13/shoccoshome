@@ -67,8 +67,10 @@ class Account_model extends CI_Model {
         if($status){
             $data = array('user_img' => $imgName);
             $this->db->where('id', $uid);
-            $res = $this->db->update('sh_users', $data);
-            return ($res) ? true : false;
+            $this->db->update('sh_users', $data);
+            $data = array('img_name'=> $imgName, 'user_id'=>$uid, 'album_id'=>0);
+            $result = $this->db->insert('sh_images', $data);
+            return ($result) ? true : false;
         }else{
             return false;
         }

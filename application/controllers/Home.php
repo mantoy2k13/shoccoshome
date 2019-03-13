@@ -10,7 +10,6 @@ class Home extends CI_Controller {
 		$data['is_page'] = 'mainpage';
 		$data['categories'] = $this->Pet_model->get_all_pet_cat();
 		$data['my_pets'] = ($this->session->userdata('user_email')) ? $this->Account_model->get_my_pets($this->session->userdata('user_id')) : "";
-
 		$this->load->view('frontpage/mainpage', $data);
 	}
 	

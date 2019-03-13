@@ -75,7 +75,52 @@
                             </div>
                         </div>
                     </div>
-                <?php } } else {?>
+                <?php } }?>
+                <?php if($friend_i_request){ foreach($friend_i_request as $frnds){ extract($frnds); ?>
+                    <div class="col-md-6">
+                        <div class="card bg-grey friend-card">
+                            <div class="card-body">
+                                <div class="friend-img">
+                                    <?php if($user_img) { ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
+                                </div>
+                                <?php $uid = $this->session->userdata('user_id');?>
+                                <?php if($uid != $id){?>
+                                    <div class="options<?=$id;?>">
+                                        <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
+                                            <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
+                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
+                                                <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                            </div>
+                                    </div>
+                                <?php } ?>
+                                <p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
+                                <p class="text-desc"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
+                                <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
+                                <p class="text-desc">
+                                    <div class="dropdown">
+                                        <button class="btn bg-orange btn-round dropdown-toggle" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            View Pets
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropPets">
+                                            <?php $get_pets=$this->Friends_model->get_my_pets($id);?>
+                                            <?php if($get_pets){ foreach($get_pets as $pets){ extract($pets); ?>
+                                                <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>" target="_blank"><?=$pet_name;?> (<?=$cat_name;?>)</a>
+                                            <?php } } else { ?>
+                                                <a class="dropdown-item" href="<javascript:;">No pets found.</a>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                <?php } }?>
+                <?php if(!$friend_request && !$friend_i_request){ ?>
                     <div class="col-md-12">
                         <div class="alert alert-info">
                             <strong><i class="fa fa-check"></i> Empty!</strong> You have no friend request.</i>

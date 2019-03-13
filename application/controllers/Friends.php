@@ -82,6 +82,7 @@ class Friends extends CI_Controller {
 		{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data["friend_i_request"] = $this->Friends_model->get_friend_i_request();
 			$data["friend_request"] = $this->Friends_model->get_my_friend_request();
 			$data['is_page'] = 'friend_request';
 			$this->load->view('friends/friend_request', $data);

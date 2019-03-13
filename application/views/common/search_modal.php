@@ -49,8 +49,8 @@
                 <div class="col-md-4">
                     <select name="color_id" class="form-control">
                         <option value="">Select Color</option>
-                        <?php foreach($get_all_pet_color as $show_all_pet_color){ ?>
-                            <option value="<?= $show_all_pet_color->color_id ?>" <?=(isset($_GET['color_id'])) ? (($_GET['color_id']==$show_all_pet_color->color_id) ? 'selected' : '' ) : ''; ?>> <?= $show_all_pet_color->color_name ?> </option>
+                        <?php foreach($get_all_pet_color as $col){ extract($col); ?>
+                            <option value="<?= $color_id ?>" <?=(isset($_GET['color_id'])) ? (($_GET['color_id']==$color_id) ? 'selected' : '' ) : ''; ?>> <?= $color_name ?> </option>
                         <?php } ?>
                     </select>
                 </div>
