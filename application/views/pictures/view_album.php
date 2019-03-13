@@ -74,35 +74,37 @@
                                                     <span class="cust-mod-close bg-orange-l-a rmImg"  data-toggle="tooltip" data-placement="left" data-html="true" title="Remove"><i class="fa fa-times text-white"></i></span>
                                                 </a>
                                                
-                                                <?php if($user_logindata->user_img !== $img_name):?>
-                                                <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
-                                                    <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
-                                                </a>
-                                                <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
-                                                    <i class="fa fa-user text-white"></i>
-                                                </span>
-                                                
-                                                <div class="custom-control custom-checkbox m-b-5 floatCBox">
-                                                    <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
-                                                    <label class="custom-control-label" for="<?=$img_id?>"></label>
-                                                </div>
-                                                <?php else:?>
-                                                <a href="javascript:;">
-                                                    <span class="btmleft_set_pri" data-toggle="tooltip" data-placement="left" data-html="true" title="Used as Profile" ><i class="fa fa-check text-white"></i></span>
-                                                </a>
-                                                <?php endif;?> 
-
-                                                <?php if($user_logindata->cover_photo !== $img_name):?>
-                                                <a href="javascript:;">
+                                                <?php if($user_logindata->user_img === $img_name){?>
+                                                    <a href="javascript:;">
+                                                        <span class="btmleft_set_pri" data-toggle="tooltip" data-placement="left" data-html="true" title="Used as Profile" ><i class="fa fa-check text-white"></i></span>
+                                                    </a>
                                                     <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
-                                                        <i class="fa fa-image text-white"></i>
+                                                            <i class="fa fa-image text-white"></i>
                                                     </span>
-                                                </a>
-                                                <?php else:?>
-                                                <a href="javascript:;">
-                                                    <span class="btmleft_set_cver" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Used as CoverPhoto" aria-describedby="tooltip535191"><i class="fa fa-check text-white"></i></span>
-                                                </a>
-                                                <?php endif;?>
+                                                <?php }else if($user_logindata->cover_photo === $img_name){?>
+                                                    <a href="javascript:;">
+		                                                <span class="btmleft_set_cver" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Used as CoverPhoto" aria-describedby="tooltip"><i class="fa fa-check text-white"></i></span>
+		                                            </a>
+                                                    <a href="javascript:;">
+                                                        <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
+                                                            <i class="fa fa-user text-white"></i>
+                                                        </span>
+                                                    </a>
+                                                <?php } else{?>
+                                                    <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
+                                                        <i class="fa fa-user text-white"></i>
+                                                    </span>
+                                                    <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
+			                                            <i class="fa fa-image text-white"></i>
+		                                            </span>
+                                                    <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
+                                                        <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
+                                                    </a>
+                                                    <div class="custom-control custom-checkbox m-b-5 floatCBox">
+                                                        <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
+                                                        <label class="custom-control-label" for="<?=$img_id?>"></label>
+                                                    </div>
+                                                <?php } ?> 
                                             </a>
                                         </div>
                                     </div>
