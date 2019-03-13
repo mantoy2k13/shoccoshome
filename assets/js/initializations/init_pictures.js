@@ -160,7 +160,7 @@ var delSelected = (type)=>{
             text: (type==1) ? 'All image will be deleted permamently' : 'All image will be remove from this album',
             type: "warning",
             showCancelButton: true,
-            confirmButtonClass: "btn-danger",
+
             confirmButtonText: (type==1) ? 'Delete it!' : 'Remove it!',
             closeOnConfirm: false,
             confirmButtonColor: "#e11641",
@@ -324,5 +324,37 @@ var setPriPhoto = (img_name)=>{
                 }
             }
         });
+    });
+}
+
+var setCoverPhoto = (img_name)=>{
+   swal({
+    title: "Set CoverPhoto?",
+    text: "This picture will be set as CoverPhoto.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, set it!",
+    closeOnConfirm: false,
+    confirmButtonColor: "#2162e7"
+   },
+    function(){
+        $.ajax({
+            url:base_url+'account/setCoverPrimary/'+img_name,
+            success:function(res){
+                if(res){
+                    swal({
+                        title: 'Success!',
+                        text: "Image was successfully set as CoverPhoto.",
+                        type: 'success',
+                        showConfirmButton:false,
+                        confirmButtonText: ''
+                    });
+                    setInterval(function(){ location.reload(); }, 1500);
+                }
+                else{
+                    swal("Failed!", "There was a problem deleting your image", 'warning');
+                }
+            }
+        }); 
     });
 }

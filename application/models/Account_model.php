@@ -171,4 +171,11 @@ class Account_model extends CI_Model {
 		$res = $this->db->update('sh_users');
 		return ($res) ? true : false;
     }
+
+    public function setCoverImg($img_name){
+        $this->db->set('cover_photo', $img_name);
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $res = $this->db->update('sh_users');
+        return ($res) ? true : false;
+    }
 }

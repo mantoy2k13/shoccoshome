@@ -25,7 +25,7 @@
           <?php 
             echo '<pre>';
             // print_r($all_pictures);
-            // print_r($user_logindata->user_img);
+            // print_r($user_logindata);
             echo '</pre>';
           ?>
 		  <div class="col-md-9 m-t-10 p-l-0">
@@ -68,21 +68,29 @@
                                                 <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
                                                     <span class="cust-mod-close bg-red" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-times text-white"></i></span>
                                                 </a>
-                                                <?php else:?>
-                                                <a href="javascript:;">
-                                                <span class="cust-mod-close bg-green" data-toggle="tooltip" data-placement="left" data-html="true" title="Set Primary" ><i class="fa fa-check text-white"></i></span>
-                                                </a>
-                                                <?php endif;?>
                                                 <span class="btmleft_set_pri" data-toggle="tooltip" onclick="setPriPhoto('<?= $img_name?>')" title="Set as primary image">
                                                     <i class="fa fa-user text-white"></i>
                                                 </span>
-                                                <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto(<?=$img_id?>,'<?= $img_name?>')" title="Set as Cover Photo">
-                                                    <i class="fa fa-image text-white"></i>
-                                                </span>
+                                                
                                                 <div class="custom-control custom-checkbox m-b-5 floatCBox">
                                                     <input type="checkbox" class="custom-control-input ai_box" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
                                                     <label class="custom-control-label" for="<?=$img_id?>"></label>
                                                 </div>
+                                                <?php else:?>
+                                                <a href="javascript:;">
+                                                <span class="btmleft_set_pri" data-toggle="tooltip" data-placement="left" data-html="true" title="Used as Profile" ><i class="fa fa-check text-white"></i></span>
+                                                </a>
+                                                <?php endif;?>
+
+                                                <?php if($user_logindata->cover_photo !== $img_name):?>
+                                                    <span class="btmleft_set_cver" data-toggle="tooltip" onclick="setCoverPhoto('<?= $img_name?>')" title="Set as Cover Photo">
+                                                        <i class="fa fa-image text-white"></i>
+                                                    </span>
+                                                <?php else:?>
+                                                    <a href="javascript:;">
+                                                    <span class="btmleft_set_cver" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Used as CoverPhoto" aria-describedby="tooltip535191"><i class="fa fa-check text-white"></i></span>
+                                                    </a>
+                                                <?php endif;?>
                                             </a>
                                         </div>
                                     </div>
