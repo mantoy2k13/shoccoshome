@@ -1324,7 +1324,9 @@ span.btmleft_set_cver {
     padding: 5px 7px;
     font-size: 11px;
 }
-
+.thumbnail.highlight{
+    border: 3px solid #2999a5;
+}
 /*end daryl code*/
 
 
