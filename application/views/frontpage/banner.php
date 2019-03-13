@@ -9,6 +9,6 @@
       <h1 class="m-t-25">Terms and Conditions</h1>
   <?php } if($is_page=="policy"){  ?>
       <h1 class="m-t-25">Privacy Policy</h1>
-   <?php }?>
+   <?php } ?>
    
 </header>

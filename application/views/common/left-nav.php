@@ -30,12 +30,14 @@
                             <input name="keywords" value="<?=(isset($_GET['keywords'])) ? $_GET['keywords'] : ''; ?>" type="text" class="form-control f-15" placeholder="Keywords" />
                         </div>
                     </div>
+
                     <div class="col-md-12">
                         <label class="text-black m-b-0 f-15 m-t-10">Category:</label>
                         <select name="cat_id" class="form-control f-15 selCategory" onchange="setBreeds()">
                             <option value="">Select Category</option>
-                            <?php foreach($categories as $cat){ ?>
-                                <option value="<?= $cat->cat_id ?>" <?=(isset($_GET['cat_id'])) ? (($_GET['cat_id']==$cat->cat_id) ? 'selected' : '' ) : ''; ?>> <?= $cat->cat_name ?> </option>
+                            <?php 
+                            foreach($categories as $cat){ ?>
+                                <option value="<?= $cat['cat_id']; ?>" <?=(isset($_GET['cat_id'])) ? (($_GET['cat_id']==$cat['cat_id']) ? 'selected' : '' ) : ''; ?>> <?= $cat['cat_name'] ?> </option>
                             <?php } ?>
                         </select>
                         <div class="m-t-10">
