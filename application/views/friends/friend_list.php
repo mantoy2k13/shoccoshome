@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Friend Lists</span>
-                        <a href="<?=base_url();?>friends/friend_request" title="View Friend Request" class="text-white pull-right icon-btn"><i class="fa fa-users fa-2x"></i> 
+                        <a href="<?=base_url();?>friends/friend_request" data-placement="left" data-toggle="tooltip" title="View Friend Request" class="text-white pull-right icon-btn"><i class="fa fa-users fa-2x"></i> 
                             <?php $cntReq=$this->Friends_model->count_friend_request();
                                 if($cntReq!=0){ ?>
                                 <span class="badge bg-red cus-f-badge"><?=$cntReq;?></span>

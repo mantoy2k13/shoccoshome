@@ -25,7 +25,7 @@
             <div class="input-group mb-3">
                 <input name="keywords" type="search" class="form-control cust-search-btn" placeholder="Search friend's name or email..." required value="<?=isset($_GET['keywords']) ? $_GET['keywords'] : "";?>">
                 <div class="input-group-append">
-                    <button class="btn bg-orange post-btn" type="submit"><i class="fa fa-search"></i></button>
+                    <button class="btn bg-orange post-btn" data-placement="left" data-toggle="tooltip" title="Search friend" type="submit"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </form>

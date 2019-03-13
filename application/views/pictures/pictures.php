@@ -57,7 +57,7 @@
                         <form action="javascript:;" id="formImgData">
                             <div class="row">
                                 <?php foreach($all_pictures as $pics){ extract($pics); ?>
-                                    <div class="col-md-3 albumImg" id="albumImg<?=$img_id;?>">
+                                    <div class="col-lg-3 col-md-6 albumImg" id="albumImg<?=$img_id;?>">
                                         <?php $album = $this->Pictures_model->get_album_name($album_id);?>
                                         <div class="thumbnail myAlbumImg" data-toggle="tooltip" title="<?=($album['album_name']) ? $album['album_name'] : 'No Album' ?>">
                                             <a href="javascript:;">

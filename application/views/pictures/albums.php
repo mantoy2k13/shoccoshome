@@ -40,7 +40,7 @@
                     <?php if($all_albums){?>
                         <div class="row">    
                             <?php foreach($all_albums as $album){ extract($album); ?>
-                                <div class="col-md-3">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="thumbnail" onclick="location.href='<?=base_url();?>album/view_album/<?=$album_id;?>'">
                                         <?php $getImg = $this->Album_model->get_single_image($album_id);?>
                                         <a href="javascript:;">

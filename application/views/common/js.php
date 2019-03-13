@@ -1,6 +1,5 @@
 <!-- Bootstrap core JavaScript -->
 <script src="<?=base_url();?>assets/vendor/jquery/jquery.js"></script>
-<!-- <script src="<?=base_url();?>assets/vendor/bootstrap/js/bootstrap.bundle.js"></script> -->
 <script src="<?=base_url();?>assets/js/popper.min.js"></script>
 <script src="<?=base_url();?>assets/js/bootstrap.min.js"></script>
 
@@ -19,11 +18,11 @@
 <?php if($is_page=="add_pet" || $is_page=="my_pets" ){ ?>
 <script src="<?=base_url();?>assets/js/initializations/init_pets.js"></script>
 <?php } ?>
-
 <script src="<?=base_url();?>assets/js/initializations/init_friends.js"></script>
-
 <?php if($is_page=="account"){ ?>
     <script src="<?=base_url();?>assets/js/initializations/init_profile.js"></script>
+    <script src="<?=base_url();?>assets/vendor/crs/crs.js"></script>
+    <script src="<?=base_url();?>assets/vendor/crs/jquery.crs.js"></script>
 <?php } ?>
 
 <!-- Custom scripts for this template -->
@@ -33,15 +32,6 @@
 
 <!-- Vendors -->
 <script src="<?=base_url();?>assets/vendor/slideshow/js/slideshow.js"></script>
-<?php if($is_page=="add_pet"){ ?>
-<!-- Cropper -->
-<script src="<?=base_url();?>assets/vendor/cropper/cropper.js"></script>
-<script src="<?=base_url();?>assets/vendor/cropper/initCropper.js"></script>
-<?php } ?>
-
-<script src="<?=base_url();?>assets/vendor/crs/crs.js"></script>
-<script src="<?=base_url();?>assets/vendor/crs/jquery.crs.js"></script>
-<script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
 <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts"){ ?>
 <!-- Fast Select -->
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.js"></script>
@@ -58,10 +48,14 @@
 <script src="<?=base_url();?>assets/js/initializations/init_album.js"></script>
 <?php }?>
 
-<?php if($is_page=="add_photos" || $is_page=="pictures" || $is_page=="view_album"){ ?>
+<?php if($is_page=="add_photos" || $is_page=="view_album" || $is_page=="add_pet"){ ?>
 <script src="<?=base_url();?>assets/vendor/cropper/cropper.js"></script>
-<script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
 <script src="<?=base_url();?>assets/vendor/cropper/initCropper.js"></script>
 <?php }?>
-
+<?php if($is_page=="add_photos" || $is_page=="pictures" || $is_page=="view_album"){ ?>
+<script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
+<?php }?>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+<?php if($is_page=="mainpage"){ ?>
+<script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
+<?php }?>

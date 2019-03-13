@@ -64,7 +64,7 @@
                             <div class="row m-t-10">  
                             <div class="col-md-12" id="reload"></div>
                                 <?php foreach($view_album_images as $images){ extract($images); ?>
-                                    <div class="col-md-3 albumImg" id="albumImg<?=$img_id;?>">
+                                    <div class="col-lg-3 col-md-6 albumImg" id="albumImg<?=$img_id;?>">
                                         <div class="thumbnail myAlbumImg">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
