@@ -134,7 +134,7 @@ function readMsg(mid,type){
                 $('#msgSubject').val(res[0]['subject']);
                 $('#msgContent').val(res[0]['message']);
                 $('#drftBtn').attr('onClick','moveToDrafts('+mid+')');
-                $('#modDelBtn').attr('onClick','delMsg('+mid+',1)');
+                $('#modDelBtn').attr('onClick','delMsg('+mid+')');
                 $('#replyBtn').attr('onClick','replyMsg('+mid+')');
                 $('#readMsg').modal('show');
                 $('#replyMsg').modal('hide');
@@ -199,7 +199,7 @@ function readMsg2(mid,type){
                 $('#msgDate').val(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
                 $('#msgSubject').val(res[0]['subject']);
                 $('#msgContent').val(res[0]['message']);
-                $('#modDelBtn').attr('onClick','delMsg('+mid+',1)');
+                $('#modDelBtn').attr('onClick','delMsg('+mid+')');
                 $('#readMsg').modal('show');
             } else{
                 swal("Failed", "There was a problem viewing your message", 'warning');
@@ -242,7 +242,7 @@ function replyMsg(mid){
                 $('#qSub').html(res[0]['subject']);
                 $('#qContent').html(res[0]['message']);
                 $('#qDate').html(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
-                $('#backBtn').attr('onClick','readMsg('+mid+',1)');
+                $('#backBtn').attr('onClick','readMsg('+mid+')');
                 $('#replyMsg').modal('show');
                 $('#readMsg').modal('hide');
             } else{

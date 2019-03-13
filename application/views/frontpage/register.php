@@ -18,7 +18,6 @@
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="364585571683-dvn2i1408p68kb6o058hnh9lfafqco7i.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
 </head>
 <body>
     <main role="main">
@@ -31,17 +30,21 @@
                         </a>
                         <h3 class="text-white mb-3">Sign Up Shocco's Home</h3>
 
-                        <?php
-                            $error_msg=$this->session->flashdata('error_msg');
-                            if($error_msg){
-                                echo '<div class="alert alert-danger flash-msg text-left" role="alert"><strong><i class="fa fa-times"></i> Oops! </strong>'.$error_msg.'</div>';
-                            }
-                        ?>
-
+                        <!-- FB login -->
                         <div class="fb-login-button" data-size="large" data-width="100%" data-button-type="login_with" data-auto-logout-link="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
+
+                        <!-- Google Login -->
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
                         <p class="or">- or -</p>
 
+                        <?php if(isset($_SESSION['error_msg'])){ ?>
+                            <div class="log-alert log-danger">
+                                <strong><i class="fa fa-times"></i> Oops! </strong> <?=$_SESSION['error_msg'];?>
+                                <span class="closebtn" onclick="$(this).parent().remove()">&times;</span>
+                            </div>
+                        <?php } ?>
+                        <!-- Main Login -->
                         <form action="<?=base_url();?>auth/register_user" role="form" id="adminlog" method="post">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -49,7 +52,7 @@
                                         <i class="fa fa-user"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="email" class="form-control" id="email" aria-describedby="email" placeholder="Email Address" required="">
+                                <input type="email" name="email" class="form-control" id="email" aria-describedby="email" placeholder="Email Address" required="">
                             </div>
 
                             <div class="input-group mb-3">

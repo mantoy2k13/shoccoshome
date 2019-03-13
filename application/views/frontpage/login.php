@@ -32,22 +32,27 @@
                         </a>
                         <h3 class="text-white mb-3">Sign in to Shocco's Home</h3>
 
-                        <?php
-                            $error_msg=$this->session->flashdata('error_msg');
-                            $email_update_success_msg=$this->session->flashdata('email_update_success_msg');
-                            if($error_msg){
-                                echo '<div class="alert alert-danger flash-msg" role="alert"><strong><i class="fa fa-times"></i> Oops! </strong>'.$error_msg.'</div>';
-                            }
-                            if($email_update_success_msg){
-                                echo '<div class="alert alert-success flash-msg" role="alert"><strong><i class="fa fa-check"></i> Success! </strong>'.$email_update_success_msg.'</div>';
-                            }
-                        ?>
-
+                        <!-- FB Login -->
                         <div class="fb-login-button" data-size="large" data-width="100%" data-button-type="login_with" data-auto-logout-link="false" scope="public_profile,email" onlogin="checkLoginState();"></div>
+                        <!-- Google Login -->
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-                        <p class="or">- or -</p>
+                        <p class="or">- or -</p> 
+
+                        <?php if(isset($_SESSION['error_msg'])){ ?>
+                            <div class="log-alert log-danger">
+                                <strong><i class="fa fa-times"></i> Oops! </strong> <?=$_SESSION['error_msg'];?>
+                                <span class="closebtn" onclick="$(this).parent().remove()">&times;</span>
+                            </div>
+                        <?php } ?>
                         
+                        <?php if(isset($_SESSION['email_update_success_msg'])){ ?>
+                            <div class="log-alert log-success">
+                                <strong><i class="fa fa-check"></i> Registered! </strong> <?=$_SESSION['email_update_success_msg'];?>
+                                <span class="closebtn" onclick="$(this).parent().remove()">&times;</span>
+                            </div>
+                        <?php } ?>
+                        <!-- Main Login -->
                         <form role="form" action="<?=base_url();?>auth/user_login" id="adminlog" method="post">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

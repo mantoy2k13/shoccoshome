@@ -7,6 +7,38 @@ class Pet extends CI_Controller{
         parent::__construct();
     }
 
+    public function my_pets()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data['get_pet_data'] = $this->Pet_model->get_pet_data();
+			$data['is_page'] = 'my_pets';
+			$this->load->view('pet/my_pets', $data);
+		}
+		else
+		{
+			redirect('home/login');
+		}
+	}
+
+	public function pet_details($pet_id)
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data["pet_details"] = $this->Pet_model->get_pet_details($pet_id);
+			$data['is_page'] = 'pet_details';
+			$this->load->view('pet/pet_details', $data);
+		}
+		else
+		{
+			redirect('home/login');
+		}
+	}
+
     public function add_new_pet(){
 		if ($this->session->userdata('user_email')){
             $pet_id = $this->uri->segment(3);
@@ -49,17 +81,15 @@ class Pet extends CI_Controller{
             $vaccination = json_decode($vacc['vaccination']);
             $vaccination_date = json_decode($vacc['vaccination_date']);
             $i=0; $j=0;
-            foreach ($vaccination as $v) {
+            foreach ($vaccination as $v){
                 if($i!=$num){
                     $n_vacc[] = $v;
-                }
-                $i+=1;
+                } $i+=1;
             }
-            foreach ($vaccination_date as $vd) {
+            foreach ($vaccination_date as $vd){
                 if($j!=$num){
                     $n_vd[] = $vd;
-                }
-                $j+=1;
+                } $j+=1;
             }
 
             $res = $this->Pet_model->update_vacc($pet_id,json_encode($n_vacc), json_encode($n_vd));
@@ -91,7 +121,6 @@ class Pet extends CI_Controller{
     }
 
     public function categories_wise_breed_data(){
-        
         if($this->input->post('categories')){
             $categories_id = $this->input->post('categories');
             $breeddata = $this->Pet_model->breed_data_dependancy_cat($categories_id);
@@ -116,24 +145,11 @@ class Pet extends CI_Controller{
         }
     }
 	
-    public function delete_pet(){
-        $pet_id = $this->uri->segment(3);
-        $get_pet_data=$this->Pet_model->get_single_pet_data($pet_id);
-        $get_pet_names=$get_pet_data[0]->pet_images;
-        $get_pet_names_jeson=json_decode($get_pet_names);
-        $get_pet_names_jeson_count=count($get_pet_names_jeson);
-        for($i=0; $i<$get_pet_names_jeson_count; $i++){
-            $get_pet_image=$get_pet_names_jeson[$i];
-            unlink($get_pet_image);
-        }
-        $delete_pet = $this->Pet_model->deletepet($pet_id);
-        if ($delete_pet) {
-            $this->session->set_flashdata('pet_msg', 'Deleted');
-            redirect('home/my_pets');
-        }else {
-            $this->session->set_flashdata('pet_msg', 'Error');
-            redirect('home/my_pets');
-        }
+    public function delete_pet($pet_id){
+        if($pet_id){
+            $res = $this->Pet_model->delete_pet($pet_id);
+            echo ($res) ? 1 : 0;
+        } else{ echo 0; }
     }
 
     public function setPrimaryImg($pet_id, $img_name){

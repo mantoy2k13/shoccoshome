@@ -56,7 +56,11 @@
                         <div class="row">
                             <div class="col-md-12 bio-head">
                                 <div class="bio-img">
-                                    <img src="<?=base_url();?><?=($user_img)?'assets/img/profile_pics/'.$user_img:'assets/img/profile2.png';?>" alt="Profile Image">
+                                    <?php if($user_img) { ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
                                 </div>
                                 <?php $uid = $this->session->userdata('user_id');?>
                                 <?php if($this->Friends_model->check_if_friends($id)){ ?>
@@ -121,16 +125,20 @@
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
                                                             <div class="pet-bio-img">
-                                                                <img src="<?=base_url();?><?= ($primary_pic) ? 'assets/img/pet/'.$primary_pic : 'assets/img/owner.png';?>" alt="Profile Image">
+                                                                <?php if($primary_pic) { ?>
+                                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$primary_pic;?>" alt="Profile Image">
+                                                                <?php }else{ ?>
+                                                                    <img src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Default Profile Image">
+                                                                <?php } ?>
                                                             </div>
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                                 <?php if($id==$my_id){ ?>
                                                                 <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
                                                                 <?php } ?>
-                                                                <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id;?>">Pet Details</a>
+                                                                <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>">Pet Details</a>
                                                             </div>
-                                                            <p class="text-blue f-20 b-700"><a href="<?=base_url();?>home/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
+                                                            <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>
                                                             <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> (<?=$cat_name;?>)</span></p>
                                                         </div>

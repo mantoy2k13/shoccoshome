@@ -45,10 +45,10 @@
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$res->pet_id;?>">Pet Details</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>">Pet Details</a>
                                             <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$res->user_id;?>">View Owner</a>
                                         </div>
-                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$res->pet_id;?>"><?=$res->pet_name;?></a> </p>
+                                        <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>"><?=$res->pet_name;?></a> </p>
                                         <p class="text-desc"><?=$res->description;?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?=$res->cat_name;?></span></p>
                                         <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$res->breed_name;?> </span></p>

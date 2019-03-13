@@ -7,13 +7,13 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="cust-slider-img" src="<?=base_url();?>assets/img/slider/slider1.jpg" alt="Slide Image1">
+                <img class="cust-slider-img" src="<?=base_url();?>assets/img/frontpage/slider/slider1.jpg" alt="Slide Image1">
             </div>
             <div class="carousel-item">
-                <img class="cust-slider-img" src="<?=base_url();?>assets/img/slider/slider2.jpg" alt="Slide Image2">
+                <img class="cust-slider-img" src="<?=base_url();?>assets/img/frontpage/slider/slider2.jpg" alt="Slide Image2">
             </div>
             <div class="carousel-item">
-                <img class="cust-slider-img" src="<?=base_url();?>assets/img/slider/slider3.jpg" alt="Slide Image3">
+                <img class="cust-slider-img" src="<?=base_url();?>assets/img/frontpage/slider/slider3.jpg" alt="Slide Image3">
             </div>
             <div class="slide__overlay"></div>
                 <div class="banner-form">

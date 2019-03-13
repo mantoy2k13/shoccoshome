@@ -152,8 +152,28 @@ var delPet = (pet_id)=>{
         closeOnConfirm: false,
         confirmButtonColor: "#e11641"
     },
-    function(){
-        window.location.href = base_url+"pet/delete_pet/"+pet_id;
+    ()=>{
+        $.ajax({
+            url: base_url+'pet/delete_pet/'+pet_id,
+            success: (res)=>{
+                if(res==1){
+                    $('#myPets'+pet_id).remove();
+                    var cntPets = $('.myPets').length;
+                    if(cntPets==0){
+                        $('#emptyPets').html(''+
+                            '<div class="card bg-grey friend-card">'+
+                                '<div class="card-body">'+
+                                    '<p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="'+base_url+'pet/add_new_pet">here</a> to add your pet.</p>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                    }
+                    swal("Deleted!", "Your pet was successfully deleted", 'success');
+                } else{
+                    swal("Failed!", "There was a problem deleting your image", 'warning');
+                }
+            }
+        });
     });
 }
 
@@ -169,7 +189,7 @@ var setPrimary = (pet_id, img_name)=>{
     },
     function(){
         $.ajax({
-            url: base_url+'pet/setPrimaryImg/'+'/'+pet_id+'/'+img_name,
+            url: base_url+'pet/setPrimaryImg/'+pet_id+'/'+img_name,
             success: function(response){
                 if(response){
                     swal({

@@ -21,8 +21,8 @@
 		  <div class="col-md-12 m-t-10 p-l-0">
                 <div class="row">
                     <div class="col-md-5">
-                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/slider/slider1.jpg" alt="About Image"><br>
-                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/slider/slider2.jpg" alt="About Image2">
+                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/frontpage/slider/slider1.jpg" alt="About Image"><br>
+                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/frontpage/slider/slider2.jpg" alt="About Image2">
                     </div>
 
                     <div class="col-md-7">

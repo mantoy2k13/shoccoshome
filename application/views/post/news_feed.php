@@ -40,7 +40,7 @@
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
                                         <a class="dropdown-item" href="javascript:;">Book Now</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>home/pet_details">More Details</a>
+                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">More Details</a>
                                     </div>
                                     <!-- Owner -->
                                     <p class="text-head"><a href="javascript:;">Annah</a> </p>
@@ -72,7 +72,7 @@
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
                                         <a class="dropdown-item" href="javascript:;">Book Now</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>home/pet_details">More Details</a>
+                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">More Details</a>
                                     </div>
                                     <!-- Owner -->
                                     <p class="text-head"><a href="javascript:;">Annah</a> </p>
@@ -104,7 +104,7 @@
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
                                         <a class="dropdown-item" href="javascript:;">Book Now</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>home/pet_details">More Details</a>
+                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">More Details</a>
                                     </div>
                                     <!-- Owner -->
                                     <p class="text-head"><a href="javascript:;">Annah</a> </p>
@@ -136,7 +136,7 @@
                                     <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                     <div class="dropdown-menu" aria-labelledby="f-menu">
                                         <a class="dropdown-item" href="javascript:;">Book Now</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>home/pet_details">More Details</a>
+                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">More Details</a>
                                     </div>
                                     <!-- Owner -->
                                     <p class="text-head"><a href="javascript:;">Annah</a> </p>

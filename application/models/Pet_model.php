@@ -225,10 +225,10 @@ class Pet_model extends CI_model{
 		
 		// delete my pet
 
-		public function deletepet($id){
-				$this->db->where('pet_id', $id);
-				$res = $this->db->delete('sh_pets');
-				return ($res) ? true : false;
+		public function delete_pet($id){
+			$this->db->where('pet_id', $id);
+			$res = $this->db->delete('sh_pets');
+			return ($res) ? true : false;
 		}
 
 		// get all images pictures

@@ -36,14 +36,17 @@
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
 					<span class="b-700 text-blue"><?=$formTxt; ?></span>
-                    <a href="<?=base_url();?>home/my_pets" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-paw"></i> My Pets</a>
+                    <a href="<?=base_url();?>pet/my_pets" class="btn btn-sm text-white bg-orange-l pull-right"><i class="fa fa-paw"></i> My Pets</a>
+                    <?php if($pd) { ?>
+                    <a href="<?=base_url();?>pet/add_new_pet" class="btn btn-sm text-white bg-orange pull-right m-r-5"><i class="fa fa-plus"></i> Add New Pet</a>
+                    <?php } ?>
 				</div>			
 				<div class="panel-body">
                     <input type="hidden" value="<?=(isset($_SESSION['pet_msg'])) ? $_SESSION['pet_msg'] : '0';?>" id="getPetAlert">
                     <?php $is_complete = $this->Account_model->is_complete();?>
                     <?php if($is_complete['is_complete'] != 1){ ?>
                         <div class="alert alert-warning f-15 m-t-20" role="alert">
-                            <strong><i class="fa fa-check"></i> Oops!</strong> You can not add your pets if profile is not completed. Adding of pets needs your profile address. Click <a href="<?=base_url()?>account/account">here</a> to update your profile now.
+                            <strong><i class="fa fa-times"></i> Oops!</strong> You can not add your pets if profile is not completed. Adding of pets needs your profile address. Click <a href="<?=base_url()?>account/account">here</a> to update your profile now.
                         </div>
                     <?php } else { ?>
                         <form  action="<?=base_url().$formUrl;?>" method="post" enctype="multipart/form-data">
@@ -261,7 +264,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="f-15 text-black">Chip Number</label>
-                                    <input value="<?=($pd) ? $pd['chip_no'] : ''; ?>" name="chip_no" type="text" class="form-control" placeholder="Chip Number">
+                                    <input value="<?=($pd) ? $pd['chip_no'] : ''; ?>" name="chip_no" type="text" class="form-control" placeholder="Chip Number" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
                                 </div>
                             </div>
                             <div class="row form-group">
