@@ -30,6 +30,7 @@ header.masthead {
     background-repeat: no-repeat;
     background-position: center;
     height: 450px;
+    background-size: cover;
   }
 
 .profile-img {
