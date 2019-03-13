@@ -1,7 +1,9 @@
-var marker;
-var map;
+
+  var marker;
+  var map;
 
 function initialize() {
+
   var defaultLocation = new google.maps.LatLng(25.074217, 55.510044);
   var lat;
 
@@ -25,7 +27,6 @@ function initialize() {
     var mapOptions = {
       zoom: 15,
       center: city
-      
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -33,22 +34,18 @@ function initialize() {
     marker = new google.maps.Marker({
       position: city,
       map: map
-      
     });
 
   }, function(positionError) {
-    console.log(positionError);
         var city = new google.maps.LatLng(34.052240, -118.243340);
       var mapOptions = {
         zoom: 15,
         center: city,
-        nableHighAccuracy: false,
+        enableHighAccuracy: false,
         maximumAge: 50000
         
       };
       map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-
       marker = new google.maps.Marker({
         position: city,
         map: map        

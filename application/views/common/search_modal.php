@@ -29,7 +29,7 @@
                     <select name="cat_id" class="form-control selCategory2" onchange="setBreeds2()">
                         <option value="">Select Category</option>
                         <?php foreach($categories as $cat){ ?>
-                            <option value="<?= $cat->cat_id ?>" <?=(isset($_GET['cat_id'])) ? (($_GET['cat_id']==$cat->cat_id) ? 'selected' : '' ) : ''; ?>> <?= $cat->cat_name ?> </option>
+                            <option value="<?= $cat['cat_id'] ?>" <?=(isset($_GET['cat_id'])) ? (($_GET['cat_id']==$cat['cat_id']) ? 'selected' : '' ) : ''; ?>> <?= $cat['cat_name'] ?> </option>
                         <?php } ?>
                     </select>
                 </div>
