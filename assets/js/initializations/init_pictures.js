@@ -303,7 +303,8 @@ var setPriPhoto = (img_name)=>{
         showCancelButton: true,
         confirmButtonText: "Yes, set it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#2162e7"
+        confirmButtonColor: "#2162e7",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({

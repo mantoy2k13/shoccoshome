@@ -21,7 +21,7 @@
 		  <div class="col-md-12 m-t-10 p-l-0">
                 <div class="row">
                     <div class="col-md-5">
-                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/privacy.jpg" alt="Privacy Policy Image">
+                        <img class="full-width mb-3" src="<?=base_url();?>assets/img/frontpage/privacy.jpg" alt="Privacy Policy Image">
                     </div>
                     <div class="col-md-7">
                        <h2 class="text-blue">Privacy Policy</h2>

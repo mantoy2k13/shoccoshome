@@ -17,7 +17,7 @@ class Auth extends CI_Controller{
         $email_check=$this->Auth_model->email_check($user['email']);
         if($email_check){
              $this->Auth_model->register_user($user);
-             $this->session->set_flashdata('email_update_success_msg', 'You have successfully registered. Login now!');
+             $this->session->set_flashdata('email_update_success_msg', 'Please login now!');
              redirect('home/login');
         }else{
              $this->session->set_flashdata('error_msg', 'Email already taken.');
@@ -34,7 +34,7 @@ class Auth extends CI_Controller{
 			if($check_user){
 				redirect('home/homepage');
 			} else{ 
-                $this->session->set_flashdata('error_msg', 'Incorrect email address or password, please try again.');
+                $this->session->set_flashdata('error_msg', 'Incorrect email address or password.');
                 redirect('home/login');
             }
 		}else{
@@ -42,30 +42,8 @@ class Auth extends CI_Controller{
 		}
     }
 
-    public function loginFB(){
-        if($this->input->post()){
-            $res = $this->Auth_model->loginFB();
-            echo ($res) ? 1 : 0;
-        }
-    }
-
-    public function loginGoogle(){
-        if($this->input->post()){
-            $res = $this->Auth_model->loginGoogle();
-            echo ($res) ? 1 : 0;
-        }
-    }
-    
     public function user_logout(){
         $this->session->sess_destroy();
 		redirect(base_url());
-    }
-
-    public function saveMyImage(){
-        define('DIRECTORY', './assets/img/profile_pics/');
-        $content = file_get_contents('http://shocco2019.expertdev.info/assets/img/logo.png');
-        $imgName = 'soc_1234.jpg';
-        $res = file_put_contents(DIRECTORY . $imgName, $content);
-        echo ($res) ? 'true' : 'false';
     }
 } 

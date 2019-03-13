@@ -46,7 +46,7 @@
                         <a href="<?=base_url();?>home/homepage" class="home-menu btn-menu"><i class="fa fa-home f-40 text-blue <?=($is_page=="homepage") ? 'active' : ''; ?>"></i></a>
                     </div>
                     <div class="col-md-8r">
-                        <a href="<?=base_url();?>home/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet" || $is_page=="search_pets") ? 'active' : ''; ?>">My Pets</a>
+                        <a href="<?=base_url();?>pet/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet" || $is_page=="search_pets") ? 'active' : ''; ?>">My Pets</a>
                     </div>
                     <div class="col-md-8r">
                         <a href="<?=base_url();?>home/booking" class="btn-menu btn bg-blue <?=($is_page=="booking" || $is_page=="booking_list") ? 'active' : ''; ?>">Booking</a>

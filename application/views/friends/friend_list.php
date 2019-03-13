@@ -42,11 +42,11 @@
                         <div class="card bg-grey friend-card">
                             <div class="card-body">
                                 <div class="friend-img">
-                                    <?php if($user_img){ ?>
-                                        <img src="<?=base_url();?>assets/img/profile_pics/<?=$user_img;?>" alt="Friend Image">
-                                    <?php } else {?>
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
-                                    <?php }?>
+                                    <?php if($user_img) { ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
                                 </div>
                                 <?php $uid = $this->session->userdata('user_id');?>
                                 <?php if($uid != $id){?>
@@ -70,7 +70,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropPets">
                                             <?php $get_pets=$this->Friends_model->get_my_pets($id);?>
                                             <?php if($get_pets){ foreach($get_pets as $pets){ extract($pets); ?>
-                                                <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id;?>" target="_blank"><?=$pet_name;?> (<?=$cat_name;?>)</a>
+                                                <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>" target="_blank"><?=$pet_name;?> (<?=$cat_name;?>)</a>
                                             <?php } } else { ?>
                                                 <a class="dropdown-item" href="javascript:;">No pets found.</a>
                                             <?php } ?>

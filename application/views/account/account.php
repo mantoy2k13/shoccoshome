@@ -77,7 +77,7 @@
                                     <div class="form-group row" id="target_address">
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Mobile</label>
-                                            <input type="text" value="<?= $mobile_number ? $mobile_number : '' ?>" name="mobile_number" class="form-control" placeholder="Mobile" required>
+                                            <input type="text" value="<?= $mobile_number ? $mobile_number : '' ?>" name="mobile_number" class="form-control" placeholder="Mobile" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Gender</label>

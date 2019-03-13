@@ -46,7 +46,6 @@ if (window.File && window.FileList && window.FileReader) {
                         swal('Oops!', "Maximum image uploaded are only 4", 'warning');
                     } else {
                         var imgID = Math.floor(e.timeStamp);
-
                         $(".emptyImgMsg").hide();
                         $(".uploaded-files").append('<div class="col-md-3 img_uploaded">'+
                             '<div class="u-pet-img">'+
@@ -77,6 +76,7 @@ var rmimg = (e) => {
                 '<strong><i class="fa fa-check"></i> Empty!</strong> Please upload atleast 1 pet image (maximum of 4 images and less than 1 mb of size).'+
             '</div>'
         );
+        $('#uploadFiles').attr('required', '');
         $(".emptyImgMsg").show();
     }
 }
@@ -91,28 +91,26 @@ var crpImg = (e,imgID) => {
     $("#showCropWindow").modal('show');
 }
 
-var delImgPet = (pet_id, pet_img, imgID, isPrimary) => {
+var delImgPet = (pet_id, imgName, e) => {
     swal({
         title: "Delete Image?",
         text: "Are you sure you want to delete this image? This will not be recovered.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false,
         confirmButtonColor: "#e11641",
         showLoaderOnConfirm: true
     },
     function(){
-        var imgname = pet_img.split('/',-1);
-        var imglink = imgname[imgname.length-1];
         $.ajax({
-            url: base_url+'pet/pet_image_remove/'+isPrimary,
+            url: base_url+'pet/pet_image_remove/'+pet_id,
             type: 'post',
-            data: {path: imglink, petid : pet_id},
-            success: function(response){
-                if(response){
-                    $('.oldImg'+imgID).remove();
+            data: {imgName: imgName},
+            success: function(res){
+                console.log(res);
+                if(res==1){
+                    $(e).parent().remove();
                     var img_uploaded = $('.img_uploaded').length;
                     if(img_uploaded == 0){
                         $(".emptyImgMsg").html(''+
@@ -150,13 +148,32 @@ var delPet = (pet_id)=>{
         text: "Are you sure you want to delete this Pet? This will not be recovered.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false,
         confirmButtonColor: "#e11641"
     },
-    function(){
-        window.location.href = base_url+"pet/delete_pet/"+pet_id;
+    ()=>{
+        $.ajax({
+            url: base_url+'pet/delete_pet/'+pet_id,
+            success: (res)=>{
+                if(res==1){
+                    $('#myPets'+pet_id).remove();
+                    var cntPets = $('.myPets').length;
+                    if(cntPets==0){
+                        $('#emptyPets').html(''+
+                            '<div class="card bg-grey friend-card">'+
+                                '<div class="card-body">'+
+                                    '<p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="'+base_url+'pet/add_new_pet">here</a> to add your pet.</p>'+
+                                '</div>'+
+                            '</div>'
+                        );
+                    }
+                    swal("Deleted!", "Your pet was successfully deleted", 'success');
+                } else{
+                    swal("Failed!", "There was a problem deleting your image", 'warning');
+                }
+            }
+        });
     });
 }
 
@@ -166,14 +183,13 @@ var setPrimary = (pet_id, img_name)=>{
         text: "This picture will be set as primary image.",
         type: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn-danger",
         confirmButtonText: "Yes, set it!",
         closeOnConfirm: false,
         confirmButtonColor: "#2162e7"
     },
     function(){
         $.ajax({
-            url: base_url+'pet/setPrimaryImg/'+'/'+pet_id+'/'+img_name,
+            url: base_url+'pet/setPrimaryImg/'+pet_id+'/'+img_name,
             success: function(response){
                 if(response){
                     swal({
@@ -227,8 +243,7 @@ var checkPetName = ()=>{
 
 var addRemVacInfo = (type, e) => {
     if(type == 1){
-        $(".vacc-wrapper").append(''+
-        '<div class="col-md-12 vacc-parent">'+
+        $('<div class="col-md-12 vacc-parent">'+
             '<div class="row">'+
                 '<div class="col-md-6">'+
                     '<label class="f-15 text-black">Vaccination Type</label>'+
@@ -253,8 +268,66 @@ var addRemVacInfo = (type, e) => {
             '</div>'+
             '<span onclick="addRemVacInfo(2,this)" class="vacc-btn-rem" data-toggle="tooltip" title="Remove Info"><i class="fa fa-times"></i></span>'+
         '</div>'
-        );
+        ).insertAfter('.vaccTitle');
     } else{
         $(e).parent().remove();
+    }
+}
+
+var remVaccInfo = (num,pet_id,vacc,vacc_date,e) => {
+    swal({
+        title: "Remove?",
+        text: "Are you sure you want to delete this vaccination? This will not be recovered.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
+    },
+    function(){
+        $.ajax({
+            url: base_url+'pet/rem_vacc_info/'+pet_id+'/'+num,
+            type: 'POST',
+            cache: false,
+            data: { vacc: vacc, vacc_date: vacc_date },
+            success: (res)=>{
+                console.log(res);
+                if(res==1){
+                    $(e).parent().remove();
+                    swal('Done!', "1 vaccination removed successfully.", 'success');
+                } else{
+                    swal('Failed!', "A problem occured. Please refresh page.", 'error');
+                }
+            }
+        });
+    });
+}
+
+var addToPictures = (uid)=>{
+    var cntImg = $('.selFromPics:checked').length;
+    if(cntImg>0){
+        $.each($(".selFromPics:checked"), function(){   
+            var imgName = $(this).val();
+            var unqImg = imgName.replace(/\.[^/.]+$/, "");
+            $('.'+unqImg).remove();  
+            var img_uploaded = $('.img_uploaded').length;
+            if(img_uploaded > 3){
+                swal('Oops!', "Maximum image uploaded are only 4", 'warning');
+            } else {   
+                $(".emptyImgMsg").hide();
+                $(".uploaded-files").append('<div class="col-md-3 img_uploaded '+unqImg+'">'+
+                    '<div class="u-pet-img">'+
+                        '<img class="w-100" src="'+base_url+'assets/img/pictures/usr'+uid+'/'+imgName+'" alt="Pet Image">'+
+                    '</div>'+
+                    '<span class="cust-mod-close rmImg" title="Remove Image" onclick="rmimg(this)"><i class="fa fa-times text-white"></i></span>'+
+                    '<input name="imgFromPics[]" value="'+imgName+'" hidden>'+
+                '</div>'); 
+                $('#uploadFiles').removeAttr('required');
+            }      
+        });
+        $('#selPics').modal('hide');        
+    } else{
+        swal('Oops', "Please check atleast 1 image to continue.", 'warning');
     }
 }

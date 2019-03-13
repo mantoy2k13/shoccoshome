@@ -84,38 +84,6 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function my_pets()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['get_pet_data'] = $this->Pet_model->get_pet_data();
-			$data['is_page'] = 'my_pets';
-			$this->load->view('pet/my_pets', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
-
-	public function pet_details($pet_id)
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data["pet_details"] = $this->Pet_model->get_pet_details($pet_id);
-			$data['is_page'] = 'pet_details';
-			$this->load->view('pet/pet_details', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
-
 	public function booking()
 	{
 		if ($this->session->userdata('user_email'))

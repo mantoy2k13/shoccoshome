@@ -29,11 +29,12 @@
 					<a href="<?=base_url();?>pet/add_new_pet" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Add New Pet</a>
 				</div>			
 				<div class="panel-body">
-
                     <input type="hidden" value="<?=(isset($_SESSION['pet_msg'])) ? $_SESSION['pet_msg'] : '0';?>" id="getPetAlert">
                     <div class="row f-list-wrap">
-                        <?php if($get_pet_data){ foreach($get_pet_data as $data){ extract($data); ?>
-                            <div class="col-md-6">
+                        <?php if($get_pet_data){ ?>
+                        <div class="col-md-12 m-t-20" id="emptyPets"></div>
+                        <?php foreach($get_pet_data as $data){ extract($data);  ?>
+                            <div class="col-md-6 myPets" id="myPets<?=$pet_id;?>">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
                                         <div class="friend-img">
@@ -47,10 +48,10 @@
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
                                             <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id; ?>">Edit Pet</a>
                                             <a class="dropdown-item" href="javascript:;" onclick="delPet(<?=$pet_id; ?>)">Delete Pet</a>
-                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id; ?>">Pet Details</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id; ?>">Pet Details</a>
                                         </div>
 
-                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$pet_id; ?>"><?= $pet_name; ?></a> </p>
+                                        <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id; ?>"><?= $pet_name; ?></a> </p>
                                         <p class="text-desc"><?= $description; ?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $cat_name; ?></span></p>
                                         <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $breed_name; ?> </span></p>

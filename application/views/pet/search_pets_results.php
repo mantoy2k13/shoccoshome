@@ -34,25 +34,34 @@
                         //print_r($search_results);
                        // echo "</pre>";
 
-                        if($search_results){ foreach($search_results as $res) {?>
+                        if($search_results){ foreach($search_results as $res) { ?>
+
+                            <?php 
+                            $primary_pic=$res->primary_pic; 
+                            $user_id=$res->user_id; 
+                            ?>
+
                             <div class="col-md-6">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
                                         <div class="friend-img">
-                                     
-                                            <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
-                                          
+                                            <?php if($primary_pic){ ?>
+                                                <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$primary_pic;?>" alt="Pet Image">
+                                            <?php }else{ ?>
+                                                <img src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Pet Image">
+                                            <?php } ?>                                          
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$res->pet_id;?>">Pet Details</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>">Pet Details</a>
                                             <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$res->user_id;?>">View Owner</a>
                                         </div>
-                                        <p class="text-head"><a href="<?=base_url();?>home/pet_details/<?=$res->pet_id;?>"><?=$res->pet_name;?></a> </p>
+                                        <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>"><?=$res->pet_name;?></a> </p>
                                         <p class="text-desc"><?=$res->description;?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?=$res->cat_name;?></span></p>
                                         <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$res->breed_name;?> </span></p>
-                                        <p class="b-700 f-14">Color: <span class="b-700 text-black"><?=$res->color_name;?> </span></p>
+                                        <p class="b-700 f-14">Color: <span class="b-700 text-black"><?=$res->color_name ? $res->color_name : 'No data' ?></span></p>
+                                        
                                     </div>
                                 </div>
                             </div>

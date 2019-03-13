@@ -98,10 +98,10 @@
                                                             </div>
                                                             <button class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i></button>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                                <a class="dropdown-item" href="<?=base_url();?>home/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
-                                                                <a class="dropdown-item" href="<?=base_url();?>home/pet_details/<?=$pet_id;?>">Pet Details</a>
+                                                                <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
+                                                                <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>">Pet Details</a>
                                                             </div>
-                                                            <p class="text-blue f-20 b-700"><a href="<?=base_url();?>home/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
+                                                            <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>
                                                             <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> (<?=$cat_name;?>)</span></p>
                                                         </div>
@@ -110,7 +110,7 @@
                                             <?php } } else { ?>
                                                 <div class="col-md-12">
                                                     <div class="alert alert-info f-15">
-                                                        <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>home/add_new_pet">here</a> to add new pets.
+                                                        <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add new pets.
                                                     </div>
                                                 </div>
                                             <?php } ?>
