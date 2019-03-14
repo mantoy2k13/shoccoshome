@@ -93,7 +93,7 @@
                                         <?php if($get_pets){ foreach($get_pets as $pets){ extract($pets); ?>
                                             <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>" target="_blank"><?=$pet_name;?> (<?=$cat_name;?>)</a>
                                         <?php } } else { ?>
-                                            <a class="dropdown-item" href="<javascript:;">No pets found.</a>
+                                            <a class="dropdown-item" href="javascript:;">No pets found.</a>
                                         <?php } ?>
                                     </div>
                                 </div>
