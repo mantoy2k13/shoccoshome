@@ -67,7 +67,8 @@
                             <div class="col-md-12" id="reload"></div>
                                 <?php foreach($view_album_images as $images){ extract($images); ?>
                                     <div class="col-lg-3 col-md-6 albumImg" id="albumImg<?=$img_id;?>">
-                                        <div class="thumbnail myAlbumImg">
+                                    <?php $imgD = array($user_img, $cover_photo); ?>
+                                        <div class="thumbnail <?=(!(in_array($img_name, $imgD))) ? '': 'highlight';?> myAlbumImg">
                                             <a href="javascript:;">
                                                 <div class="gal-img">
                                                     <img class="zoomable" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
@@ -81,7 +82,6 @@
                                                 <span class="btmleft_set_cver" data-toggle="tooltip" <?=($img_name==$cover_photo) ? 'title="Used as cover photo"' : "onclick=\"setCoverPhoto('".$img_name."')\"  title='Set as cover photo'";?>>
                                                     <i class="fa fa-<?=($img_name==$cover_photo) ? 'check' : 'image';?> text-white"></i>
                                                 </span>
-                                                <?php $imgD = array($user_img, $cover_photo); ?>
                                                 <?php if(!(in_array($img_name,$imgD))){ ?>
                                                     <a href="javascript:;" onclick="delImg(<?=$img_id?>, '<?= $img_name?>', 1)">
                                                         <span class="cust-mod-edit bg-red rmImg" data-toggle="tooltip" data-placement="left" data-html="true" title="Delete" ><i class="fa fa-trash text-white"></i></span>
