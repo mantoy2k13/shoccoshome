@@ -41,7 +41,6 @@
                                 <div class="dropdown-menu option-menu" aria-labelledby="option-menu">
                                     <a onclick="selectAll(1)" class="dropdown-item selAll" href="javascript:;">Select All</a>
                                     <a onclick="delSelected(1)" class="dropdown-item delSelBtn" href="javascript:;">Delete Selected</a>
-                                    <a onclick="delImg(0, 0, 2)" class="dropdown-item" href="javascript:;">Delete All</a>
                                 </div>
                             <?php } ?>
                             <a href="<?=base_url();?>pictures/add_photos/1/0" class="btn bg-orange-l btn-xs btn-xs pull-right text-white m-r-5"><i class="fa fa-plus"></i> Add Photos</a>

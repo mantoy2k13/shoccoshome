@@ -31,8 +31,10 @@
                 </div>
             </div>
 			<div class="row f-list-wrap">
+            <?php $uid = $this->session->userdata('user_id');?>
                 <?php if($search_results){?>
                 <?php foreach($search_results as $res){ extract($res); ?>
+                <?php if( $id != $uid){?>
                 <div class="col-md-6">
                     <div class="card bg-grey friend-card">
                         <div class="card-body">
@@ -43,7 +45,7 @@
                                     <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
                                 <?php } ?>
                             </div>
-                            <?php $uid = $this->session->userdata('user_id');?>
+                            
                             <?php if($this->Friends_model->check_if_friends($id)){ ?>
                                 <?php if($uid != $id){?>
                                     <div class="options<?=$id;?>">
@@ -101,12 +103,19 @@
                         </div>
                     </div>
                 </div>
-                <?php } } else{ ?>
+                <?php } else{ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info">
                             <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
                         </div>
                     </div>
+               <?php }  } } else{ ?>
+                    <div class="col-md-12 f-list-wrap">
+                        <div class="alert alert-info">
+                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
+                        </div>
+                    </div>
+                    
                 <?php } ?>
             </div>
           </div>
