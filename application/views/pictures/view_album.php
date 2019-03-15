@@ -46,7 +46,6 @@
                                         <a onclick="selectAll(1)" class="dropdown-item selAll" href="javascript:;">Select All</a>
                                         <a onclick="delSelected(2)" class="dropdown-item delSelBtn" href="javascript:;">Remove Selected</a>
                                         <a onclick="delSelected(1)" class="dropdown-item delSelBtn" href="javascript:;">Delete Selected</a>
-                                        <a onclick="delImg(0, 0, 2)" class="dropdown-item" href="javascript:;">Delete All</a>
                                     </div>
                                 </div>
                             <?php } ?>
