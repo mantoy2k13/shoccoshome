@@ -102,20 +102,14 @@
                             </p>
                         </div>
                     </div>
-                </div>
-                <?php } else{ ?>
+                </div>   
+               
+               <?php }} } else{ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info">
                             <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
                         </div>
                     </div>
-               <?php }  } } else{ ?>
-                    <div class="col-md-12 f-list-wrap">
-                        <div class="alert alert-info">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
-                        </div>
-                    </div>
-                    
                 <?php } ?>
             </div>
           </div>
