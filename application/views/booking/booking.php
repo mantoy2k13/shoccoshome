@@ -34,8 +34,8 @@
 						<div class="col-md-4">
 							<label for="">Choose the option</label>
 							<select class="form-control" onchange="getHostGuest(this);">
-								<option value="Be a Guest">Be a Guest</option>
-								<option value="Be a Host">Be a Host</option>
+								<option value="guest">Be a Guest</option>
+								<option value="host">Be a Host</option>
 							</select>
 						</div>
 						<div class="col-md-4">

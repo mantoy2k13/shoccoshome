@@ -32,7 +32,7 @@
       <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
     <?php }?>
     
-    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="mainpage" || $is_page=="booking"){ ?>
+    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking"){ ?>
     <!-- Fast Select -->
     <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">

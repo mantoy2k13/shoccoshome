@@ -26,6 +26,6 @@
     font-size: 16px;
 }
 
-.fstResultItem, .fstMultipleMode .fstQueryInput, .fstNoResults{
-    font-size: 16px;
+.fstResultItem, .fstMultipleMode .fstQueryInput, .fstNoResults {
+    font-size: 12px;
 }
