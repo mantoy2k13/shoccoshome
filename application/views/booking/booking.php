@@ -41,9 +41,8 @@
 						<div class="col-md-4">
 							<div class="guest-list">
 								<label for="">Choose your pet from pet list</label>
-								<select class="form-control" required>
+								<select class="multipleSelect form-control" multiple required>
 									<?php if($my_pets){ 
-										echo '<option value="">My pet is</option>';
 										foreach($my_pets as $pets){ extract($pets); ?>
 											<option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
 										<?php }} else { ?>
@@ -53,12 +52,11 @@
 							</div>
 							<div class="host-list">
 								<label for="">Choose your pet</label>
-								<?php foreach($categories as $cat){ extract($cat); ?>
-									<div class="custom-control custom-checkbox m-b-5">
-										<input type="checkbox" class="custom-control-input" id="<?=$cat_id;?>" name="example1">
-										<label class="custom-control-label" for="<?=$cat_id;?>"><?=$cat_name;?></label>
-									</div>
-								<?php } ?>
+								<select class="multipleSelect form-control" multiple  required>
+									<?php foreach($categories as $cat){ extract($cat); ?>
+										<option value="<?=$cat_id?>"><?=$cat_name;?></option>
+									<?php } ?>
+								</select>
 							</div>
 						</div>
 					</div>
