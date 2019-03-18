@@ -20,8 +20,8 @@ function initialize() {
   });
  
   navigator.geolocation.getCurrentPosition(function(location) {
-    lat = location.coords.latitude;
-    lon = location.coords.longitude;
+    var lat = location.coords.latitude;
+    var lon = location.coords.longitude;
 
     var city = new google.maps.LatLng(lat, lon);
     var mapOptions = {

@@ -43,10 +43,10 @@
                             </div>
                             <div class="form-group row">
                                 <div class="guest-list col-md-12">
-                                    <label for="zipcode">Choose your pet from pet list</label>
-                                    <select class="form-control" required>
+                                    <label for="message_to">Choose your pet from pet list</label>
+                                    <select class="multipleSelect form-control" multiple required>
+                                    
                                         <?php if($my_pets){ 
-                                            echo '<option value="">My pet is</option>';
                                             foreach($my_pets as $pets){ extract($pets); ?>
                                                 <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                             <?php }} else { ?>
@@ -60,15 +60,16 @@
                                     </select>
                                 </div>
                                 <div class="col-md-12 host-list mainpage-list">
-                                    <label for="">Choose your pet</label><br />
-                                    <?php foreach($categories as $cat){ extract($cat); ?>
-                                        <div class="custom-control custom-checkbox m-b-5">
-                                            <input type="checkbox" class="custom-control-input" id="<?=$cat_id;?>" name="example1">
-                                            <label class="custom-control-label" for="<?=$cat_id;?>"><?=$cat_name;?></label>
-                                        </div>
-                                    <?php } ?>
+                                    <label for="message_to">Choose your pet</label><br />
+                                    <select class="multipleSelect form-control" multiple required>
+                                        <?php foreach($categories as $cat){ extract($cat); ?>
+                                            <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
+                                        <?php } ?>
+                                    </select>
+                                   
                                 </div>
                             </div>
+                            
                             <div class="row form-group text-center">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn bg-orange sub-btn m-t-10"><i class="fa fa-search"></i> Find a Home</button>

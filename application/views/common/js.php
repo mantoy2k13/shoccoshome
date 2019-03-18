@@ -56,6 +56,8 @@
 <script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
 <?php }?>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<?php if($is_page=="mainpage"){ ?>
+<?php if($is_page=="mainpage" || $is_page=="booking"){ ?>
+<script src="<?=base_url();?>assets/vendor/fastselect/fastselect.js"></script>
+<script src="<?=base_url();?>assets/vendor/fastselect/fastselect.standalone.js"></script>
 <script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
 <?php }?>
