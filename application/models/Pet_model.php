@@ -139,7 +139,7 @@ class Pet_model extends CI_model{
     }
 
 	// pet id wise
- 	  public function get_pet_details($pet_id) {
+ 	public function get_pet_details($pet_id) {
         $this->db->select('*')->from('sh_pets a');
 		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
         $this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
@@ -150,98 +150,96 @@ class Pet_model extends CI_model{
     }
 
 	// pet id wise
- 	  public function get_single_pet_data($id) {
+ 	public function get_single_pet_data($id) {
    		$this->db->select('*')->from('sh_pets');
 		$this->db->where('pet_id', $id);
 		return$this->db->get()->row_array();
 	}
 		
-		//update pets table
-		public function updatepetdata($pet_up){
-			$this->db->set($pet_up);
-			$this->db->where('pet_id',$pet_up['pet_id']);
-			$data = $this->db->update('sh_pets');
-			return $data;
-		}
+	//update pets table
+	public function updatepetdata($pet_up){
+		$this->db->set($pet_up);
+		$this->db->where('pet_id',$pet_up['pet_id']);
+		$data = $this->db->update('sh_pets');
+		return $data;
+	}
 
 
-		//update pets delete iamge table
-		public function update_pet_img($pet_id, $n_img){
-			$this->db->set('pet_images', $n_img);
-			$this->db->where('pet_id', $pet_id);
-			$res = $this->db->update('sh_pets');
-			return ($res) ? true : false;
-		}
-		
-		// get all pet categories 
+	//update pets delete iamge table
+	public function update_pet_img($pet_id, $n_img){
+		$this->db->set('pet_images', $n_img);
+		$this->db->where('pet_id', $pet_id);
+		$res = $this->db->update('sh_pets');
+		return ($res) ? true : false;
+	}
+	
+	// get all pet categories 
 
-		public function get_all_pet_cat(){
-			$this->db->select('*')->from('sh_category');
-			$this->db->order_by("cat_name", "asc");
-			return $this->db->get()->result_array();
-		}
-		
-		// get all pet breeds 
+	public function get_all_pet_cat(){
+		$this->db->select('*')->from('sh_category');
+		$this->db->order_by("cat_name", "asc");
+		return $this->db->get()->result_array();
+	}
+	
+	// get all pet breeds 
 
-		public function get_all_pet_breed(){
-			$this->db->select('*')->from('sh_breeds');
-			$this->db->order_by("breed_name", "asc");
-			$query = $this->db->get();
-			return $query->result();
-		}
+	public function get_all_pet_breed(){
+		$this->db->select('*')->from('sh_breeds');
+		$this->db->order_by("breed_name", "asc");
+		$query = $this->db->get();
+		return $query->result();
+	}
 
 
-		public function get_breed_name($pid){
-			$this->db->select('breed_name')->from('sh_breeds');
-			$this->db->where("breed_id", $pid);
-			return $this->db->get()->row_array();
-		}
+	public function get_breed_name($pid){
+		$this->db->select('breed_name')->from('sh_breeds');
+		$this->db->where("breed_id", $pid);
+		return $this->db->get()->row_array();
+	}
 
-		// get all pet color 
-		public function get_all_pet_color(){
-			$this->db->select('*')->from('sh_color');
-			$this->db->order_by("color_name", "asc");
-			return $this->db->get()->result_array();
-		}
+	// get all pet color 
+	public function get_all_pet_color(){
+		$this->db->select('*')->from('sh_color');
+		$this->db->order_by("color_name", "asc");
+		return $this->db->get()->result_array();
+	}
 
-		public function userwisecatlist($data){
-			$this->db->select('COUNT(a.cat_id) as cat_count,cat_name,user_id');
-			$this->db->from('sh_pets a');
-			$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
-			$this->db->where('a.user_id', $data);
-			$this->db->group_by('a.cat_id');
-			$query = $this->db->get();
-			return $query->result();
-		}
+	public function userwisecatlist($data){
+		$this->db->select('COUNT(a.cat_id) as cat_count,cat_name,user_id');
+		$this->db->from('sh_pets a');
+		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
+		$this->db->where('a.user_id', $data);
+		$this->db->group_by('a.cat_id');
+		$query = $this->db->get();
+		return $query->result();
+	}
 
-    // breed data get pet category wise
-		public function breed_data_dependancy_cat($id) {
-			$this->db->select('*');
-			$this->db->from('sh_breeds');
-			$this->db->where('cat_id', $id);
-			$query = $this->db->get();
-			return $query->result();
-		}
-		
-		// delete my pet
+// breed data get pet category wise
+	public function breed_data_dependancy_cat($id) {
+		$this->db->select('*');
+		$this->db->from('sh_breeds');
+		$this->db->where('cat_id', $id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	// delete my pet
 
-		public function delete_pet($id){
-			$this->db->where('pet_id', $id);
-			$res = $this->db->delete('sh_pets');
-			return ($res) ? true : false;
-		}
+	public function delete_pet($id){
+		$this->db->where('pet_id', $id);
+		$res = $this->db->delete('sh_pets');
+		return ($res) ? true : false;
+	}
 
-		// get all images pictures
-
-		public function get_all_pictures($user_id) {
-			$this->db->select('u.id, p.user_id, p.pet_id,p.pet_images, p.pet_name, p.date_added');
+	// get all images pictures
+	public function get_all_pictures($user_id) {
+		$this->db->select('u.id, p.user_id, p.pet_id,p.pet_images, p.pet_name, p.date_added');
 		$this->db->from('sh_users u');
 		$this->db->join('sh_pets p', 'u.id=p.user_id', 'inner');
 		$this->db->where('u.id', $user_id);
 		$this->db->order_by("p.pet_id", "desc");
 		$query = $this->db->get();
 		return $query->result();
-		
 	}
 
 	public function setPrimaryImg($pet_id, $img_name){
@@ -252,65 +250,58 @@ class Pet_model extends CI_model{
     }
 
     public function search_pets(){
+		$keywords=rtrim($this->input->get('keywords'));
+		$chip_no=rtrim($this->input->get('chip_no'));
+		$collar_tag=rtrim($this->input->get('collar_tag'));
+		$catid=rtrim($this->input->get('cat_id'));
+		$breed_id=rtrim($this->input->get('breed_id'));
+		$gender=rtrim($this->input->get('gender'));
+		$color_id=rtrim($this->input->get('color_id'));
+		$located=rtrim($this->input->get('located'));
+		$zip_code=rtrim($this->input->get('zip_code'));
 
+		$this->db->select('*');
+		$this->db->from('sh_pets a');
+		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
+		$this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
+		$this->db->join('sh_color d', 'd.color_id=a.color_id', 'left');
 
-				
-				$keywords=rtrim($this->input->get('keywords'));
-				$chip_no=rtrim($this->input->get('chip_no'));
-				$collar_tag=rtrim($this->input->get('collar_tag'));
-				$catid=rtrim($this->input->get('cat_id'));
-				$breed_id=rtrim($this->input->get('breed_id'));
-				$gender=rtrim($this->input->get('gender'));
-				$color_id=rtrim($this->input->get('color_id'));
-				$located=rtrim($this->input->get('located'));
-				$zip_code=rtrim($this->input->get('zip_code'));
+		$this->db->or_like('a.pet_name',$keywords);
 
+		if($catid and $breed_id){
+			$this->db->where('a.cat_id', $catid);
+			$this->db->where('a.breed_id', $breed_id);
+		}else{
+			if($catid){
+				$this->db->where('a.cat_id', $catid);
+			}
+		}
 
+		if($gender){
+			$this->db->where('a.gender', $gender);
+		}
 
-				$this->db->select('*');
-				$this->db->from('sh_pets a');
-				$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
-				$this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
-				$this->db->join('sh_color d', 'd.color_id=a.color_id', 'left');
-
-				$this->db->or_like('a.pet_name',$keywords);
-
-				if($catid and $breed_id){
-					$this->db->where('a.cat_id', $catid);
-					$this->db->where('a.breed_id', $breed_id);
-				}elseif($catid){
-					 $this->db->where('a.cat_id', $catid);
-				}else{
-
-				}
-
-				if($gender){
-					$this->db->where('a.gender', $gender);
-				}
-
-				if($color_id){
-					$this->db->where('a.color_id', $color_id);
-				}
-				
-
-				if($located){
-					$this->db->where('a.located', $located);
-				}
-
-				if($chip_no){
-					$this->db->where('a.chip_no', $chip_no);
-				}
-
-				if($collar_tag){
-					$this->db->where('a.collar_tag', $collar_tag);
-				}
-				
-				$this->db->order_by("a.pet_id", "desc");
-				$query = $this->db->get();
-				return $query->result();
+		if($color_id){
+			$this->db->where('a.color_id', $color_id);
 		}
 		
+		if($located){
+			$this->db->where('a.located', $located);
+		}
 
+		if($chip_no){
+			$this->db->where('a.chip_no', $chip_no);
+		}
+
+		if($collar_tag){
+			$this->db->where('a.collar_tag', $collar_tag);
+		}
+		
+		$this->db->order_by("a.pet_id", "desc");
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+		
     
     public function search_pet_keywords(){
         $input_keywords = rtrim($this->input->get('keywords'));
@@ -327,8 +318,8 @@ class Pet_model extends CI_model{
         );
 
         $this->db->select('sh_pets.*,  sh_users.*, sh_category.cat_name, sh_breeds.breed_name, sh_color.color_name')->from('sh_pets');
-		    $this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
-		    $this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
+		$this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
+		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
         $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
         $this->db->or_like($keywords);

@@ -24,32 +24,31 @@
                         YOUR BEST FRIEND
                         <br>
                     </p>
-                    <form action="javascript:;" method="POST">
-                        <div class="search-form">
+                    <div class="search-form">
+                        <form action="<?=base_url();?>booking/create_booking" method="POST" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="zipcode">Choose the location</label>
-                                    <input type="text" class="form-control" name="zipcode" placeholder="Zip Code" required>
+                                    <input type="text" class="form-control" name="zipcode" placeholder="Zip Code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="zipcode">Choose the option</label>
-                                    <select class="form-control" onchange="getHostGuest(this);" required>
-                                        <option value="Be a Guest">Be a Guest</option>
-                                        <option value="Be a Host">Be a Host</option>
+                                    <label for="user_type">Choose the option</label>
+                                    <select name="user_type" class="form-control" onchange="getHostGuest(this);" required>
+                                        <option value="guest">Be a Guest</option>
+                                        <option value="host">Be a Host</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="guest-list col-md-12">
-                                    <label for="message_to">Choose your pet from pet list</label>
-                                    <select class="multipleSelect form-control" multiple required>
-                                    
+                                    <label for="pet_list">Choose your pet from pet list</label>
+                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
                                         <?php if($my_pets){ 
                                             foreach($my_pets as $pets){ extract($pets); ?>
                                                 <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
-                                            <?php }} else { ?>
+                                            <?php } } else { ?>
                                                 <?php if($this->session->userdata('user_email')){?>
                                                     <option value="">You have no pets added.</option>
                                                 <?php } else { ?>
@@ -59,13 +58,12 @@
                                     </select>
                                 </div>
                                 <div class="col-md-12 host-list mainpage-list">
-                                    <label for="message_to">Choose your pet</label><br />
-                                    <select class="multipleSelect form-control" multiple required>
+                                    <label for="pet_cat">Choose your category</label><br />
+                                    <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
                                         <?php foreach($categories as $cat){ extract($cat); ?>
                                             <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
                                         <?php } ?>
                                     </select>
-                                   
                                 </div>
                             </div>
                             
@@ -74,8 +72,8 @@
                                     <button type="submit" class="btn bg-orange sub-btn m-t-10"><i class="fa fa-search"></i> Find a Home</button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
             

@@ -29,18 +29,7 @@
 				</div>			
 				<div class="panel-body">
                     <div class="row f-list-wrap">
-                        <?php
-                        //echo "<pre>";
-                        //print_r($search_results);
-                       // echo "</pre>";
-
-                        if($search_results){ foreach($search_results as $res) { ?>
-
-                            <?php 
-                            $primary_pic=$res->primary_pic; 
-                            $user_id=$res->user_id; 
-                            ?>
-
+                        <?php if($search_results){ foreach($search_results as $res) { extract($res); ?>
                             <div class="col-md-6">
                                 <div class="card bg-grey friend-card">
                                     <div class="card-body">
@@ -53,14 +42,14 @@
                                         </div>
                                         <button class="btn btn-info btn-xs pull-right dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
                                         <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>">Pet Details</a>
-                                            <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$res->user_id;?>">View Owner</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>">Pet Details</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$user_id;?>">View Owner</a>
                                         </div>
-                                        <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$res->pet_id;?>"><?=$res->pet_name;?></a> </p>
-                                        <p class="text-desc"><?=$res->description;?></p>
-                                        <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?=$res->cat_name;?></span></p>
-                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$res->breed_name;?> </span></p>
-                                        <p class="b-700 f-14">Color: <span class="b-700 text-black"><?=$res->color_name ? $res->color_name : 'No data' ?></span></p>
+                                        <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
+                                        <p class="text-desc"><?=$description;?></p>
+                                        <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?=$cat_name;?></span></p>
+                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> </span></p>
+                                        <p class="b-700 f-14">Color: <span class="b-700 text-black"><?=$color_name ? $color_name : 'No data' ?></span></p>
                                         
                                     </div>
                                 </div>
@@ -72,9 +61,6 @@
                                 </div>
                             </div>
                         <?php } ?>
-
-
-
                     </div>
                 </div>
 			</div>

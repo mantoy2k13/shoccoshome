@@ -45,14 +45,18 @@ function setBreeds2(){
 
 function getHostGuest(val)
 {
-    if(val.value == "Be a Guest"){
+    if(val.value == "guest"){
         $('.guest-list').fadeIn('slow');
         $('.host-list').hide();
+        $('#petCat').removeAttr('required');
+        $('#petList').attr('required', 'required');
     }
 
-    if(val.value == "Be a Host"){
+    if(val.value == "host"){
         $('.host-list').fadeIn('slow');
         $('.guest-list').hide();
+        $('#petCat').attr('required');
+        $('#petList').removeAttr('required', 'required');
     }
 }
 
