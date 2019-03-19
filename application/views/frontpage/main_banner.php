@@ -50,7 +50,6 @@
                                             foreach($my_pets as $pets){ extract($pets); ?>
                                                 <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                             <?php }} else { ?>
-                                                <option value="">My pet is</option>
                                                 <?php if($this->session->userdata('user_email')){?>
                                                     <option value="">You have no pets added.</option>
                                                 <?php } else { ?>
