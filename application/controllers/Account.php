@@ -85,10 +85,11 @@ class Account extends CI_Controller {
     
     public function view_bio($uid){
 		if ($this->session->userdata('user_email')){ 
-            $user_email  = $this->session->userdata('user_email');
+            $user_email       = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page'] = 'view_bio';
+            $data['is_page']  = 'view_bio';
             $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
             $this->load->view('account/view_bio', $data);
         }
 		else { redirect('home/login'); }
@@ -120,6 +121,13 @@ class Account extends CI_Controller {
     public function setCoverPrimary($img_name){
         if($this->session->userdata('user_email')){
             echo $this->Account_model->setCoverImg($img_name);
+        }
+        else{ echo false;}
+    }
+
+    public function set_sitter_time(){
+        if($this->session->userdata('user_email')){
+            echo $this->Account_model->set_sitter_time();
         }
         else{ echo false;}
     }

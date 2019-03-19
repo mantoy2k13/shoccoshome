@@ -343,12 +343,12 @@
     }
 }
 
-@media (min-width: 576px){
+/* @media (min-width: 576px){
     .modal-dialog {
         max-width: 90%;
         margin: 1.75rem auto;
     }
-}
+} */
 
 @media only screen and (max-width: 370px){
     .friend-img {

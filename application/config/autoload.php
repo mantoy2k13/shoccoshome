@@ -131,4 +131,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Auth_model','Pet_model','Friends_model','Mail_model','Account_model', 'Album_model', 'Pictures_model');
+$autoload['model'] = array('Auth_model','Pet_model','Friends_model','Mail_model','Account_model', 'Album_model', 'Pictures_model', 'Booking_model');

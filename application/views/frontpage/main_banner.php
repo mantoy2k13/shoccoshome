@@ -25,16 +25,16 @@
                         <br>
                     </p>
                     <div class="search-form">
-                        <form action="<?=base_url();?>booking/create_booking" method="POST" >
+                        <form action="<?=base_url();?>booking/select_and_book" method="POST" >
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="zipcode">Choose the location</label>
+                                    <label for="zipcode">Enter your Zip Code</label>
                                     <input type="text" class="form-control" name="zipcode" placeholder="Zip Code" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="user_type">Choose the option</label>
+                                    <label for="user_type">Select your type</label>
                                     <select name="user_type" class="form-control" onchange="getHostGuest(this);" required>
                                         <option value="guest">Be a Guest</option>
                                         <option value="host">Be a Host</option>
@@ -44,7 +44,8 @@
                             <div class="form-group row">
                                 <div class="guest-list col-md-12">
                                     <label for="pet_list">Choose your pet from pet list</label>
-                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                    <?php if($this->session->userdata('user_email')){?>
+                                        <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
                                         <?php if($my_pets){ 
                                             foreach($my_pets as $pets){ extract($pets); ?>
                                                 <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
@@ -55,18 +56,28 @@
                                                     <option value="">Please login to view your pets.</option>
                                                 <?php } ?>
                                             <?php } ?>
-                                    </select>
+                                        </select>
+                                    <?php } else { ?>
+                                        <select class="form-control">
+                                            <option value="">Sign In or Sign Up now</option>
+                                        </select>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-md-12 host-list mainpage-list">
                                     <label for="pet_cat">Choose your category</label><br />
-                                    <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
-                                        <?php foreach($categories as $cat){ extract($cat); ?>
-                                            <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <?php if($this->session->userdata('user_email')){?>
+                                        <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
+                                            <?php foreach($categories as $cat){ extract($cat); ?>
+                                                <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
+                                            <?php } ?>
+                                        </select>
+                                    <?php } else { ?>
+                                        <select class="form-control">
+                                            <option value="">Sign In or Sign Up now</option>
+                                        </select>
+                                    <?php } ?>
                                 </div>
                             </div>
-                            
                             <div class="row form-group text-center">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn bg-orange sub-btn m-t-10"><i class="fa fa-search"></i> Find a Home</button>

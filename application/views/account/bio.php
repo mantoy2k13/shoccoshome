@@ -33,24 +33,6 @@
             ?>
 		  <div class="col-md-9 m-t-10 bio-wrapper-info p-l-0">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="profile-info-wrapper">
-                            <p class="f-20 b-700 text-blue">Contact Info</p>
-                            <p class="f-15"><span class="text-black b-700">Name</span><br>
-                                <?=$getName;?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Email</span><br><?=$email;?></p>
-                            <p class="f-15"><span class="text-black b-700">Mobile</span><br>
-                                <?=($mobile_number)?$mobile_number:"No Number";?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Gender</span><br>
-                                <?=($gender)?$gender:"No Gender";?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Occupation</span><br>
-                                <?=($occupation)?$occupation:"No Occupation";?>
-                            </p>
-                        </div>
-                    </div>
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-12 bio-head">
@@ -120,6 +102,70 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="profile-info-wrapper">
+                            <p class="f-20 b-700 text-blue">Contact Info</p>
+                            <p class="f-15"><span class="text-black b-700">Name</span><br>
+                                <?=$getName;?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Email</span><br><?=$email;?></p>
+                            <p class="f-15"><span class="text-black b-700">Mobile</span><br>
+                                <?=($mobile_number)?$mobile_number:"No Number";?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Gender</span><br>
+                                <?=($gender)?$gender:"No Gender";?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Occupation</span><br>
+                                <?=($occupation)?$occupation:"No Occupation";?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-t-20">
+                    <div class="col-md-6">
+                        <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
+                            <p class="f-20 b-700 text-orange-d m-b-0">As a sitter availability</p>
+                            <div class="row m-t-10">
+                                <div class="col-md-12 setTimeMsg">
+                                    
+                                </div>
+                            </div>
+                            
+                            <?php if($sitter_availability){ 
+                                $aDate = json_decode($sitter_availability);
+                                $get_date_from = $aDate[0]; $today = date('Y-m-d');
+                                $date_from = ($get_date_from < $today) ? $today : $get_date_from;
+                                $get_date_to = $aDate[1];
+                                $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day'));
+                            } else{ 
+                                $get_date_to = '';
+                                $date_from = '';
+                                $date_to = '';  
+                            } ?>
+                            <div class="row m-t-10">
+                                <div class="col-md-12">
+                                    <label for="date_from">Date From: </label>
+                                    <input type="hidden" id="curr_date" value="<?=date('Y-m-d');?>">
+                                    <input type="date" class="form-control" name="date_from" id="date_from" value="<?=$date_from;?>">
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="date_to">Date To: </label>
+                                    <input type="date" class="form-control" name="date_to" id="date_to" value="<?=$get_date_to;?>">
+                                </div>
+                            </div>
+                            <div class="row m-t-10">
+                                <div class="col-md-12">
+                                    <button type="button" onclick="checkDateTime()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save Time</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="f-20 b-700 text-orange-d m-b-0">Your Availability Calendar</p>
+                        <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
+                        <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
+                        <div class="m-t-20" id='availability'></div>
+                    </div>
                 </div>
             </div>
           <?php } ?>
@@ -129,7 +175,84 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('availability');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                header: {
+                    left: 'month',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                eventLimit: false, // allow "more" link when too many events
+                events: [
+                    {
+                        title: 'Avalable',
+                        start: $('#a_date_from').val(),
+                        end: $('#a_date_to').val(),
+                        color: '#00f9f0',
+                        rendering: 'background'
+                    }
+                ],
+            });
+            
+            calendar.render();
+        });
 
+        var checkDateTime = ()=>{
+            var curr_date  = $('#curr_date').val();
+            var date_from  = $('#date_from').val();
+            var date_to    = $('#date_to').val();
+            
+            if(date_from && date_to){
+                var date_today = new Date(curr_date);
+                var given_date_from = new Date(date_from);
+                var given_date_to = new Date(date_to);
+
+                if(given_date_from < date_today){
+                    $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
+                    $('#date_from').focus();
+                } else if(given_date_to < date_today){
+                    $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
+                    $('#date_to').focus();
+                } else{
+                    $.ajax({
+                        url: base_url+'account/set_sitter_time',
+                        method: 'POST',
+                        data: { date_from: date_from, date_to:date_to },
+                        success: (res)=>{
+                            if(res==1){
+                                swal({title: "Success!", text: "Set time availability successful.", type: 
+                                "success"},
+                                    function(){ 
+                                        location.reload();
+                                    }
+                                );
+                            } else{
+                                swal('Failed!', 'A problem occured please try again.', 'error');
+                            }
+                        }
+                    });
+                }
+            } else{
+                $('.setTimeMsg').html(setMsg('Please set all dates to proceed'));
+            }
+        }
+
+        function setMsg(msg){
+            var setMsg = '';
+            setMsg += '<div class="alert alert-danger f-15 alert-dismissible" role="alert">';
+            setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
+            setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+            setMsg += '<span aria-hidden="true">&times;</span>';
+            setMsg += '</button>';
+            setMsg += '</div>';
+            return setMsg;
+        }
+
+    </script>
   </body>
 
 </html>

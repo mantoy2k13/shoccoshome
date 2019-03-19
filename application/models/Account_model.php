@@ -180,4 +180,14 @@ class Account_model extends CI_Model {
         $res = $this->db->update('sh_users');
         return ($res) ? true : false;
     }
+
+    public function set_sitter_time(){
+        $uid = $this->session->userdata('user_id');
+        $setTime[] = $this->input->post('date_from');
+        $setTime[] = $this->input->post('date_to');
+        $this->db->set('sitter_availability', json_encode($setTime));
+        $this->db->where('id', $uid);
+        $res = $this->db->update('sh_users');
+        return ($res) ? 1 : 0;
+    }
 }
