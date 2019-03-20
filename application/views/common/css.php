@@ -32,12 +32,10 @@
       <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
     <?php }?>
     
-    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking" || $is_page=="select_and_book" || $is_page=="view_bio"){ ?>
-      <!-- Fast Select -->
-      <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
-      <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
-    <?php }?>
-    
+    <!-- Fast Select -->
+    <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
+    <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
+
     <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=="view_bio" || $is_page=="bio"){ ?>
       <!-- Calendar -->
       <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
