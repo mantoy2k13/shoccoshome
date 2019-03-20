@@ -23,24 +23,24 @@
 			
 			<!-- Main Content -->
 			<div class="col-md-9 m-t-10 p-l-0">
-            <?php $bPage = $this->uri->segment(3); 
-            ?>
+            <?php $bPage = $this->uri->segment(3); ?>
 				<div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12">
-                            <i class="fa fa-book f-25 text-blue"></i> Booking List
+                            <i class="fa fa-book f-25 text-blue"></i> Booking History 
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">Pending</a>
-                            <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Approved</a>
-                            <a href="<?=base_url();?>booking/booking_list/3" class="p-nav b-700 f-14 <?=($bPage==3) ? 'active' : '';?>">Completed</a>
-                            <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">Pending</a>
+                            <a href="<?=base_url();?>booking/booking_history/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Approved</a>
+                            <a href="<?=base_url();?>booking/booking_history/3" class="p-nav b-700 f-14 <?=($bPage==3) ? 'active' : '';?>">Completed</a>
+                            <a href="<?=base_url();?>booking/booking_request/1" class="btn bg-blue-a btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking Request</a>
+                            <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white m-r-5" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
                         </div>
                     </div>
                 </div>
 
 				<div class="row form-group m-t-20">
-                <?php if($booking_list){ foreach($booking_list as $bl){ extract($bl);?>
+                <?php if($booking_history){ foreach($booking_history as $bl){ extract($bl);?>
 					<div class="col-md-6">
 						<div class="card bg-grey friend-card">
 							<div class="card-body">

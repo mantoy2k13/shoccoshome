@@ -15,7 +15,6 @@ class Auth_model extends CI_model{
     public function register_user($user){
         $this->db->insert('sh_users', $user);
     }
-
         
     public function fetchuserlogindata($uemail){
         $this->db->select('*');
@@ -62,7 +61,6 @@ class Auth_model extends CI_model{
         }
         return false;
     }
-
 
     public function loginFB(){
         $email = $this->input->post('email');
