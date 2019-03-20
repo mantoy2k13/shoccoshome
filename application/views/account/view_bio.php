@@ -34,24 +34,6 @@
             ?>
 		  <div class="col-md-9 m-t-10 bio-wrapper-info p-l-0">
                 <div class="row">
-                    <div class="col-md-3">  
-                        <div class="profile-info-wrapper">
-                            <p class="f-20 b-700 text-blue">Contact Info</p>
-                            <p class="f-15"><span class="text-black b-700">Name</span><br>
-                                <?=$getName;?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Email</span><br><?=$email;?></p>
-                            <p class="f-15"><span class="text-black b-700">Mobile</span><br>
-                                <?=($mobile_number)?$mobile_number:"No Number";?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Gender</span><br>
-                                <?=($gender)?$gender:"No Number";?>
-                            </p>
-                            <p class="f-15"><span class="text-black b-700">Occupation</span><br>
-                                <?=($occupation)?$occupation:"No Occupation";?>
-                            </p>
-                        </div>
-                    </div>
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-12 bio-head">
@@ -67,10 +49,10 @@
                                     <?php if($uid != $id){?>
                                         <div class="options<?=$id;?>">
                                             <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
-                                                <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                    <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
-                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                </div>
+                                            <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
+                                                <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                            </div>
                                         </div>
                                     <?php } ?>
                                 <?php } else {?>
@@ -78,20 +60,20 @@
                                         <?php if($uid != $id){?>
                                             <div class="options<?=$id;?>">
                                                 <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
-                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                        <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
-                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                    </div>
+                                                <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                    <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
+                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                </div>
                                             </div>
                                         <?php } ?>
                                     <?php } else {?>
                                         <?php if($uid != $id){?>
                                             <div class="options<?=$id;?>">
                                                 <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
-                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                        <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
-                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                    </div>
+                                                <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                    <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
+                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                </div>
                                             </div>
                                         <?php } ?>
                                     <?php } ?>
@@ -119,8 +101,8 @@
                                         </div>
                                         
                                         <div class="row m-t-10 bio-pet-grp">
-                                            <?php $my_pets = $this->Account_model->get_my_pets($id);?>
-                                            <?php if($my_pets){foreach($my_pets as $pets){ extract($pets); ?>
+                                            <?php $user_pets = $this->Account_model->get_my_pets($id);?>
+                                            <?php if($user_pets){foreach($user_pets as $pets){ extract($pets); ?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
@@ -147,7 +129,7 @@
                                             <?php } } else { ?>
                                                 <div class="col-md-12">
                                                     <div class="alert alert-info f-15">
-                                                        <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add new pets.
+                                                        <strong><i class="fa fa-check"></i> Empty!</strong> The user has no pets.
                                                     </div>
                                                 </div>
                                             <?php } ?>
@@ -156,6 +138,112 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">  
+                        <div class="profile-info-wrapper">
+                            <p class="f-20 b-700 text-blue">Contact Info</p>
+                            <p class="f-15"><span class="text-black b-700">Name</span><br>
+                                <?=$getName;?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Email</span><br><?=$email;?></p>
+                            <p class="f-15"><span class="text-black b-700">Mobile</span><br>
+                                <?=($mobile_number)?$mobile_number:"No Number";?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Gender</span><br>
+                                <?=($gender)?$gender:"No Number";?>
+                            </p>
+                            <p class="f-15"><span class="text-black b-700">Occupation</span><br>
+                                <?=($occupation)?$occupation:"No Occupation";?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-t-20">
+                    <?php if($sitter_availability){ ?>
+                        <?php 
+                            $aDate = json_decode($sitter_availability);
+                            $get_date_from = $aDate[0]; $today = date('Y-m-d');
+                            $date_from = ($get_date_from < $today) ? $today : $get_date_from;
+                            $get_date_to = $aDate[1];
+                            $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); ?>
+                        <div class="col-md-6">
+                            <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
+                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact User</p>
+                                <div class="row m-t-10">
+                                    <div class="col-md-12 setTimeMsg">
+                                        
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-7">
+                                        <label for="date_from">Date From: </label>
+                                        <input type="hidden" id="curr_date" value="<?=date('Y-m-d');?>">
+                                        <input type="date" class="form-control" name="date_from" id="date_from" value="<?=$date_from;?>">
+                                        <input type="hidden" name="user_type" value="guest">
+                                        <input type="hidden" name="book_user_id" value="<?=$id;?>">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="time_start">Time Start: </label>
+                                        <input type="time" class="form-control" name="time_start" id="time_start">
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-7">
+                                        <label for="date_to">Date To: </label>
+                                        <input type="date" class="form-control" name="date_to" id="date_to" value="<?=$get_date_to;?>">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="time_end">Time End: </label>
+                                        <input type="time" class="form-control" name="time_end" id="time_end">
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="guest-list col-md-12">
+                                        <label for="pet_list">Choose your pet from pet list</label>
+                                        <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                        <?php if($my_pets){ 
+                                            foreach($my_pets as $pets){ extract($pets); ?>
+                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } } else { ?>
+                                                <?php if($this->session->userdata('user_email')){?>
+                                                    <option value="">You have no pets added.</option>
+                                                <?php } else { ?>
+                                                    <option value="">Please login to view your pets.</option>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-12">
+                                        <label for="message">Short Message:</label>
+                                        <textarea id="message" name="message" class="form-control" cols="20" rows="3" placeholder="Write a message..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn bg-orange text-white col-md-12" onclick="checkDateTime()"><i class="fa fa-check"></i> Book <?=$getName;?> Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    <?php }else{ ?>
+                        <?php $date_from = '';
+                              $date_to = '';  
+                              $get_date_to = ''; ?>
+                        <div class="col-md-6">
+                            <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact User</p>
+                            <div class="alert alert-warning m-t-20 f-15">
+                                <strong><i class="fa fa-times"></i> Unavailable!</strong> User has no available date to contact.
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <div class="col-md-6">
+                        <p class="f-20 b-700 text-orange-d m-b-0"><?=$getName;?>'s Availability</p>
+                        <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
+                        <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
+                        <div class="m-t-20" id='availability'></div>
                     </div>
                 </div>
             </div>
@@ -167,7 +255,89 @@
     <!-- Footer -->
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('availability');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                header: {
+                    left: 'month',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                eventLimit: false, // allow "more" link when too many events
+                events: [
+                    {
+                        title: 'Avalable',
+                        start: $('#a_date_from').val(),
+                        end: $('#a_date_to').val(),
+                        color: '#00f9f0',
+                        rendering: 'background'
+                    }
+                ],
+            });
+            
+            calendar.render();
+        });
 
+        var checkDateTime = ()=>{
+            var curr_date  = $('#curr_date').val();
+            var date_from  = $('#date_from').val();
+            var date_to    = $('#date_to').val();
+            var time_start = $('#time_start').val();
+            var time_end   = $('#time_end').val();
+            var petList    = $('#petList').val();
+            var message    = $('#message').val();
+            if(date_from && date_to && time_start && time_end){
+                var date_today = new Date(curr_date);
+                var given_date_from = new Date(date_from);
+                var given_date_to = new Date(date_to);
+
+                if(given_date_from < date_today){
+                    $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
+                    $('#date_from').focus();
+                } else if(given_date_to < date_today){
+                    $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
+                    $('#date_to').focus();
+                } else if(petList==""){
+                    $('.setTimeMsg').html(setMsg('Please select your pets.'));
+                    $('#petList').focus();
+                } else{
+                    $.ajax({
+                        url: base_url+'booking/book_user',
+                        method: 'POST',
+                        data: $('#setTimeForm').serialize(),
+                        success: (res)=>{
+                            if(res==1){
+                                swal({title: "Success!", text: "You have successfully book a user.", type: 
+                                "success"},
+                                    function(){ 
+                                        location.reload();
+                                    }
+                                );
+                            } else{
+                                swal('Failed!', 'A problem occured please try again.', 'error');
+                            }
+                        }
+                    });
+                }
+            } else{
+                $('.setTimeMsg').html(setMsg('Please fill all fields to proceed'));
+            }
+        }
+
+        function setMsg(msg){
+            var setMsg = '';
+            setMsg += '<div class="alert alert-danger f-15 alert-dismissible" role="alert">';
+            setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
+            setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+            setMsg += '<span aria-hidden="true">&times;</span>';
+            setMsg += '</button>';
+            setMsg += '</div>';
+            return setMsg;
+        }
+    </script>
   </body>
 
 </html>

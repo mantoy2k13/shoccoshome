@@ -32,16 +32,16 @@
       <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
     <?php }?>
     
-    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking"){ ?>
-    <!-- Fast Select -->
-    <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
-    <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
+    <?php if($is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking" || $is_page=="select_and_book" || $is_page=="view_bio"){ ?>
+      <!-- Fast Select -->
+      <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
+      <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
     <?php }?>
     
-    <?php if($is_page=="homepage" || $is_page=="pet_details"){ ?>
-    <!-- Calendar -->
-    <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
-    <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>
+    <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=="view_bio" || $is_page=="bio"){ ?>
+      <!-- Calendar -->
+      <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
+      <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>
     <?php } ?>
     <input type="hidden" id="base_url" value="<?=base_url(); ?>">
     <audio id="notif">
@@ -53,17 +53,17 @@
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="364585571683-dvn2i1408p68kb6o058hnh9lfafqco7i.apps.googleusercontent.com">
     <script>
-    function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        window.location.href = base_url+"home/homepage";
-      });
-    }
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                window.location.href = base_url+"home/homepage";
+            });
+        }
 
-    function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
-    }
-  </script>
+        function onLoad() {
+            gapi.load('auth2', function() {
+                gapi.auth2.init();
+            });
+        }
+    </script>
 </head>

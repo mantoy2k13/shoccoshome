@@ -56,7 +56,7 @@
 <script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
 <?php }?>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<?php if($is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking"){ ?>
+<?php if($is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking" || $is_page=="select_and_book" || $is_page=="view_bio"){ ?>
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.js"></script>
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.standalone.js"></script>
 <?php }?>
@@ -64,3 +64,5 @@
 <?php if($is_page=="mainpage"){ ?>
 <script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
 <?php }?>
+
+<!-- <script src="<?=base_url();?>assets/js/initializations/init_availability.js"></script> -->
