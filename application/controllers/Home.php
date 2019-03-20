@@ -123,6 +123,7 @@ class Home extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
 			$data['is_page'] = 'homepage';
+			$data['get_date']=$this->Account_model->get_date();
 			$this->load->view('homepage/homepage', $data);
 		}
 		else

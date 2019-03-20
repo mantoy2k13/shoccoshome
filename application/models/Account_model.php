@@ -190,4 +190,11 @@ class Account_model extends CI_Model {
         $res = $this->db->update('sh_users');
         return ($res) ? 1 : 0;
     }
+
+    public function get_date(){
+            $this->db->select('sitter_availability')->from('sh_users');
+            $this->db->where('id',$this->session->userdata('user_id'));
+            $data = $this->db->get()->result_array();
+            return $data;
+    }
 }

@@ -23,7 +23,7 @@
 
           <!-- Main Content -->
           <div class="col-md-9 m-t-10 p-l-0">
-
+  
             <div class="row f-list-wrap">
             <div class="col-md-6">
 
@@ -85,7 +85,7 @@
               </p>
 
             <div>
-
+              
             <p class="text-desc">
                <?= $showcatcount; ?>
             </p>
@@ -95,21 +95,26 @@
             </div>
 
             <?php } ?>
-
-
             </div>
 
               <div class="col-md-6">
-                  <div class="form-group row">
-                    <div class="col-md-5">
-                    <input type="date" class="form-control" placeholder="Zip Code">
-                    </div>
-                    <div class="col-md-2 text-center"><span class="badge badge-info cal-badge">To</span></div>
-                    <div class="col-md-5">
-                    <input type="date" class="form-control" placeholder="Zip Code">
-                    </div>
-                  </div>
-                  <div id='calendar'></div>
+              <?php 
+                  if($get_date){
+                    $date=json_decode($get_date[0]['sitter_availability']);
+                    $date_from = $date[0];
+                    $get_date_to = $date[1];
+                    $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day'));
+                  }
+                  else{
+                    $get_date_to = '';
+                    $date_from = '';
+                    $date_to = '';
+                  }
+                  
+                ?>
+                <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
+                <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
+                  <div id='displayAvailtycalendar'></div>
               </div>
             </div>
           </div> <!-- Close Main Content -->
@@ -118,7 +123,33 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-
+   
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('displayAvailtycalendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                header: {
+                    left: 'month',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                eventLimit: false, // allow "more" link when too many events
+                events: [
+                    {
+                        title: 'Avalable',
+                        start: $('#a_date_from').val(),
+                        end: $('#a_date_to').val(),
+                        color: '#00f9f0',
+                        rendering: 'background'
+                    }
+                ],
+            });
+            
+            calendar.render();
+        });
+    </script>
   </body>
 
 </html>
