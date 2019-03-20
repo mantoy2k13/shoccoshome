@@ -15,111 +15,103 @@
     <!-- Portfolio Grid Section -->
     <section class="content">
       <!-- 2nd Navbar -->
-      <?php $this->load->view('common/profile-nav');?>
+		<?php $this->load->view('common/profile-nav');?>
 
-	  <div class="row m-t-10">
-          <!-- Left Navbar -->
-          <?php $this->load->view('common/left-nav');?>
-        
-          <!-- Main Content -->
-		  <div class="col-md-9 m-t-10 p-l-0 p-details">
-            <div class="panel panel-default bg-gray">
-				<div class="panel-heading pointed">
-					<span class="b-700 text-blue">Choose Pet to Book</span>
-					<a href="javascript:;" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-plus"></i> Create new post</a>
-				</div>			
-				<div class="panel-body">
-
-                    <div class="row f-list-wrap">
-                        <div class="col-md-6">
-                            <div class="card bg-grey friend-card">
-                                <div class="card-body">
-                                    <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Profile Image">
-                                    </div>
-                                    <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
-                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                        <a class="dropdown-item" href="javascript:;">Booking</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">Pet Details</a>
-                                    </div>
-                                    <p class="text-head"><a href="javascript:;">Tigger</a> </p>
-                                    <p class="text-desc">Los Angeles, CA, USA</p>
-                                    <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
-                                    <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
-                                </div>
-                            </div>
+		<div class="row m-t-10">
+			<!-- Left Navbar -->
+			<?php $this->load->view('common/left-nav');?>
+			
+			<!-- Main Content -->
+			<div class="col-md-9 m-t-10 p-l-0">
+            <?php $bPage = $this->uri->segment(3); 
+            ?>
+				<div class="pic-head bg-greyish">                
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="fa fa-book f-25 text-blue"></i> Booking List
                         </div>
-                        <div class="col-md-6">
-                            <div class="card bg-grey friend-card">
-                                <div class="card-body">
-                                    <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
-                                    </div>
-                                    <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
-                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                        <a class="dropdown-item" href="javascript:;">Booking</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">Pet Details</a>
-                                    </div>
-                                    <p class="text-head"><a href="javascript:;">Tigger</a> </p>
-                                    <p class="text-desc">Los Angeles, CA, USA</p>
-                                    <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
-                                    <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-grey friend-card">
-                                <div class="card-body">
-                                    <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
-                                    </div>
-                                    <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
-                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                        <a class="dropdown-item" href="javascript:;">Booking</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">Pet Details</a>
-                                    </div>
-                                    <p class="text-head"><a href="javascript:;">Tigger</a> </p>
-                                    <p class="text-desc">Los Angeles, CA, USA</p>
-                                    <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
-                                    <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-grey friend-card">
-                                <div class="card-body">
-                                    <div class="friend-img">
-                                        <img src="<?=base_url();?>assets/img/owner.png" alt="Friend Image">
-                                    </div>
-                                    <button class="btn btn-info btn-xs pull-right dropdown-toggle"  id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</button>
-                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                        <a class="dropdown-item" href="javascript:;">Booking</a>
-                                        <a class="dropdown-item" href="<?=base_url();?>pet/pet_details">Pet Details</a>
-                                    </div>
-                                    <p class="text-head"><a href="javascript:;">Tigger</a> </p>
-                                    <p class="text-desc">Los Angeles, CA, USA</p>
-                                    <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black">Dog</span></p>
-                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black">Dog</span> </p>
-                                    <p class="b-700 f-14">Post Date: <span class="b-700 text-black">Dog</span> </p>
-                                </div>
-                            </div>
+                        <div class="col-md-12 m-t-10">
+                            <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">Pending</a>
+                            <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Approved</a>
+                            <a href="<?=base_url();?>booking/booking_list/3" class="p-nav b-700 f-14 <?=($bPage==3) ? 'active' : '';?>">Completed</a>
+                            <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
                         </div>
                     </div>
-
                 </div>
 
+				<div class="row form-group m-t-20">
+                <?php if($booking_list){ foreach($booking_list as $bl){ extract($bl);?>
+					<div class="col-md-6">
+						<div class="card bg-grey friend-card">
+							<div class="card-body">
+								<div class="friend-img">
+                                    <?php if($user_img) { ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
+								</div>
+								<div class="options27">
+									<span class="btn bg-orange pull-right btn-xs text-white dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
+									<div class="dropdown-menu" aria-labelledby="f-menu">
+										<a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">Booking Info</a>
+										<a onclick="cancelBook(<?=$book_id;?>)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
+										<a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+									</div>
+								</div>
+								<p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
+                                <p class="text-desc"> <?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
+                                <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
+								<p class="text-desc">
+									<span class="badge badge-danger f-12 m-t-10"><i class="fa fa-check"></i> Waiting for approval</span>
+								</p>
+							</div>
+						</div>
+					</div>
+                <?php } } else{ ?>
+                    <div class="col-md-12">
+                        <div class="alert alert-info f-15">
+                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no <?=($bPage==1) ? 'Pending' : ($bPage==2) ? 'approved' : 'completed';?> booking request.</i>
+                        </div>
+                    </div>
+                <?php } ?>
+				</div>
 			</div>
-          </div>
-          <!-- Close Main Content -->
-	  </div>
+			<!-- Close Main Content -->
+		</div>
     </section>
 
     <!-- Footer -->
+    <?php $this->load->view('booking/booking_modal');?>
     <?php $this->load->view('common/footer');?>
-
+	<?php $this->load->view('mail/pop-ups/inst_msg');?>
+    <script>
+        var cancelBook = (bid)=>{
+            swal({
+                title: "Cancel?",
+                text: "This booking will be deleted permamently.",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, cancel it!",
+                closeOnConfirm: false,
+                confirmButtonColor: "#f77506",
+                showLoaderOnConfirm: true
+            },
+            function(){
+                $.ajax({
+                    url: base_url + "booking/cancel_booking/"+bid,
+                    success: function(res){
+                        if(res==1){
+                            swal({title: "Cancelled!", text: 'Booking was cancelled sucessfully!', type: 
+                                "success"}, function(){ location.reload(); });
+                        } else{
+                            swal("Failed",'A problem occured please try again.', 'error');
+                        }
+                    }
+                }); 
+            });
+        }
+    </script>
   </body>
 
 </html>

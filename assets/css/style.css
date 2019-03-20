@@ -231,6 +231,10 @@ i.fa.upload-icon {
     color: #fff;
 }
 
+.bg-blue:hover{
+    background-color: #1caab9;
+}
+
 .text-orange{
     color: #ff9b28;
 }

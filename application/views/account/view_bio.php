@@ -167,34 +167,44 @@
                             $get_date_to = $aDate[1];
                             $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); ?>
                         <div class="col-md-6">
+                            <?php $cb = $this->Booking_model->check_booking($my_id, $id); ?>
                             <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
-                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact User</p>
+                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact <?=$getName;?> <?=($cb) ? '<span class="badge badge-danger f-12 pull-right m-t-5"><i class="fa fa-check"></i> Waiting for approval</span>' : '';?></p>
+                                <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
+                                <?php if($cb){ ?>
+                                    <?php $bdf = json_decode($cb['book_date_from']);
+                                          $bdt = json_decode($cb['book_date_to']);
+                                          $pl  = json_decode($cb['pet_list']); ?>
+                                    
+                                    <input type="hidden" id="bdf" value="<?=$bdf[0];?>">
+                                    <input type="hidden" id="bdt" value="<?=date('Y-m-d', strtotime($bdt[0] . ' +1 day'));?>">
+                                <?php } ?>
                                 <div class="row m-t-10">
-                                    <div class="col-md-12 setTimeMsg">
-                                        
-                                    </div>
-                                </div>
-                                <div class="row m-t-10">
+                                    <!-- Common Initializations -->
+                                    <input type="hidden" id="curr_date" value="<?=date('Y-m-d');?>">
+                                    <input type="hidden" name="book_user_id" value="<?=$id;?>">
+                                    <input type="hidden" id="book_id" value="<?=($cb) ? $cb['book_id'] : '';?>">
+                                    <input type="hidden" name="user_type" value="guest">
+
                                     <div class="col-md-7">
                                         <label for="date_from">Date From: </label>
-                                        <input type="hidden" id="curr_date" value="<?=date('Y-m-d');?>">
-                                        <input type="date" class="form-control" name="date_from" id="date_from" value="<?=$date_from;?>">
-                                        <input type="hidden" name="user_type" value="guest">
-                                        <input type="hidden" name="book_user_id" value="<?=$id;?>">
+                                        <input type="date" class="form-control" name="date_from" id="date_from" value="<?=($cb) ? $bdf[0] : $date_from;?>">
+                                        <input type="hidden" id="origDateFrom" value="<?=$date_from;?>">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="time_start">Time Start: </label>
-                                        <input type="time" class="form-control" name="time_start" id="time_start">
+                                        <input value="<?=($cb) ? $bdf[1] : '';?>" type="time" class="form-control" name="time_start" id="time_start">
                                     </div>
                                 </div>
                                 <div class="row m-t-10">
                                     <div class="col-md-7">
                                         <label for="date_to">Date To: </label>
-                                        <input type="date" class="form-control" name="date_to" id="date_to" value="<?=$get_date_to;?>">
+                                        <input type="date" class="form-control" name="date_to" id="date_to" value="<?=($cb) ? $bdt[0] : $get_date_to;?>">
+                                        <input type="hidden" id="origDateTo" value="<?=$get_date_to;?>">
                                     </div>
                                     <div class="col-md-5">
                                         <label for="time_end">Time End: </label>
-                                        <input type="time" class="form-control" name="time_end" id="time_end">
+                                        <input type="time" value="<?=($cb) ? $bdt[1] : '';?>" class="form-control" name="time_end" id="time_end">
                                     </div>
                                 </div>
                                 <div class="row m-t-10">
@@ -203,13 +213,17 @@
                                         <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
                                         <?php if($my_pets){ 
                                             foreach($my_pets as $pets){ extract($pets); ?>
-                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
-                                            <?php } } else { ?>
-                                                <?php if($this->session->userdata('user_email')){?>
-                                                    <option value="">You have no pets added.</option>
-                                                <?php } else { ?>
-                                                    <option value="">Please login to view your pets.</option>
+                                            <?php if($cb){ ?>
+                                                <?php if(in_array($pet_id, $pl)){ ?>
+                                                <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                <?php } else{ ?>
+                                                    <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                                 <?php } ?>
+                                            <?php } else{?>
+                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } ?>
+                                            <?php } } else { ?>
+                                                <option value="">You have no pets added.</option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -217,18 +231,25 @@
                                 <div class="row m-t-10">
                                     <div class="col-md-12">
                                         <label for="message">Short Message:</label>
-                                        <textarea id="message" name="message" class="form-control" cols="20" rows="3" placeholder="Write a message..."></textarea>
+                                        <textarea id="message" name="message" class="form-control" cols="20" rows="3" placeholder="Write a message..."><?=($cb) ? $cb['message'] : '';?></textarea>
                                     </div>
                                 </div>
                                 <div class="row m-t-10">
                                     <div class="col-md-12">
-                                        <button type="button" class="btn bg-orange text-white col-md-12" onclick="checkDateTime()"><i class="fa fa-check"></i> Book <?=$getName;?> Now</button>
+                                        <button type="button" class="btn bg-blue text-white col-md-12" onclick="checkDateTime(<?=($cb) ? 2 : 1;?>)"><i class="fa fa-check"></i> 
+                                            <?=($cb) ? 'Update My Booking' : 'Book '.$getName.' Now';?>
+                                        </button>
+                                        <?php if($cb){ ?>
+                                            <button type="button" class="btn bg-orange text-white col-md-12 m-t-10" onclick="cancelBook(<?=$my_id.','.$id;?>)"><i class="fa fa-times"></i> 
+                                                Cancel Booking
+                                            </button>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         
-                    <?php }else{ ?>
+                    <?php } else { ?>
                         <?php $date_from = '';
                               $date_to = '';  
                               $get_date_to = ''; ?>
@@ -255,89 +276,7 @@
     <!-- Footer -->
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('availability');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                header: {
-                    left: 'month',
-                    center: 'title',
-                    right: 'prev,next today'
-                },
-                navLinks: true, // can click day/week names to navigate views
-                editable: false,
-                eventLimit: false, // allow "more" link when too many events
-                events: [
-                    {
-                        title: 'Avalable',
-                        start: $('#a_date_from').val(),
-                        end: $('#a_date_to').val(),
-                        color: '#00f9f0',
-                        rendering: 'background'
-                    }
-                ],
-            });
-            
-            calendar.render();
-        });
-
-        var checkDateTime = ()=>{
-            var curr_date  = $('#curr_date').val();
-            var date_from  = $('#date_from').val();
-            var date_to    = $('#date_to').val();
-            var time_start = $('#time_start').val();
-            var time_end   = $('#time_end').val();
-            var petList    = $('#petList').val();
-            var message    = $('#message').val();
-            if(date_from && date_to && time_start && time_end){
-                var date_today = new Date(curr_date);
-                var given_date_from = new Date(date_from);
-                var given_date_to = new Date(date_to);
-
-                if(given_date_from < date_today){
-                    $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
-                    $('#date_from').focus();
-                } else if(given_date_to < date_today){
-                    $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
-                    $('#date_to').focus();
-                } else if(petList==""){
-                    $('.setTimeMsg').html(setMsg('Please select your pets.'));
-                    $('#petList').focus();
-                } else{
-                    $.ajax({
-                        url: base_url+'booking/book_user',
-                        method: 'POST',
-                        data: $('#setTimeForm').serialize(),
-                        success: (res)=>{
-                            if(res==1){
-                                swal({title: "Success!", text: "You have successfully book a user.", type: 
-                                "success"},
-                                    function(){ 
-                                        location.reload();
-                                    }
-                                );
-                            } else{
-                                swal('Failed!', 'A problem occured please try again.', 'error');
-                            }
-                        }
-                    });
-                }
-            } else{
-                $('.setTimeMsg').html(setMsg('Please fill all fields to proceed'));
-            }
-        }
-
-        function setMsg(msg){
-            var setMsg = '';
-            setMsg += '<div class="alert alert-danger f-15 alert-dismissible" role="alert">';
-            setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
-            setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-            setMsg += '<span aria-hidden="true">&times;</span>';
-            setMsg += '</button>';
-            setMsg += '</div>';
-            return setMsg;
-        }
-    </script>
+    <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
   </body>
 
 </html>
