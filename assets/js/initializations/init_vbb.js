@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'prev,next today'
         },
-        navLinks: true, // can click day/week names to navigate views
+        navLinks: false, // can click day/week names to navigate views
         editable: false,
         eventLimit: false, // allow "more" link when too many events
         events: [
@@ -37,7 +37,6 @@ var checkDateTime = (type)=>{
     var time_start = $('#time_start').val();
     var time_end   = $('#time_end').val();
     var petList    = $('#petList').val();
-    var message    = $('#message').val();
     var odf        = $('#origDateFrom').val();
     var odt        = $('#origDateTo').val();
 

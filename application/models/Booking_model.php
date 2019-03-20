@@ -65,7 +65,16 @@ class Booking_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
-    public function booking_list($uid, $type){
+    public function booking_request($uid, $type){
+        $this->db->select('*')->from('sh_book');
+        $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
+        $this->db->where('sh_book.book_user_id', $uid);
+        $this->db->where('sh_book.book_status', $type);
+        $this->db->order_by('sh_book.book_id', 'asc');
+        return $this->db->get()->result_array();
+    }
+
+    public function booking_history($uid, $type){
         $this->db->select('*')->from('sh_book');
         $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
         $this->db->where('sh_book.user_id', $uid);
