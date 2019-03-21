@@ -7,39 +7,22 @@ class Booking extends CI_Controller {
         parent::__construct();
     }
 
-    public function booking_request($type){
+    public function booking_list($type){
 		if ($this->session->userdata('user_email'))
 		{   
             $uid                     = $this->session->userdata('user_id');
 			$user_email              = $this->session->userdata('user_email');
 			$data["user_logindata"]  = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']         = 'booking_request';
-            $data['booking_request'] = $this->Booking_model->booking_request($uid, $type);
+            $data['is_page']         = 'booking_list';
+            $data['booking_list']    = $this->Booking_model->booking_list($uid, $type);
             $data['categories']      = $this->Pet_model->get_all_pet_cat();
 			$data['my_pets']         = $this->Account_model->get_my_pets($uid);
-			$this->load->view('booking/booking_req', $data);
+			$this->load->view('booking/booking_list', $data);
 		}
 		else{
 			redirect('home/login');
 		}
     }
-    
-    public function booking_history($type){
-		if ($this->session->userdata('user_email'))
-		{   
-            $uid                     = $this->session->userdata('user_id');
-			$user_email              = $this->session->userdata('user_email');
-			$data["user_logindata"]  = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']         = 'booking_history';
-            $data['booking_history'] = $this->Booking_model->booking_history($uid, $type);
-            $data['categories']      = $this->Pet_model->get_all_pet_cat();
-			$data['my_pets']         = $this->Account_model->get_my_pets($uid);
-			$this->load->view('booking/booking_history', $data);
-		}
-		else{
-			redirect('home/login');
-		}
-	}
 
     public function create_booking()
 	{
@@ -98,10 +81,26 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-    public function cancel_booking($bid)
+    public function bookng_approvals($bid, $status)
 	{
 		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->cancel_booking($bid);
+            echo $this->Booking_model->bookng_approvals($bid, $status);
+        }
+        else{ echo 0;}
+    }
+
+    public function re_book_user($bid)
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->re_book_user($bid);
+        }
+        else{ echo 0;}
+    }
+
+    public function get_booking_info($bid,$type)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Booking_model->get_booking_info($bid,$type));
         }
         else{ echo 0;}
     }

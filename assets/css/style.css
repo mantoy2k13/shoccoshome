@@ -145,6 +145,15 @@ header.masthead {
     margin-right: 10px;
 }
 
+.book-info-img {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    overflow: hidden;
+    background: #fff;
+    margin: 0 auto;
+}
+
 .acc-img {
     position: relative;
     width: 200px;
@@ -173,7 +182,7 @@ i.fa.upload-icon {
     opacity: 1;
 }
 
-.profile-img img, .profile-big img,.friend-img img, .gal-img img, .bio-img img, .acc-img img, .c-img-wrapper img .u-pet-img img, .crop-pet-img img, .pet-details-img img, .crop-pet-img canvas, .pet-bio-img img{
+.profile-img img, .book-info-img img, .profile-big img,.friend-img img, .gal-img img, .bio-img img, .acc-img img, .c-img-wrapper img .u-pet-img img, .crop-pet-img img, .pet-details-img img, .crop-pet-img canvas, .pet-bio-img img{
     position: absolute !important;
     left: 50% !important;
     top: 50% !important;
@@ -1276,6 +1285,33 @@ a.btn-menu.btn.bg-blue:active:focus {
     font-size: 15px;
     font-weight: 700;
     color: #7a7f87;
+}
+
+.cus-card {
+    position: relative;
+    margin: .5rem 0 1rem 0;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 3px 10px -5px #151115;
+    -moz-box-shadow: 0px 3px 10px -5px #151115;
+    box-shadow: 0px 3px 10px -5px #151115;
+    transition: .25s;
+    border-radius: 2px;
+}
+
+.cus-card .cus-card-body {
+    padding: 24px;
+    border-radius: 0 0 2px 2px;
+    padding-top: 5px;
+}
+
+.cus-card .cus-card-header {
+    font-size: 18px;
+    font-weight: 300;
+    display: block;
+    line-height: 32px;
+    margin-bottom: 8px;
+    padding: 24px 24px 0px 24px;
+    color: #5a5959;
 }
 
 

@@ -93,7 +93,7 @@ var checkDateTime = (type)=>{
     }
 }
 
-var cancelBook = (myID, bud)=>{
+var cancelBook = (bid, status)=>{
     swal({
         title: "Cancel?",
         text: "This booking will be deleted permamently.",
@@ -106,7 +106,7 @@ var cancelBook = (myID, bud)=>{
     },
     function(){
         $.ajax({
-            url: base_url + "booking/cancel_booking/"+$('#book_id').val(),
+            url: base_url + "booking/bookng_approvals/"+bid+'/'+status,
             success: function(res){
                 if(res==1){
                     swal({title: "Cancelled!", text: 'Booking was cancelled sucessfully!', type: 

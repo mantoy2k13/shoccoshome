@@ -59,27 +59,50 @@ class Booking_model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
-    public function cancel_booking($bid){
+    public function bookng_approvals($bid, $status){
+        $this->db->set('book_status', $status);
         $this->db->where('book_id', $bid);
-        $res = $this->db->delete('sh_book');
+        $res = $this->db->update('sh_book');
         return ($res) ? 1 : 0;
     }
 
-    public function booking_request($uid, $type){
+    public function re_book_user($bid){
+        $this->db->set('book_status', 1);
+        $this->db->where('book_id', $bid);
+        $res = $this->db->update('sh_book');
+        return ($res) ? 1 : 0;
+    }
+
+    public function booking_list($uid, $type){
         $this->db->select('*')->from('sh_book');
-        $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
-        $this->db->where('sh_book.book_user_id', $uid);
-        $this->db->where('sh_book.book_status', $type);
-        $this->db->order_by('sh_book.book_id', 'asc');
+        if($type==1){
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
+            $this->db->where('sh_book.user_id', $uid);
+        } else{
+            $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
+            $this->db->where('sh_book.book_user_id', $uid);
+        }
         return $this->db->get()->result_array();
     }
 
-    public function booking_history($uid, $type){
+    public function get_booking_info($bid, $type){
         $this->db->select('*')->from('sh_book');
-        $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
-        $this->db->where('sh_book.user_id', $uid);
-        $this->db->where('sh_book.book_status', $type);
-        $this->db->order_by('sh_book.book_id', 'asc');
-        return $this->db->get()->result_array();
+        if($type==1){
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
+            $this->db->where('sh_book.book_id', $bid);
+        } else{
+            $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
+            $this->db->where('sh_book.book_id', $bid);
+        }
+        return $this->db->get()->row_array();
     }
+
+    public function count_mgb(){
+        $uid = $this->session->userdata('user_id');
+        $this->db->where('book_user_id', $uid);
+        $this->db->where('book_status', 1);
+        $r = $this->db->get('sh_book');
+        return ($r) ? $r->num_rows() : 0;
+    }
+    
 }

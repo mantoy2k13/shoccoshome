@@ -37,6 +37,18 @@ class Pet extends CI_Controller{
 		{
 			redirect('home/login');
 		}
+    }
+    
+    public function get_pet_details_ajax($pet_id)
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			echo json_encode($this->Pet_model->get_pet_details($pet_id));
+		}
+		else
+		{
+			redirect('home/login');
+		}
 	}
 
     public function add_new_pet(){
