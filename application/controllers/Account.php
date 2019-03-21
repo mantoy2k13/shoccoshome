@@ -90,6 +90,7 @@ class Account extends CI_Controller {
             $data['is_page']  = 'view_bio';
             $data['view_bio'] = $this->Account_model->view_bio($uid);
             $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $data['user_id'] = $uid;
             $this->load->view('account/view_bio', $data);
         }
 		else { redirect('home/login'); }

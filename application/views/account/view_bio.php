@@ -92,6 +92,40 @@
                                 </div>
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
+
+                                         <div class="pic-head bg-greyish">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <i class="fa fa-user f-25 text-blue"></i> User Image's
+                                                </div>
+                                            </div>
+                                        </div>
+                                             <?php $user_images = $this->Account_model->get_users_images($user_id);?>
+                                            <div class="row m-t-10">
+                                                <div class="col-md-6">
+                                                    <div class="usrimg">
+                                                    <?php if($user_images){?>
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-fluid usrimg" onclick="slideshow(<?=$user_id;?>)">
+                                                    <?php }?>
+                                                    </div>
+                                                </div>
+                                                    <?php if($user_images){?>
+                                                        <div class="col-md-6">
+                                                            <?php  for($i =1; $i<=count($user_images); $i++){ ?>
+                                                                        <?php if($i<=3){?>
+                                                                         <div class="users-img">
+                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[$i]['img_name'];?>" alt="Profile  Image" class="img-thumbnail" onclick="slideshow(<?=$user_id;?>)">
+                                                                        </div>              
+                                                                        <?php  unset($user_images[$i]);}?>
+                                                            <?php }?>
+                                                                <?php if(end($user_images)){?>
+                                                                     <div class="users-img">
+                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-thumbnail" onclick="slideshow(<?=$user_id;?>)">
+                                                                        </div>
+                                                                    <?php }?>
+                                                             </div>
+                                                <?php }?>  
+                                              </div>
                                         <div class="pic-head bg-greyish">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -277,6 +311,11 @@
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
     <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
+    <script>
+        function slideshow(user_id){
+            alert(user_id);
+        }
+    </script>
   </body>
 
 </html>

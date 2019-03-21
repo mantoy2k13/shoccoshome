@@ -1332,6 +1332,19 @@ span.btmleft_set_cver {
 .thumbnail.highlight{
     border: 3px solid #2999a5;
 }
+
+.usrimg {
+    width: 349px;
+    height: 233px;
+}
+.users-img {
+    position: relative;
+    width: 160px;
+    height: 116px;
+    overflow: hidden;
+    background: #fff;
+    float: left;
+}
 /*end daryl code*/
 
 
