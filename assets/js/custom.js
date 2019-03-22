@@ -131,9 +131,16 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function() {
     }, 300);
 });
 
+// Page Load execute functions
 getMailNotif();
+getGuestReq();
+getHostApprove();
+
+// Every 30 seconds notifications
 setInterval(() => {
     getMailNotif()
+    getGuestReq();
+    getHostApprove();
 }, 30000);
 
 function getMailNotif(){
@@ -169,7 +176,58 @@ function getMailNotif(){
                     }); 
                     var notif = document.getElementById("notif"); 
                     notif.play(); 
+                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"mail/mail" });
                     $.ajax({ url: base_url + "mail/cNotif/"+key['mail_id'],success: function(result){}});
+                });
+            }
+        }
+    });
+}
+
+function getGuestReq(){
+    $.ajax({ url: base_url + "booking/get_guest_req", dataType: 'json',
+        success: function(res){
+            if(res){
+                $.each( res, function(index, key) {
+                    window.createNotification({
+                        closeOnClick: false,
+                        displayCloseButton: true,
+                        positionClass: "nfc-bottom-right",
+                        showDuration: 10000,
+                        theme: "info"
+                    })({
+                        title: 'New Guest Booking',
+                        message: "You have new booking request from "+key['fullname']+'('+key['email']+')'
+                    }); 
+                    var notif = document.getElementById("notif"); 
+                    notif.play(); 
+                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_list/2" });
+                    $.ajax({ url: base_url + "booking/update_guest_req/"+key['book_id'],success: function(result){}});
+                });
+            }
+        }
+    });
+}
+
+function getHostApprove(){
+    $.ajax({ url: base_url + "booking/get_host_approve", dataType: 'json',
+        success: function(res){
+            if(res){
+                $.each( res, function(index, key) {
+                    window.createNotification({
+                        closeOnClick: false,
+                        displayCloseButton: true,
+                        positionClass: "nfc-bottom-right",
+                        showDuration: 10000,
+                        theme: "info"
+                    })({
+                        title: 'Booking Approve',
+                        message: "Your booking was successfully approve by "+key['fullname']+'('+key['email']+')'
+                    }); 
+                    var notif = document.getElementById("notif"); 
+                    notif.play(); 
+                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_list/1" });
+                    $.ajax({ url: base_url + "booking/update_host_approve/"+key['book_id'],success: function(result){}});
                 });
             }
         }
@@ -182,5 +240,5 @@ function instMsg(uid, email){
     $('#instMsg').modal('show')
 }
 
-$(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"mail/mail" });
+
 
