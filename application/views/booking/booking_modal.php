@@ -26,38 +26,22 @@
                     <div class="form-group row">
                         <div class="guest-list col-md-12">
                             <label for="pet_list">Choose your pet from pet list</label>
-                            <?php if($this->session->userdata('user_email')){?>
-                                <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                            <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
                                 <?php if($my_pets){ 
-                                    foreach($my_pets as $pets){ extract($pets); ?>
-                                        <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
-                                    <?php } } else { ?>
-                                        <?php if($this->session->userdata('user_email')){?>
-                                            <option value="">You have no pets added.</option>
-                                        <?php } else { ?>
-                                            <option value="">Please login to view your pets.</option>
-                                        <?php } ?>
-                                    <?php } ?>
-                                </select>
-                            <?php } else { ?>
-                                <select class="form-control">
-                                    <option value="">Sign In or Sign Up now</option>
-                                </select>
-                            <?php } ?>
+                                foreach($my_pets as $pets){ extract($pets); ?>
+                                    <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                <?php } } else { ?>
+                                    <option value="">You have no pets added.</option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="col-md-12 host-list mainpage-list">
                             <label for="pet_cat">Choose your category</label><br />
-                            <?php if($this->session->userdata('user_email')){?>
-                                <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
-                                    <?php foreach($categories as $cat){ extract($cat); ?>
-                                        <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
-                                    <?php } ?>
-                                </select>
-                            <?php } else { ?>
-                                <select class="form-control">
-                                    <option value="">Sign In or Sign Up now</option>
-                                </select>
-                            <?php } ?>
+                            <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
+                                <?php foreach($categories as $cat){ extract($cat); ?>
+                                    <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,9 @@
         <?php $cntReq=$this->Friends_model->count_friend_request(); if($cntReq!=0){ ?>
             <a href="<?=base_url();?>friends/friend_request" class="btn left-menu-btn"><i class="fa fa-users f-25 text-blue"></i> Friend Request <span class="badge badge-danger cntFrndReq pull-right m-t-5"><?=$cntReq;?></span></a>
         <?php } ?>
+        <?php $cntMgb=$this->Booking_model->count_mgb(); if($cntMgb!=0){ ?>
+            <a href="<?=base_url();?>booking/booking_list/2" class="btn left-menu-btn"><i class="fa fa-history f-25 text-blue"></i> Booking Request <span class="badge badge-danger pull-right m-t-5"><?=$cntMgb;?></span></a>
+        <?php } ?>
         <?php 
             $page = array('mail', 'sents', 'drafts');
             if(!(in_array($is_page,$page))){ ?>

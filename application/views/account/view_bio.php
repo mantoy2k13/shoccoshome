@@ -274,7 +274,7 @@
                                             <?=($cb) ? 'Update My Booking' : 'Book '.$getName.' Now';?>
                                         </button>
                                         <?php if($cb){ ?>
-                                            <button type="button" class="btn bg-orange text-white col-md-12 m-t-10" onclick="cancelBook(<?=$my_id.','.$id;?>)"><i class="fa fa-times"></i> 
+                                            <button type="button" class="btn bg-orange text-white col-md-12 m-t-10" onclick="cancelBook(<?=($cb['book_id']);?>, 2)"><i class="fa fa-times"></i> 
                                                 Cancel Booking
                                             </button>
                                         <?php } ?>

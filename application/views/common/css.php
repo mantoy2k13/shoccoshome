@@ -26,7 +26,7 @@
     <link href="<?=base_url();?>assets/vendor/slideshow/css/slideshow.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/slideshow/css/responsive-slides.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/notifications/notifications.css" rel="stylesheet">
-
+    <link href="<?=base_url();?>assets/vendor/dataTables/dataTable.css" rel="stylesheet">
     <!-- Cropper -->
     <?php if($is_page=="add_photos" || $is_page=="add_pet"){ ?>
       <link href="<?=base_url();?>assets/vendor/cropper/cropper.css" rel="stylesheet">
@@ -35,6 +35,7 @@
     <!-- Fast Select -->
     <link href="<?=base_url();?>assets/vendor/fastselect/fastselect.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
+  
 
     <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=="view_bio" || $is_page=="bio"){ ?>
       <!-- Calendar -->

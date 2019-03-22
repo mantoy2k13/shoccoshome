@@ -18,13 +18,13 @@
                     <div class="row">
                         <div class="col-md-12 m-t-10">
                             <label for="subject">Subject:</label>
-                            <input type="text" class="form-control" placeholder="Subject" name="subject">
+                            <input type="text" class="form-control" placeholder="Subject" name="subject" id="instMsgSubject">
                         </div>
                     </div>
                     <div class="row m-t-10">
                         <div class="col-md-12">
                             <label for="message">Message:</label>
-                            <textarea name="message" class="form-control" cols="30" rows="5" placeholder="Write a message..."></textarea>
+                            <textarea name="message" class="form-control" cols="30" rows="5" placeholder="Write a message..." id="instMsgContent"></textarea>
                         </div>
                     </div>
                 </div>
