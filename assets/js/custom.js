@@ -183,4 +183,3 @@ function instMsg(uid, email){
 }
 
 $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"mail/mail" });
-

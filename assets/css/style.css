@@ -1381,6 +1381,21 @@ span.btmleft_set_cver {
     background: #fff;
     float: left;
 }
+.small-text.text-muted {
+    position: absolute;
+    top: 49px;
+    left: 52px;
+    color: #fa5637 !important;
+    font-weight: bold;
+}
+
+strong.text-contrast.large-text {
+    position: absolute;
+    top: 26px;
+    left: 35px;
+    color: #fa5637 !important;
+    font-weight: bold;
+}
 /*end daryl code*/
 
 
