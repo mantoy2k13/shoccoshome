@@ -92,6 +92,48 @@
                                 </div>
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
+
+                                         <div class="pic-head bg-greyish">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <i class="fa fa-user f-25 text-blue"></i> User Image's
+                                                </div>
+                                            </div>
+                                        </div>
+                                             <?php $user_images = $this->Account_model->get_users_images($user_id);?>
+                                             <?php $count_all = $this->Account_model->get_users_images($user_id);?>
+                                            <div class="row m-t-10">
+                                                <div class="col-md-6">
+                                                    <div class="usrimg">
+                                                    <?php if($user_images){?>
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-fluid usrimg zoomable">
+                                                    <?php }?>
+                                                    </div>
+                                                </div>
+                                                    <?php if($user_images){?>
+                                                        <div class="col-md-6">
+                                                            <?php  for($i =1; $i<=count($user_images); $i++){ ?>
+                                                                        <?php if($i<=3){?>
+                                                                         <div class="users-img">
+                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[$i]['img_name'];?>" alt="Profile  Image" class="img-thumbnail zoomable">
+                                                                        </div>              
+                                                                        <?php  unset($user_images[$i]);}?>
+                                                            <?php }?>
+                                                                <?php if(end($user_images)){?>
+                                                                     <div class="users-img dark-green">
+                                                                            <a href="javascript:;" data-toggle="modal" data-target="#selPics">
+                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-thumbnail">
+                                                                            <div class="small-text text-muted">View All</div>
+                                                                               <strong class="text-contrast large-text"><span class="badge badge-primary badge-pill"><?=count($count_all)?></span> Photos</strong>
+                                                                            </a>
+                                                                             <!-- <a data-toggle="modal" data-target="#selPics" class="dropdown-item" href="javascript:;">Select from photos</a> -->
+                                                                    <?php }?>
+
+                                                                            
+                                                                        </div>
+                                                             </div>
+                                                <?php }?>  
+                                              </div>
                                         <div class="pic-head bg-greyish">
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -286,6 +328,42 @@
     <!-- Footer -->
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
+    <div class="modal fade" id="selPics" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> User's images</p>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:;" id="addPhotoAlbumForm">
+                        <div class="row">
+                        
+                           <?php if($count_all){?>
+                                <?php foreach($count_all as $user_img){ extract($user_img);?>
+                                    <div class="col-md-3">
+                                        <div class="thumbnail">
+                                            <a href="javascript:;">
+                                                <div class="gal-img">
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id?>/<?=$img_name;?>" clas="zoomable"style="width:100%" alt="Picture">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php }?>
+                            <?php } else{?>
+                                <h1>You don't have user's Images</h1>
+                            <?php }?>
+                            
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
   </body>
 

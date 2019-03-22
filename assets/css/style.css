@@ -1372,6 +1372,34 @@ span.btmleft_set_cver {
 .thumbnail.highlight{
     border: 3px solid #2999a5;
 }
+
+.usrimg {
+    width: 349px;
+    height: 233px;
+}
+.users-img {
+    position: relative;
+    width: 160px;
+    height: 116px;
+    overflow: hidden;
+    background: #fff;
+    float: left;
+}
+.small-text.text-muted {
+    position: absolute;
+    top: 49px;
+    left: 52px;
+    color: #fa5637 !important;
+    font-weight: bold;
+}
+
+strong.text-contrast.large-text {
+    position: absolute;
+    top: 26px;
+    left: 35px;
+    color: #fa5637 !important;
+    font-weight: bold;
+}
 /*end daryl code*/
 
 
