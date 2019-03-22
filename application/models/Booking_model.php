@@ -26,6 +26,7 @@ class Booking_model extends CI_Model {
             'user_type'      => $this->input->post('user_type'),
             'message'        => $this->input->post('message'),
             'book_status'    => 1,
+            'is_notify'      => 1
         );
 
         $res = $this->db->insert('sh_book', $data);
@@ -60,9 +61,9 @@ class Booking_model extends CI_Model {
     }
 
     public function bookng_approvals($bid, $status){
-        $this->db->set('book_status', $status);
+        $data = ($status==4) ? array('book_status' => $status, 'is_notify' => 3) : array('book_status' => $status);
         $this->db->where('book_id', $bid);
-        $res = $this->db->update('sh_book');
+        $res = $this->db->update('sh_book', $data);
         return ($res) ? 1 : 0;
     }
 
@@ -103,6 +104,41 @@ class Booking_model extends CI_Model {
         $this->db->where('book_status', 1);
         $r = $this->db->get('sh_book');
         return ($r) ? $r->num_rows() : 0;
+    }
+
+    public function get_guest_req(){
+        $uid = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_book');
+        $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
+        $this->db->where('book_user_id', $uid);
+        $this->db->where('is_notify', 1);
+        $this->db->where('book_status', 1);
+        return $this->db->get()->result_array();
+    }
+
+    public function update_guest_req($bid){
+        $this->db->set('is_notify', 2);
+        $this->db->where('book_id', $bid);
+        $res = $this->db->update('sh_book');
+        return ($res) ? 1 : 0;
+    }
+
+    public function get_host_approve(){
+        $uid = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_book');
+        $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
+        $this->db->where('user_id', $uid);
+        $this->db->where('is_notify', 3);
+        $this->db->where('book_status', 4);
+        return $this->db->get()->result_array();
+    }
+
+
+    public function update_host_approve($bid){
+        $this->db->set('is_notify', 4);
+        $this->db->where('book_id', $bid);
+        $res = $this->db->update('sh_book');
+        return ($res) ? 1 : 0;
     }
     
 }

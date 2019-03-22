@@ -74,18 +74,30 @@ var checkDateTime = (type)=>{
                 var text = 'Booking data was successfully updated.';
             }
             
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: $('#setTimeForm').serialize(),
-                success: (res)=>{
-                    if(res==1){
-                        swal({title: "Success!", text: text, type: 
-                        "success"}, function(){ location.reload(); });
-                    } else{
-                        swal('Failed!', 'A problem occured please try again.', 'error');
+            swal({
+                title: "Continue?",
+                text: "Make sure you have to complete and data and check dates. Continue?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, continue!",
+                closeOnConfirm: false,
+                confirmButtonColor: "#f77506",
+                showLoaderOnConfirm: true
+            },
+            function(){
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: $('#setTimeForm').serialize(),
+                    success: (res)=>{
+                        if(res==1){
+                            swal({title: "Success!", text: text, type: 
+                            "success"}, function(){ location.reload(); });
+                        } else{
+                            swal('Failed!', 'A problem occured please try again.', 'error');
+                        }
                     }
-                }
+                });
             });
         }
     } else{
@@ -96,7 +108,7 @@ var checkDateTime = (type)=>{
 var cancelBook = (bid, status)=>{
     swal({
         title: "Cancel?",
-        text: "This booking will be deleted permamently.",
+        text: "This booking will be cancelled.",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes, cancel it!",

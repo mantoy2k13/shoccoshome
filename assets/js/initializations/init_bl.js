@@ -21,8 +21,14 @@ var bookAppr = (bid, status)=>{
                                 $('#instEmail').val($('#userEmail').val());
                                 $('#instMailTo').val($('#userID').val());
                                 $('#instMsgSubject').val('Reason for disapproving');
-                                $('#instMsgContent').val('Dear Maam/Sir,\n\nI am very sorry for disapproving your request. \n\n');
+                                $('#instMsgContent').val('Dear Maam/Sir,\n\nI am very sorry for disapproving your request. \n\n[ You can write or modify this message to the user ]');
                                 $('#instMsg').modal('show')
+                            } else if(status==4){
+                                $('#instEmail').val($('#userEmail').val());
+                                $('#instMailTo').val($('#userID').val());
+                                $('#instMsgSubject').val('Booking Request Approved');
+                                $('#instMsgContent').val('Dear Maam/Sir,\n\nThanks for booking as a sitter for your pets. \n\n [ You can write or modify this message to the user ]');
+                                $('#instMsg').modal('show');
                             } else{ location.reload(); }
                         });
                 } else{
@@ -81,7 +87,7 @@ var bookingInfo=(bid,type)=>{
                 $('#sMsg').val(res['message']);
 
                 //Book Status
-                $('#bookStatus').html((res['book_status']==1) ? '<span class="badge f-12 bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ((res['book_status']==2) ? '<span class="badge f-12 badge-danger"><i class="fa fa-times"></i> Cancelled</span>' : ((res['book_status']==3) ? '<span class="badge f-12 badge-danger"><i class="fa fa-thumbs-down"></i> Disapproved</span>' : ((res['book_status']==4) ? '<span class="badge f-12 badge-info"><i class="fa fa-thumbs-up"></i> Approve</span>>' : ((res['book_status']==5) ? '<span class="badge f-12 badge-success"><i class="fa fa-check"></i> Completed</span>' : '')))));
+                $('#bookStatus').html((res['book_status']==1) ? '<span class="badge f-12 bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ((res['book_status']==2) ? '<span class="badge f-12 badge-danger"><i class="fa fa-times"></i> Cancelled</span>' : ((res['book_status']==3) ? '<span class="badge f-12 badge-danger"><i class="fa fa-thumbs-down"></i> Disapproved</span>' : ((res['book_status']==4) ? '<span class="badge f-12 badge-info"><i class="fa fa-thumbs-up"></i> Approve</span>' : ((res['book_status']==5) ? '<span class="badge f-12 badge-success"><i class="fa fa-check"></i> Completed</span>' : '')))));
 
                 // Pet Data
                 if(pet_list){

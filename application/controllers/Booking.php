@@ -105,4 +105,36 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
+    public function get_guest_req()
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Booking_model->get_guest_req());
+        }
+        else{ echo 0;}
+    }
+
+    public function update_guest_req($bid)
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->update_guest_req($bid);
+        }
+        else{ echo 0;}
+    }
+
+    public function get_host_approve()
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Booking_model->get_host_approve());
+        }
+        else{ echo 0;}
+    }
+
+    public function update_host_approve($bid)
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->update_host_approve($bid);
+        }
+        else{ echo 0;}
+    }
+
 }

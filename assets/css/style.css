@@ -416,6 +416,10 @@ i.fa.upload-icon {
     padding: 5px;
 }
 
+a.btn-menu:focus, a.btn-menu:hover, a.btn-menu:active, a.btn-social:focus, a.btn-social:hover, a.btn-social:active{
+    color: #fff;
+}
+
 .home-menu:hover{
     background-color: transparent !important;
 }

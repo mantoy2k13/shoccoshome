@@ -62,15 +62,17 @@
                                         <tr>
                                             <td><?=$book_id;?></td>
                                             <td class="text-center">
-                                                <div class="profile-img">
-                                                    <?php if($user_img) { ?>
-                                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
-                                                    <?php }else{ ?>
-                                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
-                                                    <?php } ?>
-                                                </div>
+                                                <a href="<?=base_url();?>account/view_bio/<?=$id?>">
+                                                    <div class="profile-img">
+                                                        <?php if($user_img) { ?>
+                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                                        <?php }else{ ?>
+                                                            <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                                        <?php } ?>
+                                                    </div>
+                                                </a>
                                             </td>
-                                            <td><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </td>
+                                            <td><a href="<?=base_url();?>account/view_bio/<?=$id?>" data-toggle="tooltip" data-placement="right" title="<?=$email;?>"><?=($fullname) ? $fullname : "No Name";?></a> </td>
                                             <td class="text-center"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></td>
                                             <td class="text-center">
                                                 <?=($book_status==1) ? '<span class="badge bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ''; ?>
@@ -89,6 +91,9 @@
                                                         <?php if($book_status==1){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,2)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
                                                             <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">Edit Info</a>
+                                                        <?php } ?>
+                                                        <?php if($book_status==4){ ?>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
                                                         <?php } ?>
                                                     <?php } else{ ?>
                                                         <?php if($book_status==1){ ?>

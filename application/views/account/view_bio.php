@@ -210,7 +210,8 @@
                         <div class="col-md-6">
                             <?php $cb = $this->Booking_model->check_booking($my_id, $id); ?>
                             <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
-                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact <?=$getName;?> <?=($cb) ? '<span class="badge badge-danger f-12 pull-right m-t-5"><i class="fa fa-check"></i> Waiting for approval</span>' : '';?></p>
+                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact 
+                                <?=$getName;?></p>
                                 <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                 <?php if($cb){ ?>
                                     <?php $bdf = json_decode($cb['book_date_from']);
@@ -219,6 +220,15 @@
                                     
                                     <input type="hidden" id="bdf" value="<?=$bdf[0];?>">
                                     <input type="hidden" id="bdt" value="<?=date('Y-m-d', strtotime($bdt[0] . ' +1 day'));?>">
+                                <?php } ?>
+                                <?php if($cb) { ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-warning f-15">
+                                                <strong><i class="fa fa-history"></i> Awaiting approvals!</strong> Please wait for the user to respond your request.
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php } ?>
                                 <div class="row m-t-10">
                                     <!-- Common Initializations -->

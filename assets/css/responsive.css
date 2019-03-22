@@ -85,6 +85,10 @@
         max-width: 100%;
         margin: 20px 10px;
     }
+
+    .table-resp-custom.m-t-10 {
+        overflow-x: auto;
+    }
 }
 
 @media only screen and (max-width: 991px){
@@ -279,6 +283,12 @@
     .bio-head a.btn {
         float: none;
         margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 575px){
+    div.dataTables_filter, #datatable_length {
+        float: none !important;
     }
 }
 
