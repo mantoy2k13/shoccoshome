@@ -102,7 +102,7 @@
                                         </div>
                                              <?php $user_images = $this->Account_model->get_users_images($user_id);?>
                                              <?php $count_all = $this->Account_model->get_users_images($user_id);?>
-                                            <div class="row m-t-10">
+                                            <div class="row m-t-10 m-b-10">
                                                 <div class="col-md-6">
                                                     <div class="usrimg">
                                                     <?php if($user_images){?>
