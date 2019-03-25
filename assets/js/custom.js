@@ -4,6 +4,13 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
 
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 27) {
+        $('#mLoader').html('');
+    }
+};
+
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '413901082706208',
@@ -116,7 +123,7 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function() {
       'width': '100%',
       'background': 'rgba(0,0,0,.82)',
       'position': 'fixed',
-      'top': 50,
+      'top': 0,
       'left': 0,
       'opacity': 0.0,
       'cursor': 'pointer',

@@ -21,13 +21,13 @@ var bookAppr = (bid, status)=>{
                                 $('#instEmail').val($('#userEmail').val());
                                 $('#instMailTo').val($('#userID').val());
                                 $('#instMsgSubject').val('Reason for disapproving');
-                                $('#instMsgContent').val('Dear Maam/Sir,\n\nI am very sorry for disapproving your request. \n\n[ You can write or modify this message to the user ]');
+                                $('#instMsgContent').val('Dear Ma\'am/Sir,\n\nSorry for disapproving your request for now. \n\n[ State your reason here.. ]');
                                 $('#instMsg').modal('show')
                             } else if(status==4){
                                 $('#instEmail').val($('#userEmail').val());
                                 $('#instMailTo').val($('#userID').val());
                                 $('#instMsgSubject').val('Booking Request Approved');
-                                $('#instMsgContent').val('Dear Maam/Sir,\n\nThanks for booking as a sitter for your pets. \n\n [ You can write or modify this message to the user ]');
+                                $('#instMsgContent').val('Dear Ma\'am/Sir,\n\nThank you for booking as a sitter for your pets. \n\n [ Write or modify this message.. ]');
                                 $('#instMsg').modal('show');
                             } else{ location.reload(); }
                         });
@@ -65,6 +65,7 @@ var rebookAgain = (bid)=>{
 }
 var bookingInfo=(bid,type)=>{
     $('.myPets').html('');
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
     $.ajax({
         url: base_url + "booking/get_booking_info/"+bid+'/'+type,
         dataType: "JSON",
@@ -146,6 +147,7 @@ var bookingInfo=(bid,type)=>{
                         '</div>').insertAfter('.myPets');
                     }
                 }
+                $('#mLoader').html('');
                 $('#booking_info').modal('show');
             } else{
                 swal("Failed",'A problem occured please try again.', 'error');

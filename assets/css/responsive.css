@@ -45,7 +45,17 @@
     }
 }
 
+@media only screen and (max-width: 1000px){
+    .usrImgCol {
+        width: 48%;
+    }
+}
 
+@media only screen and (max-width: 1026px){
+    a.viewAllImg {
+        padding: 40px 0;
+    }
+}
 @media only screen and (max-width: 1021px){
     .btn-menu {
         margin-bottom: 5px;
@@ -181,6 +191,18 @@
         max-width: 100%;
         flex: 100%;
     }
+
+    .userImages {
+        height: 80px;
+    }
+
+    .userImagesBig {
+        height: 168px;
+    }
+
+    a.viewAllImg {
+        padding: 23px 0;
+    }
 }
 
 @media only screen and (max-width: 830px){
@@ -290,6 +312,25 @@
         float: none;
         margin-top: 10px;
     }
+
+    .userImages {
+        height: 150px;
+    }
+
+    .userImagesBig {
+        height: 250px;
+        margin-bottom: 10px;
+    }
+
+    a.viewAllImg {
+        padding: 55px 0;
+        right: 0;
+    }
+
+    .usrImgCol {
+        width: 49%;
+    }
+
 }
 
 @media only screen and (max-width: 575px){
@@ -356,6 +397,24 @@
 
     .u-pet-img {
         height: 140px;
+    }
+
+    .userImages {
+        height: 150px;
+    }
+
+    .userImagesBig {
+        height: 150px;
+        margin-bottom: 10px;
+    }
+
+    a.viewAllImg {
+        padding: 55px 0;
+        right: 0;
+    }
+
+    .usrImgCol {
+        width: 100%;
     }
 }
 

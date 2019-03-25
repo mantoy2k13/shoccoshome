@@ -75,6 +75,7 @@ function delMsg(mid, type){
 }
 
 function readMsg(mid,type){
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
     $.ajax({
         url: base_url + "mail/view_message/"+mid+"/"+type,
         dataType: 'json',
@@ -135,6 +136,7 @@ function readMsg(mid,type){
                 $('#drftBtn').attr('onClick','moveToDrafts('+mid+')');
                 $('#modDelBtn').attr('onClick','delMsg('+mid+')');
                 $('#replyBtn').attr('onClick','replyMsg('+mid+')');
+                $('#mLoader').html('');
                 $('#readMsg').modal('show');
                 $('#replyMsg').modal('hide');
 
@@ -146,6 +148,7 @@ function readMsg(mid,type){
 }
 
 function readMsg2(mid,type){
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
     $.ajax({
         url: base_url + "mail/view_message/"+mid+"/"+type,
         dataType: 'json',
@@ -199,6 +202,7 @@ function readMsg2(mid,type){
                 $('#msgSubject').val(res[0]['subject']);
                 $('#msgContent').val(res[0]['message']);
                 $('#modDelBtn').attr('onClick','delMsg('+mid+')');
+                $('#mLoader').html('');
                 $('#readMsg').modal('show');
             } else{
                 swal("Failed", "There was a problem viewing your message", 'warning');
@@ -228,6 +232,7 @@ function edit_msg(type){
 }
 
 function replyMsg(mid){
+    $('#mLoader').html('');
     $.ajax({
         url: base_url + "mail/view_message/"+mid+"/"+2,
         dataType: 'json',
@@ -242,6 +247,7 @@ function replyMsg(mid){
                 $('#qContent').html(res[0]['message']);
                 $('#qDate').html(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
                 $('#backBtn').attr('onClick','readMsg('+mid+')');
+                $('#mLoader').html('');
                 $('#replyMsg').modal('show');
                 $('#readMsg').modal('hide');
             } else{
