@@ -111,8 +111,7 @@
                                                     </div>
                                                 </div>
                                                     <?php if($user_images){?>
-                                                        <div class="col-md-6">
-                                                            <div class="col-md-12">
+                                                        <div class="col-md-6 resfx">
                                                             <?php  for($i =1; $i<=count($user_images); $i++){ ?>
                                                                         <?php if($i<=3){?>
                                                                          <div class="users-img">
@@ -123,13 +122,12 @@
                                                                 <?php if(end($user_images)){?>
                                                                      <div class="users-img dark-green">
                                                                             <a href="javascript:;" data-toggle="modal" data-target="#selPics">
-                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-thumbnail">
+                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-thumbnail dark-green">
                                                                             <div class="small-text text-muted">View All</div>
                                                                                <strong class="text-contrast large-text"><span class="badge badge-primary badge-pill"><?=count($count_all)?></span> Photos</strong>
                                                                             </a>
                                                                     <?php }?>             
                                                                         </div>
-                                                             </div>
                                                          </div>
                                                 <?php }?>  
                                               </div>
@@ -323,10 +321,7 @@
           <!-- Close Main Content -->
 	  </div>
     </section>
-
-    <!-- Footer -->
-    <?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <?php $this->load->view('common/footer');?>
+    <!-- modal -->
     <div class="modal fade" id="selPics" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -338,11 +333,11 @@
                         <div class="row">
                                <?php if($count_all){?>
                                     <?php foreach($count_all as $user_img){ extract($user_img);?>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 resfx">
                                             <div class="thumbnail">
                                                 <a href="javascript:;">
                                                     <div class="gal-img">
-                                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id?>/<?=$img_name;?>" clas="zoomable"style="width:100%" alt="Picture">
+                                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id?>/<?=$img_name;?>" class="zoomable"style="width:100%" alt="Picture">
                                                     </div>
                                                 </a>
                                             </div>
@@ -359,7 +354,12 @@
                 </div>
             </div>
         </div>
-    </div>
+
+    <!-- Footer -->
+    <?php $this->load->view('mail/pop-ups/inst_msg');?>
+    <?php $this->load->view('common/footer');?>
+    
+  
     <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
   </body>
 

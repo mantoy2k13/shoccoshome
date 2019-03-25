@@ -116,12 +116,12 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function() {
       'width': '100%',
       'background': 'rgba(0,0,0,.82)',
       'position': 'fixed',
-      'top': 0,
+      'top': 50,
       'left': 0,
       'opacity': 0.0,
       'cursor': 'pointer',
-      'z-index': 9999,
-      'text-align': 'center'
+      'z-index': 999999,
+      'text-align': 'center',
     }).append(bigImg).bind('click', function() {
       $(this).fadeOut(300, function() {
         $(this).remove();
