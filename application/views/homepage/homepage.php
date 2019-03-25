@@ -30,6 +30,14 @@
               </div>
             </div>
           </div>
+          <div class="row">
+              <div class="col-lg-6">
+                  Dashboard 
+              </div>
+               <div class="col-lg-6">
+                    <div id='displayAvailtycalendar'></div>
+              </div>
+          </div>
             <div class="row f-list-wrap">
             <div class="col-md-6">
 
@@ -120,7 +128,7 @@
                 ?>
                 <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
                 <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
-                  <div id='displayAvailtycalendar'></div>
+                  
               </div>
             </div>
           </div> <!-- Close Main Content -->
