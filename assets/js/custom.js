@@ -110,7 +110,7 @@ $('img.zoomable').css({cursor: 'pointer'}).on('click', function() {
     var img = $(this);
     var bigImg = $('<img />').css({
       'max-width': '100%',
-      'max-height': '100%',
+      'height': 'auto',
       'display': 'inline'
     });
     bigImg.attr({

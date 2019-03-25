@@ -6,7 +6,7 @@
 
 <div class="col-md-3 m-t-10 p-r-0">
     <div class="left-menu">
-        <a href="<?=base_url();?>home/news_feed" class="btn left-menu-btn <?=($is_page=="news_feed") ? "active" : ''; ?>"><i class="fa fa-newspaper f-25 text-blue"></i> News Feed</a>
+        <a href="<?=base_url();?>home/homepage" class="btn left-menu-btn <?=($is_page=="homepage") ? "active" : ''; ?>"><i class="fa fa-chart-line f-25 text-blue"></i> Dashboard</a>
         <?php 
             $page = array('mail', 'sents', 'drafts');
             if(!(in_array($is_page,$page))){ ?>
