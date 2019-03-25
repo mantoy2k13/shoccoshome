@@ -198,10 +198,12 @@ class Account_model extends CI_Model {
             return $data;
     }
 
-    public function get_users_images($user_id){
+    public function get_users_images($user_id, $limit){
         $this->db->select('*')->from('sh_images');
-        $this->db->where('user_id',$user_id);
-        $data = $this->db->get()->result_array();
-        return $data;
+        $this->db->where('user_id', $user_id);
+        if($limit){
+            $this->db->limit($limit);
+        }
+        return $this->db->get()->result_array();
     }
 }

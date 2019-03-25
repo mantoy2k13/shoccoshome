@@ -5,7 +5,7 @@
   <?php $this->load->view('common/css');?>
 
   <body id="page-top">
-
+  
     <!-- Navigation -->
     <?php $this->load->view('common/main-nav');?>
 
@@ -24,14 +24,18 @@
 			<!-- Main Content -->
 			<div class="col-md-9 m-t-10 p-l-0">
                 <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb();?>
+                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
 				<div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12">
                             <i class="fa fa-book f-25 text-blue"></i> Booking List
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request</a>
+                            <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request
+                            <?php if($cntba!=0){ ?> 
+                                <span class="badge badge-danger"><?=$cntba;?></span>
+                            <?php } ?>
+                            </a>
                             <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Guest Request
                             <?php if($cntMgb!=0){ ?> 
                                 <span class="badge badge-danger"><?=$cntMgb;?></span>

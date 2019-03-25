@@ -106,6 +106,14 @@ class Booking_model extends CI_Model {
         return ($r) ? $r->num_rows() : 0;
     }
 
+    public function count_ba(){
+        $uid = $this->session->userdata('user_id');
+        $this->db->where('user_id', $uid);
+        $this->db->where('book_status', 4);
+        $r = $this->db->get('sh_book');
+        return ($r) ? $r->num_rows() : 0;
+    }
+
     public function get_guest_req(){
         $uid = $this->session->userdata('user_id');
         $this->db->select('*')->from('sh_book');

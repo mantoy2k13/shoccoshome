@@ -92,53 +92,54 @@
                                 </div>
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
-
-                                         <div class="pic-head bg-greyish">
+                                        <div class="pic-head bg-greyish">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <i class="fa fa-user f-25 text-blue"></i> User Image's
+                                                    <i class="fa fa-image f-25 text-blue"></i> User Image's
                                                 </div>
                                             </div>
                                         </div>
-                                             <?php $user_images = $this->Account_model->get_users_images($user_id);?>
-                                             <?php $count_all = $this->Account_model->get_users_images($user_id);?>
-                                            <div class="row m-t-10 m-b-10">
-                                                <div class="col-md-6">
-                                                    <div class="usrimg">
-                                                    <?php if($user_images){?>
-                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-fluid usrimg zoomable">
-                                                    <?php }?>
+                                        <?php $user_images_5 = $this->Account_model->get_users_images($user_id, 5);?>
+                                        <?php $user_images = $this->Account_model->get_users_images($user_id, 0);?>
+                                        <div class="row m-t-10 m-b-10">
+                                            <?php if($user_images_5){?>
+                                                <div class="<?=(count($user_images_5)!=1) ? 'col-md-6' : 'col-md-12';?>">
+                                                    <div class="userImagesBig imgHovGen">
+                                                        <?php if($user_images_5){?>
+                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images_5[0]['img_name'];?>" alt="Profile  Image" class="zoomable">
+                                                        <?php }?>
                                                     </div>
                                                 </div>
-                                                    <?php if($user_images){?>
-                                                        <div class="col-md-6 resfx">
-                                                            <?php  for($i =1; $i<=count($user_images); $i++){ ?>
-                                                                        <?php if($i<=3){?>
-                                                                         <div class="users-img">
-                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[$i]['img_name'];?>" alt="Profile  Image" class="img-thumbnail zoomable">
-                                                                        </div>              
-                                                                        <?php  unset($user_images[$i]);}?>
-                                                            <?php }?>
-                                                                <?php if(end($user_images)){?>
-                                                                     <div class="users-img dark-green">
-                                                                            <a href="javascript:;" data-toggle="modal" data-target="#selPics">
-                                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images[0]['img_name'];?>" alt="Profile  Image" class="img-thumbnail dark-green">
-                                                                            <div class="small-text text-muted">View All</div>
-                                                                               <strong class="text-contrast large-text"><span class="badge badge-primary badge-pill"><?=count($count_all)?></span> Photos</strong>
-                                                                            </a>
-                                                                    <?php }?>             
-                                                                        </div>
-                                                         </div>
-                                                <?php }?>  
-                                              </div>
-                                        <div class="pic-head bg-greyish">
+                                                <?php if(count($user_images_5)!=1){?>
+                                                    <div class="col-md-6">
+                                                        <?php $i=1; foreach($user_images_5 as $k){extract($k); ?>
+                                                            <?php if($i!=1){?>
+                                                            <div class="usrImgCol">
+                                                                <div class="userImages imgHovGen">
+                                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" alt="Profile  Image" class="zoomable">
+                                                                    <?php if($i==count($user_images_5)){?>
+                                                                    <a class="viewAllImg" href="javascript:;"  data-toggle="modal" data-target="#selPics"><span class="badge badge-danger"><?=count($user_images_5);?></span>  View all </a>
+                                                                    <?php } ?>
+                                                                </div>  
+                                                            </div>  
+                                                        <?php } $i++;}?>   
+                                                    </div>
+                                                <?php } ?>  
+                                            <?php } else{?>  
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-info f-15">
+                                                        <strong><i class="fa fa-check"></i> Empty!</strong> The user has no images.
+                                                    </div>
+                                                </div>
+                                            <?php }?>  
+                                        </div>
+                                        <div class="pic-head bg-greyish m-t-10">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <i class="fa fa-paw f-25 text-blue"></i> Pets
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                         <div class="row m-t-10 bio-pet-grp">
                                             <?php $user_pets = $this->Account_model->get_my_pets($id);?>
                                             <?php if($user_pets){foreach($user_pets as $pets){ extract($pets); ?>
@@ -331,8 +332,8 @@
                 </div>
                 <div class="modal-body">
                         <div class="row">
-                               <?php if($count_all){?>
-                                    <?php foreach($count_all as $user_img){ extract($user_img);?>
+                               <?php if($user_images){?>
+                                    <?php foreach($user_images as $user_img){ extract($user_img);?>
                                         <div class="col-md-3 resfx">
                                             <div class="thumbnail">
                                                 <a href="javascript:;">

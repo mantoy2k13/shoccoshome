@@ -6,7 +6,7 @@
 
 <div class="col-md-3 m-t-10 p-r-0">
     <div class="left-menu">
-        <a href="<?=base_url();?>home/news_feed" class="btn left-menu-btn <?=($is_page && $is_page=="news_feed") ? "active" : ''; ?>"><i class="fa fa-newspaper f-25 text-blue"></i> News Feed</a>
+        <a href="<?=base_url();?>home/news_feed" class="btn left-menu-btn <?=($is_page=="news_feed") ? "active" : ''; ?>"><i class="fa fa-newspaper f-25 text-blue"></i> News Feed</a>
         <?php 
             $page = array('mail', 'sents', 'drafts');
             if(!(in_array($is_page,$page))){ ?>
@@ -18,7 +18,10 @@
             <a href="<?=base_url();?>friends/friend_request" class="btn left-menu-btn"><i class="fa fa-users f-25 text-blue"></i> Friend Request <span class="badge badge-danger cntFrndReq pull-right m-t-5"><?=$cntReq;?></span></a>
         <?php } ?>
         <?php $cntMgb=$this->Booking_model->count_mgb(); if($cntMgb!=0){ ?>
-            <a href="<?=base_url();?>booking/booking_list/2" class="btn left-menu-btn"><i class="fa fa-history f-25 text-blue"></i> Booking Request <span class="badge badge-danger pull-right m-t-5"><?=$cntMgb;?></span></a>
+            <a href="<?=base_url();?>booking/booking_list/2" class="btn left-menu-btn <?=($is_page=="booking_list") ? "active" : ''; ?>"><i class="fa fa-history f-25 text-blue"></i> Booking Request <span class="badge badge-danger pull-right m-t-5"><?=$cntMgb;?></span></a>
+        <?php } ?>
+        <?php $cntba=$this->Booking_model->count_ba(); if($cntba!=0){ ?>
+            <a href="<?=base_url();?>booking/booking_list/1" class="btn left-menu-btn <?=($is_page=="booking_list") ? "active" : ''; ?>"><i class="fa fa-thumbs-up f-25 text-blue"></i> Booking Approved <span class="badge badge-danger pull-right m-t-5"><?=$cntba;?></span></a>
         <?php } ?>
         <?php 
             $page = array('mail', 'sents', 'drafts');
@@ -97,11 +100,11 @@
         <?php } ?>
 
         <?php if($is_page=="mail" || $is_page=="sents" || $is_page=="drafts"){?>
-            <a href="<?=base_url();?>mail/mail" class="btn left-menu-btn <?=($is_page && $is_page=="mail") ? "active" : ''; ?>"><i class="fa fa-inbox f-25 text-blue"></i> Inbox  
+            <a href="<?=base_url();?>mail/mail" class="btn left-menu-btn <?=($is_page=="mail") ? "active" : ''; ?>"><i class="fa fa-inbox f-25 text-blue"></i> Inbox  
                 <span class="inbCnt"><?=($cntMsg!=0) ? '<span class="badge badge-danger cntFrndReq pull-right m-t-5">'.$cntMsg.'</span>' : '';?></span>
             </a>
-            <a href="<?=base_url();?>mail/sents" class="btn left-menu-btn <?=($is_page && $is_page=="sents") ? "active" : ''; ?>"><i class="fa fa-paper-plane f-25 text-blue"></i> Sent</a>
-            <a href="<?=base_url();?>mail/drafts" class="btn left-menu-btn <?=($is_page && $is_page=="drafts") ? "active" : ''; ?>"><i class="fa fa-inbox f-25 text-blue"></i> Drafts</a>
+            <a href="<?=base_url();?>mail/sents" class="btn left-menu-btn <?=($is_page=="sents") ? "active" : ''; ?>"><i class="fa fa-paper-plane f-25 text-blue"></i> Sent</a>
+            <a href="<?=base_url();?>mail/drafts" class="btn left-menu-btn <?=($is_page=="drafts") ? "active" : ''; ?>"><i class="fa fa-inbox f-25 text-blue"></i> Drafts</a>
         <?php } ?>
     </div>
 </div>

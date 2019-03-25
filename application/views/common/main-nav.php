@@ -1,6 +1,8 @@
 <?php
     @$email=$user_logindata->email;
 ?>
+<div id="mLoader"></div>
+<!-- <div class="loading"> Loading..</div> -->
 
 <nav class="navbar navbar-expand-lg bg-secondary fixed-top text-uppercase" id="mainNav">
     <button class="navbar-toggler navbar-toggler-right text-uppercase top-menu-btn text-white" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
