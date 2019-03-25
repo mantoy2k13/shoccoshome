@@ -1542,56 +1542,28 @@ span.btmleft_set_cver {
     border: 3px solid #2999a5;
 }
 
-/* .users-img {
-    position: relative;
-    width: 160px;
-    height: 116px;
-    overflow: hidden;
-    background: #fff;
-    float: left;
-} */
-.small-text.text-muted {
-    position: absolute;
-    top: 49px;
-    left: 52px;
-    font-size:12px;
-    color:#fff !important;
-    font-weight: bold;
-}
-
-strong.text-contrast.large-text {
-    position: absolute;
-    top: 26px;
-    left: 35px;
-    font-size:14px;
-    color:#fff !important;
-    font-weight: bold;
-}
-img.img-thumbnail.dark-green:hover{
-    background:#ccc;
-    color:#fff;
-    padding:10px;
-}
-.small-text.text-muted:hover, strong.text-contrast.large-text:hover {
-    background:#ccc;
-    color:#fff !important;
-    padding:5px;
-}
 .bg-ornge-rd{
     background:#ff9b28;
     padding:20px;
     color:#fff;
     margin-bottom:10px;
 }
-ul.users-photo {
+.dashboard {
+    padding: 10px;
+    border: 2px solid #ccc;
     width: 100%;
-    margin: 10px 0 10px 0;
-}
-
-ul.users-photo li {
     float:left;
-    list-style: none;
-    max-width:100%;
+    margin-bottom: 10px;
+}
+.col-md-3.dashcard {
+    display: inline-block;
+    height:150px;
+    max-width: 45%;
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 30px;
+    margin-right: 10px;
+    margin-bottom: 20px;
 }
 /*end daryl code*/
 

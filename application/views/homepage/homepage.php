@@ -23,20 +23,72 @@
 
           <!-- Main Content -->
           <div class="col-md-9 m-t-10 p-l-0">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="container bg-ornge-rd">
-                  Dashboard
-              </div>
+          <div class="m-header bg-orange-l">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Dashboard</span>
+                    </div>
+                </div>
             </div>
+          <div class="row">
+              <div class="container">
+                <div class="col-md-6 dashboard">                
+                        <h3>My Request Summary</h3>
+                          <div class="col-md-3 dashcard">
+                                  <span class="fa fa-chart-line m-header bg-orange-l"></span>
+                                    <p class="badge badge-muted">3 All Total</p>
+                          </div>
+                          <div class="col-md-3 dashcard">
+                                <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Connected</span>
+                          </div>
+                          <div class="col-md-3 dashcard">
+                                <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Approved</span>
+                          </div>
+                          <div class="col-md-3 dashcard">
+                                <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Disapprove</span>
+                          </div>
+                          <div class="col-md-3 dashcard">
+                                <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Cancelled </span>
+                          </div>
+                          <div class="col-md-3 dashcard">
+                                <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Pending</span>
+                          </div>
+                </div>
+                 <div class="col-md-6 dashboard">
+                    <h3>Request Summary Calendar</h3>
+                      <div id='reSumryCalendr'></div>
+                </div>
+              </div>
           </div>
           <div class="row">
-              <div class="col-lg-6">
-                  Dashboard 
+            <div class="container">
+              <div class="col-md-6 dashboard">                
+                      <h3>Guest Request</h3>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span> <span class="badge badge-muted">3 All Total</span>
+                        </div>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Connected</span>
+                        </div>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Approved</span>
+                        </div>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Disapprove</span>
+                        </div>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Cancelled </span>
+                        </div>
+                        <div class="col-md-3 dashcard">
+                              <span class="fa fa-chart-line m-header bg-orange-l"></span><span class="badge badge-muted">3 Pending</span>
+                        </div>
+                 
               </div>
-               <div class="col-lg-6">
-                    <div id='displayAvailtycalendar'></div>
+               <div class="col-md-6 dashboard">
+                  <h3>Guest Request Summary Calendar</h3>
+                    <div id='guestRequest'></div>
               </div>
+            </div>
           </div>
             <div class="row f-list-wrap">
             <div class="col-md-6">
@@ -137,33 +189,6 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-   
-    <script>
-          document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('displayAvailtycalendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                header: {
-                    left: 'month',
-                    center: 'title',
-                    right: 'prev,next today'
-                },
-                navLinks: true, // can click day/week names to navigate views
-                editable: false,
-                eventLimit: false, // allow "more" link when too many events
-                events: [
-                    {
-                        title: 'Avalable',
-                        start: $('#a_date_from').val(),
-                        end: $('#a_date_to').val(),
-                        color: '#00f9f0',
-                        rendering: 'background'
-                    }
-                ],
-            });
-            
-            calendar.render();
-        });
-    </script>
   </body>
 
 </html>
