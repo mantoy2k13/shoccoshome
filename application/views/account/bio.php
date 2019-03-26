@@ -125,12 +125,7 @@
                     <div class="col-md-6">
                         <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
                             <p class="f-20 b-700 text-orange-d m-b-0">As a sitter availability</p>
-                            <div class="row m-t-10">
-                                <div class="col-md-12 setTimeMsg">
-                                    
-                                </div>
-                            </div>
-                            
+                            <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                             <?php if($sitter_availability){ 
                                 $aDate = json_decode($sitter_availability);
                                 $get_date_from = $aDate[0]; $today = date('Y-m-d');
@@ -159,6 +154,57 @@
                                 </div>
                             </div>
                         </form>
+
+                        <form class="m-t-20" onchange="$('.setTimeMsg2').html('');" id="nsForm">
+                            <p class="f-20 b-700 text-orange-d m-b-0">I Need a Sitter Form</p>
+                            <div class="row m-t-10"><div class="col-md-12 setTimeMsg2"></div></div>
+                            <div class="row m-t-10">
+                                <div class="col-md-7">
+                                    <label for="date_from">Date From: </label>
+                                    <input type="date" class="form-control" name="ns_date_from" id="ns_date_from" value="">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="ns_time_start">Time Start: </label>
+                                    <input value="" type="time" class="form-control" name="ns_time_start" id="ns_time_start">
+                                </div>
+                            </div>
+                            <div class="row m-t-10">
+                                <div class="col-md-7">
+                                    <label for="ns_date_to">Date To: </label>
+                                    <input type="date" class="form-control" name="ns_date_to" id="ns_date_to" value="">
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="ns_time_end">Time End: </label>
+                                    <input value="" type="time" class="form-control" name="ns_time_end" id="ns_time_end">
+                                </div>
+                            </div>
+                            <div class="row m-t-10">
+                                <div class="guest-list col-md-12">
+                                    <label for="pet_list">Choose your pet from pet list</label>
+                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                    <?php if($my_pets){ 
+                                        foreach($my_pets as $pets){ extract($pets); ?>
+                                        <?php if($cb){ ?>
+                                            <?php if(in_array($pet_id, $pl)){ ?>
+                                            <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } else{ ?>
+                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } ?>
+                                        <?php } else{?>
+                                            <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                        <?php } ?>
+                                        <?php } } else { ?>
+                                            <option value="">You have no pets added.</option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row m-t-10">
+                                <div class="col-md-12">
+                                    <button type="button" onclick="checkDateTime2()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save and Post</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="col-md-6">
                         <p class="f-20 b-700 text-orange-d m-b-0">Your Availability Calendar</p>
@@ -175,84 +221,7 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('availability');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                header: {
-                    left: 'month',
-                    center: 'title',
-                    right: 'prev,next today'
-                },
-                navLinks: true, // can click day/week names to navigate views
-                editable: false,
-                eventLimit: false, // allow "more" link when too many events
-                events: [
-                    {
-                        title: 'Avalable',
-                        start: $('#a_date_from').val(),
-                        end: $('#a_date_to').val(),
-                        color: '#00f9f0',
-                        rendering: 'background'
-                    }
-                ],
-            });
-            
-            calendar.render();
-        });
-
-        var checkDateTime = ()=>{
-            var curr_date  = $('#curr_date').val();
-            var date_from  = $('#date_from').val();
-            var date_to    = $('#date_to').val();
-            
-            if(date_from && date_to){
-                var date_today = new Date(curr_date);
-                var given_date_from = new Date(date_from);
-                var given_date_to = new Date(date_to);
-
-                if(given_date_from < date_today){
-                    $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
-                    $('#date_from').focus();
-                } else if(given_date_to < date_today){
-                    $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
-                    $('#date_to').focus();
-                } else{
-                    $.ajax({
-                        url: base_url+'account/set_sitter_time',
-                        method: 'POST',
-                        data: { date_from: date_from, date_to:date_to },
-                        success: (res)=>{
-                            if(res==1){
-                                swal({title: "Success!", text: "Set time availability successful.", type: 
-                                "success"},
-                                    function(){ 
-                                        location.reload();
-                                    }
-                                );
-                            } else{
-                                swal('Failed!', 'A problem occured please try again.', 'error');
-                            }
-                        }
-                    });
-                }
-            } else{
-                $('.setTimeMsg').html(setMsg('Please set all dates to proceed'));
-            }
-        }
-
-        function setMsg(msg){
-            var setMsg = '';
-            setMsg += '<div class="alert alert-danger f-15 alert-dismissible" role="alert">';
-            setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
-            setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-            setMsg += '<span aria-hidden="true">&times;</span>';
-            setMsg += '</button>';
-            setMsg += '</div>';
-            return setMsg;
-        }
-
-    </script>
+    <script src="<?=base_url();?>assets/js/initializations/init_vb.js"></script>
   </body>
 
 </html>

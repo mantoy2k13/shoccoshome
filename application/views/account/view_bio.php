@@ -360,7 +360,6 @@
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
     
-  
     <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
   </body>
 
