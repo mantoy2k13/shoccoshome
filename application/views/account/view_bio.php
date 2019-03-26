@@ -310,12 +310,14 @@
                             </div>
                         </div>
                     <?php } ?>
+                    <?php if($sitter_availability){ ?>
                     <div class="col-md-6">
                         <p class="f-20 b-700 text-orange-d m-b-0"><?=$getName;?>'s Availability</p>
                         <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
                         <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
                         <div class="m-t-20" id='availability'></div>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
           <?php } ?>
