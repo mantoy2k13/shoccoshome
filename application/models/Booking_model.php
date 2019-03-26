@@ -141,7 +141,6 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-
     public function update_host_approve($bid){
         $this->db->set('is_notify', 4);
         $this->db->where('book_id', $bid);

@@ -27,7 +27,10 @@
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
 					<span class="b-700 text-blue"><i class="fa fa-paw"></i> Pet Details</span>
-					<a href="javascript:;" class="btn btn-sm text-white bg-black-l">Booking History</a>
+					
+					<?php if($user_id == $this->session->userdata('user_id')){ ?>
+						<a href="<?=base_url();?>pet/add_new_pet/<?= ($pet_id) ? $pet_id : '' ?>" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-edit"></i> Edit Pet</a>
+					<?php } ?>
 				</div>			
 				<div class="panel-body">
 					<div class="row">
@@ -184,26 +187,63 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<div class="form-group row">
-								<div class="col-md-5">
-									<input type="date" class="form-control" placeholder="Zip Code">
-								</div>
-								<div class="col-md-2 text-center"><span class="badge badge-info cal-badge">To</span></div>
-								<div class="col-md-5">
-									<input type="date" class="form-control" placeholder="Zip Code">
+							<?php $ndf = json_decode($ns_date_from);
+								  $ndt = json_decode($ns_date_to);
+								  $get_date_from = $ndf[0]; $today = date('Y-m-d');
+								  $date_from = ($get_date_from < $today) ? $today : $get_date_from;
+								  $get_date_to = $ndt[0];
+								  $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); ?>	
+
+							<input type="hidden" id="ndf" value="<?=$date_from;?>">
+							<input type="hidden" id="ndt" value="<?=$date_to;?>">
+							<input type="hidden" id="curr_date" value="<?=$today;?>">
+							<div class="row">
+								<div class="col-md-12">
+									<p class="f-20 b-700 text-orange-d">My pet schedule for sitter</p>
 								</div>
 							</div>
-							<div id='calendar'></div>
-							<div class="col-md-12">
+							<div id='petCalendar'></div>
 							<?php if($user_id == $this->session->userdata('user_id')){ ?>
-									<a href="<?=base_url();?>pet/add_new_pet/<?= ($pet_id) ? $pet_id : '' ?>" class="btn bg-orange sub-btn w-100"><i class="fa fa-edit"></i> Edit Pet</a>
-							<?php } ?>
+							<div class="row">
+								<div class="col-md-12">
+									<form class="m-t-20" onchange="$('.setTimeMsg2').html('');" id="nsForm">
+										<p class="f-20 b-700 text-orange-d m-b-0">Update Need a Sitter Form</p>
+										<div class="row m-t-10"><div class="col-md-12 setTimeMsg2"></div></div>
+										<div class="row m-t-10">
+											<div class="col-md-7">
+												<label for="date_from">Date From: </label>
+												<input type="date" class="form-control" name="ns_date_from" id="ns_date_from" value="<?=$date_from;?>">
+											</div>
+											<div class="col-md-5">
+												<label for="ns_time_start">Time Start: </label>
+												<input value="<?=$ndf[1];?>" type="time" class="form-control" name="ns_time_start" id="ns_time_start">
+											</div>
+										</div>
+										<div class="row m-t-10">
+											<div class="col-md-7">
+												<label for="ns_date_to">Date To: </label>
+												<input type="date" class="form-control" name="ns_date_to" id="ns_date_to" value="<?=$ndt[0];?>">
+											</div>
+											<div class="col-md-5">
+												<label for="ns_time_end">Time End: </label>
+												<input value="<?=$ndt[1];?>" type="time" class="form-control" name="ns_time_end" id="ns_time_end">
+												<input value="<?=$pet_id;?>" type="hidden" name="pet_id" id="pet_id">
+											</div>
+										</div>
+										<div class="row m-t-10">
+											<div class="col-md-12">
+												<button type="button" onclick="checkDateTime2()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save Schedule</button>
+											</div>
+										</div>
+									</form>
+								</div>
 							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
 			</div>
-          </div>
+          </div>	
           <!-- Close Main Content -->
 	  </div>
 	  <?php } ?>
@@ -211,6 +251,7 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
+	<script src="<?=base_url();?>assets/js/initializations/init_pet_sched.js"></script>
 
   </body>
 

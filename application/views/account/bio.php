@@ -123,8 +123,8 @@
                 </div>
                 <div class="row m-t-20">
                     <div class="col-md-6">
-                        <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
-                            <p class="f-20 b-700 text-orange-d m-b-0">As a sitter availability</p>
+                        <form onchange="$('.setTimeMsg2').html('');" id="setTimeForm">
+                            <p class="f-20 b-700 text-orange-d m-b-0">As a sitter availability <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="If you want to become a sitter and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i></p>
                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                             <?php if($sitter_availability){ 
                                 $aDate = json_decode($sitter_availability);
@@ -156,12 +156,12 @@
                         </form>
 
                         <form class="m-t-20" onchange="$('.setTimeMsg2').html('');" id="nsForm">
-                            <p class="f-20 b-700 text-orange-d m-b-0">I Need a Sitter Form</p>
+                            <p class="f-20 b-700 text-orange-d m-b-0">I Need a Sitter Form <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i></p>
                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg2"></div></div>
                             <div class="row m-t-10">
                                 <div class="col-md-7">
                                     <label for="date_from">Date From: </label>
-                                    <input type="date" class="form-control" name="ns_date_from" id="ns_date_from" value="">
+                                    <input type="date" class="form-control" name="ns_date_from" id="ns_date_from" value="<?=date('Y-m-d')?>">
                                 </div>
                                 <div class="col-md-5">
                                     <label for="ns_time_start">Time Start: </label>

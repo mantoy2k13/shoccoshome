@@ -2,6 +2,7 @@ var base_url = $('#base_url').val();
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="popover"]').popover()
 })
 
 document.onkeydown = function(evt) {
