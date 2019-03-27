@@ -21,7 +21,7 @@
             <a href="<?=base_url();?>booking/booking_list/2" class="btn left-menu-btn <?=($is_page=="booking_list") ? "active" : ''; ?>"><i class="fa fa-history f-25 text-blue"></i> Booking Request <span class="badge badge-danger pull-right m-t-5"><?=$cntMgb;?></span></a>
         <?php } ?>
         <?php $cntba=$this->Booking_model->count_ba(); if($cntba!=0){ ?>
-            <a href="<?=base_url();?>booking/booking_list/1" class="btn left-menu-btn <?=($is_page=="booking_list") ? "active" : ''; ?>"><i class="fa fa-thumbs-up f-25 text-blue"></i> Booking Approved <span class="badge badge-danger pull-right m-t-5"><?=$cntba;?></span></a>
+            <a href="<?=base_url();?>booking/booking_list/1" class="btn left-menu-btn <?=($is_page=="booking_list") ? "active" : ''; ?>"><i class="fa fa-thumbs-up f-25 text-blue"></i> Booking Approved <span class="badge badge-info pull-right m-t-5"><?=$cntba;?></span></a>
         <?php } ?>
         <?php 
             $page = array('mail', 'sents', 'drafts');

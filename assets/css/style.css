@@ -384,6 +384,10 @@ i.fa.upload-icon {
     background-color: #ff2c00 !important;
 }
 
+.bg-red-l{
+    background-color: #ffbfb2 !important;
+}
+
 .bg-grey{
     background: #e8f3f9;
 }
@@ -397,6 +401,10 @@ i.fa.upload-icon {
 .bg-blue{
     background-color: #008593;
     color: #fff;
+}
+
+.bg-skyblue{
+    background-color: #b2fdfa;  
 }
 
 .bg-blue:hover{
@@ -1237,9 +1245,8 @@ input.drag-files {
 }
 
 .fc-unthemed td.fc-today {
-    background: #ff9b28 !important;
-    border-color: #ff9b28;
-    color: #fff;
+    background: #fff5bf !important;
+    border-color: #fff5bf;
 }
 
 .cust-slider-img {
@@ -1486,6 +1493,12 @@ a.viewAllImg {
     padding: 33px 0;
     font-size: 16px;
     color: #fff;
+}
+
+.avIcon {
+    padding: 1px 9px;
+    margin: 10px;
+    border: 1px solid #ced4da;
 }
 
 /*Daryl code*/

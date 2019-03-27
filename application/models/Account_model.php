@@ -202,13 +202,15 @@ class Account_model extends CI_Model {
         $emptyDate = array(
             'ns_date_from' => '',
             'ns_date_to'   => '',
+            'isAvailable'  => false,
         );
 
         $ures = $this->db->update('sh_pets', $emptyDate);
         if($ures){
             $data = array(
                 'ns_date_from' => $ndf,
-                'ns_date_to'   => $ndt
+                'ns_date_to'   => $ndt,
+                'isAvailable'  => true,
             );
 
             foreach($this->input->post('pet_list') as $k=>$v){
@@ -239,10 +241,10 @@ class Account_model extends CI_Model {
     }
 
     public function get_date(){
-            $this->db->select('sitter_availability')->from('sh_users');
-            $this->db->where('id',$this->session->userdata('user_id'));
-            $data = $this->db->get()->result_array();
-            return $data;
+        $this->db->select('sitter_availability')->from('sh_users');
+        $this->db->where('id',$this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 
     public function get_users_images($user_id, $limit){
@@ -252,5 +254,34 @@ class Account_model extends CI_Model {
             $this->db->limit($limit);
         }
         return $this->db->get()->result_array();
+    }
+
+    public function get_my_pets_to_sit($uid){
+        $this->db->select('pet_id, ns_date_from, ns_date_to')->from('sh_pets');
+        $this->db->where('user_id', $uid);
+        $this->db->where('isAvailable',true);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function resetDate($t){
+        $uid = $this->session->userdata('user_id');
+        $emptyDate1 = array(
+            'ns_date_from' => '',
+            'ns_date_to'   => '',
+            'isAvailable'  => false,
+        );
+
+        $emptyDate2 = array('sitter_availability' => '');
+            
+        if($t==1){
+            $this->db->where('id', $uid);
+            $res = $this->db->update('sh_users', $emptyDate2);
+        } else{
+            $this->db->where('user_id', $uid);
+            $res = $this->db->update('sh_pets', $emptyDate1);
+        }
+        
+        return ($res) ? 1 : 0;
     }
 }

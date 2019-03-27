@@ -205,37 +205,8 @@
 							<div id='petCalendar'></div>
 							<?php if($user_id == $this->session->userdata('user_id')){ ?>
 							<div class="row">
-								<div class="col-md-12">
-									<form class="m-t-20" onchange="$('.setTimeMsg2').html('');" id="nsForm">
-										<p class="f-20 b-700 text-orange-d m-b-0">Update Need a Sitter Form</p>
-										<div class="row m-t-10"><div class="col-md-12 setTimeMsg2"></div></div>
-										<div class="row m-t-10">
-											<div class="col-md-7">
-												<label for="date_from">Date From: </label>
-												<input type="date" class="form-control" name="ns_date_from" id="ns_date_from" value="<?=$date_from;?>">
-											</div>
-											<div class="col-md-5">
-												<label for="ns_time_start">Time Start: </label>
-												<input value="<?=$ndf[1];?>" type="time" class="form-control" name="ns_time_start" id="ns_time_start">
-											</div>
-										</div>
-										<div class="row m-t-10">
-											<div class="col-md-7">
-												<label for="ns_date_to">Date To: </label>
-												<input type="date" class="form-control" name="ns_date_to" id="ns_date_to" value="<?=$ndt[0];?>">
-											</div>
-											<div class="col-md-5">
-												<label for="ns_time_end">Time End: </label>
-												<input value="<?=$ndt[1];?>" type="time" class="form-control" name="ns_time_end" id="ns_time_end">
-												<input value="<?=$pet_id;?>" type="hidden" name="pet_id" id="pet_id">
-											</div>
-										</div>
-										<div class="row m-t-10">
-											<div class="col-md-12">
-												<button type="button" onclick="checkDateTime2()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save Schedule</button>
-											</div>
-										</div>
-									</form>
+								<div class="col-md-12 m-t-20">
+									<a href="<?=base_url();?>account/bio" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
 								</div>
 							</div>
 							<?php } ?>

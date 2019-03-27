@@ -33,7 +33,7 @@
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request
                             <?php if($cntba!=0){ ?> 
-                                <span class="badge badge-danger"><?=$cntba;?></span>
+                                <span class="badge badge-info"><?=$cntba;?></span>
                             <?php } ?>
                             </a>
                             <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Guest Request

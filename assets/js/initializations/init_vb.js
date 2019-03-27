@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('availability');
+    var calendarPet = document.getElementById('calendarPet');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         header: {
             left: 'month',
@@ -19,8 +20,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         ],
     });
+
+    var calPet = new FullCalendar.Calendar(calendarPet, {
+        header: {
+            left: 'month',
+            center: 'title',
+            right: 'prev,next today'
+        },
+        navLinks: true, // can click day/week names to navigate views
+        editable: false,
+        eventLimit: false, // allow "more" link when too many events
+        events: [
+            {
+                title: 'Avalable',
+                start: $('#pDate_from').val(),
+                end: $('#pDate_to').val(),
+                color: '#ff2c00',
+                rendering: 'background'
+            }
+        ],
+    });
     
     calendar.render();
+    calPet.render();
 });
 
 var checkDateTime = ()=>{
@@ -109,6 +131,32 @@ var checkDateTime2 = ()=>{
     } else{
         $('.setTimeMsg2').html(setMsg('Please set all dates to proceed'));
     }
+}
+
+var resetDate=(t)=>{
+    swal({
+        title: "Reset Date?",
+        text: "All dates will be remove. Continue?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, reset it!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#f77506",
+        showLoaderOnConfirm: true
+    },
+    function(){
+        $.ajax({
+            url: base_url+'account/resetDate/'+t,
+            success: (res)=>{
+                if(res==1){
+                    swal({title: "Success!", text: 'Date reset successfully.', type: 
+                    "success"}, function(){ location.reload(); });
+                } else{
+                    swal('Failed!', 'A problem occured please try again.', 'error');
+                }
+            }
+        });
+    });
 }
 
 function setMsg(msg){
