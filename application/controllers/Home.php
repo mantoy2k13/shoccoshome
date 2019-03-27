@@ -53,36 +53,6 @@ class Home extends CI_Controller {
 		$this->load->view('frontpage/policy', $data);
 	}
 
-	public function news_feed()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'news_feed';
-			$this->load->view('post/news_feed', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
-
-	public function new_post()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'new_post';
-			$this->load->view('post/new_post', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
-
 	public function booking()
 	{
 		if ($this->session->userdata('user_email'))
@@ -100,34 +70,20 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function booking_list()
-	{
-		if ($this->session->userdata('user_email'))
-		{
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'booking_list';
-			$this->load->view('booking/booking_list', $data);
-		}
-		else
-		{
-			redirect('home/login');
-		}
-	}
-
 	public function homepage()
 	{
 		if ($this->session->userdata('user_email'))
 		{
+			$uid  = $this->session->userdata('user_id');
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
 			$data['is_page'] = 'homepage';
-			$data['get_date']=$this->Account_model->get_date();
+			$data['view_bio'] = $this->Account_model->view_bio($uid);
+			$data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
 			$this->load->view('homepage/homepage', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}

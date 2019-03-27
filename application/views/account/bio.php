@@ -157,9 +157,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="col-md-6">
-                        <form onchange="$('.setTimeMsg2').html('');" id="nsForm">
+                        <form class="m-t-20" onchange="$('.setTimeMsg2').html('');" id="nsForm">
                             <p class="f-20 b-700 text-orange-d m-b-0">I Need a Sitter Form <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i></p>
                             <?php if($get_my_pets_to_sit){ $ndf = json_decode($get_my_pets_to_sit[0]['ns_date_from']);  
                                 $ndt = json_decode($get_my_pets_to_sit[0]['ns_date_to']);
@@ -224,17 +222,16 @@
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
+                        <p class="f-20 b-700 text-orange-d m-b-0">My Calendar <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="This calendar will display your schedules. There is a legend color below to easy determined what type of color is this all about. The calendar will show your time availability as a sitter and your pet schedules where you want a sitter to watch your pets. The calendar also displays the current date."></i></p>
                         <div class="m-t-20" id='availability'></div>
-                        <p class="f-15 m-b-0 text-center m-t-20"><span class="avIcon bg-skyblue"></span> Available <span class="avIcon bg-white"></span> Unavailable</p>
+                        <p class="f-15 m-b-0 text-center m-t-20">
+                            <span class="avIcon bg-skyblue"></span> Available 
+                            <span class="avIcon bg-orange"></span> Need Sitter
+                            <span class="avIcon bg-yellow-l"></span> Today
+                        </p>
                         <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
                         <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="m-t-20" id='calendarPet'></div>
-                        <p class="f-15 m-b-0 text-center m-t-20"><span class="avIcon bg-red-l"></span> Available <span class="avIcon bg-white"></span> Unavailable</p>
                         <input type="hidden" id="pDate_from" value="<?=$date_from2;?>">
                         <input type="hidden" id="pDate_to" value="<?=$date_to2;?>">
                     </div>

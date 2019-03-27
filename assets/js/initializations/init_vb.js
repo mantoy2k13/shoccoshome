@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 end: $('#a_date_to').val(),
                 color: '#00f9f0',
                 rendering: 'background'
+            },
+            {
+                title: 'Need Sitter',
+                start: $('#pDate_from').val(),
+                end: $('#pDate_to').val(),
+                color: '#fa5637'
             }
         ],
     });

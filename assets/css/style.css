@@ -407,6 +407,10 @@ i.fa.upload-icon {
     background-color: #b2fdfa;  
 }
 
+.bg-yellow-l {
+    background: #fff5bf;
+}
+
 .bg-blue:hover{
     background-color: #1caab9;
 }
@@ -1482,6 +1486,35 @@ a.btn-menu.btn.bg-blue:active:focus {
     margin-bottom: 8px;
     padding: 24px 24px 0px 24px;
     color: #5a5959;
+}
+
+.p-card {
+    padding: 12px 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    color: #5f5c5c;
+    width: 100%;
+    -webkit-box-shadow: 0px 2px 9px -5px #151115;
+    -moz-box-shadow: 0px 2px 9px -5px #151115;
+    box-shadow: 0px 2px 9px -5px #151115;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.p-card span {
+    padding: 0px 5px;
+    border-radius: 50%;
+    font-size: 30px;
+    width: 30%;
+    vertical-align: middle;
+}
+
+.p-card p {
+    display: inline-block;
+    vertical-align: middle;
+    width: 49%;
+    margin: 0 auto;
 }
 
 a.viewAllImg {
