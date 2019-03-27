@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('availability');
+    var calendarEl = document.getElementById('petCalendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         header: {
             left: 'month',
@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         events: [
             {
                 title: 'Avalable',
-                start: $('#a_date_from').val(),
-                end: $('#a_date_to').val(),
-                color: '#00f9f0',
+                start: $('#ndf').val(),
+                end: $('#ndt').val(),
+                color: '#f90025',
                 rendering: 'background'
             }
         ],
@@ -23,56 +23,13 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 });
 
-var checkDateTime = ()=>{
-    var curr_date  = $('#curr_date').val();
-    var date_from  = $('#date_from').val();
-    var date_to    = $('#date_to').val();
-    
-    if(date_from && date_to){
-        var date_today = new Date(curr_date);
-        var given_date_from = new Date(date_from);
-        var given_date_to = new Date(date_to);
-
-        if(given_date_from < date_today){
-            $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
-            $('#date_from').focus();
-        } else if(given_date_to < date_today){
-            $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
-            $('#date_to').focus();
-        } else if(given_date_to < given_date_from){
-            $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date to'));
-            $('#date_to').focus();
-        } else{
-            $.ajax({
-                url: base_url+'account/set_sitter_time',
-                method: 'POST',
-                data: { date_from: date_from, date_to:date_to },
-                success: (res)=>{
-                    if(res==1){
-                        swal({title: "Success!", text: "Set time availability successful.", type: 
-                        "success"},
-                            function(){ 
-                                location.reload();
-                            }
-                        );
-                    } else{
-                        swal('Failed!', 'A problem occured please try again.', 'error');
-                    }
-                }
-            });
-        }
-    } else{
-        $('.setTimeMsg').html(setMsg('Please set all dates to proceed'));
-    }
-}
-
 var checkDateTime2 = ()=>{
     var curr_date     = $('#curr_date').val();
-    var ns_date_from     = $('#ns_date_from').val();
+    var ns_date_from  = $('#ns_date_from').val();
     var ns_date_to    = $('#ns_date_to').val();
     var ns_time_start = $('#ns_time_start').val();
     var ns_time_end   = $('#ns_time_end').val();
-    var petList       = $('#petList').val();
+    var pet_id   = $('#pet_id').val();
     
     if(ns_date_from && ns_date_to && ns_time_start && ns_time_end){
         var date_today = new Date(curr_date);
@@ -88,17 +45,14 @@ var checkDateTime2 = ()=>{
         } else if(given_date_to < given_date_from){
             $('.setTimeMsg2').html(setMsg('Date From must be equal or less than the date to'));
             $('#ns_date_to').focus();
-        } else if(petList==""){
-            $('.setTimeMsg2').html(setMsg('Please select your pets.'));
-            $('#petList').focus();
         }else{
             $.ajax({
-                url: base_url+'account/need_sitter_set_time',
+                url: base_url+'account/update_need_pet_sitter/'+pet_id,
                 method: 'POST',
                 data: $('#nsForm').serialize(),
                 success: (res)=>{
                     if(res==1){
-                        swal({title: "Success!", text: "All pet was set a time successfully. You can view your pets to see the calendar.", type: 
+                        swal({title: "Success!", text: "Your pet was set a time successfully.", type: 
                         "success"},function(){ location.reload(); });
                     } else{
                         swal('Failed!', 'A problem occured please try again.', 'error');

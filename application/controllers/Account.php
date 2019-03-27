@@ -134,4 +134,18 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
+    public function need_sitter_set_time(){
+        if($this->session->userdata('user_email')){
+            echo $this->Account_model->need_sitter_set_time();
+        }
+        else{ echo false;}
+    }
+
+    public function update_need_pet_sitter($pid){
+        if($this->session->userdata('user_email')){
+            echo $this->Account_model->update_need_pet_sitter($pid);
+        }
+        else{ echo false;}
+    }
+
 }

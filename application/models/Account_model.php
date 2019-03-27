@@ -191,6 +191,53 @@ class Account_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
+    public function need_sitter_set_time(){
+        $uid = $this->session->userdata('user_id');
+        $ns_date_from[] = $this->input->post('ns_date_from');
+        $ns_date_from[] = $this->input->post('ns_time_start');
+        $ns_date_to[] = $this->input->post('ns_date_to');
+        $ns_date_to[] = $this->input->post('ns_time_end');
+        $ndf = json_encode($ns_date_from);
+        $ndt = json_encode($ns_date_to);
+        $emptyDate = array(
+            'ns_date_from' => '',
+            'ns_date_to'   => '',
+        );
+
+        $ures = $this->db->update('sh_pets', $emptyDate);
+        if($ures){
+            $data = array(
+                'ns_date_from' => $ndf,
+                'ns_date_to'   => $ndt
+            );
+
+            foreach($this->input->post('pet_list') as $k=>$v){
+                $this->db->where('pet_id', $v);
+                $res = $this->db->update('sh_pets', $data);
+            }
+            return ($res) ? 1 : 0;
+        } else{
+            return 0;
+        }
+    }
+
+    public function update_need_pet_sitter($pid){
+        $ns_date_from[] = $this->input->post('ns_date_from');
+        $ns_date_from[] = $this->input->post('ns_time_start');
+        $ns_date_to[] = $this->input->post('ns_date_to');
+        $ns_date_to[] = $this->input->post('ns_time_end');
+        $ndf = json_encode($ns_date_from);
+        $ndt = json_encode($ns_date_to);
+        $data = array(
+            'ns_date_from' => $ndf,
+            'ns_date_to'   => $ndt
+        );
+
+        $this->db->where('pet_id', $pid);
+        $res = $this->db->update('sh_pets', $data);
+        return ($res) ? 1 : 0;
+    }
+
     public function get_date(){
             $this->db->select('sitter_availability')->from('sh_users');
             $this->db->where('id',$this->session->userdata('user_id'));
