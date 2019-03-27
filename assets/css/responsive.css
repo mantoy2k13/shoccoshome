@@ -491,6 +491,8 @@
         height: 100px;
         width: 100%;
     }
+  
+
 }
 
 @media only screen and (max-width: 425px){
@@ -556,3 +558,4 @@
         margin-top:20px;
     }
 }
+
