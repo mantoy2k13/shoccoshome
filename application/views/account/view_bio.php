@@ -118,7 +118,7 @@
                                                                 <div class="userImages imgHovGen">
                                                                     <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" alt="Profile  Image" class="zoomable">
                                                                     <?php if($i==count($user_images_5)){?>
-                                                                    <a class="viewAllImg" href="javascript:;"  data-toggle="modal" data-target="#selPics"><span class="badge badge-danger"><?=count($user_images_5);?></span>  View all </a>
+                                                                    <a class="viewAllImg" href="javascript:;"  data-toggle="modal" data-target="#selPics"><span class="badge badge-danger"><?=count($user_images);?></span>  View all </a>
                                                                     <?php } ?>
                                                                 </div>  
                                                             </div>  

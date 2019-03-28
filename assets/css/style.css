@@ -1611,6 +1611,9 @@ span.btmleft_set_cver {
     margin-right: 10px;
     margin-bottom: 20px;
 }
+#hidden_div {
+    display: none;
+}
 /*end daryl code*/
 
 

@@ -86,7 +86,7 @@
                                                             <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>
                                                             <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> (<?=$cat_name;?>)</span></p>
-                                                            <span class="badge bg-orange text-white f-12 pull-right">Need Sitter</span>
+                                                            <span class="badge bg-orange text-white f-12 pull-right"><?=($isAvailable ==1)? 'Need Sitter': '';?></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -194,7 +194,7 @@
                             <div class="row m-t-10">
                                 <div class="guest-list col-md-12">
                                     <label for="pet_list">Choose your pet from pet list</label>
-                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple  onchange="showDiv(this)">
                                     <?php if($get_my_pets_to_sit) foreach($get_my_pets_to_sit as $a){ $getPl[] = $a['pet_id']; } ?>
                                     <?php if($my_pets){ 
                                         foreach($my_pets as $pets){ extract($pets); ?>
@@ -246,6 +246,7 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <script src="<?=base_url();?>assets/js/initializations/init_vb.js"></script>
+    
   </body>
 
 </html>

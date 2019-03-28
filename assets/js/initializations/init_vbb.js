@@ -54,7 +54,7 @@ var checkDateTime = (type)=>{
             $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
             $('#date_to').focus();
         } else if(given_date_from < origDateFrom || given_date_from > origDateTo){
-            $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date of user\'s availability'));
+            $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date of user\'s availability'));
             $('#date_from').focus();
         } else if(given_date_to > origDateTo || given_date_to < origDateFrom){
             $('.setTimeMsg').html(setMsg('Date To must be equal or less than the date of user\'s availability'));

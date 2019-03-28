@@ -17,11 +17,14 @@ class Booking_model extends CI_Model {
 		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
         $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
+        $ids = array();
         foreach($this->input->post('pet_cat') as $k=>$cat_id){
-            $this->db->or_where('sh_pets.cat_id', $cat_id);
+            $ids[] = $cat_id;
         }
+
+        $this->db->where_in('sh_pets.cat_id', $ids);
         $this->db->where('sh_pets.zip_code', $zip);
-        $this->db->where('sh_pets.isAvailable', true);
+        $this->db->where('sh_pets.isAvailable', 1);
         return $this->db->get()->result_array();   
     }
 

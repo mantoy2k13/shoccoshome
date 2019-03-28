@@ -53,10 +53,10 @@ var checkDateTime = (type)=>{
             $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
             $('#date_to').focus();
         } else if(given_date_from < origDateFrom || given_date_from > origDateTo){
-            $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date of user\'s availability'));
+            $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date of pet\'s schedule.'));
             $('#date_from').focus();
         } else if(given_date_to > origDateTo || given_date_to < origDateFrom){
-            $('.setTimeMsg').html(setMsg('Date To must be equal or less than the date of user\'s availability'));
+            $('.setTimeMsg').html(setMsg('Date To must be equal or less than the date of pet\'s schedule.'));
             $('#date_to').focus();
         } else if(given_date_to < given_date_from){
             $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date to'));
@@ -64,7 +64,7 @@ var checkDateTime = (type)=>{
         } else{
             if(type==1){ 
                 var url = base_url + 'booking/book_pet_user';
-                var text = 'You have successfully book a user\' pets.';
+                var text = 'You have successfully book a pet\' pets.';
             }else{
                 var url = base_url + 'booking/update_book_pet_user/'+$('#book_id').val();
                 var text = 'Booking data was successfully updated.';
