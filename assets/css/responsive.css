@@ -31,10 +31,10 @@
 
 
 @media only screen and (max-width: 1060px){
-    .friend-img {
+    /* .friend-img {
         width: 120px;
         height: 120px;
-    }
+    } */
 
     .fc-center h2 {
         padding: 0px 100px !important;
@@ -98,6 +98,15 @@
 
     .table-resp-custom.m-t-10 {
         overflow-x: auto;
+    }
+
+    p.text-head {
+        width: auto;
+    }
+
+    .card p{
+        float: left;
+        width: 50%;
     }
 }
 
@@ -331,6 +340,19 @@
         width: 49%;
     }
 
+    .card.bg-grey.friend-card {
+        height: auto;
+    }
+
+    p.b-700.f-14.m-t-20 {
+        width: 100%;
+    }
+
+    .friend-img.bio {
+        height: 100px;
+        width: 100%;
+    }
+
 }
 
 @media only screen and (max-width: 575px){
@@ -416,15 +438,21 @@
     .usrImgCol {
         width: 100%;
     }
-}
 
-@media only screen and (max-width: 370px){
     .friend-img {
         float: none;
         margin: 0 auto;
         margin-bottom: 20px;
     }
 
+    .card p {
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 370px){
     .pic-head.bg-greyish a {
         display: block;
         margin: 0 auto;
@@ -471,28 +499,6 @@
     margin-top: 23px;
     float: left;
     }
-}
-
-@media only screen and (max-width: 768px){
-    
-    p.text-head {
-        width:100%;
-        float:left;
-    }
-    .card.bg-grey.friend-card {
-        height: auto;
-    }
-
-    p.b-700.f-14.m-t-20 {
-        width: 100%;
-    }
-
-    .friend-img.bio {
-        height: 100px;
-        width: 100%;
-    }
-  
-
 }
 
 @media only screen and (max-width: 425px){

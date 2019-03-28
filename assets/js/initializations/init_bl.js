@@ -1,4 +1,4 @@
-var bookAppr = (bid, status)=>{
+var bookAppr = (bid, status,ut)=>{
     swal({
         title: (status==2) ? 'Cancel?' : ((status==3) ? 'Disapprove?' : ((status==4) ? 'Approve?' : ((status==5) ? 'Complete Booking?' : ((status==1) ? 'Mark as pending?' : 'No Command')))),
         text: (status==2) ? 'This booking will be cancelled. Continue?' : ((status==3) ? 'You are going to refuse or reject this booking. Continue?' : ((status==4) ? 'You are going to approve this booking. Continue?' : ((status==5) ? 'The booking process will be completed. Continue?' : ((status==1) ? 'This booking will be mark as pending again!':'')))),
@@ -27,7 +27,8 @@ var bookAppr = (bid, status)=>{
                                 $('#instEmail').val($('#userEmail').val());
                                 $('#instMailTo').val($('#userID').val());
                                 $('#instMsgSubject').val('Booking Request Approved');
-                                $('#instMsgContent').val('Dear Ma\'am/Sir,\n\nThank you for booking as a sitter for your pets. \n\n [ Write or modify this message.. ]');
+                                var appMsg = (ut=='guest') ? 'Dear Ma\'am/Sir,\n\nThank you for booking as a sitter for your pets. \n\n [ Write or modify this message.. ]' : 'Dear Ma\'am/Sir,\n\nThank you for booking as a sitter for my pets. \n\n [ Write or modify this message.. ]';
+                                $('#instMsgContent').val(appMsg);
                                 $('#instMsg').modal('show');
                             } else{ location.reload(); }
                         });

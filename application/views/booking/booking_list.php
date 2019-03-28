@@ -36,7 +36,7 @@
                                 <span class="badge badge-info"><?=$cntba;?></span>
                             <?php } ?>
                             </a>
-                            <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Guest Request
+                            <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">People Request
                             <?php if($cntMgb!=0){ ?> 
                                 <span class="badge badge-danger"><?=$cntMgb;?></span>
                             <?php } ?>
@@ -89,7 +89,7 @@
                                                 <span class="badge badge-info"><?=$this->Account_model->relative_date(strtotime($book_date));?></span>
                                             </td>
                                             <td class="text-center">
-                                                <span class="btn bg-blue-a btn-xs text-white dropdown-toggle" id="option-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
+                                                <span class="btn bg-blue-a btn-xs text-white dropdown-toggle" id="option-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options </span>
                                                 <div class="dropdown-menu option-menu" aria-labelledby="option-menu">
                                                     <?php if($bPage==1){ ?>
                                                         <?php if($book_status==1){ ?>
@@ -103,8 +103,8 @@
                                                         <?php if($book_status==1){ ?>
                                                             <input type="hidden" id="userID" value="<?=$id;?>">
                                                             <input type="hidden" id="userEmail" value="<?=$email;?>">
-                                                            <a onclick="bookAppr(<?=$book_id;?>,4)" class="dropdown-item" href="javascript:;">Approve</a>
-                                                            <a onclick="bookAppr(<?=$book_id;?>,3)" class="dropdown-item" href="javascript:;">Disapprove</a>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,4,'<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Approve</a>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,3,'<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Disapprove</a>
                                                         <?php } ?>
                                                         <?php if($book_status==3){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,1)" class="dropdown-item" href="javascript:;">Mark as pending</a>

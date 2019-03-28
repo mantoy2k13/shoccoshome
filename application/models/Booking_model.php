@@ -9,6 +9,22 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();   
     }
 
+    public function get_avail_pets(){
+        $zip = $this->input->post('zipcode');
+       
+        $this->db->select('sh_pets.*, sh_category.cat_name, sh_users.fullname, sh_breeds.breed_name, sh_color.color_name')->from('sh_pets');
+        $this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
+		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
+        $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
+        $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
+        foreach($this->input->post('pet_cat') as $k=>$cat_id){
+            $this->db->or_where('sh_pets.cat_id', $cat_id);
+        }
+        $this->db->where('sh_pets.zip_code', $zip);
+        $this->db->where('sh_pets.isAvailable', true);
+        return $this->db->get()->result_array();   
+    }
+
     public function book_user(){
         $book_date_from[] = $this->input->post('date_from');
         $book_date_from[] = $this->input->post('time_start');
@@ -34,6 +50,49 @@ class Booking_model extends CI_Model {
     }
 
     public function update_book_user($bid){
+        $book_date_from[] = $this->input->post('date_from');
+        $book_date_from[] = $this->input->post('time_start');
+        $book_date_to[]   = $this->input->post('date_to');
+        $book_date_to[]   = $this->input->post('time_end');
+        foreach ($this->input->post('pet_list') as $k => $v) {
+           $pet_list[] = $v;
+        }
+		$data = array(
+            'book_date_from' => json_encode($book_date_from),
+            'book_date_to'   => json_encode($book_date_to),
+            'pet_list'       => json_encode($pet_list),
+            'message'        => $this->input->post('message')
+        );
+        $this->db->where('book_id', $bid);
+        $res = $this->db->update('sh_book', $data);
+        return ($res) ? 1 : 0;
+    }
+
+    public function book_pet_user(){
+        $book_date_from[] = $this->input->post('date_from');
+        $book_date_from[] = $this->input->post('time_start');
+        $book_date_to[]   = $this->input->post('date_to');
+        $book_date_to[]   = $this->input->post('time_end');
+        foreach ($this->input->post('pet_list') as $k => $v) {
+           $pet_list[] = $v;
+        }
+		$data = array(
+            'user_id'        => $this->session->userdata('user_id'),
+            'book_user_id'   => $this->input->post('book_user_id'),
+            'book_date_from' => json_encode($book_date_from),
+            'book_date_to'   => json_encode($book_date_to),
+            'pet_list'       => json_encode($pet_list),
+            'user_type'      => $this->input->post('user_type'),
+            'message'        => $this->input->post('message'),
+            'book_status'    => 1,
+            'is_notify'      => 1
+        );
+
+        $res = $this->db->insert('sh_book', $data);
+        return ($res) ? 1 : 0;
+    }
+
+    public function update_book_pet_user($bid){
         $book_date_from[] = $this->input->post('date_from');
         $book_date_from[] = $this->input->post('time_start');
         $book_date_to[]   = $this->input->post('date_to');

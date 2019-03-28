@@ -89,9 +89,9 @@
                                 <p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
                                 <p class="text-desc"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
                                 <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
-                                <p class="text-desc">
+                                <p class="m-b-0">
                                     <a href="<?=base_url();?>account/view_bio/<?=$id?>" target="_blank" class="btn bg-orange btn-round dropdown-toggle text-white">
-                                        View User
+                                        Book User
                                     </a>
                                     <?=($cb) ? '<span class="badge badge-danger f-12 pull-right m-t-5"><i class="fa fa-check"></i> Waiting for approval</span>' : ''; ?>
                                 </p>

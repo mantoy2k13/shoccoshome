@@ -5,7 +5,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <p class="modal-title f-20 text-black"><i class="fa fa-search"></i> Find a Home for your pets</p>
+                    <p class="modal-title f-20 text-black"><i class="fa fa-search"></i> Find a Home and Book</p>
                 </div>
                 <div class="modal-body">
                     <div class="form-group row">

@@ -187,12 +187,19 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<?php $ndf = json_decode($ns_date_from);
-								  $ndt = json_decode($ns_date_to);
-								  $get_date_from = $ndf[0]; $today = date('Y-m-d');
-								  $date_from = ($get_date_from < $today) ? $today : $get_date_from;
-								  $get_date_to = $ndt[0];
-								  $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); ?>	
+							<?php 
+								$ndf = json_decode($ns_date_from);
+								$ndt = json_decode($ns_date_to);
+								$today = date('Y-m-d');
+								if($ndf&&$ndt){
+									$get_date_from = $ndf[0]; 
+									$date_from = ($get_date_from < $today) ? $today : $get_date_from;
+									$get_date_to = $ndt[0];
+									$date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); 
+								}else{
+									$date_from=''; $date_to='';
+								}
+							?>	
 
 							<input type="hidden" id="ndf" value="<?=$date_from;?>">
 							<input type="hidden" id="ndt" value="<?=$date_to;?>">
@@ -204,11 +211,18 @@
 							</div>
 							<div id='petCalendar'></div>
 							<?php if($user_id == $this->session->userdata('user_id')){ ?>
-							<div class="row">
-								<div class="col-md-12 m-t-20">
-									<a href="<?=base_url();?>account/bio" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
+								<div class="row">
+									<div class="col-md-12 m-t-20">
+										<a href="<?=base_url();?>account/bio" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
+									</div>
 								</div>
-							</div>
+							<?php } ?>
+							<?php if($ndf&&$ndt&&$user_id != $this->session->userdata('user_id')){ ?>
+								<div class="row">
+									<div class="col-md-12 m-t-20">
+										<a href="<?=base_url();?>booking/book_user_pets/<?=$user_id;?>" class="btn bg-orange text-white col-md-12"><i class="fa fa-paw"></i> Book Pet</a>
+									</div>
+								</div>
 							<?php } ?>
 						</div>
 					</div>

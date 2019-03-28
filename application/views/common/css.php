@@ -37,7 +37,7 @@
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
   
 
-    <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=="view_bio" || $is_page=="bio"){ ?>
+    <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=="view_bio" || $is_page=="bio" || $is_page=='book_user_pets'){ ?>
       <!-- Calendar -->
       <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
       <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>

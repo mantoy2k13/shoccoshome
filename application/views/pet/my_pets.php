@@ -61,10 +61,8 @@
                             </div>
                         <?php } }else{ ?>
                             <div class="col-md-12 m-t-20">
-                                <div class="card bg-grey friend-card">
-                                    <div class="card-body">
-                                        <p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add your pet.</p>
-                                    </div>
+                                <div class="alert alert-info f-15">
+                                    <b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add your pet.
                                 </div>
                             </div>
                         <?php } ?>
