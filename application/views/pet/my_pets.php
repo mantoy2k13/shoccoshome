@@ -55,7 +55,7 @@
                                         <p class="text-desc"><?= $description; ?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $cat_name; ?></span></p>
                                         <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $breed_name; ?> </span></p>
-                                        <p class="b-700 f-14">Post Date: <span class="b-700 text-black"><?= $date_added; ?> </span></p>
+                                        <p class="b-700 f-14">Post Date: <span class="b-700 badge badge-info"><?=$this->Account_model->relative_date(strtotime($date_added)); ?> </span></p>
                                     </div>
                                 </div>
                             </div>
