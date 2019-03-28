@@ -86,6 +86,7 @@
                                                             <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>
                                                             <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> (<?=$cat_name;?>)</span></p>
+                                                            <span class="badge bg-orange text-white f-12 pull-right">Need Sitter</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -150,10 +151,10 @@
                             </div>
                             <div class="row m-t-10">
                                 <div class="col-md-6">
-                                    <button type="button" onclick="checkDateTime()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save My Date</button>
+                                    <button type="button" onclick="checkDateTime()" class="btn btn-success col-md-12 m-b-5"><i class="fa fa-check"></i> Save My Date</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" onclick="resetDate(1)" class="btn btn-info text-white col-md-12"><i class="fa fa-history"></i> Reset Date</button>
+                                    <button type="button" onclick="resetDate(1)" class="btn btn-info col-md-12"><i class="fa fa-history"></i> Reset Date</button>
                                 </div>
                             </div>
                         </form>
@@ -214,10 +215,10 @@
                             </div>
                             <div class="row m-t-10">
                                 <div class="col-md-6">
-                                    <button type="button" onclick="checkDateTime2()" class="btn bg-orange text-white col-md-12"><i class="fa fa-check"></i> Save Pet Date</button>
+                                    <button type="button" onclick="checkDateTime2()" class="btn btn-success col-md-12 m-b-5"><i class="fa fa-check"></i> Save Pet Date</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button type="button" onclick="resetDate(2)" class="btn btn-info text-white col-md-12"><i class="fa fa-history"></i> Reset Date</button>
+                                    <button type="button" onclick="resetDate(2)" class="btn btn-info col-md-12"><i class="fa fa-history"></i> Reset Date</button>
                                 </div>
                             </div>
                         </form>

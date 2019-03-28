@@ -30,6 +30,30 @@
                             </div>
                         </div>
                     </div>
+                    <!-- My Booking Request Summary -->
+                    <?php $uid = $this->session->userdata('user_id');?>
+                    <?php $mbr = $this->Booking_model->booking_list($uid, 1); 
+                        $mgb = $this->Booking_model->booking_list($uid, 2);
+                        $cntAllMbr = count($mbr); $cntAllMgb = count($mgb);
+                        $cntMbrComp=0; $cntMbrApp=0; $cntMbrNA=0; $cntMbrCanc=0; $cntMbrAw=0; 
+                        $cntMgbComp=0; $cntMgbApp=0; $cntMgbNA=0; $cntMgbCanc=0; $cntMgbAw=0; 
+                        foreach($mbr as $Mbr){ 
+                            if($Mbr['book_status']==1) $cntMbrAw+=1;
+                            if($Mbr['book_status']==2) $cntMbrCanc+=1;
+                            if($Mbr['book_status']==3) $cntMbrNA+=1;
+                            if($Mbr['book_status']==4) $cntMbrApp+=1;
+                            if($Mbr['book_status']==5) $cntMbrComp+=1;
+                        }
+
+                        foreach($mgb as $Mgb){ 
+                            if($Mgb['book_status']==1) $cntMgbAw+=1;
+                            if($Mgb['book_status']==2) $cntMgbCanc+=1;
+                            if($Mgb['book_status']==3) $cntMgbNA+=1;
+                            if($Mgb['book_status']==4) $cntMgbApp+=1;
+                            if($Mgb['book_status']==5) $cntMgbComp+=1;
+                        }
+                    ?>
+                   
                     <?php $today = date('Y-m-d'); if($view_bio[0]['sitter_availability']){ 
                             $aDate = json_decode($view_bio[0]['sitter_availability']);
                             $date_from = ($aDate[0] < $today) ? $today : $aDate[0];
@@ -59,37 +83,37 @@
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-success"><i class="fa fa-check"></i></span> 
-                                                <p>3 Completed</p>
+                                                <p><?=$cntMbrComp;?> Completed</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-info"><i class="fa fa-thumbs-up"></i></span> 
-                                                <p>3 Approved</p>
+                                                <p><?=$cntMbrApp;?> Approved</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-danger"><i class="fa fa-thumbs-down"></i></span> 
-                                                <p>3 Not Approved</p>
+                                                <p><?=$cntMbrNA;?> Not Approved</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-danger"><i class="fa fa-times"></i></span> 
-                                                <p>3 Cancelled</p>
+                                                <p><?=$cntMbrCanc;?> Cancelled</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-warning"><i class="fa fa-history"></i></span> 
-                                                <p>3 Awaiting</p>
+                                                <p><?=$cntMbrAw;?> Awaiting</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-success"><i class="fa fa-list"></i></span> 
-                                                <p>3 Overall</p>
+                                                <p><?=$cntAllMbr;?> Overall</p>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -107,37 +131,37 @@
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-success"><i class="fa fa-check"></i></span> 
-                                                <p>3 Completed</p>
+                                                <p><?=$cntMgbComp;?> Completed</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-info"><i class="fa fa-thumbs-up"></i></span> 
-                                                <p>3 Approved</p>
+                                                <p><?=$cntMgbApp;?> Approved</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-danger"><i class="fa fa-thumbs-down"></i></span> 
-                                                <p>3 Not Approved</p>
+                                                <p><?=$cntMgbNA;?> Not Approved</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-danger"><i class="fa fa-times"></i></span> 
-                                                <p>3 Cancelled</p>
+                                                <p><?=$cntMgbCanc;?> Cancelled</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-warning"><i class="fa fa-history"></i></span> 
-                                                <p>3 Awaiting</p>
+                                                <p><?=$cntMgbAw;?> Pending</p>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-12">
                                             <div class="p-card">
                                                 <span class="text-success"><i class="fa fa-list"></i></span> 
-                                                <p>3 Overall</p>
+                                                <p><?=$cntAllMgb;?> Overall</p>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -149,9 +173,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="cus-card">
-                                <div class="cus-card-header">
-                                    <i class="fa fa-calendar-alt"></i> Calendar Schedule <a href="<?=base_url();?>account/bio" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-edit"></i> Update Date</a>
+                                <div class="row">
+                                    <div class="cus-card-header col-md-12">
+                                        <i class="fa fa-calendar-alt"></i> Calendar Schedule <a href="<?=base_url();?>account/bio" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-edit"></i> Update Date</a>
+                                    </div>
                                 </div>
+                                
                                 <div class="cus-card-body">
                                     <div class="row">
                                         <div id="dCalendar"></div>

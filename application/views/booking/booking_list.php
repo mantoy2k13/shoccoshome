@@ -27,8 +27,8 @@
                 <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
 				<div class="pic-head bg-greyish">                
                     <div class="row">
-                        <div class="col-md-12">
-                            <i class="fa fa-book f-25 text-blue"></i> Booking List
+                        <div class="col-md-12 text-black">
+                            <i class="fa fa-book f-25 text-blue "></i> Booking List
                         </div>
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request
