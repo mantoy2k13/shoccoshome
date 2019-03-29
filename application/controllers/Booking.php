@@ -78,6 +78,19 @@ class Booking extends CI_Controller {
 		else { redirect('home/login'); }
     }
 
+    public function book_this_user($uid){
+		if ($this->session->userdata('user_email')){ 
+            $user_email       = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']  = 'book_this_user';
+            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $data['user_id'] = $uid;
+            $this->load->view('booking/book_this_user', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
     public function book_user()
 	{
 		if($this->session->userdata('user_email')){

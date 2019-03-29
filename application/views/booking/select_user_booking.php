@@ -26,7 +26,7 @@
             <div class="m-header bg-orange-l">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results near you..</span>
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> People near you..</span>
                         <a href="javascript:;" data-placement="left" data-toggle="tooltip" title="Book Now" class="text-white pull-right icon-btn">
                             <span data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search fa-2x"></i></span>
                         </a>
@@ -90,7 +90,7 @@
                                 <p class="text-desc"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
                                 <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
                                 <p class="m-b-0">
-                                    <a href="<?=base_url();?>account/view_bio/<?=$id?>" target="_blank" class="btn bg-orange btn-round dropdown-toggle text-white">
+                                    <a href="<?=base_url();?>booking/book_this_user/<?=$id?>" target="_blank" class="btn bg-orange btn-round dropdown-toggle text-white">
                                         Book User
                                     </a>
                                     <?=($cb) ? '<span class="badge badge-danger f-12 pull-right m-t-5"><i class="fa fa-check"></i> Waiting for approval</span>' : ''; ?>

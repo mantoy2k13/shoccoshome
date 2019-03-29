@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="cus-card">
-                    <div class="cus-card-header"><i class="fa fa-history"></i> <?=($bPage==1) ? 'My Request' : 'Guest Request';?> <p class="f-15 m-b-0">List of your bookings below</p></div>
+                    <div class="cus-card-header"><i class="fa fa-history"></i> <?=($bPage==1) ? 'My Request' : 'People Request';?> <p class="f-15 m-b-0">List of your bookings below</p></div>
                     <div class="cus-card-body">
                         <div class="table-resp-custom m-t-10">
                             <table class="table table-hover m-t-20" id="datatable">
@@ -94,7 +94,7 @@
                                                     <?php if($bPage==1){ ?>
                                                         <?php if($book_status==1){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,2)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
-                                                            <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">Edit Info</a>
+                                                            <a class="dropdown-item" href="<?=base_url();?>booking/<?=($user_type=='guest') ? 'book_this_user' : 'book_user_pets'?>/<?=$id?>">Edit Info</a>
                                                         <?php } ?>
                                                         <?php if($book_status==4){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
@@ -135,16 +135,6 @@
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>
-    <script>
-       
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#datatable').DataTable( {
-                order: [[ 0, 'desc' ]]
-            } );
-        } );
-    </script>
   </body>
 
 </html>

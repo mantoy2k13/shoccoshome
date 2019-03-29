@@ -225,12 +225,12 @@
                     </div>
                     <div class="col-md-6">
                         <p class="f-20 b-700 text-orange-d m-b-0">My Calendar <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="This calendar will display your schedules. There is a legend color below to easy determined what type of color is this all about. The calendar will show your time availability as a sitter and your pet schedules where you want a sitter to watch your pets. The calendar also displays the current date."></i></p>
-                        <div class="m-t-20" id='availability'></div>
                         <p class="f-15 m-b-0 text-center m-t-20">
                             <span class="avIcon bg-skyblue"></span> Available 
                             <span class="avIcon bg-orange"></span> Need Sitter
                             <span class="avIcon bg-yellow-l"></span> Today
                         </p>
+                        <div class="m-t-20" id='availability'></div>
                         <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
                         <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
                         <input type="hidden" id="pDate_from" value="<?=$date_from2;?>">

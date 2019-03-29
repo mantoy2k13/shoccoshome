@@ -26,7 +26,7 @@
             <div class="m-header bg-orange-l">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search pet results near you..</span>
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> People near you..</span>
                         <a href="javascript:;" data-placement="left" data-toggle="tooltip" title="Book Now" class="text-white pull-right icon-btn">
                             <span data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search fa-2x"></i></span>
                         </a>
@@ -35,7 +35,7 @@
             </div>
 			<div class="row f-list-wrap">
             <?php $uid = $this->session->userdata('user_id');?>
-                <?php if($get_avail_pets){?>
+                <?php $i=0; if($get_avail_pets){?>
                 <?php foreach($get_avail_pets as $res){ extract($res); ?>
                 <?php if( $user_id != $uid){?>
                     <?php $cb = $this->Booking_model->check_booking($uid, $user_id); ?>
@@ -71,13 +71,13 @@
                             </div>
                         </div>
                     </div>
-                <?php } else{ if(count($get_avail_pets) ==1){ ?>
+                <?php } else{ if(count($get_avail_pets) ==1 || ($user_id == $uid && $i==1)){ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info f-15">
                             <strong><i class="fa fa-check"></i> Empty!</strong> No pet results found.</i></i>.
                         </div>
                     </div>
-                <?php } } ?>
+                <?php }$i+=1; } ?>
                 <?php } } else{ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info f-15">

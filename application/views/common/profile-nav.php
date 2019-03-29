@@ -49,7 +49,7 @@
                         <a href="<?=base_url();?>pet/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet" || $is_page=="search_pets") ? 'active' : ''; ?>">My Pets</a>
                     </div>
                     <div class="col-md-8r">
-                        <a href="<?=base_url();?>booking/booking_list/1" class="btn-menu btn bg-blue <?=($is_page=="booking_list") ? 'active' : ''; ?>">Booking</a>
+                        <a href="<?=base_url();?>booking/booking_list/1" class="btn-menu btn bg-blue <?=($is_page=="booking_list" || $is_page=='book_user_pets' || $is_page=="book_this_user") ? 'active' : ''; ?>">Booking</a>
                     </div>
                     <div class="col-md-8r">
                         <a href="<?=base_url();?>account/bio" class="btn-menu btn bg-blue <?=($is_page=="bio" || $is_page=="view_bio") ? 'active' : ''; ?>">Bio</a>

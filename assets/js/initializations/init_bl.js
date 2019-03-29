@@ -1,3 +1,9 @@
+$(document).ready(function() {
+    $('#datatable').DataTable( {
+        order: [[ 0, 'desc' ]]
+    } );
+} );
+
 var bookAppr = (bid, status,ut)=>{
     swal({
         title: (status==2) ? 'Cancel?' : ((status==3) ? 'Disapprove?' : ((status==4) ? 'Approve?' : ((status==5) ? 'Complete Booking?' : ((status==1) ? 'Mark as pending?' : 'No Command')))),
@@ -39,31 +45,7 @@ var bookAppr = (bid, status,ut)=>{
         }); 
     });
 }
-var rebookAgain = (bid)=>{
-    swal({
-        title: "Re-book User?",
-        text: "You are going to re-book this user again and wait for their approvals. Continue?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, Re-book!",
-        closeOnConfirm: false,
-        confirmButtonColor: "#f77506",
-        showLoaderOnConfirm: true
-    },
-    function(){
-        $.ajax({
-            url: base_url + "booking/re_book_user/"+bid,
-            success: function(res){
-                if(res==1){
-                    swal({title: "Success!", text: 'User was sucessfully re-book!', type: 
-                        "success"}, function(){ location.reload(); });
-                } else{
-                    swal("Failed",'A problem occured please try again.', 'error');
-                }
-            }
-        }); 
-    });
-}
+
 var bookingInfo=(bid,type)=>{
     $('.myPets').html('');
     $('#mLoader').html('<div class="loading"> Loading..</div>');
@@ -90,42 +72,21 @@ var bookingInfo=(bid,type)=>{
 
                 //Book Status
                 $('#bookStatus').html((res['book_status']==1) ? '<span class="badge f-12 bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ((res['book_status']==2) ? '<span class="badge f-12 badge-danger"><i class="fa fa-times"></i> Cancelled</span>' : ((res['book_status']==3) ? '<span class="badge f-12 badge-danger"><i class="fa fa-thumbs-down"></i> Disapproved</span>' : ((res['book_status']==4) ? '<span class="badge f-12 badge-info"><i class="fa fa-thumbs-up"></i> Approve</span>' : ((res['book_status']==5) ? '<span class="badge f-12 badge-success"><i class="fa fa-check"></i> Completed</span>' : '')))));
-
                 // Pet Data
-                if(pet_list){
+                if((pet_list.length)!=0){
+                    var ci=0;
                     $.each(pet_list, (index, pid)=> {
+                        console.log("ci");
+                        
                         $.ajax({
                             url: base_url+'pet/get_pet_details_ajax/'+pid,
                             dataType: 'JSON',
                             success: (p)=>{
-                                $.each(p, (ind, pd)=> {
-                                    var imgPet = (pd['primary_pic']) ? '<img src="'+base_url+'assets/img/pictures/usr'+pd['user_id']+'/'+pd['primary_pic']+'" alt="Pet Image">' : '<img src="'+base_url+'assets/img/pictures/default_pet.png" alt="Pet Image">';
-                                    $('.myPets').append('<div class="col-md-4">'+
-                                        '<div class="card bg-grey friend-card">'+
-                                            '<div class="card-body">'+
-                                                '<div class="pet-bio-img">'+imgPet+
-                                                '</div>'+
-                                                '<p class="text-blue f-20 b-700"><a href="'+base_url+'pet/pet_details/'+pd['pet_id']+'" target="_blank">'+pd['pet_name']+'</a> </p>'+
-                                                '<p class="b-700 f-14">Breed: <span class="b-700 text-black">'+pd['breed_name']+'</span></p>'+
-                                                '<p class="b-700 f-14">Cat: <span class="b-700 text-black">'+pd['cat_name']+'</span></p>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>')
-                                });
-                            }
-                        });
-                    });
-                } else{
-                    if(pet_list){
-                        $.each(pet_list, (index, pid)=> {
-                            $.ajax({
-                                url: base_url+'pet/get_pet_details_ajax/'+pid,
-                                dataType: 'JSON',
-                                success: (p)=>{
+                                console.log(ci);
+                                if(p.length!=0){
                                     $.each(p, (ind, pd)=> {
-                                        console.log(pd);
                                         var imgPet = (pd['primary_pic']) ? '<img src="'+base_url+'assets/img/pictures/usr'+pd['user_id']+'/'+pd['primary_pic']+'" alt="Pet Image">' : '<img src="'+base_url+'assets/img/pictures/default_pet.png" alt="Pet Image">';
-                                        $('<div class="col-md-4">'+
+                                        $('.myPets').append('<div class="col-md-4">'+
                                             '<div class="card bg-grey friend-card">'+
                                                 '<div class="card-body">'+
                                                     '<div class="pet-bio-img">'+imgPet+
@@ -135,18 +96,24 @@ var bookingInfo=(bid,type)=>{
                                                     '<p class="b-700 f-14">Cat: <span class="b-700 text-black">'+pd['cat_name']+'</span></p>'+
                                                 '</div>'+
                                             '</div>'+
-                                        '</div>').insertAfter('.myPets');
+                                        '</div>')
                                     });
+                                } else{
+                                    $('.myPets').html('<div class="col-md-12">'+
+                                        '<div class="alert alert-info">'+
+                                            '<strong><i class="fa fa-check"></i> Empty!</strong> There are no pets found. Maybe user removed all the pets.'+
+                                        '</div>'+
+                                    '</div>');
                                 }
-                            });
+                            }
                         });
-                    } else{
-                        $('<div class="col-md-12">'+
-                            '<div class="alert alert-info">'+
-                                '<strong>Empty!</strong> There are no pets found.'+
-                            '</div>'+
-                        '</div>').insertAfter('.myPets');
-                    }
+                    ci++; });
+                } else{
+                    $('.myPets').append('<div class="col-md-12">'+
+                        '<div class="alert alert-info">'+
+                            '<strong>Empty!</strong> There are no pets found.'+
+                        '</div>'+
+                    '</div>');
                 }
                 $('#mLoader').html('');
                 $('#booking_info').modal('show');

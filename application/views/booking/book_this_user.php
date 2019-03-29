@@ -51,6 +51,7 @@
                                             <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                 <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
+                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id;?>">View profile</a>
                                                 <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                             </div>
                                         </div>
@@ -62,6 +63,7 @@
                                                 <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
                                                 <div class="dropdown-menu" aria-labelledby="f-menu">
                                                     <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
+                                                    <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id;?>">View profile</a>
                                                     <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                 </div>
                                             </div>
@@ -72,6 +74,7 @@
                                                 <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
                                                 <div class="dropdown-menu" aria-labelledby="f-menu">
                                                     <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
+                                                    <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id;?>">View profile</a>
                                                     <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                 </div>
                                             </div>
@@ -198,6 +201,132 @@
                         </div>
                     </div>
                 </div>
+                <div class="row m-t-20">
+                    <?php if($sitter_availability){ ?>
+                        <?php 
+                            $aDate = json_decode($sitter_availability);
+                            $get_date_from = $aDate[0]; $today = date('Y-m-d');
+                            $date_from = ($get_date_from < $today) ? $today : $get_date_from;
+                            $get_date_to = $aDate[1];
+                            $date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); ?>
+                        <div class="col-md-6">
+                            <?php $cb = $this->Booking_model->check_booking($my_id, $id); ?>
+                            <form onchange="$('.setTimeMsg').html('');" id="setTimeForm">
+                                <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact 
+                                <?=$getName;?></p>
+                                <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
+                                <?php if($cb){ ?>
+                                    <?php $bdf = json_decode($cb['book_date_from']);
+                                          $bdt = json_decode($cb['book_date_to']);
+                                          $pl  = json_decode($cb['pet_list']); ?>
+                                    
+                                    <input type="hidden" id="bdf" value="<?=$bdf[0];?>">
+                                    <input type="hidden" id="bdt" value="<?=date('Y-m-d', strtotime($bdt[0] . ' +1 day'));?>">
+                                <?php } ?>
+                                <?php if($cb) { ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-warning f-15">
+                                                <strong><i class="fa fa-history"></i> Awaiting approvals!</strong> Please wait for the user to respond your request.
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                <div class="row m-t-10">
+                                    <!-- Common Initializations -->
+                                    <input type="hidden" id="curr_date" value="<?=date('Y-m-d');?>">
+                                    <input type="hidden" name="book_user_id" value="<?=$id;?>">
+                                    <input type="hidden" id="book_id" value="<?=($cb) ? $cb['book_id'] : '';?>">
+                                    <input type="hidden" name="user_type" value="guest">
+
+                                    <div class="col-md-7">
+                                        <label for="date_from">Date From: </label>
+                                        <input type="date" class="form-control" name="date_from" id="date_from" value="<?=($cb) ? $bdf[0] : $date_from;?>">
+                                        <input type="hidden" id="origDateFrom" value="<?=$date_from;?>">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="time_start">Time Start: </label>
+                                        <input value="<?=($cb) ? $bdf[1] : '';?>" type="time" class="form-control" name="time_start" id="time_start">
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-7">
+                                        <label for="date_to">Date To: </label>
+                                        <input type="date" class="form-control" name="date_to" id="date_to" value="<?=($cb) ? $bdt[0] : $get_date_to;?>">
+                                        <input type="hidden" id="origDateTo" value="<?=$get_date_to;?>">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label for="time_end">Time End: </label>
+                                        <input type="time" value="<?=($cb) ? $bdt[1] : '';?>" class="form-control" name="time_end" id="time_end">
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="guest-list col-md-12">
+                                        <label for="pet_list">Choose your pet from pet list</label>
+                                        <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                        <?php if($my_pets){ 
+                                            foreach($my_pets as $pets){ extract($pets); ?>
+                                            <?php if($cb){ ?>
+                                                <?php if(in_array($pet_id, $pl)){ ?>
+                                                <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                <?php } else{ ?>
+                                                    <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                <?php } ?>
+                                            <?php } else{?>
+                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } ?>
+                                            <?php } } else { ?>
+                                                <option value="">You have no pets added.</option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-12">
+                                        <label for="message">Short Message:</label>
+                                        <textarea id="message" name="message" class="form-control" cols="20" rows="3" placeholder="Write a message..."><?=($cb) ? $cb['message'] : '';?></textarea>
+                                    </div>
+                                </div>
+                                <div class="row m-t-10">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn bg-blue text-white col-md-12" onclick="checkDateTime(<?=($cb) ? 2 : 1;?>)"><i class="fa fa-check"></i> 
+                                            <?=($cb) ? 'Update My Booking' : 'Book '.$getName.' Now';?>
+                                        </button>
+                                        <?php if($cb){ ?>
+                                            <button type="button" class="btn bg-orange text-white col-md-12 m-t-10" onclick="cancelBook(<?=($cb['book_id']);?>, 2)"><i class="fa fa-times"></i> 
+                                                Cancel Booking
+                                            </button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    <?php } else { ?>
+                        <?php $date_from = '';
+                              $date_to = '';  
+                              $get_date_to = ''; ?>
+                        <div class="col-md-6">
+                            <p class="f-20 b-700 text-orange-d m-b-0">Book and Contact User</p>
+                            <div class="alert alert-warning m-t-20 f-15">
+                                <strong><i class="fa fa-times"></i> Unavailable!</strong> User has no available date to contact.
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <?php if($sitter_availability){ ?>
+                    <div class="col-md-6">
+                        <p class="f-20 b-700 text-orange-d"><?=$getName;?>'s Availability</p>
+                        <p class="f-15 m-b-0 text-center m-t-20">
+                            <span class="avIcon bg-skyblue"></span> Available 
+                            <span class="avIcon bg-orange"></span> Your schedule
+                            <span class="avIcon bg-yellow-l"></span> Today
+                        </p>
+                        <input type="hidden" id="a_date_from" value="<?=$date_from;?>">
+                        <input type="hidden" id="a_date_to" value="<?=$date_to;?>">
+                        <div class="m-t-20" id='availability'></div>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
           <?php } ?>
           <!-- Close Main Content -->
@@ -240,6 +369,8 @@
     <!-- Footer -->
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <?php $this->load->view('common/footer');?>
+    
+    <script src="<?=base_url();?>assets/js/initializations/init_vbb.js"></script>
   </body>
 
 </html>

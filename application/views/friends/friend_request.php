@@ -59,7 +59,7 @@
                                 <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
                                 <p class="text-desc">
                                     <div class="dropdown">
-                                        <button class="btn bg-orange btn-round dropdown-toggle" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button class="btn bg-orange btn-round dropdown-toggle text-white" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             View Pets
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropPets">

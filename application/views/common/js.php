@@ -53,7 +53,7 @@
 <script src="<?=base_url();?>assets/js/initializations/init_pictures.js"></script>
 <?php }?>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<?php if($is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking" || $is_page=="select_and_book" || $is_page=="view_bio" || $is_page=="booking_list" || $is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="bio"){ ?>
+<?php if($is_page=="mainpage" || $is_page=="booking" || $is_page=="create_booking" || $is_page=="select_and_book" || $is_page=="view_bio" || $is_page=="booking_list" || $is_page=="mail"  || $is_page=="sents" || $is_page=="drafts" || $is_page=="bio" || $is_page=="book_this_user"){ ?>
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.js"></script>
 <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.standalone.js"></script>
 <?php }?>
