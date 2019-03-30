@@ -175,7 +175,7 @@
                             <div class="cus-card">
                                 <div class="row">
                                     <div class="cus-card-header col-md-12">
-                                        <i class="fa fa-calendar-alt"></i> Calendar Schedule <a href="<?=base_url();?>account/bio" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-edit"></i> Update Date</a>
+                                        <i class="fa fa-calendar-alt"></i> Calendar Schedule <a href="<?=base_url();?>booking/booking_set_dates" class="btn btn-sm text-white bg-orange pull-right"><i class="fa fa-edit"></i> Update Date</a>
                                     </div>
                                 </div>
                                 

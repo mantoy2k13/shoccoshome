@@ -41,6 +41,8 @@
                                 <span class="badge badge-danger"><?=$cntMgb;?></span>
                             <?php } ?>
                             </a>
+                            <a href="<?=base_url();?>booking/booking_set_dates" class="p-nav b-700 f-14 <?=($is_page=='booking_set_dates') ? 'active' : '';?>">Set My Dates
+                            </a>
                             <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
                         </div>
                     </div>
@@ -134,7 +136,7 @@
     <?php $this->load->view('booking/booking_info');?>
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>    
   </body>
 
 </html>

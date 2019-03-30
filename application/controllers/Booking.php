@@ -91,6 +91,21 @@ class Booking extends CI_Controller {
 		else { redirect('home/login'); }
     }
 
+    public function booking_set_dates()
+	{
+        if ($this->session->userdata('user_email')){ 
+            $user_email  = $this->session->userdata('user_email');
+            $uid  = $this->session->userdata('user_id');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page'] = 'booking_set_dates';
+            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
+            $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $this->load->view('booking/booking_set_dates', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
     public function book_user()
 	{
 		if($this->session->userdata('user_email')){
