@@ -213,7 +213,7 @@
 							<?php if($user_id == $this->session->userdata('user_id')){ ?>
 								<div class="row">
 									<div class="col-md-12 m-t-20">
-										<a href="<?=base_url();?>account/bio" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
+										<a href="<?=base_url();?>booking/booking_set_dates" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
 									</div>
 								</div>
 							<?php } ?>

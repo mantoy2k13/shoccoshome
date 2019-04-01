@@ -31,12 +31,16 @@ button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right
     color: white;
     margin-top: 20px !important;
     font-size: 17px;
-    padding: 0px 150px;
     width: 100%;
 }
 
 .fc-center h2 {
     margin: 0;
+}
+
+.fc-toolbar .fc-center {
+    display: block !important;
+    width: 100% !important;
 }
 
 .fc-row.fc-widget-header {

@@ -818,10 +818,8 @@ a.p-nav.active,a.p-nav:hover{
     line-height: 1.42857143;
     background-color: #fff;
     border: 5px solid #efecef;
-    -webkit-transition: border .2s ease-in-out;
-    -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out;
     cursor: pointer;
+    transition: .2s;
 }
 
 .thumbnail:hover{
@@ -1251,6 +1249,11 @@ input.drag-files {
 .fc-unthemed td.fc-today {
     background: #fff5bf !important;
     border-color: #fff5bf;
+}
+
+.fc-toolbar .fc-center {
+    display: block !important;
+    width: 100% !important;
 }
 
 .cust-slider-img {
