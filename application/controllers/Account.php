@@ -17,6 +17,7 @@ class Account extends CI_Controller {
             $data['view_bio'] = $this->Account_model->view_bio($uid);
             $data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
             $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $data['user_id'] = $uid;
             $this->load->view('account/bio', $data);
         }
 		else { redirect('home/login'); }

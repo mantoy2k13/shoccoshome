@@ -27,6 +27,9 @@
     .u-pet-img {
         height: 115px;
     }
+    td.text-center {
+        width: 211px;
+    }
 }
 
 
@@ -562,6 +565,11 @@
     p.f-20.b-700.text-orange-d.m-b-0 {
         font-size: 14px;
         margin-top:20px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    td.text-center:last-child {
+        width: 100%;
     }
 }
 

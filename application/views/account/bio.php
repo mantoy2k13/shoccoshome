@@ -65,6 +65,40 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    <?php $user_images_5 = $this->Account_model->get_users_images($user_id, 5);?>
+                                    <?php $user_images = $this->Account_model->get_users_images($user_id, 0);?>
+                                    <div class="row m-t-10 m-b-10">
+                                            <?php if($user_images_5){?>
+                                                <div class="<?=(count($user_images_5)!=1) ? 'col-md-6' : 'col-md-12';?>">
+                                                    <div class="userImagesBig imgHovGen">
+                                                        <?php if($user_images_5){?>
+                                                            <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$user_images_5[0]['img_name'];?>" alt="Profile  Image" class="zoomable">
+                                                        <?php }?>
+                                                    </div>
+                                                </div>
+                                                <?php if(count($user_images_5)!=1){?>
+                                                    <div class="col-md-6">
+                                                        <?php $i=1; foreach($user_images_5 as $k){extract($k); ?>
+                                                            <?php if($i!=1){?>
+                                                            <div class="usrImgCol">
+                                                                <div class="userImages imgHovGen">
+                                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" alt="Profile  Image" class="zoomable">
+                                                                    <?php if($i==count($user_images_5)){?>
+                                                                    <a class="viewAllImg" href="javascript:;"  data-toggle="modal" data-target="#selPics"><span class="badge badge-danger"><?=count($user_images);?></span>  View all </a>
+                                                                    <?php } ?>
+                                                                </div>  
+                                                            </div>  
+                                                        <?php } $i++;}?>   
+                                                    </div>
+                                                <?php } ?>  
+                                            <?php } else{?>  
+                                                <div class="col-md-12">
+                                                    <div class="alert alert-info f-15">
+                                                        <strong><i class="fa fa-check"></i> Empty!</strong> The user has no images.
+                                                    </div>
+                                                </div>
+                                            <?php }?>  
+                                        </div>
                                         <div class="row m-t-10 bio-pet-grp">
                                             <?php $my_pets = $this->Account_model->get_my_pets($id);?>
                                             <?php if($my_pets){foreach($my_pets as $pets){ extract($pets); ?>
@@ -127,7 +161,39 @@
           <!-- Close Main Content -->
 	  </div>
     </section>
+       <!-- modal -->
+    <div class="modal fade" id="selPics" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> User's images</p>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                               <?php if($user_images){?>
+                                    <?php foreach($user_images as $user_img){ extract($user_img);?>
+                                        <div class="col-md-3 resfx">
+                                            <div class="thumbnail">
+                                                <a href="javascript:;">
+                                                    <div class="gal-img">
+                                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id?>/<?=$img_name;?>" class="zoomable"style="width:100%" alt="Picture">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    <?php }?>
+                                <?php } else{?>
+                                    <h1>You don't have user's Images</h1>
+                                <?php }?>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
 
+                </div>
+            </div>
+        </div>                                              
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>    
   </body>
