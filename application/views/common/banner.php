@@ -30,7 +30,7 @@
                         <div class="row">
                         <?php if($all_pictures){ ?>
                             <?php foreach($all_pictures as $img){ extract($img); ?>
-                                <div class="col-md-3">
+                                <div class="col-md-3 resfx">
                                     <div class="thumbnail">
                                         <a href="javascript:;">
                                             <div class="gal-img">
