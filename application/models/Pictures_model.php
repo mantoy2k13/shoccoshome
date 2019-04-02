@@ -19,6 +19,18 @@ class Pictures_model extends CI_Model {
 		return $this->db->get('sh_images')->result_array();
     }
 
+    public function count_all_pictures(){
+        $uid = $this->session->userdata('user_id');
+		return $this->db->where('user_id', $uid)->get('sh_images')->num_rows();
+    }
+
+    public function get_my_pictures($limit, $start) {
+        $uid = $this->session->userdata('user_id');
+        $this->db->where('user_id', $uid);
+        $this->db->limit($limit, $start);
+		return $this->db->get('sh_images')->result_array();
+    }
+
     public function get_img_no_album(){
         $uid = $this->session->userdata('user_id');
 		$this->db->where('user_id', $uid);

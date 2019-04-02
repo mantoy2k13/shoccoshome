@@ -1537,6 +1537,15 @@ a.viewAllImg {
     border: 1px solid #ced4da;
 }
 
+.pagination {
+    display: inline-flex;
+}
+
+.page-item.active .page-link {
+    background-color: #ff9b28;
+    border-color: #ff9b28;
+}
+
 /*Daryl code*/
 
 div.prof-desc {

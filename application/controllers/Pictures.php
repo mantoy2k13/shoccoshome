@@ -4,21 +4,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Pictures extends CI_Controller {
 
     public function __construct(){
-        parent::__construct();
+		parent::__construct();
     }
 
     public function pictures()
 	{
 		if ($this->session->userdata('user_email'))
 		{
+			$uid = $this->session->userdata('user_id');
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'pictures';
-			$data['all_pictures'] = $this->Pictures_model->get_all_pictures();
+			$data['base_url'] = base_url().'pictures/pictures';
+			$data['total_rows'] = $this->Pictures_model->count_all_pictures();
+			$data['per_page'] = 8;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+			$data['all_pictures'] = $this->Pictures_model->get_my_pictures($data["per_page"], $page);
 			$this->load->view('pictures/pictures', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}

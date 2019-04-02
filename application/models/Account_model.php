@@ -6,6 +6,29 @@ class Account_model extends CI_Model {
 	public function __construct(){
 		parent::__construct();
     }
+
+    public function pagination_settings(){
+        $data["use_page_numbers"] = TRUE;
+        $data["full_tag_open"] = '<ul class="pagination">';
+        $data["full_tag_close"] = '</ul>';
+        $data["first_tag_open"] = '<li class="page-item">';
+        $data["first_tag_close"] = '</a></li>';
+        $data["last_tag_open"] = '<li class="page-item">';
+        $data["last_tag_close"] = '</li>';
+        $data["next_link"] = 'Next';
+        $data["next_tag_open"] = '<li class="page-item">';
+        $data["next_tag_close"] = '</li>';
+        $data["prev_link"] = 'Previous';
+        $data["prev_tag_open"] = '<li class="page-item">';
+        $data["prev_tag_close"] = '</li>';
+        $data["cur_tag_open"] = '<li class="page-item active"><a class="page-link" href="javascript:;">';
+        $data["cur_tag_close"] = '</a></li>';
+        $data["num_tag_open"] = '<li class="page-item">';
+        $data["num_tag_close"] = '</li>';
+        $data["num_links"] = 2;
+        $data['attributes'] = array('class' => 'page-link');
+        return $data;
+    }
     
     public function check_email($email){
         $this->db->select('*')->from('sh_users');
