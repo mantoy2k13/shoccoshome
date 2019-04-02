@@ -79,7 +79,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div>                       
                 <?php } } else {?>
                     <div class="col-md-12">
                         <div class="alert alert-info m-t-20">
@@ -87,8 +87,17 @@
                         </div>
                     </div>
                 <?php } ?>
+                
             </div>
+            <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <nav class="text-center">
+                                    <?=$links;?>
+                                </nav>
+                            </div>
+                        </div> 
           </div>
+          
           <!-- Close Main Content -->
 	  </div>
     </section>

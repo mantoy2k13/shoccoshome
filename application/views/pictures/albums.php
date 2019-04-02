@@ -66,6 +66,13 @@
                                 </div>
                             <?php } ?>
                         </div>
+                        <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <nav class="text-center">
+                                    <?=$links;?>
+                                </nav>
+                            </div>
+                        </div>
                     <?php } else{ ?>
                         <div class="alert alert-success alert-dismissible f-15" role="alert">
                             <strong><i class="fa fa-check"></i> Empty!</strong> You have no albums added.

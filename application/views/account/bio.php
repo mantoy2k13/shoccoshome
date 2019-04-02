@@ -61,7 +61,7 @@
                                         <div class="pic-head bg-greyish">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <i class="fa fa-paw f-25 text-blue"></i> Pets
+                                                    <i class="fa fa-image f-25 text-blue"></i> User Images
                                                 </div>
                                             </div>
                                         </div>
@@ -98,6 +98,13 @@
                                                     </div>
                                                 </div>
                                             <?php }?>  
+                                        </div>
+                                        <div class="pic-head bg-greyish">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <i class="fa fa-paw f-25 text-blue"></i> Pets
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row m-t-10 bio-pet-grp">
                                             <?php $my_pets = $this->Account_model->get_my_pets($id);?>
