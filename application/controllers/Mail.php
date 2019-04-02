@@ -37,7 +37,7 @@ class Mail extends CI_Controller {
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
             $data['get_mails']      = $this->Mail_model->get_mails($data["per_page"], $page);
-            $data['my_friends']     = $this->Friends_model->get_my_friends();
+            $data['my_friends']     = $this->Friends_model->get_my_friends($data["per_page"],$page);
 			$this->load->view('mail/mail', $data);
 			echo $data['total_rows'];
 		}
