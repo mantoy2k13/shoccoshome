@@ -16,7 +16,7 @@ class Friends extends CI_Controller {
 			$data['is_page'] = 'friends';
 			$data['base_url'] = base_url().'friends/friend_list';
 			$data['total_rows'] = $this->Friends_model->get_my_friends_count();
-			$data['per_page'] = 1;
+			$data['per_page'] = 10;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -43,7 +43,7 @@ class Friends extends CI_Controller {
 				$data['keywords'] = rtrim($this->input->get('keywords'));
 				$data['base_url'] = base_url().'friends/search_friends';
 				$data['total_rows'] = $this->Friends_model->search_keywords_count($data['keywords']);
-				$data['per_page'] = 8;
+				$data['per_page'] = 10;
 				$data["uri_segment"] = 4;
 				$this->pagination->initialize($data);
 				$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;

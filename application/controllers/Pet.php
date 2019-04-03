@@ -16,7 +16,7 @@ class Pet extends CI_Controller{
             $data['is_page'] = 'my_pets';
             $data['base_url'] = base_url().'pet/my_pets';
 			$data['total_rows'] = $this->Pet_model->get_pet_data_count();
-			$data['per_page'] = 2;
+			$data['per_page'] = 10;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;

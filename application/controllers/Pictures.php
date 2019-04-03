@@ -17,7 +17,7 @@ class Pictures extends CI_Controller {
 			$data['is_page'] = 'pictures';
 			$data['base_url'] = base_url().'pictures/pictures';
 			$data['total_rows'] = $this->Pictures_model->count_all_pictures();
-			$data['per_page'] = 8;
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
