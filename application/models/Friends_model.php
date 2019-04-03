@@ -20,12 +20,11 @@ class Friends_model extends CI_Model {
         return $this->db->get()->result_array();   
 	}
 	
-	public function get_my_friends($limit,$start){
+	public function get_my_friends(){
 		$uid = $this->session->userdata('user_id');
 		$this->db->select('*')->from('sh_friends');
 		$this->db->join('sh_users', 'sh_users.id=sh_friends.friend_id', 'left');
 		$this->db->where('sh_friends.user_id', $uid);
-		$this->db->limit($limit, $start);
         return $this->db->get()->result_array();   
     }
 	
@@ -154,5 +153,24 @@ class Friends_model extends CI_Model {
 		$this->db->join('sh_users', 'sh_users.id=sh_friends.friend_id', 'left');
         $this->db->where('sh_friends.user_id', $uid);
         return $this->db->get()->num_rows();   
-    }
+	}
+	public function get_my_friends_pagi($limit, $start){
+		$uid = $this->session->userdata('user_id');
+		$this->db->select('*')->from('sh_friends');
+		$this->db->join('sh_users', 'sh_users.id=sh_friends.friend_id', 'left');
+		$this->db->where('sh_friends.user_id', $uid);
+		$this->db->limit($limit,$start);
+        return $this->db->get()->result_array();   
+	}
+	public function search_keywords_count($keywords){
+        $this->db->select('*')->from('sh_users');
+        $this->db->or_like(array('fullname' => $keywords, 'email' => $keywords));
+        return $this->db->get()->num_rows();   
+	}
+	public function search_keywords_pagi($keywords, $limit,$start){
+		$this->db->select('*')->from('sh_users');
+		$this->db->limit($limit,$start);
+		$this->db->or_like(array('fullname' => $keywords, 'email' => $keywords));
+        return $this->db->get()->result_array();   
+	}
 }

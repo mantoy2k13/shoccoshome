@@ -153,4 +153,42 @@ class Mail_model extends CI_Model {
         $this->db->order_by('mail_id', 'desc');
         return $this->db->get()->num_rows();   
     }
+    public function get_sent_msg_pagi($limit,$start){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_mail');
+		$this->db->join('sh_users', 'sh_users.id=sh_mail.mail_to', 'left');
+        $this->db->where('sh_mail.user_id', $my_id);
+        $this->db->where('sh_mail.del_by_uid', false);
+        $this->db->limit($limit,$start);
+        $this->db->order_by('mail_id', 'desc');
+        return $this->db->get()->result_array();   
+    }
+    public function get_sent_msg_count(){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_mail');
+		$this->db->join('sh_users', 'sh_users.id=sh_mail.mail_to', 'left');
+        $this->db->where('sh_mail.user_id', $my_id);
+        $this->db->where('sh_mail.del_by_uid', false);
+        return $this->db->get()->num_rows();   
+    }
+
+    public function get_drafts_pagi($limit,$start){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_mail');
+		$this->db->join('sh_users', 'sh_users.id=sh_mail.user_id', 'left');
+        $this->db->where('sh_mail.mail_to', $my_id);
+        $this->db->where('sh_mail.drft_by_mailto', true);
+        $this->db->limit($limit,$start);
+        $this->db->order_by('mail_id', 'desc');
+        return $this->db->get()->result_array();   
+    }
+    
+    public function get_drafts_count(){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_mail');
+		$this->db->join('sh_users', 'sh_users.id=sh_mail.user_id', 'left');
+        $this->db->where('sh_mail.mail_to', $my_id);
+        $this->db->where('sh_mail.drft_by_mailto', true);
+        return $this->db->get()->num_rows();   
+    }
 }

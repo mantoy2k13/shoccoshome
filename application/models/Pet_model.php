@@ -326,4 +326,23 @@ class Pet_model extends CI_model{
         return $this->db->get()->result_array();
 	}
 
+	public function get_pet_data_count() {
+        $id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_pets a');
+		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
+        $this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
+		$this->db->where('a.user_id', $id);
+		return $this->db->get()->num_rows();
+	}
+	public function get_pet_data_pagi($limit,$start) {
+        $id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_pets a');
+		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
+        $this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
+		$this->db->where('a.user_id', $id);
+		$this->db->limit($limit,$start);
+		$this->db->order_by("a.pet_id", "desc");
+		return $this->db->get()->result_array();
+	}
+
 }

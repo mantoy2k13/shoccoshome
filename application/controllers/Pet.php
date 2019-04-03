@@ -13,8 +13,15 @@ class Pet extends CI_Controller{
 		{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['get_pet_data'] = $this->Pet_model->get_pet_data();
-			$data['is_page'] = 'my_pets';
+            $data['is_page'] = 'my_pets';
+            $data['base_url'] = base_url().'pet/my_pets';
+			$data['total_rows'] = $this->Pet_model->get_pet_data_count();
+			$data['per_page'] = 2;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            $data["links"] = $this->pagination->create_links();
+            $data['get_pet_data'] = $this->Pet_model->get_pet_data_pagi($data["per_page"],$page);
 			$this->load->view('pet/my_pets', $data);
 		}
 		else
