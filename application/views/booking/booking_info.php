@@ -48,8 +48,9 @@
 
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" data-dismiss="modal" class="btn btn-danger"><i class="fa fa-times"></i> Close</button>
+                <div class="modal-footer" id="bookFooterButton">
+                    <button type="button" data-dismiss="modal" class="btn btn-success btn-sm"><i class="fa fa-thumbs-up"></i> Approve</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm"><i class="fa fa-thumbs-down"></i> Disapprove</button>
                 </div>
             </div>
         </form>

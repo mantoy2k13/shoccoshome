@@ -106,6 +106,22 @@ class Booking extends CI_Controller {
 		else { redirect('home/login'); }
     }
 
+    public function get_single_pet_ajax($pid)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Pet_model->get_single_pet_data($pid));
+        }
+        else{ echo 0;}
+    }
+
+    public function get_user_pets_ajax($uid)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Account_model->get_my_pets($uid));
+        }
+        else{ echo 0;}
+    }
+
     public function book_user()
 	{
 		if($this->session->userdata('user_email')){

@@ -96,10 +96,11 @@
                                                     <?php if($bPage==1){ ?>
                                                         <?php if($book_status==1){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,2)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
-                                                            <a class="dropdown-item" href="<?=base_url();?>booking/<?=($user_type=='guest') ? 'book_this_user' : 'book_user_pets'?>/<?=$id?>">Edit Info</a>
+                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
                                                         <?php } ?>
                                                         <?php if($book_status==4){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
+                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
                                                         <?php } ?>
                                                     <?php } else{ ?>
                                                         <?php if($book_status==1){ ?>
@@ -115,7 +116,7 @@
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <a onclick="bookingInfo(<?=$book_id;?>,<?=($bPage==1) ? 1 : 2;?>)" class="dropdown-item" href="javascript:;">Booking Info</a>
+                                                    <a onclick="bookingInfo(<?=$book_id;?>,<?=$bPage;?>, <?=$book_status;?>)" class="dropdown-item" href="javascript:;">Booking Info</a>
                                                     <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                 </div>
                                             </td>
@@ -134,6 +135,7 @@
     <!-- Footer -->
     <?php $this->load->view('booking/booking_modal');?>
     <?php $this->load->view('booking/booking_info');?>
+    <?php $this->load->view('booking/edit_booking_info');?>
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>    

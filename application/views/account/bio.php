@@ -99,13 +99,6 @@
                                                 </div>
                                             <?php }?>  
                                         </div>
-                                        <div class="pic-head bg-greyish">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <i class="fa fa-paw f-25 text-blue"></i> Pets
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row m-t-10 bio-pet-grp">
                                             <div class="col-md-12">
                                                 <div class="pic-head bg-greyish">
