@@ -60,7 +60,8 @@
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Fullname</label>
                                             <input type="text" value="<?= $fullname ? $fullname : '' ?>" name="fullname" class="form-control" placeholder="Fullname" required>
-                                            <input type="hidden" id="prof_img_data" name="prof_img_data">
+                                            <!-- Images -->
+                                            <input type="hidden" name="img_data" id="img_data">
                                             <input type="hidden" value="<?=$user_img;?>" name="prof_old_img">
                                         </div>
                                         <div class="col-md-6">

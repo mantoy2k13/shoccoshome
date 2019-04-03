@@ -112,7 +112,7 @@ function readURL(input) {
                 $('#img-profile').attr('src', e.target.result);
                 $('#img-profile').hide();
                 $('#img-profile').fadeIn(650);
-                $('#prof_img_data').val(e.target.result);
+                document.getElementById('img_data').value = e.target.result;
             }
             reader.readAsDataURL(input.files[0]);
         }

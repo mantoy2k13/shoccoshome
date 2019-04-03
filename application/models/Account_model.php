@@ -66,16 +66,7 @@ class Account_model extends CI_Model {
     }
 
     public function update_profile_pic(){
-        $uid         = $this->session->userdata('user_id');
-        $img_data    = $this->input->post('prof_img_data');
-        $old_img     = $this->input->post('prof_old_img');
-        $target_path = './assets/img/pictures/';
-        
-        $filename = './assets/img/pictures/usr'.$uid."/".$old_img;
-        if(file_exists($filename)){
-            unlink($filename);
-        }
-
+        $uid = $this->session->userdata('user_id');
         if (!is_dir('./assets/img/pictures/usr'.$uid."/")) {
             mkdir('./assets/img/pictures/usr'.$uid."/");
             $target_path = './assets/img/pictures/usr'.$uid."/";
@@ -83,10 +74,10 @@ class Account_model extends CI_Model {
             $target_path = "./assets/img/pictures/usr".$uid."/";
         }
 
-        $imgName = 'p'.$uid.'_'.uniqid().".jpg"; 
-        $data    = explode(',', $img_data);
+        $imgName = 'p'.'_'.uniqid().".jpg"; 
+        $data = explode(',', $this->input->post('img_data'));
         $decoded = base64_decode($data[1]);
-        $status  = file_put_contents($target_path.$imgName,$decoded); 
+        $status = file_put_contents($target_path.$imgName,$decoded); 
         if($status){
             $data = array('user_img' => $imgName);
             $this->db->where('id', $uid);

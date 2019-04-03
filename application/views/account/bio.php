@@ -31,7 +31,7 @@
                     $getName = ucfirst($explodeResultArrayname[0]);
                 }
             ?>
-		  <div class="col-md-9 m-t-10 bio-wrapper-info p-l-0">
+		    <div class="col-md-9 m-t-10 bio-wrapper-info p-l-0">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="row">
@@ -61,13 +61,13 @@
                                         <div class="pic-head bg-greyish">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <i class="fa fa-paw f-25 text-blue"></i> Pets
+                                                    <i class="fa fa-image f-25 text-blue"></i> My Images
                                                 </div>
                                             </div>
                                         </div>
                                     <?php $user_images_5 = $this->Account_model->get_users_images($user_id, 5);?>
                                     <?php $user_images = $this->Account_model->get_users_images($user_id, 0);?>
-                                    <div class="row m-t-10 m-b-10">
+                                        <div class="row m-t-10 m-b-10">
                                             <?php if($user_images_5){?>
                                                 <div class="<?=(count($user_images_5)!=1) ? 'col-md-6' : 'col-md-12';?>">
                                                     <div class="userImagesBig imgHovGen">
@@ -100,9 +100,18 @@
                                             <?php }?>  
                                         </div>
                                         <div class="row m-t-10 bio-pet-grp">
+                                            <div class="col-md-12">
+                                                <div class="pic-head bg-greyish">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <i class="fa fa-paw f-25 text-blue"></i> Pets
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <?php $my_pets = $this->Account_model->get_my_pets($id);?>
                                             <?php if($my_pets){foreach($my_pets as $pets){ extract($pets); ?>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 m-t-10">
                                                     <div class="card bg-grey friend-card">
                                                         <div class="card-body">
                                                             <div class="pet-bio-img">
@@ -116,6 +125,7 @@
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                                 <a class="dropdown-item" href="<?=base_url();?>pet/add_new_pet/<?=$pet_id;?>">Edit Pet</a>
                                                                 <a class="dropdown-item" href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>">Pet Details</a>
+                                                                <a class="dropdown-item" href="<?=base_url();?>booking/booking_set_dates">Edit Schedule </a>
                                                             </div>
                                                             <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>

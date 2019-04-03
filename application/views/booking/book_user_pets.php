@@ -217,13 +217,31 @@
                                     <label for="time_end">Time End: </label>
                                     <input type="time" value="<?=($cb) ? $bdt[1] : $ndt[1];?>" class="form-control" name="time_end" id="time_end">
                                 </div>
-                                <?php foreach($user_pets as $p){ extract($p);?>
-                                <input type="hidden" id="petList" name="pet_list[]" value="<?=$pet_id;?>">
-                                <?php } ?>
+                            </div>
+                            <div class="row m-t-10">
+                                <div class="guest-list col-md-12">
+                                    <label for="pet_list">Choose pet to book</label>
+                                    <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple  onchange="showDiv(this)">
+                                    <?php if($user_pets){ 
+                                        foreach($user_pets as $pets){ extract($pets); ?>
+                                        <?php if($cb){ ?>
+                                            <?php if(in_array($pet_id, $pl)){ ?>
+                                            <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } else{ ?>
+                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                            <?php } ?>
+                                        <?php } else{?>
+                                            <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                        <?php } ?>
+                                        <?php } } else { ?>
+                                            <option value="">No pet to choose.</option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
                             <div class="row m-t-10">
                                 <div class="col-md-12">
-                                    <label for="message">Short Message:</label>
+                                    <label for="message">Short Message: </label>
                                     <textarea id="message" name="message" class="form-control" cols="20" rows="3" placeholder="Write a message..."><?=($cb) ? $cb['message'] : '';?></textarea>
                                 </div>
                             </div>

@@ -37,7 +37,7 @@ class Account extends CI_Controller {
                     } else{
                         $res = $this->Account_model->update_profile_info($new_email);
                         if($res){
-                            if($this->input->post('prof_img_data')){
+                            if($this->input->post('img_data')){
                                 $res = $this->Account_model->update_profile_pic();
                                 if($res){
                                     $this->session->set_flashdata('prof_msg', 'Updated');
@@ -54,7 +54,7 @@ class Account extends CI_Controller {
                 } else{
                     $res = $this->Account_model->update_profile_info($old_email);
                     if($res){
-                        if($this->input->post('prof_img_data')){
+                        if($this->input->post('img_data')){
                             $res = $this->Account_model->update_profile_pic();
                             if($res){
                                 $this->session->set_flashdata('prof_msg', 'Updated');
