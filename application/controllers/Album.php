@@ -11,7 +11,14 @@ class Album extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$user_id = $data['user_logindata']->id;
 			$data['is_page'] = 'albums';
-			$data['all_albums'] = $this->Album_model->get_all_albums($user_id);
+			$data['base_url'] = base_url().'album/albums';
+			$data['total_rows'] = $this->Album_model->count_album($user_id);
+			$data['per_page'] = 2;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+			$data['all_albums'] = $this->Album_model->get_all_albums($user_id, $data["per_page"],$page);
 			$this->load->view('pictures/albums', $data);
 		}
 		else
@@ -91,9 +98,17 @@ class Album extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'view_album';
 			$data['view_album'] = $this->Album_model->view_album($album_id);
-			$data['view_album_images'] = $this->Album_model->view_album_images($album_id);
+			$data['base_url'] = base_url().'album/view_album/'.$album_id;
+			$data['total_rows'] = $this->Album_model->count_all_pictures_album($album_id);
+			$data['per_page'] = 8;
+			$data["uri_segment"] = 4;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+			$data["links"] = $this->pagination->create_links();
 			$data['get_img_no_album'] = $this->Pictures_model->get_img_no_album();
+			$data['view_album_images'] = $this->Album_model->view_album_images_pagi($data["per_page"],$page, $album_id);
 			$this->load->view('pictures/view_album', $data);
+			
 		}
 		else{
 			redirect('home/login');

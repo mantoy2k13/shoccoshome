@@ -61,7 +61,16 @@
                             </div>
                         </div>
                     </div>
-                <?php } } else{ ?>
+                        
+                <?php }?> 
+                <div class="row m-t-20">
+                            <div class="col-md-12">
+                                <nav class="text-center">
+                                    <?=$links;?>
+                                </nav>
+                            </div>
+                        </div>
+                <?php } else{ ?>
                     <div class="row">
                         <div class="col-md-12 m-t-10">
                             <div class="alert alert-warning alert-dismissible f-15" role="alert">

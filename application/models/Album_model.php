@@ -17,9 +17,10 @@ class Album_model extends CI_Model {
 		return ($result) ? true : false;
 	}
 
-	public function get_all_albums($user_id) {
+	public function get_all_albums($user_id, $limit, $start) {
 		$this->db->select('*')->from('sh_albums');
 		$this->db->where('user_id', $user_id);
+		$this->db->limit($limit, $start);
 		$this->db->order_by("album_id", "desc");
 		return $this->db->get()->result_array();
 	}
@@ -74,5 +75,15 @@ class Album_model extends CI_Model {
 	public function get_single_image($album_id){
 		$this->db->where("album_id ", $album_id);
         return $this->db->get("sh_images")->row_array();
-    }
+	}
+	public function count_all_pictures_album($album_id){
+		return $this->db->where('album_id', $album_id)->get('sh_images')->num_rows();
+	}
+
+	public function view_album_images_pagi($limit, $start, $album_id) {
+		$this->db->select('*')->from('sh_images');
+		$this->db->where('album_id',$album_id);
+		$this->db->limit($limit, $start);
+		return $this->db->get()->result_array();
+	}
 }

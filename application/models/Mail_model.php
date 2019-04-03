@@ -33,13 +33,14 @@ class Mail_model extends CI_Model {
         return ($res) ? true : false;
     }
     
-    public function get_mails(){
+    public function get_mails($limit, $start){
         $my_id = $this->session->userdata('user_id');
         $this->db->select('*')->from('sh_mail');
 		$this->db->join('sh_users', 'sh_users.id=sh_mail.user_id', 'left');
         $this->db->where('sh_mail.mail_to', $my_id);
         $this->db->where('sh_mail.drft_by_mailto', false); 
         $this->db->where('sh_mail.del_by_mailto', false);
+        $this->db->limit($limit,$start);
         $this->db->order_by('mail_id', 'desc');
         return $this->db->get()->result_array();   
     }
@@ -142,5 +143,14 @@ class Mail_model extends CI_Model {
         $this->db->update('sh_mail');
         return ($res) ? true : false;
     }
-	
+    public function get_mails_count(){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('*')->from('sh_mail');
+		$this->db->join('sh_users', 'sh_users.id=sh_mail.user_id', 'left');
+        $this->db->where('sh_mail.mail_to', $my_id);
+        $this->db->where('sh_mail.drft_by_mailto', false); 
+        $this->db->where('sh_mail.del_by_mailto', false);
+        $this->db->order_by('mail_id', 'desc');
+        return $this->db->get()->num_rows();   
+    }
 }
