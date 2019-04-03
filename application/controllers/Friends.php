@@ -40,8 +40,15 @@ class Friends extends CI_Controller {
             $data['is_page'] = 'friend_request';
             
             if($this->input->get('keywords')){
-                $data['keywords'] = rtrim($this->input->get('keywords'));
-                $data['search_results'] = $this->Friends_model->search_keywords($data['keywords']);
+				$data['keywords'] = rtrim($this->input->get('keywords'));
+				$data['base_url'] = base_url().'friends/search_friends';
+				$data['total_rows'] = $this->Friends_model->search_keywords_count($data['keywords']);
+				$data['per_page'] = 8;
+				$data["uri_segment"] = 4;
+				$this->pagination->initialize($data);
+				$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+				$data["links"] = $this->pagination->create_links();
+                $data['search_results'] = $this->Friends_model->search_keywords_pagi($data['keywords'],$data["per_page"],$page);
                 $this->load->view('friends/s_friend_results', $data);
             } else{
                 $this->session->set_flashdata('error_msg', 'Error viewing the page. Please check your link and try again');

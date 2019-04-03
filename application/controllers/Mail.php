@@ -37,9 +37,9 @@ class Mail extends CI_Controller {
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
             $data['get_mails']      = $this->Mail_model->get_mails($data["per_page"], $page);
-            $data['my_friends']     = $this->Friends_model->get_my_friends($data["per_page"],$page);
+            $data['my_friends']     = $this->Friends_model->get_my_friends_pagi($data["per_page"], $page);
 			$this->load->view('mail/mail', $data);
-			echo $data['total_rows'];
+			
 		}
 		else
 		{
@@ -53,9 +53,16 @@ class Mail extends CI_Controller {
 		{
 			$user_email             = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']        = 'sents';
-            $data['get_sent_msg']   = $this->Mail_model->get_sent_msg();
-            $data['my_friends']     = $this->Friends_model->get_my_friends();
+			$data['is_page']        = 'sents';
+			$data['base_url'] = base_url().'mail/sent_messages';
+			$data['total_rows'] = $this->Mail_model->get_sent_msg_count();
+			$data['per_page'] = 3;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+            $data['get_sent_msg']   = $this->Mail_model->get_sent_msg_pagi($data["per_page"],$data);
+            $data['my_friends']     = $this->Friends_model->get_my_friends_pagi($data["per_page"], $page);
 			$this->load->view('mail/sents', $data);
 		}
 		else
@@ -70,9 +77,16 @@ class Mail extends CI_Controller {
 		{
 			$user_email             = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']        = 'drafts';
-            $data['get_drafts']     = $this->Mail_model->get_drafts();
-            $data['my_friends']     = $this->Friends_model->get_my_friends();
+			$data['is_page']        = 'drafts';
+			$data['base_url'] = base_url().'mail/draft_messages';
+			$data['total_rows'] = $this->Mail_model->get_drafts_count();
+			$data['per_page'] = 3;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+            $data['get_drafts']     = $this->Mail_model->get_drafts_pagi($data["per_page"],$page);
+           	$data['my_friends']     = $this->Friends_model->get_my_friends();
 			$this->load->view('mail/drafts', $data);
 		}
 		else

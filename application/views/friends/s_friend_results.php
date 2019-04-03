@@ -118,6 +118,13 @@
                     </div>
                 <?php } ?>
             </div>
+            <div class="row m-t-20">
+                <div class="col-md-12">
+                    <nav class="text-center">
+                        <?=$links;?>
+                    </nav>
+                </div>
+            </div>
           </div>
           <!-- Close Main Content -->
 	  </div>
