@@ -40,19 +40,17 @@ class Account_model extends CI_Model {
     public function update_profile_info($email){
         $uid = $this->session->userdata('user_id');
         $data = array(
-            'fullname'      => $this->input->post('fullname'),
-            'email'         => $email,
-            'occupation'    => $this->input->post('occupation'),
-            'mobile_number' => $this->input->post('mobile_number'),
-            'gender'        => $this->input->post('gender'),
-            'address'       => $this->input->post('address'),
-            'country'       => $this->input->post('country'),
-            'state'         => $this->input->post('state'),
-            'city'          => $this->input->post('city'),
-            'street'        => $this->input->post('street'),
-            'zip_code'      => $this->input->post('zip_code'),
-            'bio'           => $this->input->post('bio'),
-            'is_complete'   => 1,
+            'fullname'         => $this->input->post('fullname'),
+            'email'            => $email,
+            'occupation'       => $this->input->post('occupation'),
+            'mobile_number'    => $this->input->post('mobile_number'),
+            'gender'           => $this->input->post('gender'),
+            'complete_address' => $this->input->post('complete_address'),
+            'user_lat'         => $this->input->post('user_lat'),
+            'user_lng'         => $this->input->post('user_lng'),
+            'zip_code'         => $this->input->post('zip_code'),
+            'bio'              => $this->input->post('bio'),
+            'is_complete'      => 1,
         );
         $this->db->where('id', $uid);
         $res = $this->db->update('sh_users', $data);

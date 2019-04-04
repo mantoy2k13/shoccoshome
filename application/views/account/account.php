@@ -89,6 +89,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                        <div class="col-md-8">
+                                            <label for="" class="m-b-0">Complete Address</label>
+                                            <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address.." value="<?=$complete_address;?>" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="m-b-0">Zip/Postal Code</label>
+                                            <input id="postal_code" name="zip_code" type="text" class="form-control" placeholder="Zip/Postal Code" value="<?=$zip_code;?>" required>
+                                            <input id="user_lat" name="user_lat" type="hidden" value="<?=$user_lat;?>">
+                                            <input id="user_lng" name="user_lng" type="hidden" value="<?=$user_lng;?>">
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Country</label>
                                             <input type="hidden" id="defCountry" value="<?=($country) ? $country : '';?>">
@@ -115,7 +127,7 @@
                                             <label class="">Zip/Postal Code</label>
                                             <input  name="zip_code" value="<?php echo ($zip_code) ? $zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code" required>
                                         </div>
-                                    </div>                               
+                                    </div>                                -->
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="" class="m-b-0">Bio</label>
@@ -170,7 +182,8 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=places" type="text/javascript"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_prof_add.js"></script>
   </body>
 
 </html>

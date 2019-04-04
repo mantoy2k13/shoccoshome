@@ -50,7 +50,6 @@
     <?php $this->load->view('common/footer');?>
 
   </body>
- 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&callback=initialize"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
+   <script src="<?=base_url();?>assets/js/geolocationmap.js"></script>
 </html>

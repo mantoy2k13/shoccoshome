@@ -88,6 +88,22 @@ class Home extends CI_Controller {
 		}
 	}
 
+	public function people_near_me()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$uid  = $this->session->userdata('user_id');
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data['is_page'] = 'people_near_me';
+			$data['view_bio'] = $this->Account_model->view_bio($uid);
+			$this->load->view('homepage/people_near_me', $data);
+		}
+		else{
+			redirect('home/login');
+		}
+	}
+
 	public function login()
 	{	
 		if ($this->session->userdata('user_email')){

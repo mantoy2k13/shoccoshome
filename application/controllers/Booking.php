@@ -210,4 +210,15 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
+    public function getNearUsers()
+	{
+		if($this->session->userdata('user_email')){
+            $lat = $this->input->post('lat');
+            $lng = $this->input->post('lng');
+            echo json_encode($this->Booking_model->getNearUsers($lat, $lng));
+        }
+        else{ echo 0;}
+    }
+
+
 }
