@@ -221,6 +221,36 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function getCountNearPeople(){
+        $uid = $this->session->userdata('user_id');
+        $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : '';
+        $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : '';
+        $radiusKm  = 50;
+        $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+        $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+        $this->db->where('id !=', $uid);
+        return $this->db->get()->num_rows();
+    }
+
+
+    public function getNearPeople(){
+        $limit = $_SESSION['per_page'];
+        $start = $_SESSION['page'];
+        $uid = $this->session->userdata('user_id');
+        $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : '';
+        $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : '';
+        $radiusKm  = 50;
+        $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+        $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+        $this->db->where('id !=', $uid);
+        $this->db->limit($limit, $start);
+        return $this->db->get()->result_array();
+    }
+
     // calculate geographical proximity
     public function mathGeoProximity( $latitude, $longitude, $radius, $miles = false ){
         $radius = $miles ? $radius : ($radius * 0.621371192);

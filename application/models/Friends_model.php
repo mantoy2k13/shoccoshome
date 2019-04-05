@@ -14,7 +14,7 @@ class Friends_model extends CI_Model {
 	}
 	
 	public function get_my_pets($uid){
-		$this->db->select('sh_pets.pet_name,sh_pets.pet_id,sh_category.cat_name')->from('sh_pets');
+		$this->db->select('sh_pets.pet_name, sh_pets.isAvailable,sh_pets.pet_id,sh_category.cat_name')->from('sh_pets');
 		$this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->where('sh_pets.user_id', $uid);
         return $this->db->get()->result_array();   

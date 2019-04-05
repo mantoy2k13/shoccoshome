@@ -58,3 +58,5 @@
 
 <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.min.js"></script>
 <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>

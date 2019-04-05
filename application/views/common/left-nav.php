@@ -7,7 +7,8 @@
 <div class="col-md-3 m-t-10 p-r-0">
     <div class="left-menu">
         <a href="<?=base_url();?>home/homepage" class="btn left-menu-btn <?=($is_page=="homepage") ? "active" : ''; ?>"><i class="fa fa-chart-line f-25 text-blue"></i> Dashboard</a>
-        <a href="<?=base_url();?>home/people_near_me" class="btn left-menu-btn <?=($is_page=="people_near_me") ? "active" : ''; ?>"><i class="fa fa-map-marker-alt f-25 text-blue"></i> Who's near me?</a>
+        <!-- <a href="<?=base_url();?>home/people_near_me" onclick="getNearPeople()" class="btn left-menu-btn <?=($is_page=="people_near_me") ? "active" : ''; ?>"><i class="fa fa-map-marker-alt f-25 text-blue"></i> Who's near me?</a> -->
+        <a href="javascript:;" onclick="getNearPeople()" class="btn left-menu-btn <?=($is_page=="people_near_me") ? "active" : ''; ?>"><i class="fa fa-map-marker-alt f-25 text-blue"></i> Who's near me?</a>
         <?php 
             $page = array('mail', 'sents', 'drafts');
             if(!(in_array($is_page,$page))){ ?>
