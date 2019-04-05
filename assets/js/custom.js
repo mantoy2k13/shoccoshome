@@ -1,10 +1,13 @@
 var base_url = $('#base_url').val();
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-    $('[data-toggle="popover"]').popover()
-})
+// $(function () {
+//     $('[data-toggle="tooltip"]').tooltip()
+//     $('[data-toggle="popover"]').popover()
+// })
 
+$(document).ready(function(){
+    $(document).tooltip();
+});
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     if (evt.keyCode == 27) {
@@ -304,3 +307,69 @@ function getNearPeople(){
         }
     );
 }
+
+// Cover Photo Repositioning
+$(document).ready(function () {
+    var img = $('.coverContainer img.cover-photo-custom');
+    var y1 = $('.coverContainer').height();
+    var y2 = img.height();
+    var x1 = $('.coverContainer').width();
+    var x2 = img.width();
+    var desktop_start_x=0;
+    var desktop_start_y=0;
+    var mobile_start_x= -200;
+    var mobile_start_y= -200;
+    $('.savePos').click(function(event){
+            event.preventDefault();
+            var t = img.position().top, l = img.position().left;
+            img.attr('data-top', t);
+            img.attr('data-left', l);
+            img.draggable({ disabled: true });
+            $('.repos').removeClass('d-none');
+            $('.savePos').addClass('d-none');
+            $('.covertxt').addClass('d-none');
+            $('.banner-btn').removeClass('d-none');
+
+            $.ajax({
+                url:base_url+'account/setCoverPos/'+t,
+                success:function(res){
+                    if(res){
+                        swal("Save!", "Cover photo position was set.", 'success');
+                    }
+                    else{
+                        swal("Failed!", "There was a problem deleting your image", 'warning');
+                    }
+                }
+            }); 
+    })
+    $('.repos').click(function(event){
+        event.preventDefault();
+        $('.savePos').removeClass('d-none');
+        $('.repos').addClass('d-none');
+        $('.covertxt').removeClass('d-none');
+        $('.banner-btn').addClass('d-none');
+          img.draggable({ 
+              disabled: false,
+              scroll: false,
+              axis: 'y, x',
+              cursor : 'move',
+               drag: function(event, ui) {
+                if(ui.position.top >= 0)
+                {
+                    ui.position.top = 0;
+                }
+                if(ui.position.top <= y1 - y2)
+                {
+                    ui.position.top = y1 - y2;
+                }
+                if (ui.position.left >= 0) {
+                ui.position.left = 0;
+                };
+                if(ui.position.left <= x1 - x2)
+                {
+                    ui.position.left = x1 - x2;
+                }
+             }
+        });
+    });
+});

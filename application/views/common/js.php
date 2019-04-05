@@ -25,6 +25,8 @@
     <script src="<?=base_url();?>assets/vendor/crs/jquery.crs.js"></script>
 <?php } ?>
 
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Custom scripts for this template -->
 <script src="<?=base_url();?>assets/js/custom.js"></script>
 <script src="<?=base_url();?>assets/js/dateFormat.js"></script>
@@ -60,3 +62,4 @@
 <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
+

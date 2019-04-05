@@ -123,7 +123,7 @@
     }
 
     .nav-brand img {
-        max-width: 170px;
+        max-width: 150px;
     }
 
     .footer .container {
@@ -178,6 +178,15 @@
         max-width: 100%;
         height: auto;
     }
+
+    .coverContainer {
+        height: 372px;
+        top: 84px;
+    }
+
+    p.covertxt {
+        width: 400px;
+    }
  
 }
 
@@ -185,8 +194,8 @@
     .profile-big {
         width: 200px;
         height: 200px;
-        margin-top: 100px;
-        margin-left: 25px;
+        top: 275px;
+        left: 20px;
     }
 
     .col-md-3.img_uploaded {
@@ -235,15 +244,22 @@
 
 @media only screen and (max-width: 767px){
     .profile-big {
-        margin: 0 auto;
+        width: 150px;
+        height: 150px;
+        top: 200px;
+        left: 20px;
+    }
+
+    .btn.banner-btn, button.btn.banner-btn-sm {
+        top: 100px;
+        bottom: unset;
     }
 
     header.masthead {
         height: 330px;
     }
 
-    .btn.banner-btn {
-        top: 100px;
+    .btn.banner-btn,  button.btn.banner-btn-sm{
         font-size: 14px;
     }
 
@@ -356,11 +372,40 @@
         width: 100%;
     }
 
+    p.covertxt {
+        width: 290px;
+        top: 34%;
+        font-size: 15px;
+    }
+
+}
+
+@media only screen and (max-width: 610px){
+    p.covertxt {
+        top: 43%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .profile-big {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    button.btn.banner-btn-sm {
+        bottom: unset;
+        top: 100px;
+    }
 }
 
 @media only screen and (max-width: 575px){
     div.dataTables_filter, #datatable_length {
         float: none !important;
+    }
+    .coverContainer {
+        height: 250px;
+        top: 86px;
     }
 }
 
@@ -386,6 +431,13 @@
         height: 100px;
     }
 
+}
+
+@media only screen and (max-width: 490px){
+    .coverContainer {
+        height: 280px;
+        top: 85px;
+    }
 }
 
 @media only screen and (max-width: 430px){
@@ -470,6 +522,10 @@
 
     .pic-head.bg-greyish a.refreshBtn {
         border-radius: 25px;
+    }
+
+    .coverContainer {
+        height: 100%;
     }
 }
 

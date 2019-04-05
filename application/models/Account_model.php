@@ -193,6 +193,13 @@ class Account_model extends CI_Model {
         return ($res) ? true : false;
     }
 
+    public function setCoverPos($pos){
+        $this->db->set('cover_pos', $pos);
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $res = $this->db->update('sh_users');
+        return ($res) ? true : false;
+    }
+
     public function set_sitter_time(){
         $uid = $this->session->userdata('user_id');
         $setTime[] = $this->input->post('date_from');

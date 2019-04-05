@@ -146,12 +146,55 @@ input::placeholder {
 }
 
 header.masthead {
-    background-image: url('../img/shocco-cover.jpg');
+    background-image: url(../img/shocco-cover.jpg);
     background-repeat: no-repeat;
     background-position: center;
     height: 450px;
     background-size: cover;
-  }
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+img.cover-photo-custom {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+button.btn.banner-btn-sm {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    border: 0;
+    font-size: 15px;
+    color: #fff;
+    border: 2px solid transparent;
+    height: auto;
+}
+
+p.covertxt {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 28%;
+    font-size: 18px;
+    border: 1px solid #fff;
+    padding: 5px;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.coverContainer {
+    margin: 0 auto;
+    overflow: hidden;
+    height: 350px;
+    position: absolute;
+    width: 100%;
+    top: 105px;
+}
 
 .profile-img {
     position: relative;
@@ -170,16 +213,16 @@ header.masthead {
 }
 
 .profile-big {
-    position: relative;
+    position: absolute;
     width: 255px;
     height: 255px;
     overflow: hidden;
     background: #fff;
     cursor: pointer;
-    margin-top: 40px;
     border-radius: 50%;
     border: 5px solid #ff9b28;
-    margin-left: 45px;
+    top: 230px;
+    left: 45px;
 }
 
 .friend-img {
@@ -486,11 +529,11 @@ i.fa.upload-icon {
     border: 2px solid transparent;
 }
 
-.btn.banner-btn:hover {
+.btn.banner-btn:hover, .btn.banner-btn-sm:hover {
     border: 2px solid #fff;
 }
 
-.btn.banner-btn i.fa {
+.btn.banner-btn i.fa, button.btn.banner-btn-sm i.fa {
     vertical-align: middle;
     margin-right: 5px;
 }

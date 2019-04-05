@@ -46,6 +46,7 @@
     <audio id="notif">
         <source src="<?=base_url();?>assets/audio/notify.ogg" type="audio/ogg">
     </audio>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.rawgit.com/ryandrewjohnson/jquery-fblogin/master/dist/jquery.fblogin.min.js"></script>
 

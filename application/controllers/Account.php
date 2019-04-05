@@ -129,6 +129,13 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
+    public function setCoverPos($pos){
+        if($this->session->userdata('user_email')){
+            echo $this->Account_model->setCoverPos($pos);
+        }
+        else{ echo false;}
+    }
+
     public function set_sitter_time(){
         if($this->session->userdata('user_email')){
             echo $this->Account_model->set_sitter_time();
