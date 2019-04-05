@@ -279,3 +279,28 @@ var setCoverPhoto = (img_name)=>{
          }); 
      });
  }
+
+ 
+function getNearPeople(){
+    navigator.geolocation.getCurrentPosition(
+        function(position){ // success cb
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            $.ajax({
+                url: base_url+'booking/setMyLocation',
+                type: "POST",
+                data: {lat: lat, lng: lng},
+                success: (res)=>{
+                    if(res){
+                        window.location.href = base_url+res;
+                    } else{
+                        alert('Failed to get location')
+                    }
+                }
+            }); 
+        },
+        function(){ 
+            alert('Failed to get location');
+        }
+    );
+}

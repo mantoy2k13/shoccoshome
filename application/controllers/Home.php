@@ -97,6 +97,16 @@ class Home extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'people_near_me';
 			$data['view_bio'] = $this->Account_model->view_bio($uid);
+			$data['base_url'] = base_url().'home/people_near_me';
+			$data['total_rows'] = $this->Booking_model->getCountNearPeople();
+			$data['per_page'] = 10;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+			$_SESSION['per_page'] = $data["per_page"];
+			$_SESSION['page'] 	  = $page;
+			$data['getNearPeople'] = $this->Booking_model->getNearPeople();
 			$this->load->view('homepage/people_near_me', $data);
 		}
 		else{

@@ -26,39 +26,66 @@
                     <div class="m-header bg-orange-l">
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Who's near me</span>
+                                <span class="btn btn-circle f-20 btn-sm text-white pull-left"><i class="fa fa-map-marker-alt"></i> Who's near me</span>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="card bg-grey friend-card">
-                                <div class="card-body">
-                                    <div class="friend-img">
-                                        <img src="http://localhost/shocco_2019/assets/img/pictures/usr27/p27_5c9af39b7ce5d.jpg" alt="Profile Image">
-                                    </div>
-                                    <div class="options27">
-                                        <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Friends</span>
-                                        <div class="dropdown-menu" aria-labelledby="f-menu">
-                                            <a onclick="request_friends(27,3,'tom2@yopmail.com')" class="dropdown-item" href="javascript:;">Unfriend</a>
-                                            <a class="dropdown-item" href="http://localhost/shocco_2019/account/view_bio/27">View Profile</a>
-                                            <a onclick="instMsg(27,'tom2@yopmail.com')" class="dropdown-item" href="javascript:;">Send Message</a>
+                            <div class="row">
+                                <?php if($getNearPeople){ foreach($getNearPeople as $p){ extract($p); ?>
+                                    <div class="col-md-12">
+                                        <div class="card bg-grey friend-card">
+                                            <div class="card-body">
+                                                <div class="friend-img">
+                                                    <?php if($user_img) { ?>
+                                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                                    <?php }else{ ?>
+                                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                                    <?php } ?>
+                                                </div>
+                                                <div>
+                                                    <span class="btn btn-info btn-xs pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
+                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                        <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
+                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                    </div>
+                                                </div>
+                                                <p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
+                                                <p class="text-desc"> <?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
+                                                <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
+                                                <div>
+                                                    <button class="btn bg-orange btn-round dropdown-toggle text-white" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Book
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropPets">
+                                                        <a class="dropdown-item" href="<?=base_url();?>booking/book_this_user/<?=$id?>">Book User</a>
+                                                        <?php $get_pets=$this->Friends_model->get_my_pets($id);?>
+                                                        <?php if($get_pets){ foreach($get_pets as $pets){ extract($pets); ?>
+                                                            <?php if($isAvailable){ ?>
+                                                                <a class="dropdown-item" href="<?=base_url();?>booking/book_user_pets/<?=$id?>">Book User Pets</a>
+                                                            <?php break; } ?>
+                                                        <?php } } ?>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <p class="text-head"><a href="http://localhost/shocco_2019/account/view_bio/27">Host Account</a> </p>
-                                    <p class="text-desc">  123 mandaue, 6014, CA, United States</p>
-                                    <p class="f-14">Email: <span class="b-700 text-black">tom2@yopmail.com</span></p>
-                                    <p class="text-desc"></p>
-                                    <div class="dropdown">
-                                        <button class="btn bg-orange btn-round dropdown-toggle text-white" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            View Pets
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropPets">
-                                            <a class="dropdown-item" href="javascript:;">No pets found.</a>
+                                    <?php }?> 
+                                    <div class="row m-t-20">
+                                        <div class="col-md-12">
+                                            <nav class="text-center">
+                                                <?=$links;?>
+                                            </nav>
                                         </div>
                                     </div>
-                                </div>
+                                    <?php } else{ ?>
+                                    <div class="col-md-12 m-t-20">
+                                        <div class="alert alert-info f-15">
+                                            <b><i class="fa fa-check"></i> Oops!</b> We coudn't find poeple near you.
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                         <div class="col-md-6 map-section">
@@ -70,13 +97,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> <!--Close row-->
                 </div> <!-- Close Main Content -->
             </div>
         </section>
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
+    <?php $this->load->view('mail/pop-ups/inst_msg');?>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script> -->
     <script src="<?=base_url();?>assets/js/initializations/people_near_me_map.js"></script>
   </body>
 

@@ -9,15 +9,12 @@ navigator.geolocation.getCurrentPosition(
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
-        document.getElementById('cur_lat').value = lat;
-        document.getElementById('cur_lng').value = lng;
         $.ajax({
             url: base_url+'booking/getNearUsers',
             dataType: 'JSON',
             type: "POST",
-            data: {lat: lat, lng: lng},
             success: (res)=>{
-                console.log(res)
+                console.log(res);
                 var locations = [];
                 if(res.length!=0){
                     $.each(res, (ind, r)=> {

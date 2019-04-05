@@ -213,9 +213,19 @@ class Booking extends CI_Controller {
     public function getNearUsers()
 	{
 		if($this->session->userdata('user_email')){
+            echo json_encode($this->Booking_model->getNearPeople());
+        }
+        else{ echo 0;}
+    }
+
+    public function setMyLocation()
+	{
+		if($this->session->userdata('user_email')){
             $lat = $this->input->post('lat');
             $lng = $this->input->post('lng');
-            echo json_encode($this->Booking_model->getNearUsers($lat, $lng));
+            $_SESSION['cur_lat'] = $lat;
+            $_SESSION['cur_lng'] = $lng;
+            echo 'home/people_near_me';
         }
         else{ echo 0;}
     }
