@@ -97,9 +97,16 @@ class Friends extends CI_Controller {
 		{
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data["friend_i_request"] = $this->Friends_model->get_friend_i_request();
-			$data["friend_request"] = $this->Friends_model->get_my_friend_request();
 			$data['is_page'] = 'friend_request';
+			$data['base_url'] = base_url().'friends/friend_request';
+			$data['total_rows'] = $this->Friends_model->get_my_friend_request_count();
+			$data['per_page'] = 10;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+			$data["friend_i_request"] = $this->Friends_model->get_friend_i_request();
+			$data["friend_request"] = $this->Friends_model->get_my_friend_request_pagi($data["per_page"], $page);
 			$this->load->view('friends/friend_request', $data);
 		}
 		else

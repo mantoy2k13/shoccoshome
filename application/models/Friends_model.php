@@ -173,4 +173,19 @@ class Friends_model extends CI_Model {
 		$this->db->or_like(array('fullname' => $keywords, 'email' => $keywords));
         return $this->db->get()->result_array();   
 	}
+	public function get_my_friend_request_pagi($limit, $start){
+		$uid = $this->session->userdata('user_id');
+		$this->db->select('*')->from('sh_friend_request');
+		$this->db->join('sh_users', 'sh_users.id=sh_friend_request.user_id', 'left');
+		$this->db->where('sh_friend_request.user_req_to ', $uid);
+		$this->db->limit($limit,$start);
+		return $this->db->get()->result_array();   
+	}
+	public function get_my_friend_request_count(){
+		$uid = $this->session->userdata('user_id');
+		$this->db->select('*')->from('sh_friend_request');
+		$this->db->join('sh_users', 'sh_users.id=sh_friend_request.user_id', 'left');
+		$this->db->where('sh_friend_request.user_req_to ', $uid);
+		return $this->db->get()->num_rows();   
+	}
 }
