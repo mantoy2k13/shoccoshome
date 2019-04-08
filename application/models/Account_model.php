@@ -156,7 +156,7 @@ class Account_model extends CI_Model {
     }
 
     public function getAddress(){
-        $this->db->select('country,state,city,street,zip_code')->from('sh_users');
+        $this->db->select('complete_address,zip_code')->from('sh_users');
         $this->db->where('id', $this->session->userdata('user_id'));
         $data = $this->db->get()->result_array();
         return $data;

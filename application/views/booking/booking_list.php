@@ -79,7 +79,7 @@
                                                 </a>
                                             </td>
                                             <td><a href="<?=base_url();?>account/view_bio/<?=$id?>" data-toggle="tooltip" data-placement="right" title="<?=$email;?>"><?=($fullname) ? $fullname : "No Name";?></a> </td>
-                                            <td class="text-center"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></td>
+                                            <td class="text-center"><?=($complete_address&&$zip_code) ? $complete_address.', '.$zip_code : 'No Address'; ?></td>
                                             <td class="text-center">
                                                 <?=($book_status==1) ? '<span class="badge bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ''; ?>
                                                 <?=($book_status==2) ? '<span class="badge badge-danger"><i class="fa fa-times"></i> Cancelled</span>' : ''; ?>

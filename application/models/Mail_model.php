@@ -161,7 +161,7 @@ class Mail_model extends CI_Model {
         $this->db->where('sh_mail.del_by_uid', false);
         $this->db->limit($limit,$start);
         $this->db->order_by('mail_id', 'desc');
-        return $this->db->get()->result_array();   
+        return $this->db->get()->result_array();     
     }
     public function get_sent_msg_count(){
         $my_id = $this->session->userdata('user_id');

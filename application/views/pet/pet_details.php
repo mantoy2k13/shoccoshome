@@ -38,7 +38,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<p class="f-20 b-700 text-blue m-b-0"><?= $pet_name; ?></p>
-									<p class="f-15 m-b-0"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
+									<p class="f-15 m-b-0"><?php if($complete_address&&$zip_code){ ?> <?=$complete_address.', '.$zip_code;?><?php } else { echo 'No Address'; }?></p>
 								</div>
 								<div class="col-md-12">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

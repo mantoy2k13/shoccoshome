@@ -55,7 +55,7 @@
                                 </div>
 
                                 <p class="text-head"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id; ?>" target="_blank"><?= $pet_name; ?></a> </p>
-                                <p class="text-desc"><?php if($street&&$city&&$zip_code&&$state&&$country){ ?> <?=$street.' '.$city.', '.$zip_code.', '.$state.', '.$country;?><?php } else { echo 'No Address'; }?></p>
+                                <p class="text-desc"><?=($complete_address&&$zip_code) ? $complete_address.', '.$zip_code : 'No Address'; ?></p>
                                 <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $breed_name; ?> (<?= $cat_name; ?>)</span></p>
                                 <?php $ndf=json_decode($ns_date_from);?>
                                 <?php $ndt=json_decode($ns_date_to);?>

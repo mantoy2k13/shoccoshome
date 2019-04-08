@@ -100,34 +100,7 @@
                                             <input id="user_lng" name="user_lng" type="hidden" value="<?=$user_lng;?>">
                                         </div>
                                     </div>
-                                    <!-- <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="" class="m-b-0">Country</label>
-                                            <input type="hidden" id="defCountry" value="<?=($country) ? $country : '';?>">
-                                            <select name="country" id="country_id" class="crs-country form-control" data-region-id="three" required >
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="" class="m-b-0">State</label>
-                                            <input type="hidden" id="defState" value="<?=($state) ? $state : '';?>">
-                                            <select name="state"  id="three" class="form-control" data-value="shortcode" required >
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-4">
-                                            <label class="">City</label>
-                                            <input required name="city" value="<?php echo ($city) ? $city : '';?>" type="text" class="form-control" placeholder="City" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="">Street</label>
-                                            <input  name="street" value="<?php echo ($street) ? $street : '';?>" type="text" class="form-control" placeholder="Street" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="">Zip/Postal Code</label>
-                                            <input  name="zip_code" value="<?php echo ($zip_code) ? $zip_code : '';?>" type="text" class="form-control" placeholder="Zip/Postal Code" required>
-                                        </div>
-                                    </div>                                -->
+                                    
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="" class="m-b-0">Bio</label>

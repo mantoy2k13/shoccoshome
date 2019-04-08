@@ -65,7 +65,7 @@ var bookingInfo=(bid, type, bStatus)=>{
                 if(res['user_img']){ $('#userImg').attr('src', base_url+'assets/img/pictures/usr'+res['id']+'/'+res['user_img']);
                 }else{ $('#userImg').attr('src', base_url+'assets/img/pictures/default.png'); }
                 $('#userName').html(res['fullname']);
-                $('#userAdd').html(res['street']+' '+res['city']+', '+res['zip_code']+', '+res['state']+', '+res['country']);
+                $('#userAdd').html(res['complete_address']+', '+res['zip_code']);
 
                 //Date and message
                 $('#dateBooked').html('Date Booked: '+dateFormat(new Date(res['book_date']), "dd mmm yyyy, hh:MM TT"));
@@ -328,6 +328,9 @@ var checkDateTime = (bid, type)=>{
         } else if(given_date_to < given_date_from){
             $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date to'));
             $('#editdateTo').focus();
+        } else if(!editpetList){
+            $('.setTimeMsg').html(setMsg('Please select pets.'));
+            $('#editpetList').focus();
         } else{
             swal({
                 title: "Continue?",

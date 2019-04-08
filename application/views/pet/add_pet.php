@@ -213,12 +213,9 @@
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Where I Live</div>
                                 <div class="col-md-12">
                                     <label class="f-15 text-black">Full Address</label>
-                                    <input name="full_address" value="<?=$adds['street'].' '.$adds['city'].', '.$adds['zip_code'].', '.$adds['state'].', '.$adds['country'];?>" type="text" class="form-control" placeholder="Full Address" readonly>
-                                    <input type="hidden" name="country" value="<?=$adds['country']?>">
-                                    <input type="hidden" name="state" value="<?=$adds['state']?>">
+                                    <input name="full_address" value="<?=$adds['complete_address'].', '.$adds['zip_code'];?>" type="text" class="form-control" placeholder="Full Address" readonly>
+                                    <input type="hidden" name="complete_address" value="<?=$adds['complete_address']?>">
                                     <input type="hidden" name="zip_code" value="<?=$adds['zip_code']?>">
-                                    <input type="hidden" name="city" value="<?=$adds['city']?>">
-                                    <input type="hidden" name="street" value="<?=$adds['street']?>">
                                 </div>
                             </div>
                             <div class="row form-group">

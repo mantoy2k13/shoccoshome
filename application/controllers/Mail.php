@@ -61,7 +61,7 @@ class Mail extends CI_Controller {
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
-            $data['get_sent_msg']   = $this->Mail_model->get_sent_msg_pagi($data["per_page"],$data);
+            $data['get_sent_msg']   = $this->Mail_model->get_sent_msg_pagi($data["per_page"],$page);
             $data['my_friends']     = $this->Friends_model->get_my_friends_pagi($data["per_page"], $page);
 			$this->load->view('mail/sents', $data);
 		}
