@@ -225,10 +225,19 @@ class Booking extends CI_Controller {
             $lng = $this->input->post('lng');
             $_SESSION['cur_lat'] = $lat;
             $_SESSION['cur_lng'] = $lng;
+            $_SESSION['length_value'] = 50;
+            $_SESSION['length'] = 'km';
             echo 'home/people_near_me';
         }
         else{ echo 0;}
     }
 
+    public function get_my_avail_pets($uid)
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->get_my_avail_pets($uid);
+        }
+        else{ echo 0;}
+    }
 
 }

@@ -92,6 +92,10 @@ class Home extends CI_Controller {
 	{
 		if ($this->session->userdata('user_email'))
 		{
+			if($this->input->post()){
+				$_SESSION['length_value'] = $this->input->post('length_value');
+				$_SESSION['length'] = $this->input->post('length');
+			}
 			$uid  = $this->session->userdata('user_id');
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);

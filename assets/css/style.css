@@ -1701,3 +1701,8 @@ span.btmleft_set_cver {
 .imagecontent span:hover{
     cursor: pointer;
 }
+
+.infoCard-img{
+    margin: 0 auto;
+    float: none !important;
+}

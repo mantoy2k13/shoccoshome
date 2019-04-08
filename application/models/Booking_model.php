@@ -234,14 +234,35 @@ class Booking_model extends CI_Model {
         return $this->db->get()->num_rows();
     }
 
+    public function get_my_avail_pets($uid){
+		$this->db->select('*')->from('sh_pets');
+        $this->db->where('isAvailable', true);
+        $this->db->where('user_id', $uid);
+        return $this->db->get()->num_rows();   
+	}
 
     public function getNearPeople(){
-        $limit = $_SESSION['per_page'];
-        $start = $_SESSION['page'];
+        $limit        = $_SESSION['per_page'];
+        $start        = $_SESSION['page'];
+        $length_value = $_SESSION['length_value'];
+        $length       = $_SESSION['length'];
         $uid = $this->session->userdata('user_id');
         $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : '';
         $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : '';
-        $radiusKm  = 50;
+
+        if($length=='km'){
+            $radiusKm  = ((int) $length_value); 
+        }
+
+        if($length=='mi'){
+            $radiusKm  = ((int) $length_value)  * 0.621371192; 
+        }
+
+        if($length=='m'){
+            $radiusKm  = ((int) $length_value)  * 0.001; 
+        }
+
+        // $radiusKm  = ((int) $length_value);
         $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
         $this->db->select('*')->from('sh_users');
         $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
@@ -252,9 +273,8 @@ class Booking_model extends CI_Model {
     }
 
     // calculate geographical proximity
-    public function mathGeoProximity( $latitude, $longitude, $radius, $miles = false ){
-        $radius = $miles ? $radius : ($radius * 0.621371192);
-
+    public function mathGeoProximity( $latitude, $longitude, $radius){
+        // $radius = $miles ? $radius : ($radius * 0.621371192);
         $lng_min = $longitude - $radius / abs(cos(deg2rad($latitude)) * 69);
         $lng_max = $longitude + $radius / abs(cos(deg2rad($latitude)) * 69);
         $lat_min = $latitude - ($radius / 69);

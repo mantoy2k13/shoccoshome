@@ -1,12 +1,6 @@
 var base_url = $('#base_url').val();
-
-// $(function () {
-//     $('[data-toggle="tooltip"]').tooltip()
-//     $('[data-toggle="popover"]').popover()
-// })
-
 $(document).ready(function(){
-    $(document).tooltip();
+    $(document).tooltip('disabled')
 });
 document.onkeydown = function(evt) {
     evt = evt || window.event;
@@ -14,6 +8,25 @@ document.onkeydown = function(evt) {
         $('#mLoader').html('');
     }
 };
+
+$(function () {
+    $(".decimalOnly").keydown(function (event) {
+        if (event.shiftKey == true) {
+           event.preventDefault();
+        }
+
+        if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46 || event.keyCode == 190) {
+
+        } else {
+            event.preventDefault();
+        }
+        
+        if($(this).val().indexOf('.') !== -1 && event.keyCode == 190)
+           event.preventDefault();
+
+    });
+});
+
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -285,6 +298,7 @@ var setCoverPhoto = (img_name)=>{
 
  
 function getNearPeople(){
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
     navigator.geolocation.getCurrentPosition(
         function(position){ // success cb
             var lat = position.coords.latitude;
