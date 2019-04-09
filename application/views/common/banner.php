@@ -2,15 +2,15 @@
 <?php $all_pictures = $this->Pictures_model->get_all_pictures();?>
 <?php $uid = $this->session->userdata('user_id'); ?>
 <header class="masthead bg-primary text-white text-center" <?=($cover_photo) ? 'style="background-image: url('.base_url().'assets/img/pictures/usr'.$uid.'/'.$cover_photo.')"' : '';?>>	
+    <button class="btn banner-btn" data-toggle="modal" data-target="#chCover"><i class="fa fa-camera fa-2x"></i> Change Cover </button>
     <?php if($cover_photo){ ?>
     <div class="coverContainer">
         <img class="cover-photo-custom" data-top="0"  data-left="0" src="<?=base_url().'assets/img/pictures/usr'.$uid.'/'.$cover_photo;?>" style="top: <?=($cover_pos) ? $cover_pos.'px' : 'unset';?>;" />
     </div>
-    <?php } ?>
-    <button class="btn banner-btn" data-toggle="modal" data-target="#chCover"><i class="fa fa-camera fa-2x"></i> Change Cover </button>
     <button class="btn banner-btn-sm repos"><i class="fa fa-arrows-alt fa-2x"></i> Reposition </button>
     <button class="btn banner-btn-sm savePos d-none"><i class="fa fa-save fa-2x"></i> Save Changes </button>
     <p class="covertxt d-none"><i class="fa fa-hand-rock"></i> Drag up or down image to adjust</p>
+    <?php } ?>
 </header>
 
     <div class="profile-big">

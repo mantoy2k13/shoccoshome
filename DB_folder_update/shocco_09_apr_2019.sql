@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2019 at 02:22 PM
+-- Generation Time: Apr 09, 2019 at 06:02 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.1.17
 
@@ -37,14 +37,6 @@ CREATE TABLE `sh_albums` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `sh_albums`
---
-
-INSERT INTO `sh_albums` (`album_id`, `user_id`, `album_name`, `album_desc`, `album_img`, `created_at`) VALUES
-(12, 26, 'My Album', '', '', '2019-03-13 06:24:56'),
-(13, 27, 'Friends Album', 'My Friends Album', '', '2019-03-15 02:04:39');
-
 -- --------------------------------------------------------
 
 --
@@ -70,8 +62,8 @@ CREATE TABLE `sh_book` (
 --
 
 INSERT INTO `sh_book` (`book_id`, `user_id`, `book_user_id`, `book_date_from`, `book_date_to`, `pet_list`, `message`, `book_status`, `user_type`, `is_notify`, `book_date`) VALUES
-(23, 26, 27, '[\"2019-03-26\",\"00:01\"]', '[\"2019-03-27\",\"03:44\"]', '[\"28\",\"29\"]', 'Hello I need a sitter', '2', 'guest', 4, '2019-03-25 19:04:39'),
-(24, 26, 27, '[\"2019-03-25\",\"00:12\"]', '[\"2019-03-27\",\"00:12\"]', '[\"28\",\"30\"]', 'asd', '5', 'guest', 4, '2019-03-25 06:23:33');
+(1, 3, 1, '[\"2019-04-09\",\"00:12\"]', '[\"2019-04-15\",\"00:12\"]', '[\"3\"]', 'Hello can you book thanks', '5', 'guest', 4, '2019-04-08 13:15:40'),
+(2, 3, 2, '[\"2019-04-09\",\"00:12\"]', '[\"2019-04-10\",\"00:12\"]', '[\"2\"]', 'Can i take it home', '4', 'host', 4, '2019-04-08 13:44:12');
 
 -- --------------------------------------------------------
 
@@ -698,10 +690,10 @@ CREATE TABLE `sh_friends` (
 --
 
 INSERT INTO `sh_friends` (`f_id`, `user_id`, `friend_id`, `friend_since`) VALUES
-(19, 28, 26, '2019-03-13 06:06:42'),
-(20, 26, 28, '2019-03-13 06:06:42'),
-(21, 27, 26, '2019-03-14 12:32:07'),
-(22, 26, 27, '2019-03-14 12:32:07');
+(1, 3, 2, '2019-04-08 13:07:38'),
+(2, 2, 3, '2019-04-08 13:07:38'),
+(3, 1, 2, '2019-04-08 13:28:32'),
+(4, 2, 1, '2019-04-08 13:28:32');
 
 -- --------------------------------------------------------
 
@@ -735,18 +727,16 @@ CREATE TABLE `sh_images` (
 --
 
 INSERT INTO `sh_images` (`img_id`, `img_name`, `user_id`, `album_id`, `date_upload`) VALUES
-(202, 'p26_5c888a51af359.jpg', 26, 12, '2019-03-13 04:42:57'),
-(203, 'p26_5c88d46b73533.jpg', 26, 12, '2019-03-13 09:59:07'),
-(204, 'p26_5c88d9c407c65.jpg', 26, 12, '2019-03-13 10:21:56'),
-(205, 'p26_5c88d9c416ab9.jpg', 26, 12, '2019-03-13 10:21:56'),
-(206, 'p26_5c88d9c42160a.jpg', 26, 12, '2019-03-13 10:21:56'),
-(211, 'p28_5c8b776b247bd.jpg', 28, 0, '2019-03-15 09:59:07'),
-(212, 'p28_5c8b776b3601f.jpg', 28, 0, '2019-03-15 09:59:07'),
-(213, 'p28_5c8b776b482d7.jpg', 28, 0, '2019-03-15 09:59:07'),
-(214, 'p26_5c8f8ce45829a.jpg', 26, 0, '2019-03-18 12:19:48'),
-(215, 'p26_5c8f8ce45e979.jpg', 26, 0, '2019-03-18 12:19:48'),
-(216, 'p26_5c8f8d1214067.jpg', 26, 0, '2019-03-18 12:20:34'),
-(217, 'p26_5c8f8d121c165.jpg', 26, 0, '2019-03-18 12:20:34');
+(1, 'p1_5cab399d13c29.jpg', 1, 0, '2019-04-08 12:07:57'),
+(2, 'p1_5cab399d1ba79.jpg', 1, 0, '2019-04-08 12:07:57'),
+(3, 'p2_5cab3fbb3b2f5.jpg', 2, 0, '2019-04-08 12:34:03'),
+(4, 'p2_5cab3fbb471a1.jpg', 2, 0, '2019-04-08 12:34:03'),
+(5, 'p2_5cab3fbb51332.jpg', 2, 0, '2019-04-08 12:34:03'),
+(6, 'p_5cab4228b0b93.jpg', 3, 0, '2019-04-08 12:44:24'),
+(7, 'p_5cab424473fcc.jpg', 1, 0, '2019-04-08 12:44:52'),
+(8, 'p_5cab426542916.jpg', 2, 0, '2019-04-08 12:45:25'),
+(9, 'p3_5cab4930e3a6c.jpg', 3, 0, '2019-04-08 13:14:24'),
+(10, 'p3_5cab4930f057b.jpg', 3, 0, '2019-04-08 13:14:25');
 
 -- --------------------------------------------------------
 
@@ -775,14 +765,9 @@ CREATE TABLE `sh_mail` (
 --
 
 INSERT INTO `sh_mail` (`mail_id`, `user_id`, `mail_to`, `subject`, `message`, `is_read`, `notify`, `drft_by_uid`, `drft_by_mailto`, `parent_id`, `del_by_uid`, `del_by_mailto`, `date_send`) VALUES
-(1, 26, 28, 'My Subject', '121212', 0, 1, 0, 0, 0, 1, 0, '2019-03-13 12:25:08'),
-(2, 27, 26, 'hello', '123', 1, 1, 0, 0, 0, 1, 0, '2019-03-14 12:35:40'),
-(3, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. \r\n\r\nI\'m very Busy today thank you for your understanding.', 1, 1, 0, 0, 0, 0, 0, '2019-03-21 15:53:56'),
-(4, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. \r\n\r\nThank you for your understanding.', 1, 1, 0, 0, 0, 0, 0, '2019-03-21 15:58:57'),
-(5, 27, 26, 'Booking Request Approve', 'Dear Maam/Sir,\r\n\r\nThank you for booking me as a sitter for your pets. \r\n\r\n [ You can write or modify this message to the user ]', 1, 1, 0, 0, 0, 1, 0, '2019-03-22 10:26:40'),
-(6, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-22 10:46:54'),
-(7, 27, 26, 'Booking Request Approved', 'Dear Maam/Sir,\r\n\r\nThank you for booking as a sitter for your pets. ', 1, 1, 0, 0, 0, 0, 1, '2019-03-25 19:06:44'),
-(8, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. ', 1, 1, 0, 0, 0, 0, 1, '2019-03-25 06:25:31');
+(1, 1, 2, 'Bro', 'Btro', 1, 1, 0, 1, 0, 0, 0, '2019-04-08 13:24:16'),
+(2, 2, 3, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-08 13:45:51'),
+(3, 2, 3, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-08 13:47:16');
 
 -- --------------------------------------------------------
 
@@ -811,10 +796,7 @@ CREATE TABLE `sh_pets` (
   `health_issues` text COLLATE utf8_unicode_ci NOT NULL,
   `medications` text COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `country` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `state` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `street` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `complete_address` text COLLATE utf8_unicode_ci NOT NULL,
   `zip_code` int(255) NOT NULL,
   `vaccination` text COLLATE utf8_unicode_ci NOT NULL,
   `vaccination_date` text COLLATE utf8_unicode_ci NOT NULL,
@@ -831,6 +813,7 @@ CREATE TABLE `sh_pets` (
   `alt_contact_info` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ns_date_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ns_date_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `isAvailable` tinyint(1) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -838,28 +821,10 @@ CREATE TABLE `sh_pets` (
 -- Dumping data for table `sh_pets`
 --
 
-INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `health_issues`, `medications`, `description`, `country`, `state`, `city`, `street`, `zip_code`, `vaccination`, `vaccination_date`, `primary_pic`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `ns_date_from`, `ns_date_to`, `date_added`) VALUES
-(28, 26, 'Steven Forbes', '[\"p26_5c888a51af359.jpg\",\"p26_5c88d46b73533.jpg\"]', 3, 88, 'Nostrum alias autem ', 'Male (neutered)', 18, 'Consequatur corpori', 'Incididunt laudantiu', '1971-07-19', 'Repudiandae ipsum n', 'Ullamco aut aut ut u', 'Dolor quis nulla ad ', 'At Home', 'Yes', 'Commodo laboriosam ', 'Sequi eos suscipit ', 'Impedit itaque nost', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Canine adenovirus (CAV)\",\"Canine parainfluenza virus (CPiV)\"]', '[\"2019-03-27\",\"1996-03-17\"]', 'p26_5c88d46b73533.jpg', 'No', 'Nostrum aut modi nih', 'Odio non elit optio', 'Ipsam fugiat natus m', 'Velit ea cillum quia', 'Sint aliquid aut com', '1978-01-13', 'Veritatis eveniet d', 'Dolorem rerum ut sed', 'Iusto eu repudiandae', '[\"2019-03-26\",\"00:12\"]', '[\"2019-03-28\",\"03:43\"]', '2019-03-13 09:47:06'),
-(29, 26, 'Wendy Harris', '[\"p26_5c8f8ce45829a.jpg\",\"p26_5c8f8ce45e979.jpg\"]', 2, 23, 'Dolor quae ea totam ', 'Male (neutered)', 19, 'Anim at incidunt fa', 'Autem perspiciatis ', '2001-01-13', 'Ipsum in nihil facer', 'Vel proident fugit', 'Minus recusandae Qu', 'At Home', 'Yes', 'Aliqua Et dicta tem', 'Qui libero quos veli', 'Voluptatem minima en', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Parvovirus (CPV)\"]', '[\"1972-05-18\"]', 'p26_5c8f8ce45e979.jpg', 'Yes', 'Qui est aspernatur n', 'Culpa et numquam ame', 'Earum quia nisi corp', 'Nisi maxime ipsum r', 'Sit culpa incidunt', '1984-08-06', 'Dignissimos quisquam', 'Dignissimos id quis', 'Proident cupiditate', '', '', '2019-03-18 12:19:48'),
-(30, 26, 'Serena Forbes', '[\"p26_5c8f8d1214067.jpg\",\"p26_5c8f8d121c165.jpg\"]', 1, 1, 'Veritatis possimus ', 'Male (neutered)', 27, 'Ut ipsa do aliquid ', 'Illum deserunt dolo', '1998-02-07', 'Aut quis earum labor', 'Illo quia quo eu min', 'Nihil fuga Sed duci', 'At Home', 'Yes', 'Neque expedita quis ', 'Suscipit dolor et qu', 'Sint eaque perspici', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Canine adenovirus (CAV)\"]', '[\"1985-09-06\"]', 'p26_5c8f8d121c165.jpg', 'Yes', 'Nihil sapiente recus', 'Ratione quia atque f', 'Vel consequatur vel', 'In excepturi nostrum', 'Rem deleniti nisi vo', '1994-11-15', 'Voluptate in facilis', 'Dolores quos sed rec', 'Dolorum irure velit ', '[\"2019-03-26\",\"00:12\"]', '[\"2019-03-27\",\"03:43\"]', '2019-03-18 12:20:34');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sh_posts`
---
-
-CREATE TABLE `sh_posts` (
-  `post_id` int(11) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `pl_id` int(255) NOT NULL,
-  `post_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `content_desc` text COLLATE utf8_unicode_ci NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `is_available` tinyint(1) NOT NULL,
-  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `health_issues`, `medications`, `description`, `complete_address`, `zip_code`, `vaccination`, `vaccination_date`, `primary_pic`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `ns_date_from`, `ns_date_to`, `isAvailable`, `date_added`) VALUES
+(1, 1, 'Fatima Vaughn', '[\"p1_5cab399d13c29.jpg\",\"p1_5cab399d1ba79.jpg\"]', 3, 168, 'Vero officia omnis e', 'Male (neutered)', 28, '12', '12', '2012-01-10', 'Fugit ut quia possi', 'Omnis necessitatibus', 'Corporis beatae veli', 'At Home', 'Yes', 'Temporibus consequat', 'Aliqua Corrupti im', 'Quaerat maxime rerum', 'Tabuelan Ferry Port, Tabuelan, Cebu, Philippines', 6019, '[\"Rabies\",\"Parvovirus (CPV)\"]', '[\"2019-01-01\",\"1989-01-19\"]', 'p1_5cab399d1ba79.jpg', 'No', 'Vitae saepe excepteu', 'Reiciendis aliquam f', 'Atque elit amet al', 'Voluptate vero ut in', 'Est ullam distinctio', '1979-08-01', 'Sunt saepe et neque', 'Ab voluptate et faci', 'Incididunt anim eaqu', '', '', 0, '2019-04-08 12:07:57'),
+(2, 2, 'Kim Hanson', '[\"p2_5cab3fbb3b2f5.jpg\",\"p2_5cab3fbb471a1.jpg\",\"p2_5cab3fbb51332.jpg\"]', 3, 148, 'Sint ut officia sint', 'Male (neutered)', 22, 'Cum iste aspernatur ', 'Illo sit delectus ', '1974-01-27', 'Provident eum tempo', 'Est consectetur rer', 'Fugiat fuga Volupt', 'At Home', 'Yes', 'Laborum enim id vol', 'Odio quia blanditiis', 'Irure id et perfere', 'Santander, Cebu, Philippines', 6019, '[\"Rabies\"]', '[\"1997-01-22\"]', 'p2_5cab3fbb51332.jpg', 'Yes', 'Quibusdam irure repu', 'Alias reprehenderit ', 'Ut aliquam rerum qui', 'Eos quia qui ad nat', 'Perspiciatis itaque', '1994-11-03', 'Cumque quisquam prae', 'Quam ea in explicabo', 'Dolore perspiciatis', '[\"2019-04-09\",\"00:12\"]', '[\"2019-04-10\",\"00:12\"]', 1, '2019-04-08 12:34:03'),
+(3, 3, 'Amal Martinez', '[\"p3_5cab4930e3a6c.jpg\",\"p3_5cab4930f057b.jpg\"]', 2, 30, 'Cupidatat molestiae ', 'Female (spayed)', 29, '11\"', '11\"', '2018-06-26', 'Quidem nostrud corpo', 'Minus ea provident ', 'Error saepe et conse', 'At Home', 'Yes', 'Odit et ut aut magna', 'Dolor itaque volupta', 'Itaque nesciunt aut', 'Canduman Elementary School, Mandaue City, Cebu, Philippines', 6014, '[\"Rabies\"]', '[\"1970-02-20\"]', 'p3_5cab4930f057b.jpg', 'Yes', 'Sed quae voluptatem ', 'Ut quia alias except', 'Quo qui consequat S', 'Reprehenderit in el', 'Mollit hic maxime de', '1981-03-19', 'Sed eaque sequi magn', 'Excepturi dolore tem', 'Eos velit necessitat', '', '', 0, '2019-04-08 13:14:24');
 
 -- --------------------------------------------------------
 
@@ -875,15 +840,14 @@ CREATE TABLE `sh_users` (
   `password` varchar(250) NOT NULL,
   `mobile_number` varchar(255) NOT NULL,
   `gender` varchar(50) NOT NULL,
-  `address` text NOT NULL,
-  `country` varchar(100) NOT NULL,
-  `state` varchar(250) NOT NULL,
-  `city` varchar(250) NOT NULL,
-  `street` varchar(250) NOT NULL,
+  `complete_address` text NOT NULL,
   `zip_code` varchar(100) NOT NULL,
+  `user_lat` double(18,14) NOT NULL,
+  `user_lng` decimal(18,14) NOT NULL,
   `bio` text NOT NULL,
   `user_img` varchar(255) NOT NULL,
   `cover_photo` varchar(255) NOT NULL,
+  `cover_pos` varchar(255) NOT NULL,
   `sitter_availability` text NOT NULL,
   `is_complete` tinyint(1) NOT NULL COMMENT '0 Not Complete, 1 Complete, 2 CompleteLater',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -893,10 +857,17 @@ CREATE TABLE `sh_users` (
 -- Dumping data for table `sh_users`
 --
 
-INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `address`, `country`, `state`, `city`, `street`, `zip_code`, `bio`, `user_img`, `cover_photo`, `sitter_availability`, `is_complete`, `date_created`) VALUES
-(26, 'Guest Account', 'Business Man', 'tom@gmail.com', '202cb962ac59075b964b07152d234b70', '121212121212', 'Female', '', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', '6014', 'I am extraordinary', '', '', '[\"2019-03-27\",\"2019-03-29\"]', 1, '2019-03-13 04:25:20'),
-(27, 'Host Account', 'None', 'tom2@yopmail.com', '202cb962ac59075b964b07152d234b70', '09292929292', 'Male', '', 'United States', 'CA', 'mandaue', '123', '6014', 'I\'m simple caring and loving person', '', '', '[\"2019-03-23\",\"2019-03-27\"]', 1, '2019-03-13 04:26:28'),
-(28, '', '', 'tom@yopmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', '', '', '', '', '', '', '', '', 2, '2019-03-13 04:26:46');
+INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `complete_address`, `zip_code`, `user_lat`, `user_lng`, `bio`, `user_img`, `cover_photo`, `cover_pos`, `sitter_availability`, `is_complete`, `date_created`) VALUES
+(1, 'Tom Guest', 'Web Dev', 'tom@gmail.com', '202cb962ac59075b964b07152d234b70', '09892234532', 'Male', 'Tabuelan Ferry Port, Tabuelan, Cebu, Philippines', '6019', 10.83153570000000, '123.87051700000006', 'I\'m very caring and responsible', 'p_5cab424473fcc.jpg', '', '', '[\"2019-04-09\",\"2019-04-15\"]', 1, '2019-04-08 10:58:33'),
+(2, 'Tom 2', 'Pilot', 'tom2@gmail.com', '202cb962ac59075b964b07152d234b70', '09892228374', 'Male', 'Santander, Cebu, Philippines', '6019', 9.44684400000000, '123.33739160000005', 'My Self is me', 'p_5cab426542916.jpg', '', '', '', 1, '2019-04-08 12:29:36'),
+(3, 'Tom 3', 'None', 'tom3@gmail.com', '202cb962ac59075b964b07152d234b70', '09221923213', 'Male', 'Canduman Elementary School, Mandaue City, Cebu, Philippines', '6014', 10.36872360000000, '123.93484290000004', 'I am a student in canduman', 'p_5cab4228b0b93.jpg', '', '', '', 1, '2019-04-08 12:29:44'),
+(4, '', '', 'tom4@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:30:08'),
+(5, '', '', 'tom5@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:30:16'),
+(6, '', '', 'tom6@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:31:10'),
+(7, '', '', 'tom7@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:31:18'),
+(8, '', '', 'tom8@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:31:25'),
+(9, '', '', 'tom9@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:31:34'),
+(10, '', '', 'tom10@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', '', 0, '2019-04-08 12:31:50');
 
 --
 -- Indexes for dumped tables
@@ -963,12 +934,6 @@ ALTER TABLE `sh_pets`
   ADD PRIMARY KEY (`pet_id`);
 
 --
--- Indexes for table `sh_posts`
---
-ALTER TABLE `sh_posts`
-  ADD PRIMARY KEY (`post_id`);
-
---
 -- Indexes for table `sh_users`
 --
 ALTER TABLE `sh_users`
@@ -982,13 +947,13 @@ ALTER TABLE `sh_users`
 -- AUTO_INCREMENT for table `sh_albums`
 --
 ALTER TABLE `sh_albums`
-  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_book`
 --
 ALTER TABLE `sh_book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sh_breeds`
@@ -1012,7 +977,7 @@ ALTER TABLE `sh_color`
 -- AUTO_INCREMENT for table `sh_friends`
 --
 ALTER TABLE `sh_friends`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sh_friend_request`
@@ -1024,31 +989,25 @@ ALTER TABLE `sh_friend_request`
 -- AUTO_INCREMENT for table `sh_images`
 --
 ALTER TABLE `sh_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `sh_mail`
 --
 ALTER TABLE `sh_mail`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sh_pets`
 --
 ALTER TABLE `sh_pets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `sh_posts`
---
-ALTER TABLE `sh_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sh_users`
 --
 ALTER TABLE `sh_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

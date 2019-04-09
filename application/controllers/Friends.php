@@ -21,7 +21,7 @@ class Friends extends CI_Controller {
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
-			$data["my_friends"] = $this->Friends_model->get_my_friends($data["per_page"],$page);
+			$data["my_friends"] = $this->Friends_model->get_my_friends_lists($data["per_page"],$page);
 			$this->load->view('friends/friend_list', $data);
 		
 		}
@@ -38,22 +38,17 @@ class Friends extends CI_Controller {
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page'] = 'friend_request';
-            
-            if($this->input->get('keywords')){
-				$data['keywords'] = rtrim($this->input->get('keywords'));
-				$data['base_url'] = base_url().'friends/search_friends';
-				$data['total_rows'] = $this->Friends_model->search_keywords_count($data['keywords']);
-				$data['per_page'] = 10;
-				$data["uri_segment"] = 4;
-				$this->pagination->initialize($data);
-				$page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-				$data["links"] = $this->pagination->create_links();
-                $data['search_results'] = $this->Friends_model->search_keywords_pagi($data['keywords'],$data["per_page"],$page);
-                $this->load->view('friends/s_friend_results', $data);
-            } else{
-                $this->session->set_flashdata('error_msg', 'Error viewing the page. Please check your link and try again');
-                redirect('friends/friend_list');
-            }
+			$_SESSION['friend_keywords'] = isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : rtrim($this->input->get('keywords'));
+			
+			$data['base_url'] = base_url().'friends/search_friends';
+			$data['total_rows'] = $this->Friends_model->search_keywords_count();
+			$data['per_page'] = 10;
+			$data["uri_segment"] = 3;
+			$this->pagination->initialize($data);
+			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+			$data["links"] = $this->pagination->create_links();
+			$data['search_results'] = $this->Friends_model->search_keywords_pagi($data["per_page"], $page);
+			$this->load->view('friends/s_friend_results', $data);
 		}
 		else
 		{

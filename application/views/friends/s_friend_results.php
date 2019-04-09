@@ -26,7 +26,7 @@
             <div class="m-header bg-orange-l">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results for "<i><?=$_GET['keywords'];?></i> "</span>
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results for "<i><?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?></i> "</span>
                     </div>
                 </div>
             </div>
@@ -106,14 +106,14 @@
                 <?php } else{ if(count($search_results) ==1){ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
+                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?>"</i>.
                         </div>
                     </div>
                 <?php } } ?>
                <?php } } else{ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=$_GET['keywords'];?>"</i>.
+                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?>"</i>.
                         </div>
                     </div>
                 <?php } ?>
