@@ -29,7 +29,7 @@ ini_set('memory_limit','2048M');
 //$config['base_url'] = 'http://localhost/shocco_2019/';
 
 $serverHost = $_SERVER['HTTP_HOST'];
-$config['base_url'] = ($serverHost!="localhost") ? 'http://'.$_SERVER['HTTP_HOST'].'/' : 'http://localhost/shocco_2019/';
+$config['base_url'] = ($serverHost!="localhost") ? 'https://'.$_SERVER['HTTP_HOST'].'/' : 'http://localhost/shocco_2019/';
 
 /*
 |--------------------------------------------------------------------------
