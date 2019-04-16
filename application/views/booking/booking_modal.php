@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <div class="guest-list col-md-12">
                             <label for="pet_list">Choose your pet from pet list</label>
-                            <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                            <select name="pet_list[]" class="multipleSelect form-control petList" multiple required>
                                 <?php if($my_pets){ foreach($my_pets as $pets){ extract($pets); ?>
                                     <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                 <?php } } else { ?>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-md-12 host-list mainpage-list">
                             <label for="pet_cat">Choose your category</label><br />
-                            <select id="petCat" name="pet_cat[]" class="multipleSelect form-control" multiple>
+                            <select name="pet_cat[]" class="multipleSelect form-control petCat" multiple>
                                 <?php foreach($categories as $cat){ extract($cat); ?>
                                     <option value="<?=$cat_id;?>"><?=($cat_name) ? $cat_name : "No Name";?></option>
                                 <?php } ?>

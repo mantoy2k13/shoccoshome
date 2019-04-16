@@ -35,7 +35,7 @@ function setAlertMsg(title, msg, type){
     swal(title, msg, type);
 }
 
-function delMsg(mid, type){
+function delMsg(mid){
     var mWrapper = $('.mail-wrapper').length;
     swal({
         title: "Delete Message?",
@@ -49,7 +49,7 @@ function delMsg(mid, type){
     },
     function(){
         $.ajax({
-            url: base_url + "mail/delete_message/"+mid+"/"+type,
+            url: base_url + "mail/delete_message/"+mid,
             success: function(res){
                 if(res){
                     $('#mailInbox'+mid).fadeOut(300, function(){ $(this).remove();});

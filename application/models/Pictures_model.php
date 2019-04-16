@@ -57,13 +57,32 @@ class Pictures_model extends CI_Model {
         $uid = $this->session->userdata('user_id');
         $filename = './assets/img/pictures/usr'.$uid."/".$imgName;
 
-        if(file_exists($filename)){
-            unlink($filename);
+        $this->db->select('pet_id, pet_images, primary_pic')->from('sh_pets');
+        $pets = $this->db->get()->result_array();
+       
+        foreach($pets as $p){
+            $petImg = json_decode($p['pet_images']);
+            foreach($petImg as $pImg){
+                if($pImg != $imgName){
+                    $nPetImg[] = $pImg;
+                    $lastImg = $pImg;
+                }
+            }
+            $pri_img = ($p['primary_pic']==$imgName) ? $lastImg : $p['primary_pic'];
+            $data = array('pet_images'=>json_encode($nPetImg), 'primary_pic'=>$pri_img);
+            $this->db->where('pet_id', $p['pet_id']);
+            $res = $this->db->update('sh_pets', $data);
         }
-
-		$this->db->where('img_id', $imgID);
-        $res = $this->db->delete('sh_images');
-        return ($res) ? true : false;
+        if($res){
+            if(file_exists($filename)){
+                unlink($filename);
+            }
+            $this->db->where('img_id', $imgID);
+            $res = $this->db->delete('sh_images');
+            return ($res) ? true : false;
+        } else{
+            return false;
+        }		
     }
     
     public function delete_all_image(){

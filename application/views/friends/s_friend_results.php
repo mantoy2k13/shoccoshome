@@ -26,7 +26,7 @@
             <div class="m-header bg-orange-l">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results for "<i><?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?></i> "</span>
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results for "<i><?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : '';?></i> "</span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,6 @@
             <?php $uid = $this->session->userdata('user_id');?>
                 <?php if($search_results){?>
                 <?php foreach($search_results as $res){ extract($res); ?>
-                <?php if( $id != $uid){?>
                     <div class="col-md-6">
                         <div class="card bg-grey friend-card">
                             <div class="card-body">
@@ -47,39 +46,33 @@
                                 </div>
                                 
                                 <?php if($this->Friends_model->check_if_friends($id)){ ?>
-                                    <?php if($uid != $id){?>
-                                        <div class="options<?=$id;?>">
-                                            <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
-                                                <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                    <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
-                                                    <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
-                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                </div>
+                                    <div class="options<?=$id;?>">
+                                        <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
+                                        <div class="dropdown-menu" aria-labelledby="f-menu">
+                                            <a onclick="request_friends(<?=$id;?>,3,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
+                                            <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
+                                            <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                         </div>
-                                    <?php } ?>
+                                    </div>
                                 <?php } else {?>
                                     <?php if($this->Friends_model->check_friend_request($id)){ ?>
-                                        <?php if($uid != $id){?>
-                                            <div class="options<?=$id;?>">
-                                                <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
-                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                        <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
-                                                        <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
-                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                    </div>
+                                        <div class="options<?=$id;?>">
+                                            <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
+                                            <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                <a onclick="request_friends(<?=$id;?>,2,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
+                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
+                                                <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                             </div>
-                                        <?php } ?>
+                                        </div>
                                     <?php } else {?>
-                                        <?php if($uid != $id){?>
-                                            <div class="options<?=$id;?>">
-                                                <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
-                                                    <div class="dropdown-menu" aria-labelledby="f-menu">
-                                                        <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
-                                                        <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
-                                                        <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-                                                    </div>
+                                        <div class="options<?=$id;?>">
+                                            <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
+                                            <div class="dropdown-menu" aria-labelledby="f-menu">
+                                                <a onclick="request_friends(<?=$id;?>,1,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
+                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">View Profile</a>
+                                                <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                             </div>
-                                        <?php } ?>
+                                        </div>
                                     <?php } ?>
                                 <?php } ?>
                                 <p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
@@ -103,27 +96,21 @@
                             </div>
                         </div>
                     </div>   
-                <?php } else{ if(count($search_results) ==1){ ?>
-                    <div class="col-md-12 f-list-wrap">
-                        <div class="alert alert-info">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?>"</i>.
+                <?php } ?>
+                    <div class="row m-t-20">
+                        <div class="col-md-12">
+                            <nav class="text-center">
+                                <?=$links;?>
+                            </nav>
                         </div>
                     </div>
-                <?php } } ?>
-               <?php } } else{ ?>
+               <?php } else{ ?>
                     <div class="col-md-12 f-list-wrap">
                         <div class="alert alert-info">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : $_GET['keywords'];?>"</i>.
+                            <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : '';?>"</i>.
                         </div>
                     </div>
                 <?php } ?>
-            </div>
-            <div class="row m-t-20">
-                <div class="col-md-12">
-                    <nav class="text-center">
-                        <?=$links;?>
-                    </nav>
-                </div>
             </div>
           </div>
           <!-- Close Main Content -->

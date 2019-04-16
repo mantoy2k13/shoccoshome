@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-var calendarEl = document.getElementById('calendar');
+var calendarEl = document.getElementById('calendar_init');
 
 var calendar = new FullCalendar.Calendar(calendarEl, {
     header: {
@@ -9,7 +9,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
     },
     navLinks: true, // can click day/week names to navigate views
     editable: false,
-    eventLimit: false, // allow "more" link when too many events
+    eventLimit: true, // allow "more" link when too many events
     events: [
     {
         title: 'All Day Event',

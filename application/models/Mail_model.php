@@ -87,31 +87,31 @@ class Mail_model extends CI_Model {
         return ($res) ? true : false;
     }
 
-    public function delete_message($mid, $type){
-        $this->db->select('sh_mail.del_by_mailto, sh_mail.del_by_uid');
+    public function delete_message($mid){
+        $my_id = $this->session->userdata('user_id');
+        $this->db->select('user_id, del_by_mailto, del_by_uid')->from('sh_mail');
         $this->db->where('mail_id', $mid);
-        $data = $this->db->get("sh_mail")->result_array(0);
-        $del_by_mailto  = $data[0]['del_by_mailto'];
-        $del_by_uid     = $data[0]['del_by_uid'];
-
-        if($type==1){
-            if($del_by_uid){
-                $this->db->where('mail_id', $mid);
-                $res = $this->db->delete('sh_mail');
-                return ($res) ? true : false;
-            } else{
-                $this->db->set('del_by_mailto', 1);
-                $this->db->where('mail_id', $mid);
-                $res = $this->db->update('sh_mail');
-                return ($res) ? true : false;
-            }
-        } else{
-            if($del_by_mailto){
+        $data = $this->db->get()->row_array();
+        if($my_id==$data['user_id']){
+            //check if deleted ba ni del_by_mailto and message
+            if($data['del_by_mailto']){
                 $this->db->where('mail_id', $mid);
                 $res = $this->db->delete('sh_mail');
                 return ($res) ? true : false;
             } else{
                 $this->db->set('del_by_uid', 1);
+                $this->db->where('mail_id', $mid);
+                $res = $this->db->update('sh_mail');
+                return ($res) ? true : false;
+            }
+        } else{
+            //check if deleted ba ni del_by_uid to and message
+            if($data['del_by_uid']){
+                $this->db->where('mail_id', $mid);
+                $res = $this->db->delete('sh_mail');
+                return ($res) ? true : false;
+            } else{
+                $this->db->set('del_by_mailto', 1);
                 $this->db->where('mail_id', $mid);
                 $res = $this->db->update('sh_mail');
                 return ($res) ? true : false;

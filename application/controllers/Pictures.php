@@ -97,7 +97,6 @@ class Pictures extends CI_Controller {
 			}else{
 				$res = $this->Pictures_model->delete_all_image();
 			}
-			
 			echo ($res) ? 1 : 0;
         }
         else { redirect('home/login'); }

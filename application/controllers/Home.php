@@ -3,8 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
 
-	public function index()
-	{
+	public function index(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'mainpage';
@@ -13,50 +12,43 @@ class Home extends CI_Controller {
 		$this->load->view('frontpage/mainpage', $data);
 	}
 	
-	public function about()
-	{
+	public function about(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'about';
 		$this->load->view('frontpage/about', $data);
 	}
 
-	public function contact()
-	{
+	public function contact(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'contact';
 		$this->load->view('frontpage/contact', $data);
 	}
 
-	public function user_agreement()
-	{
+	public function user_agreement(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'user_agreement';
 		$this->load->view('frontpage/user_agreement', $data);
 	}
 
-	public function terms_and_conditions()
-	{
+	public function terms_and_conditions(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'terms_and_conditions';
 		$this->load->view('frontpage/terms_cons', $data);
 	}
 
-	public function policy()
-	{
+	public function policy(){
 		@$user_email  = $this->session->userdata('user_email');
 		$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 		$data['is_page'] = 'policy';
 		$this->load->view('frontpage/policy', $data);
 	}
 
-	public function booking()
-	{
-		if ($this->session->userdata('user_email'))
-		{
+	public function booking(){
+		if ($this->session->userdata('user_email')){
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'booking';
@@ -64,16 +56,13 @@ class Home extends CI_Controller {
 			$data['my_pets'] = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
 			$this->load->view('booking/booking_history', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}
 
-	public function homepage()
-	{
-		if ($this->session->userdata('user_email'))
-		{
+	public function homepage(){
+		if ($this->session->userdata('user_email')){
 			$uid  = $this->session->userdata('user_id');
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
@@ -88,10 +77,8 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function people_near_me()
-	{
-		if ($this->session->userdata('user_email'))
-		{
+	public function people_near_me(){
+		if ($this->session->userdata('user_email')){
 			if($this->input->post()){
 				$_SESSION['length_value'] = $this->input->post('length_value');
 				$_SESSION['length'] = $this->input->post('length');
@@ -103,7 +90,7 @@ class Home extends CI_Controller {
 			$data['view_bio'] = $this->Account_model->view_bio($uid);
 			$data['base_url'] = base_url().'home/people_near_me';
 			$data['total_rows'] = $this->Booking_model->getCountNearPeople();
-			$data['per_page'] = 10;
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -118,8 +105,7 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function login()
-	{	
+	public function login(){	
 		if ($this->session->userdata('user_email')){
 			redirect(base_url());
 		}
@@ -128,8 +114,7 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function register()
-	{
+	public function register(){
 		if ($this->session->userdata('user_email')){
 			redirect(base_url());
 		}
@@ -138,8 +123,7 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function forgot_password()
-	{
+	public function forgot_password(){
 		$this->load->view('frontpage/forgot_password');
 	}
 }

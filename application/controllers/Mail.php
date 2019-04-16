@@ -31,7 +31,7 @@ class Mail extends CI_Controller {
 			$data['is_page']        = 'mail';
 			$data['base_url'] = base_url().'mail/inbox';
 			$data['total_rows'] = $this->Mail_model->get_mails_count();
-			$data['per_page'] = 10;
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -56,7 +56,7 @@ class Mail extends CI_Controller {
 			$data['is_page']        = 'sents';
 			$data['base_url'] = base_url().'mail/sent_messages';
 			$data['total_rows'] = $this->Mail_model->get_sent_msg_count();
-			$data['per_page'] = 10;
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -80,7 +80,7 @@ class Mail extends CI_Controller {
 			$data['is_page']        = 'drafts';
 			$data['base_url'] = base_url().'mail/draft_messages';
 			$data['total_rows'] = $this->Mail_model->get_drafts_count();
-			$data['per_page'] = 10;
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
@@ -181,11 +181,11 @@ class Mail extends CI_Controller {
 		else { redirect('home/login'); }
 	}
     
-    public function delete_message($mid, $type)
+    public function delete_message($mid)
 	{
 		if ($this->session->userdata('user_email'))
 		{
-			$res = $this->Mail_model->delete_message($mid, $type);
+			$res = $this->Mail_model->delete_message($mid);
             echo $res;
 		}
 		else { redirect('home/login'); }

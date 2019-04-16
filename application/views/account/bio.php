@@ -135,7 +135,7 @@
                                                     </div>
                                                 </div>
                                             <?php } } else { ?>
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 m-t-10">
                                                     <div class="alert alert-info f-15">
                                                         <strong><i class="fa fa-check"></i> Empty!</strong> You have no pets added. Click <a href="<?=base_url();?>pet/add_new_pet">here</a> to add new pets.
                                                     </div>

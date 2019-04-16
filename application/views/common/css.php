@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="We care and love your pets, Book Pets, Book users, find a home, book pet, book host, book guest, book users, book pets, find people near you.">
     <meta name="author" content="">
 
     <title>Shocco - Shocco's Home</title>
@@ -37,7 +37,7 @@
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
   
 
-    <?php if($is_page=="homepage" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="book_this_user" || $is_page=="booking_set_dates"){ ?>
+    <?php if($is_page=="homepage" || $is_page=="people_near_me" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="book_this_user" || $is_page=="booking_set_dates"){ ?>
       <!-- Calendar -->
       <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
       <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>

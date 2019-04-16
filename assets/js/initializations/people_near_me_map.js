@@ -1,3 +1,4 @@
+var markers = [];
 navigator.geolocation.getCurrentPosition(
     function(position){ // success cb
         $('#mLoader').html('<div class="loading"> Loading..</div>');
@@ -10,12 +11,12 @@ navigator.geolocation.getCurrentPosition(
         map = new google.maps.Map(document.getElementById("map"), mapOptions);
         var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
+        renderCalendar(lat, lng);
         $.ajax({
             url: base_url+'booking/getNearUsers',
             dataType: 'JSON',
             type: "POST",
             success: (res)=>{
-                // console.log(res);
                 var locations = [];
                 if(res.length!=0){
                     $.each(res, (ind, r)=> {
@@ -40,7 +41,7 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
         if (results[0]) {
-            console.log(locations);
+            console.log(locations)
             for (i = 0; i < locations.length; i++) {  
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(locations[i][4], locations[i][5]),
@@ -51,13 +52,12 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     var usrImg = (locations[i][2]!="") ? base_url+'assets/img/pictures/usr'+locations[i][0]+'/'+locations[i][2] : base_url+'assets/img/pictures/default.png';
                     var isPetsAvail = (pet(locations[i][0])) ? '<a class="dropdown-item" href="'+base_url+'booking/book_user_pets/'+locations[i][0]+'">Book User Pets</a>' : '';
-                    console.log(isPetsAvail);
                     var contentString = '<div class="card friend-card text-center">'+
                         '<div class="card-body">'+
                             '<div class="infoCard-img friend-img">'+
                                 '<img src="'+usrImg+'" alt="Default Profile Image">'+
                             '</div>'+
-                            '<p class="text-head"><a href="javascript:;">'+locations[i][1]+'</a> </p>'+
+                            '<p class="text-head"><a href="'+base_url+'account/view_bio/'+locations[i][0]+'" target="_blank">'+locations[i][1]+'</a> </p>'+
                             '<p class="text-desc"> '+locations[i][6]+'</p>'+
                             '<p class="f-14">Email: <span class="b-700 text-black">'+locations[i][3]+'</span></p>'+
                             '<div>'+
@@ -77,6 +77,7 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
                         infowindow.open(map, marker);
                     }
                 })(marker, i));
+                markers.push(marker);
             }
             var marker = new google.maps.Marker({
                 position: latlng,
@@ -90,6 +91,7 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
                 infowindow.setContent('Hey! You are here!');
                 infowindow.open(map, marker);
             });
+            
         } else {
             alert('No results found');
         }
@@ -156,4 +158,36 @@ function getNearUsers(lat, lng){
             console.log(res);
         }
     });
+}
+
+function renderCalendar(curLat, curLng){
+    $.ajax({
+        url: base_url+'booking/getNearUsers2',
+        type: "POST",
+        dataType: 'JSON',
+        data: {lat: curLat, lng: curLng},
+        success: (res)=>{
+            var calendarEl = document.getElementById('near_me_calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                header: {
+                    left: 'month',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                navLinks: true, 
+                editable: false,
+                eventLimit: true, 
+                events: res,
+                eventClick: function(calEvent) {
+                    clickCalendar(calEvent['event']['id'])
+                },
+                
+            });
+            calendar.render();
+        }
+    });
+}
+
+function clickCalendar(id) {
+    google.maps.event.trigger(markers[id], 'click');
 }

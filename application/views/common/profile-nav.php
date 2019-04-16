@@ -20,9 +20,9 @@
     </div>
     <div class="col-md-9 p-l-0">
     <?php if($is_page=="friends" || $is_page=="friend_request" || $is_page=="mail" || $is_page=="sents" || $is_page=="drafts" || $is_page=="bio" || $is_page=="view_bio") {?>
-        <form action="<?=base_url();?>friends/search_friends" method="get">
+        <form action="<?=base_url();?>friends/search_friends" method="POST">
             <div class="input-group mb-3">
-                <input name="keywords" type="search" class="form-control cust-search-btn" placeholder="Search friend's name or email..." required value="<?=isset($_GET['keywords']) ? $_GET['keywords'] : "";?>">
+                <input name="keywords" type="search" class="form-control cust-search-btn" placeholder="Search friend's name or email..." required value="<?=isset($_POST['keywords']) ? $_POST['keywords'] : "";?>">
                 <div class="input-group-append">
                     <button class="btn bg-orange post-btn" data-placement="left" data-toggle="tooltip" title="Search friend" type="submit"><i class="fa fa-search"></i></button>
                 </div>

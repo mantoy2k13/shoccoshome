@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 map-section">
+                        <div class="col-lg-6 col-md-12 map-section">
                             <div class="row">
                                 <div class="col-md-12">
                                     <input type="hidden" id="cur_lat" name="cur_lat" />
@@ -47,14 +47,33 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!--Close row-->
+                        <div class="col-lg-6 col-md-12 calendar-section">
+                            <div class="cus-card">
+                                <div class="row">
+                                    <div class="cus-card-header col-md-12">
+                                        <i class="fa fa-calendar-alt"></i> User Calendar Lists
+                                    </div>
+                                </div>
+                                
+                                <div class="cus-card-body">
+                                    <p class="f-15 text-center m-t-10">
+                                        <span class="avIcon bg-orange"></span> Available Users
+                                        <span class="avIcon bg-yellow-l"></span> Today
+                                    </p>
+                                    <div class="row">
+                                        <div id="near_me_calendar"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Close row-->
                 </div> <!-- Close Main Content -->
             </div>
         </section>
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script> -->
     <script src="<?=base_url();?>assets/js/initializations/people_near_me_map.js"></script>
   </body>
 

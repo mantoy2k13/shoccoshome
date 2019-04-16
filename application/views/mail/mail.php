@@ -57,7 +57,7 @@
                                 <p class="f-15"><span class="text-black b-700"><?=$subject;?></span> - <?=$message;?> <i class="f-12"> (<?=$this->Account_model->relative_date(strtotime($date_send));?>)</i></p>
                             </div>
                             <div class="col-md-2 text-right">
-                                <a class="delMsgBtn" onclick="delMsg(<?=$mail_id;?>, 1)" href="javascript:;"><i class="fa fa-trash text-blue"></i></a>
+                                <a class="delMsgBtn" onclick="delMsg(<?=$mail_id;?>)" href="javascript:;"><i class="fa fa-trash text-blue"></i></a>
                             </div>
                         </div>
                     </div>

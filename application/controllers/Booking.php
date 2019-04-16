@@ -51,15 +51,33 @@ class Booking extends CI_Controller {
             $data["user_logindata"]  = $this->Auth_model->fetchuserlogindata($user_email);
             $data["user_info"]       = $this->Account_model->get_user_info();
             $data['is_page']         = 'select_and_book';
-            $data['zipcode']         = $this->input->post('zipcode');
-            $data['user_type']       = $this->input->post('user_type');
+            $_SESSION['zipcode']     = ($this->input->post('zipcode')) ? rtrim($this->input->post('zipcode')) : $_SESSION['zipcode'];
+            $_SESSION['user_type']   = ($this->input->post('user_type')) ? rtrim($this->input->post('user_type')) : $_SESSION['user_type'];
             $data['categories']      = $this->Pet_model->get_all_pet_cat();
             $data['my_pets']         = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
-            if($data['user_type']=="guest"){
-                $data['get_avail_users'] = $this->Booking_model->get_avail_users($data['zipcode']);
+            $data['base_url'] = base_url().'booking/select_and_book';
+            $data['per_page'] = 20;
+            $data["uri_segment"] = 3;
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            
+            if($_SESSION['user_type']=="guest"){
+                $data['total_rows'] = $this->Booking_model->get_avail_users(null, null, 1);
+                $this->pagination->initialize($data);
+                $data["links"] = $this->pagination->create_links();
+                $data['get_avail_users'] = $this->Booking_model->get_avail_users($data["per_page"], $page, 2);
                 $this->load->view('booking/select_user_booking', $data);   
             } else{
-                $data['get_avail_pets'] = $this->Booking_model->get_avail_pets();
+                if($this->input->post('pet_cat')){
+                    $ids = array();
+                    foreach($this->input->post('pet_cat') as $k=>$cat_id){
+                        $ids[] = $cat_id;
+                    }
+                    $_SESSION['pet_cat'] = json_encode($ids);
+                }
+                $data['total_rows'] = $this->Booking_model->get_avail_pets(null, null, 1);
+                $this->pagination->initialize($data);
+                $data["links"] = $this->pagination->create_links();
+                $data['get_avail_pets'] = $this->Booking_model->get_avail_pets($data["per_page"], $page, 2);
                 $this->load->view('booking/select_pet_booking', $data);
             }
 		}
@@ -218,6 +236,25 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
+    public function getNearUsers2()
+	{
+		if($this->session->userdata('user_email')){
+            $nearPeople = $this->Booking_model->getNearPeople();
+            $i=0;
+            foreach($nearPeople as $p){
+                $dates = json_decode($p['sitter_availability']);
+                $title = $p['fullname'].' ('.$p['email'].')';
+                $start = $dates[0];
+                $end   = date('Y-m-d', strtotime($dates[1] . ' +1 day'));
+                $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                $user_dates[] = $data;
+                $i++;
+            }
+            echo json_encode($user_dates);
+        }
+        else{ echo 0;}
+    }
+
     public function setMyLocation()
 	{
 		if($this->session->userdata('user_email')){
@@ -238,6 +275,15 @@ class Booking extends CI_Controller {
             echo $this->Booking_model->get_my_avail_pets($uid);
         }
         else{ echo 0;}
+    }
+
+    public function sampleData()
+	{
+        $data = array('title'=>'Hello', 'start'=>'2019-04-20');
+        $data2 = array('title'=>'Hello', 'start'=>'2019-04-20');
+        $dates[] = $data;
+        $dates[] = $data2;
+        echo json_encode($dates);
     }
 
 }

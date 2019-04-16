@@ -53,7 +53,7 @@
                                 <div class="col-md-12">
                                     <div class="cus-card">
                                         <div class="cus-card-header">
-                                            <i class="fa fa-calendar-alt"></i> As a sitter availability <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="If you want to become a sitter and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i>
+                                            <i class="fa fa-calendar-alt"></i> As a sitter availability <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you want to become a sitter and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i>
                                             <p class="f-12 m-b-0" style="line-height: 15px;">Set your time availability as a sitter.Click the tip button for more info.</p>
                                         </div>
                                         <div class="cus-card-body">
@@ -96,7 +96,7 @@
                                 <div class="col-md-12">
                                     <div class="cus-card">
                                         <div class="cus-card-header">
-                                            <i class="fa fa-calendar-alt"></i> I need a sitter <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i>
+                                            <i class="fa fa-calendar-alt"></i> I need a sitter <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i>
                                             <p class="f-12 m-b-0" style="line-height: 15px;">Set your pet's time availability here if you need a sitter. Click the tip button for more info.</p>
                                         </div>
                                         <div class="cus-card-body">
@@ -173,7 +173,7 @@
                             <div class="cus-card">
                                 <div class="row">
                                     <div class="cus-card-header col-md-12">
-                                        <i class="fa fa-calendar-alt"></i> My Calendar Dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" title="Tips!" data-placement="left" data-content="This calendar will display your schedules. There is a legend color below to easy determined what type of color is this all about. The calendar will show your time availability as a sitter and your pet schedules where you want a sitter to watch your pets. The calendar also displays the current date."></i>
+                                        <i class="fa fa-calendar-alt"></i> My Calendar Dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="This calendar will display your schedules. There is a legend color below to easy determined what type of color is this all about. The calendar will show your time availability as a sitter and your pet schedules where you want a sitter to watch your pets. The calendar also displays the current date."></i>
                                     </div>
                                     <div class="cus-card-body">
                                         <p class="f-15 m-b-0 text-center m-t-20">

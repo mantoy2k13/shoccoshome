@@ -7,8 +7,7 @@ class Friends extends CI_Controller {
         parent::__construct();
     }
 
-    public function friend_list()
-	{
+    public function friend_list(){
 		if ($this->session->userdata('user_email'))
 		{
 			$user_email  = $this->session->userdata('user_email');
@@ -23,41 +22,34 @@ class Friends extends CI_Controller {
 			$data["links"] = $this->pagination->create_links();
 			$data["my_friends"] = $this->Friends_model->get_my_friends_lists($data["per_page"],$page);
 			$this->load->view('friends/friend_list', $data);
-		
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}
 
-	public function search_friends()
-	{
-		if ($this->session->userdata('user_email'))
-		{
+	public function search_friends(){
+		if ($this->session->userdata('user_email')){
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page'] = 'friend_request';
-			$_SESSION['friend_keywords'] = isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : rtrim($this->input->get('keywords'));
-			
+			$_SESSION['friend_keywords'] = ($this->input->post('keywords')) ? rtrim($this->input->post('keywords')) : $_SESSION['friend_keywords'];
 			$data['base_url'] = base_url().'friends/search_friends';
-			$data['total_rows'] = $this->Friends_model->search_keywords_count();
-			$data['per_page'] = 10;
+			$data['total_rows'] = $this->Friends_model->search_friends_res_count();
+			$data['per_page'] = 20;
 			$data["uri_segment"] = 3;
 			$this->pagination->initialize($data);
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
-			$data['search_results'] = $this->Friends_model->search_keywords_pagi($data["per_page"], $page);
+			$data['search_results'] = $this->Friends_model->search_friends_res($data["per_page"], $page);
 			$this->load->view('friends/s_friend_results', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}
 	
-	public function request_friends($uid, $type)
-	{
+	public function request_friends($uid, $type){
 		if ($this->session->userdata('user_email'))
 		{
 			if($uid && $type){
@@ -71,8 +63,7 @@ class Friends extends CI_Controller {
 		}
 	}
 	
-	public function process_request($rid, $uid, $type)
-	{
+	public function process_request($rid, $uid, $type){
 		if ($this->session->userdata('user_email'))
 		{
 			if($rid && $uid && $type){
@@ -86,8 +77,7 @@ class Friends extends CI_Controller {
 		}
     }
     
-    public function friend_request()
-	{
+    public function friend_request(){
 		if ($this->session->userdata('user_email'))
 		{
 			$user_email  = $this->session->userdata('user_email');
