@@ -53,7 +53,7 @@
                                 <div class="col-md-12">
                                     <div class="cus-card">
                                         <div class="cus-card-header">
-                                            <i class="fa fa-calendar-alt"></i> As a sitter availability <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you want to become a sitter and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i>
+                                            <i class="fa fa-calendar-alt"></i> Become a Host <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you want to become a sitter and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i>
                                             <p class="f-12 m-b-0" style="line-height: 15px;">Set your time availability as a sitter.Click the tip button for more info.</p>
                                         </div>
                                         <div class="cus-card-body">
@@ -96,7 +96,7 @@
                                 <div class="col-md-12">
                                     <div class="cus-card">
                                         <div class="cus-card-header">
-                                            <i class="fa fa-calendar-alt"></i> I need a sitter <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i>
+                                            <i class="fa fa-calendar-alt"></i> Become a Guest <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you have no time looking for a sitter for your pets, you can set a time when your pets need to be sit and let the sitter find and book your beloved pets."></i>
                                             <p class="f-12 m-b-0" style="line-height: 15px;">Set your pet's time availability here if you need a sitter. Click the tip button for more info.</p>
                                         </div>
                                         <div class="cus-card-body">
@@ -177,8 +177,8 @@
                                     </div>
                                     <div class="cus-card-body">
                                         <p class="f-15 m-b-0 text-center m-t-20">
-                                            <span class="avIcon bg-skyblue"></span> Available 
-                                            <span class="avIcon bg-orange"></span> Need Sitter
+                                            <span class="avIcon bg-skyblue"></span> Become a Host 
+                                            <span class="avIcon bg-orange"></span> Become a Guest
                                             <span class="avIcon bg-yellow-l"></span> Today
                                         </p>
                                         <div class="m-t-20" id='availability'></div>
@@ -203,7 +203,6 @@
     <?php $this->load->view('booking/booking_info');?>
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>    
     <script src="<?=base_url();?>assets/js/initializations/init_vb.js"></script>
   </body>
 

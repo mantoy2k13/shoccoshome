@@ -96,7 +96,7 @@ var checkDateTime = ()=>{
 
 var checkDateTime2 = ()=>{
     var curr_date     = $('#curr_date').val();
-    var ns_date_from     = $('#ns_date_from').val();
+    var ns_date_from  = $('#ns_date_from').val();
     var ns_date_to    = $('#ns_date_to').val();
     var ns_time_start = $('#ns_time_start').val();
     var ns_time_end   = $('#ns_time_end').val();

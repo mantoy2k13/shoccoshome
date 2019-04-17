@@ -241,14 +241,42 @@ class Booking extends CI_Controller {
 		if($this->session->userdata('user_email')){
             $nearPeople = $this->Booking_model->getNearPeople();
             $i=0;
-            foreach($nearPeople as $p){
-                $dates = json_decode($p['sitter_availability']);
-                $title = $p['fullname'].' ('.$p['email'].')';
-                $start = $dates[0];
-                $end   = date('Y-m-d', strtotime($dates[1] . ' +1 day'));
-                $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+            if($nearPeople){
+                foreach($nearPeople as $p){
+                    if($p['sitter_availability'] && $p['isAvail']){
+                        $dates = json_decode($p['sitter_availability']);
+                        $title = $p['fullname'].' (Host)';
+                        $start = $dates[0];
+                        $end   = date('Y-m-d', strtotime($dates[1] . ' +1 day'));
+                        $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                        $user_dates[] = $data;
+
+                        $r = $this->Booking_model->get_avail_pets_date($p['id']);
+                        $title = $p['fullname'].' (Guest)';
+                        $ndf = json_decode($r['ns_date_from']); 
+                        $ndt = json_decode($r['ns_date_to']); 
+                        $start = $ndf[0];
+                        $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
+                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                        $user_dates[] = $datas;
+                    }
+
+                    if(!$p['sitter_availability'] && $p['isAvail']){
+                        $r = $this->Booking_model->get_avail_pets_date($p['id']);
+                        $title = $p['fullname'].' (Guest)';
+                        $ndf = json_decode($r['ns_date_from']); 
+                        $ndt = json_decode($r['ns_date_to']); 
+                        $start = $ndf[0];
+                        $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
+                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                        $user_dates[] = $datas;
+                    }
+
+                    $i++;
+                }
+            } else{
+                $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
                 $user_dates[] = $data;
-                $i++;
             }
             echo json_encode($user_dates);
         }

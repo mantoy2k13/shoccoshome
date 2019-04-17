@@ -17,10 +17,12 @@ navigator.geolocation.getCurrentPosition(
             dataType: 'JSON',
             type: "POST",
             success: (res)=>{
+                console.log(res)
                 var locations = [];
                 if(res.length!=0){
                     $.each(res, (ind, r)=> {
-                        locations[ind]=[r['id'], r['fullname'], r['user_img'], r['email'], parseFloat(r['user_lat']), parseFloat(r['user_lng']), r['complete_address']];
+                        var sAvail = r['sitter_availability'] ? true : false;
+                        locations[ind]=[r['id'], r['fullname'], r['user_img'], r['email'], parseFloat(r['user_lat']), parseFloat(r['user_lng']), r['complete_address'], sAvail];
                     });
                     geocodeLatLng(geocoder, map, infowindow, lat, lng, locations);
                     $('#mLoader').html('');
@@ -41,7 +43,7 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
         if (results[0]) {
-            console.log(locations)
+            // console.log(locations)
             for (i = 0; i < locations.length; i++) {  
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(locations[i][4], locations[i][5]),
@@ -51,23 +53,29 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
                 });
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     var usrImg = (locations[i][2]!="") ? base_url+'assets/img/pictures/usr'+locations[i][0]+'/'+locations[i][2] : base_url+'assets/img/pictures/default.png';
-                    var isPetsAvail = (pet(locations[i][0])) ? '<a class="dropdown-item" href="'+base_url+'booking/book_user_pets/'+locations[i][0]+'">Book User Pets</a>' : '';
-                    var contentString = '<div class="card friend-card text-center">'+
+                    
+                    if(pet(locations[i][0]) && locations[i][7]){
+                        var bookBtn = '<a href="'+base_url+'booking/book_this_user/'+locations[i][0]+'" class="btn bg-orange btn-sm btn-round dropdown-toggle text-white">Book Host</a>'+
+                        '<a href="'+base_url+'booking/book_user_pets/'+locations[i][0]+'" class="btn bg-orange btn-sm btn-round dropdown-toggle text-white">Book Guest</a>';
+                    } 
+                    
+                    if(!pet(locations[i][0]) && locations[i][7]){
+                        var bookBtn = '<a href="'+base_url+'booking/book_this_user/'+locations[i][0]+'" class="btn bg-orange btn-sm btn-round dropdown-toggle text-white">Book Host</a>';
+                    } 
+                    
+                    if(pet(locations[i][0]) && !locations[i][7]){
+                        var bookBtn = '<a href="'+base_url+'booking/book_user_pets/'+locations[i][0]+'" class="btn bg-orange btn-sm btn-round dropdown-toggle text-white">Book Guest</a>';
+                    }
+
+                    var contentString = '<div class="card map-card">'+
                         '<div class="card-body">'+
-                            '<div class="infoCard-img friend-img">'+
+                            '<div class="friend-img">'+
                                 '<img src="'+usrImg+'" alt="Default Profile Image">'+
                             '</div>'+
                             '<p class="text-head"><a href="'+base_url+'account/view_bio/'+locations[i][0]+'" target="_blank">'+locations[i][1]+'</a> </p>'+
+                            '<p class="f-14 b-700 text-black">'+locations[i][3]+'</p>'+
                             '<p class="text-desc"> '+locations[i][6]+'</p>'+
-                            '<p class="f-14">Email: <span class="b-700 text-black">'+locations[i][3]+'</span></p>'+
-                            '<div>'+
-                                '<button class="btn bg-orange btn-round dropdown-toggle text-white" type="button" id="dropPets" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
-                                'Book'+
-                                '</button>'+
-                                '<div class="dropdown-menu" aria-labelledby="dropPets">'+
-                                    '<a class="dropdown-item" href="'+base_url+'booking/book_this_user/'+locations[i][0]+'">Book User</a>'+isPetsAvail+
-                                '</div>'+
-                            '</div>'+
+                            '<div class="row myBookBtn">'+bookBtn+'</div>'+
                         '</div>'+
                     '</div>';
                 
@@ -85,10 +93,10 @@ function geocodeLatLng(geocoder, map, infowindow, lat, lng, locations) {
                 map: map,
                 title: results[0].formatted_address
             });
-            infowindow.setContent('Hey! You are here!');
+            infowindow.setContent('<i class="fa fa-map-marker-alt"></i> Hello! You are at '+results[0].formatted_address);
             infowindow.open(map, marker);
             marker.addListener('click', function() {
-                infowindow.setContent('Hey! You are here!');
+                infowindow.setContent('<i class="fa fa-map-marker-alt"></i> Hello! You are at '+results[0].formatted_address);
                 infowindow.open(map, marker);
             });
             
@@ -145,19 +153,6 @@ function getLocations(){
     ];
 
     return locations;
-}
-
-function getNearUsers(lat, lng){
-    var res;
-    $.ajax({
-        url: base_url+'booking/getNearUsers',
-        dataType: 'JSON',
-        type: "POST",
-        data: {lat: lat, lng: lng},
-        success: (res)=>{
-            console.log(res);
-        }
-    });
 }
 
 function renderCalendar(curLat, curLng){

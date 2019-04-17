@@ -63,15 +63,18 @@ class Booking_model extends CI_Model {
         $book_date_from[] = $this->input->post('time_start');
         $book_date_to[]   = $this->input->post('date_to');
         $book_date_to[]   = $this->input->post('time_end');
+        
         foreach ($this->input->post('pet_list') as $k => $v) {
            $pet_list[] = $v;
         }
+
 		$data = array(
             'book_date_from' => json_encode($book_date_from),
             'book_date_to'   => json_encode($book_date_to),
             'pet_list'       => json_encode($pet_list),
             'message'        => $this->input->post('message')
         );
+
         $this->db->where('book_id', $bid);
         $res = $this->db->update('sh_book', $data);
         return ($res) ? 1 : 0;
@@ -237,7 +240,7 @@ class Booking_model extends CI_Model {
         $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
         $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
         $this->db->where('id !=', $uid);
-        $this->db->where('sitter_availability !=', "");
+        $this->db->where('isAvail', true);
         return $this->db->get()->num_rows();
     }
 
@@ -246,6 +249,14 @@ class Booking_model extends CI_Model {
         $this->db->where('isAvailable', true);
         $this->db->where('user_id', $uid);
         return $this->db->get()->num_rows();   
+    }
+    
+    public function get_avail_pets_date($uid){
+		$this->db->select('*')->from('sh_pets');
+        $this->db->where('isAvailable', true);
+        $this->db->where('user_id', $uid);
+        $this->db->limit(1);
+        return $this->db->get()->row_array();   
 	}
 
     public function getNearPeople(){
@@ -275,7 +286,7 @@ class Booking_model extends CI_Model {
         $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
         $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
         $this->db->where('id !=', $uid);
-        $this->db->where('sitter_availability !=', "");
+        $this->db->where('isAvail', true);
         $this->db->limit($limit, $start);
         return $this->db->get()->result_array();
     }

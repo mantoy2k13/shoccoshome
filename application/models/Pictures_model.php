@@ -62,14 +62,23 @@ class Pictures_model extends CI_Model {
        
         foreach($pets as $p){
             $petImg = json_decode($p['pet_images']);
-            foreach($petImg as $pImg){
-                if($pImg != $imgName){
-                    $nPetImg[] = $pImg;
-                    $lastImg = $pImg;
+            $lastImg = "";
+            $nPetImg = [];
+            if($petImg){
+                foreach($petImg as $pImg){
+                    if($pImg != $imgName){
+                        $nPetImg[] = $pImg;
+                        $lastImg = $pImg;
+                    }
                 }
+                $allImgpet = ($nPetImg) ? json_encode($nPetImg) : '';
+            } else{
+                $lastImg = "";
+                $allImgpet = "";
             }
+            
             $pri_img = ($p['primary_pic']==$imgName) ? $lastImg : $p['primary_pic'];
-            $data = array('pet_images'=>json_encode($nPetImg), 'primary_pic'=>$pri_img);
+            $data = array('pet_images'=>$allImgpet, 'primary_pic'=>$pri_img);
             $this->db->where('pet_id', $p['pet_id']);
             $res = $this->db->update('sh_pets', $data);
         }

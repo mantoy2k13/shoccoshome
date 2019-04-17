@@ -40,27 +40,30 @@
 									<p class="f-20 b-700 text-blue m-b-0"><?= $pet_name; ?></p>
 									<p class="f-15 m-b-0"><?php if($complete_address&&$zip_code){ ?> <?=$complete_address.', '.$zip_code;?><?php } else { echo 'No Address'; }?></p>
 								</div>
+								<?php $json_pet_images = ($pet_images) ? json_decode($pet_images) : ''; ?>
 								<div class="col-md-12">
                                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                        <ol class="carousel-indicators">
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                        </ol>
+										<?php $i=0; if($json_pet_images){ ?>
+											<ol class="carousel-indicators">
+												<?php foreach($json_pet_images as $img){  ?>
+												<li data-target="#carouselExampleIndicators" data-slide-to="<?=$i;?>" class="<?=($i==0) ? 'active' : '';?>"></li>
+												<?php $i++; } ?>
+											</ol>
+										<?php } ?>
                                         <div class="carousel-inner carousel-inner300">
-										
-											<div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-												<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$primary_pic;?>" alt="Slider Image">
-											</div>
-                                            <?php $json_pet_images = json_decode($pet_images);
-                                                   if($json_pet_images){ foreach($json_pet_images as $img){ 
+											<?php if($primary_pic){ ?>
+												<div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
+													<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$primary_pic;?>" alt="Slider Image">
+												</div>
+											<?php } ?>
+                                            <?php if($json_pet_images){ foreach($json_pet_images as $img){ 
 												   if($primary_pic!=$img){ ?>
-													<div class="pet-details-img carousel-item item c-img-wrapper pet-slider">
+													<div class="pet-details-img carousel-item <?=($primary_pic) ? '' : 'active';?> item c-img-wrapper pet-slider">
 														<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img;?>" alt="Slider Image">
 													</div>
                                             <?php } } } else{ ?>
                                                 <div class="pet-details-img carousel-item active c-img-wrapper pet-slider">
-													<img class="d-block w-100" src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Slider Image">
+													<img class="d-block w-100 c-px" src="<?=base_url();?>assets/img/pictures/default_pet.png" alt="Slider Image">
                                                 </div>
 											<?php } ?>
                                             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

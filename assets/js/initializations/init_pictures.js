@@ -118,6 +118,7 @@ var delImg = (id, imgName, type) => {
         $.ajax({
             url: base_url+'pictures/delete_image/'+id+'/'+imgName+'/'+type,
             success: (res)=>{
+                console.log(res)
                 if(res==1){
                     if(type==1){
                         $('#albumImg'+id).remove();

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2019 at 04:18 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.1.17
+-- Generation Time: Apr 17, 2019 at 09:18 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.2.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -37,16 +37,6 @@ CREATE TABLE `sh_albums` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `sh_albums`
---
-
-INSERT INTO `sh_albums` (`album_id`, `user_id`, `album_name`, `album_desc`, `album_img`, `created_at`) VALUES
-(12, 26, 'My Album', '', '', '2019-03-13 06:24:56'),
-(13, 27, 'My Album', '', '', '2019-03-29 08:47:07'),
-(14, 27, 'My Album', '', '', '2019-04-03 05:50:46'),
-(15, 27, 'My Album', '', '', '2019-04-03 05:50:54');
-
 -- --------------------------------------------------------
 
 --
@@ -66,22 +56,6 @@ CREATE TABLE `sh_book` (
   `is_notify` int(10) NOT NULL COMMENT '1 Host notified, 2 Host notified done, 3 Guest notified, 4 Guest notified done',
   `book_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `sh_book`
---
-
-INSERT INTO `sh_book` (`book_id`, `user_id`, `book_user_id`, `book_date_from`, `book_date_to`, `pet_list`, `message`, `book_status`, `user_type`, `is_notify`, `book_date`) VALUES
-(25, 26, 27, '[\"2019-03-29\",\"00:12\"]', '[\"2019-03-31\",\"00:12\"]', '[\"28\",\"30\"]', 'Hello can you have my pets', '5', 'guest', 4, '2019-03-27 04:12:22'),
-(26, 27, 26, '[\"2019-03-28\",\"00:12\"]', '[\"2019-03-28\",\"00:12\"]', '[\"28\"]', 'Hello I will book your pets', '5', 'host', 4, '2019-03-28 09:14:54'),
-(27, 27, 26, '[\"2019-03-28\",\"00:12\"]', '[\"2019-03-29\",\"00:12\"]', '[\"28\"]', 'book', '2', 'host', 2, '2019-03-28 09:32:15'),
-(28, 27, 26, '[\"2019-03-28\",\"00:12\"]', '[\"2019-03-30\",\"00:12\"]', '[\"28\"]', 'books', '5', 'host', 4, '2019-03-28 09:32:45'),
-(29, 27, 26, '[\"2019-03-28\",\"00:12\"]', '[\"2019-03-29\",\"00:12\"]', '[\"28\",\"30\"]', 'Hello, can I book your pets?', '5', 'host', 4, '2019-03-28 13:11:04'),
-(30, 27, 26, '[\"2019-03-29\",\"00:12\"]', '[\"2019-03-29\",\"00:12\"]', '[\"28\",\"30\"]', '', '5', 'host', 4, '2019-03-29 07:10:29'),
-(31, 26, 27, '[\"2019-03-29\",\"00:12\"]', '[\"2019-03-31\",\"00:12\"]', '[\"28\",\"30\"]', 'asd', '5', 'guest', 4, '2019-03-29 07:18:12'),
-(32, 27, 26, '[\"2019-04-30\",\"00:12\"]', '[\"2019-04-30\",\"00:21\"]', '[\"31\",\"33\"]', 'Can I book you pet?', '4', 'host', 3, '2019-03-29 08:14:40'),
-(33, 27, 26, '[\"2019-04-03\",\"12:12\"]', '[\"2019-04-04\",\"12:12\"]', '[\"32\"]', 'hello I will book book you very much', '4', 'host', 3, '2019-04-02 08:44:05'),
-(34, 26, 27, '[\"2019-04-04\",\"17:50\"]', '[\"2019-04-04\",\"17:50\"]', '[\"31\",\"32\",\"33\"]', 'Hello Thomas', '5', 'guest', 4, '2019-04-03 06:18:34');
 
 -- --------------------------------------------------------
 
@@ -703,16 +677,6 @@ CREATE TABLE `sh_friends` (
   `friend_since` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `sh_friends`
---
-
-INSERT INTO `sh_friends` (`f_id`, `user_id`, `friend_id`, `friend_since`) VALUES
-(19, 28, 26, '2019-03-13 06:06:42'),
-(20, 26, 28, '2019-03-13 06:06:42'),
-(21, 27, 26, '2019-03-14 12:32:07'),
-(22, 26, 27, '2019-03-14 12:32:07');
-
 -- --------------------------------------------------------
 
 --
@@ -740,40 +704,6 @@ CREATE TABLE `sh_images` (
   `date_upload` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `sh_images`
---
-
-INSERT INTO `sh_images` (`img_id`, `img_name`, `user_id`, `album_id`, `date_upload`) VALUES
-(202, 'p26_5c888a51af359.jpg', 26, 12, '2019-03-13 04:42:57'),
-(203, 'p26_5c88d46b73533.jpg', 26, 12, '2019-03-13 09:59:07'),
-(204, 'p26_5c88d9c407c65.jpg', 26, 12, '2019-03-13 10:21:56'),
-(205, 'p26_5c88d9c416ab9.jpg', 26, 12, '2019-03-13 10:21:56'),
-(211, 'p28_5c8b776b247bd.jpg', 28, 0, '2019-03-15 09:59:07'),
-(212, 'p28_5c8b776b3601f.jpg', 28, 0, '2019-03-15 09:59:07'),
-(213, 'p28_5c8b776b482d7.jpg', 28, 0, '2019-03-15 09:59:07'),
-(214, 'p26_5c8f8ce45829a.jpg', 26, 0, '2019-03-18 12:19:48'),
-(216, 'p26_5c8f8d1214067.jpg', 26, 0, '2019-03-18 12:20:34'),
-(218, 'p27_5c9af39b7ce5d.jpg', 27, 0, '2019-03-27 03:52:59'),
-(219, 'p26_5ca2bea2d14bc.jpg', 26, 0, '2019-04-02 01:45:06'),
-(220, 'p26_5ca2bea2e52ee.jpg', 26, 0, '2019-04-02 01:45:06'),
-(221, 'p26_5ca2bea2ec8aa.jpg', 26, 0, '2019-04-02 01:45:06'),
-(222, 'p26_5ca2bea302791.jpg', 26, 0, '2019-04-02 01:45:07'),
-(223, 'p26_5ca2bea311aa9.jpg', 26, 0, '2019-04-02 01:45:07'),
-(224, 'p26_5ca2bea31bbd5.jpg', 26, 0, '2019-04-02 01:45:07'),
-(225, 'p26_5ca2bea322b89.jpg', 26, 0, '2019-04-02 01:45:07'),
-(226, 'p26_5ca2bea32decd.jpg', 26, 0, '2019-04-02 01:45:07'),
-(227, 'p_5ca31a7d7981c.jpg', 26, 0, '2019-04-02 08:17:01'),
-(228, 'p_5ca31bb91433f.jpg', 26, 0, '2019-04-02 08:22:17'),
-(229, 'p27_5ca44ab85ca7b.jpg', 27, 0, '2019-04-03 05:55:04'),
-(230, 'p27_5ca44ab86a234.jpg', 27, 0, '2019-04-03 05:55:04'),
-(231, 'p27_5ca44ab87319f.jpg', 27, 0, '2019-04-03 05:55:04'),
-(232, 'p27_5ca44ab88320f.jpg', 27, 15, '2019-04-03 05:55:04'),
-(233, 'p27_5ca44ab88f668.jpg', 27, 15, '2019-04-03 05:55:04'),
-(234, 'p27_5ca44ab8975ee.jpg', 27, 15, '2019-04-03 05:55:04'),
-(235, 'p27_5ca44ab89f770.jpg', 27, 15, '2019-04-03 05:55:04'),
-(236, 'p27_5ca44ab8a716f.jpg', 27, 15, '2019-04-03 05:55:04');
-
 -- --------------------------------------------------------
 
 --
@@ -795,36 +725,6 @@ CREATE TABLE `sh_mail` (
   `del_by_mailto` tinyint(1) NOT NULL,
   `date_send` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `sh_mail`
---
-
-INSERT INTO `sh_mail` (`mail_id`, `user_id`, `mail_to`, `subject`, `message`, `is_read`, `notify`, `drft_by_uid`, `drft_by_mailto`, `parent_id`, `del_by_uid`, `del_by_mailto`, `date_send`) VALUES
-(1, 26, 28, 'My Subject', '121212', 0, 1, 0, 0, 0, 1, 0, '2019-03-13 12:25:08'),
-(2, 27, 26, 'hello', '123', 1, 1, 0, 0, 0, 1, 0, '2019-03-14 12:35:40'),
-(3, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. \r\n\r\nI\'m very Busy today thank you for your understanding.', 1, 1, 0, 0, 0, 0, 0, '2019-03-21 15:53:56'),
-(4, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. \r\n\r\nThank you for your understanding.', 1, 1, 0, 0, 0, 0, 0, '2019-03-21 15:58:57'),
-(5, 27, 26, 'Booking Request Approve', 'Dear Maam/Sir,\r\n\r\nThank you for booking me as a sitter for your pets. \r\n\r\n [ You can write or modify this message to the user ]', 1, 1, 0, 0, 0, 1, 0, '2019-03-22 10:26:40'),
-(6, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-22 10:46:54'),
-(7, 27, 26, 'Booking Request Approved', 'Dear Maam/Sir,\r\n\r\nThank you for booking as a sitter for your pets. ', 1, 1, 0, 0, 0, 0, 1, '2019-03-25 19:06:44'),
-(8, 27, 26, 'Reason for disapproving', 'Dear Maam/Sir,\r\n\r\nI am very sorry for disapproving your request. ', 1, 1, 0, 0, 0, 0, 1, '2019-03-25 06:25:31'),
-(9, 27, 26, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for your pets. \r\nWe can communicate here if you want to. Thank you!', 1, 1, 0, 0, 0, 0, 0, '2019-03-27 04:18:25'),
-(10, 26, 27, 'Booking Request Approved', 'Ok thank you sir..', 1, 1, 0, 0, 9, 0, 0, '2019-03-27 04:28:51'),
-(11, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. Please give me your exact time to sit.', 1, 1, 0, 0, 0, 1, 0, '2019-03-28 09:43:25'),
-(12, 27, 26, 'Booking Request Approved', 'Ok sure.', 1, 1, 0, 0, 11, 0, 0, '2019-03-28 09:43:54'),
-(13, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 1, 0, '2019-03-28 13:13:17'),
-(14, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-29 07:14:48'),
-(15, 27, 26, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-29 07:21:30'),
-(16, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-29 08:15:54'),
-(17, 27, 26, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for your pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-03-29 08:45:07'),
-(18, 27, 26, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. \r\n\r\n [ Write or modify this message.. ]', 1, 1, 0, 1, 0, 0, 0, '2019-04-03 07:14:38'),
-(19, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-03 11:55:08'),
-(20, 26, 27, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-03 11:55:23'),
-(21, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-03 11:59:48'),
-(22, 27, 26, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-04-03 13:01:05'),
-(23, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 0, 0, 0, 0, 0, 0, 0, '2019-04-04 03:53:15'),
-(24, 26, 27, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 0, 0, 0, 0, 0, 0, 0, '2019-04-04 03:53:26');
 
 -- --------------------------------------------------------
 
@@ -853,10 +753,7 @@ CREATE TABLE `sh_pets` (
   `health_issues` text COLLATE utf8_unicode_ci NOT NULL,
   `medications` text COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `country` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `state` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `street` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `complete_address` text COLLATE utf8_unicode_ci NOT NULL,
   `zip_code` int(255) NOT NULL,
   `vaccination` text COLLATE utf8_unicode_ci NOT NULL,
   `vaccination_date` text COLLATE utf8_unicode_ci NOT NULL,
@@ -877,33 +774,6 @@ CREATE TABLE `sh_pets` (
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `sh_pets`
---
-
-INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `health_issues`, `medications`, `description`, `country`, `state`, `city`, `street`, `zip_code`, `vaccination`, `vaccination_date`, `primary_pic`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `ns_date_from`, `ns_date_to`, `isAvailable`, `date_added`) VALUES
-(31, 26, 'Kathy', '[\"p26_5c888a51af359.jpg\",\"p26_5c88d46b73533.jpg\",\"p26_5c8f8d1214067.jpg\"]', 3, 85, 'Tags', 'Male (neutered)', 1, '12', '12', '1990-03-03', 'Dog Food', 'Jumping, Barking', 'None', 'At Home', 'Yes', '', '', 'My dog is very friendly.', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Canine adenovirus (CAV)\",\"Rabies\"]', '[\"2019-02-02\",\"2019-03-03\"]', 'p26_5c8f8d1214067.jpg', 'Yes', '', '', '', '', '', '0000-00-00', '', '', '', '[\"2019-04-03\",\"00:21\"]', '[\"2019-04-08\",\"00:12\"]', 1, '2019-03-29 08:07:40'),
-(32, 26, 'Travis William', '[\"p26_5ca2bea2d14bc.jpg\",\"p26_5ca2bea311aa9.jpg\",\"p26_5ca2bea32decd.jpg\"]', 3, 148, 'Voluptas qui praesen', 'Male (neutered)', 28, '12', '12', '2000-02-07', 'Reprehenderit invent', 'Est distinctio Et e', 'Quam iusto commodo v', 'At Home', 'Yes', 'Architecto aliqua B', 'Aliquip culpa lorem ', 'Excepteur doloremque', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Canine adenovirus (CAV)\"]', '[\"2004-02-09\"]', 'p26_5ca2bea32decd.jpg', 'Yes', 'Aliquip praesentium ', 'Beatae quos Nam prae', 'Perferendis dolores ', 'Dolorem assumenda la', 'Enim rerum totam et ', '1979-05-08', 'Vel ea exercitatione', 'Eius adipisci labore', 'Velit doloremque es', '[\"2019-04-03\",\"00:21\"]', '[\"2019-04-08\",\"00:12\"]', 1, '2019-04-02 08:32:13'),
-(33, 26, 'Clementine Wynn', '[\"p26_5c888a51af359.jpg\",\"p26_5c88d46b73533.jpg\",\"p26_5c8f8d1214067.jpg\",\"p26_5ca2bea2d14bc.jpg\"]', 3, 103, 'Numquam autem accusa', 'Male (neutered)', 27, '12', '12', '1999-04-07', 'Consectetur ut debi', 'Dolore reprehenderit', 'Magna velit ex cum q', 'At Home', 'Yes', 'Fugiat ex mollitia ', 'Quae rerum enim expl', 'Voluptatum consequat', 'Philippines', 'CEB', 'Mandaue City', 'H Abellana Streets', 6014, '[\"Parvovirus (CPV)\"]', '[\"2006-08-14\"]', 'p26_5ca2bea2d14bc.jpg', 'Yes', 'Voluptas qui magna s', 'Voluptas fugiat illo', 'Aute dolor libero do', 'Reprehenderit ut sed', 'Quo non quos repudia', '1986-01-01', 'Culpa nesciunt quis', 'Vel deleniti impedit', 'Omnis ea iusto cillu', '', '', 0, '2019-04-03 06:14:05');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sh_posts`
---
-
-CREATE TABLE `sh_posts` (
-  `post_id` int(11) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `pl_id` int(255) NOT NULL,
-  `post_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `content_desc` text COLLATE utf8_unicode_ci NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `is_available` tinyint(1) NOT NULL,
-  `date_posted` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -918,10 +788,6 @@ CREATE TABLE `sh_users` (
   `password` varchar(250) NOT NULL,
   `mobile_number` varchar(255) NOT NULL,
   `gender` varchar(50) NOT NULL,
-  `country` varchar(100) NOT NULL,
-  `state` varchar(250) NOT NULL,
-  `city` varchar(250) NOT NULL,
-  `street` varchar(250) NOT NULL,
   `complete_address` text NOT NULL,
   `zip_code` varchar(100) NOT NULL,
   `user_lat` double(18,14) NOT NULL,
@@ -929,18 +795,12 @@ CREATE TABLE `sh_users` (
   `bio` text NOT NULL,
   `user_img` varchar(255) NOT NULL,
   `cover_photo` varchar(255) NOT NULL,
+  `cover_pos` varchar(255) NOT NULL,
   `sitter_availability` text NOT NULL,
+  `isAvail` tinyint(1) NOT NULL,
   `is_complete` tinyint(1) NOT NULL COMMENT '0 Not Complete, 1 Complete, 2 CompleteLater',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `sh_users`
---
-
-INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `country`, `state`, `city`, `street`, `complete_address`, `zip_code`, `user_lat`, `user_lng`, `bio`, `user_img`, `cover_photo`, `sitter_availability`, `is_complete`, `date_created`) VALUES
-(26, 'Guest Account', 'Business Man', 'tom@gmail.com', '202cb962ac59075b964b07152d234b70', '121212121212', 'Female', '', '', '', '', '12606 Burbank Boulevard, Valley Village, CA, USA', '91607', 10.37119100000000, '123.93333969999998', 'I am extraordinary', 'p_5ca31bb91433f.jpg', 'p26_5ca2bea2ec8aa.jpg', '', 1, '2019-03-13 04:25:20'),
-(27, 'Host Account', 'None', 'tom2@yopmail.com', '202cb962ac59075b964b07152d234b70', '09292929292', 'Male', 'United States', 'CA', 'mandaue', '123', '12606 Burbank Boulevard, Valley Village, CA, USA', '6014', 10.31052841705308, '123.64494306933591', 'I\'m simple caring and loving person', 'p27_5c9af39b7ce5d.jpg', '', '[\"2019-04-03\",\"2019-04-06\"]', 1, '2019-03-13 04:26:28');
 
 --
 -- Indexes for dumped tables
@@ -1007,12 +867,6 @@ ALTER TABLE `sh_pets`
   ADD PRIMARY KEY (`pet_id`);
 
 --
--- Indexes for table `sh_posts`
---
-ALTER TABLE `sh_posts`
-  ADD PRIMARY KEY (`post_id`);
-
---
 -- Indexes for table `sh_users`
 --
 ALTER TABLE `sh_users`
@@ -1026,13 +880,13 @@ ALTER TABLE `sh_users`
 -- AUTO_INCREMENT for table `sh_albums`
 --
 ALTER TABLE `sh_albums`
-  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `album_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_book`
 --
 ALTER TABLE `sh_book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_breeds`
@@ -1056,7 +910,7 @@ ALTER TABLE `sh_color`
 -- AUTO_INCREMENT for table `sh_friends`
 --
 ALTER TABLE `sh_friends`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_friend_request`
@@ -1068,31 +922,25 @@ ALTER TABLE `sh_friend_request`
 -- AUTO_INCREMENT for table `sh_images`
 --
 ALTER TABLE `sh_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_mail`
 --
 ALTER TABLE `sh_mail`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_pets`
 --
 ALTER TABLE `sh_pets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT for table `sh_posts`
---
-ALTER TABLE `sh_posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_users`
 --
 ALTER TABLE `sh_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

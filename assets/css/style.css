@@ -526,6 +526,7 @@ i.fa.upload-icon {
     border: 0;
     font-size: 20px;
     color: #fff;
+    z-index: 99;
     border: 2px solid transparent;
 }
 
@@ -1706,3 +1707,36 @@ span.btmleft_set_cver {
     margin: 0 auto;
     float: none !important;
 }
+
+/* Map Cards */
+.card.map-card {
+    border: 0;
+    display: block;
+    padding: 5px;
+}
+
+.card.map-card .card-body {
+    padding: 0px;
+    flex: auto;
+}
+
+.card.map-card .friend-img {
+    width: 110px;
+    height: 110px;
+}
+
+.card.map-card p {
+    white-space: unset;
+}
+
+.row.myBookBtn {
+    display: inline-block;
+    text-align: center;
+}
+
+.gm-style-iw {
+    width: 300px; 
+    text-align: center;
+}
+
+/* Close Map cards */
