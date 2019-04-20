@@ -267,35 +267,6 @@ var delpicture = (id, imgName) => {
     });
 }
 
-var transImgToAlbum = (album_id)=>{
-    var cntImg = $('.selFromAlbumBox:checked').length;
-    if(cntImg>0){
-        var form = $('#addPhotoAlbumForm');
-        $.ajax({
-            type: 'POST',
-            cache: false,
-            url: base_url+'pictures/addPhotoAlbum/'+album_id,
-            data: $(form).serialize(),
-            success: function(res) {
-                if(res==1){
-                    $('#selPics').modal('hide');
-                    swal('Images Added!', "Selected image was successfully added to this album.", 'success');
-                    $("#reload").html(''+
-                        '<div class="alert alert-success f-15 m-t-5">'+
-                            '<strong><i class="fa fa-history"></i> Reloading!</strong> Please wait...'+
-                        '</div>'
-                    );
-                    setTimeout("location.reload()" ,2000);
-                } else{
-                    swal('Failed', "There was a problem adding your image.", 'error');
-                }
-            }
-        });
-    } else{
-        swal('Oops', "Please check atleast 1 image to continue.", 'warning');
-    }
-}
-
 var setPriPhoto = (img_name)=>{
     swal({
         title: "Set Primary?",

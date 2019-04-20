@@ -70,8 +70,8 @@ class Pictures extends CI_Controller {
 
 				if($res){
 					$this->session->set_flashdata('upl_msg', 'Added');
-					if($type==1) { clearstatcache(); redirect('pictures/pictures'); }
-					else{ clearstatcache(); redirect('album/view_album/'.$album_id); }
+					if($type==1) { redirect('pictures/pictures'); }
+					else{ redirect('album/view_album/'.$album_id); }
 				} else{
 					$this->session->set_flashdata('upl_msg', 'Error');
 					if($type==1) { redirect('pictures/add_photos'); }
@@ -122,10 +122,16 @@ class Pictures extends CI_Controller {
 	public function addPhotoAlbum($album_id){
         if ($this->session->userdata('user_email')){ 
 			if($this->input->post()){
-				foreach($this->input->post('img_id') as $k => $imgID){
+				foreach($this->input->post('imgs_id') as $k => $imgID){
 					$res = $this->Pictures_model->update_img_album($imgID, $album_id);
 				}
-				echo ($res) ? 1 : 0;
+				if($res){
+					$this->session->set_flashdata('upl_msg', 'Added');
+					redirect('album/view_album/'.$album_id);
+				} else{
+					$this->session->set_flashdata('upl_msg', 'Error');
+					redirect('album/view_album/'.$album_id);
+				}
 			}
         }
         else { redirect('home/login'); }

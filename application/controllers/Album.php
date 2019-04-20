@@ -69,15 +69,8 @@ class Album extends CI_Controller {
 
 	public function delete_album($album_id){
 		if($this->session->userdata('user_email')){
-			$delete_album = $this->Album_model->delete_album($album_id);
-			if ($delete_album) {
-				$this->session->set_flashdata('album_msg', 'Deleted');
-				redirect('album/albums');
-			}
-			else {
-				$this->session->set_flashdata('album_msg', 'Error');
-				redirect('album/albums');
-			}
+			$res = $this->Album_model->delete_album($album_id);
+			echo ($res) ? 1 : 0;
 		}
 		else{
 			redirect('home/login');

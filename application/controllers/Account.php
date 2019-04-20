@@ -164,4 +164,33 @@ class Account extends CI_Controller {
 		else { echo false; }
     }
 
+    public function send_password_recovery(){
+        if($this->input->post('email')){
+            $email = $this->input->post('email');
+            $check_email = $this->Auth_model->email_check($email);
+            if(!$check_email){
+                $newPass = $this->randomPassword();
+                $res = $this->Account_model->update_new_password($newPass, $email);
+                if($res){
+                    $this->email->from('noreply@shoccoshome.com', 'Shocco\'s Home'); 
+                    $this->email->to($email); 
+                    $this->email->subject('New Password Recovery');
+                    $this->email->message('Hello! Your new password is "'.$newPass.'" with an email of '.$email.'. Please try to change your password after logging in to your account. Thank you!');
+                    echo ($this->email->send()) ? 1 : 0;
+                } else{ echo 0; }
+            } else{ echo 0; }
+        } else { echo 0; }
+    }
+    
+    public function randomPassword() {
+        $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass); //turn the array into a string
+    }
+
 }

@@ -319,4 +319,11 @@ class Account_model extends CI_Model {
         
         return ($res) ? 1 : 0;
     }
+
+    public function update_new_password($newPass,$email){
+        $this->db->where('email', $email);
+        $this->db->set('password', md5($newPass));
+        $res = $this->db->update('sh_users');
+        return ($res) ? true : false;
+    }
 }

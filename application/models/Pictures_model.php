@@ -47,9 +47,8 @@ class Pictures_model extends CI_Model {
     
     public function update_img_album($imgID, $album_id){
         $data = array('album_id'=> $album_id);
-		$this->db->set($data);
 		$this->db->where('img_id', $imgID);
-        $res = $this->db->update('sh_images');
+        $res = $this->db->update('sh_images', $data);
         return ($res) ? true : false;
     }
     
@@ -60,38 +59,37 @@ class Pictures_model extends CI_Model {
         $this->db->select('pet_id, pet_images, primary_pic')->from('sh_pets');
         $pets = $this->db->get()->result_array();
        
-        foreach($pets as $p){
-            $petImg = json_decode($p['pet_images']);
-            $lastImg = "";
-            $nPetImg = [];
-            if($petImg){
-                foreach($petImg as $pImg){
-                    if($pImg != $imgName){
-                        $nPetImg[] = $pImg;
-                        $lastImg = $pImg;
-                    }
-                }
-                $allImgpet = ($nPetImg) ? json_encode($nPetImg) : '';
-            } else{
+        if($pets){
+            foreach($pets as $p){
+                $petImg = json_decode($p['pet_images']);
                 $lastImg = "";
-                $allImgpet = "";
+                $nPetImg = [];
+                if($petImg){
+                    foreach($petImg as $pImg){
+                        if($pImg != $imgName){
+                            $nPetImg[] = $pImg;
+                            $lastImg = $pImg;
+                        }
+                    }
+                    $allImgpet = ($nPetImg) ? json_encode($nPetImg) : '';
+                } else{
+                    $lastImg = "";
+                    $allImgpet = "";
+                }
+                
+                $pri_img = ($p['primary_pic']==$imgName) ? $lastImg : $p['primary_pic'];
+                $data = array('pet_images'=>$allImgpet, 'primary_pic'=>$pri_img);
+                $this->db->where('pet_id', $p['pet_id']);
+                $res = $this->db->update('sh_pets', $data);
             }
-            
-            $pri_img = ($p['primary_pic']==$imgName) ? $lastImg : $p['primary_pic'];
-            $data = array('pet_images'=>$allImgpet, 'primary_pic'=>$pri_img);
-            $this->db->where('pet_id', $p['pet_id']);
-            $res = $this->db->update('sh_pets', $data);
+        } 
+        
+        if(file_exists($filename)){
+            unlink($filename);
         }
-        if($res){
-            if(file_exists($filename)){
-                unlink($filename);
-            }
-            $this->db->where('img_id', $imgID);
-            $res = $this->db->delete('sh_images');
-            return ($res) ? true : false;
-        } else{
-            return false;
-        }		
+        $this->db->where('img_id', $imgID);
+        $res = $this->db->delete('sh_images');
+        return ($res) ? true : false;	
     }
     
     public function delete_all_image(){

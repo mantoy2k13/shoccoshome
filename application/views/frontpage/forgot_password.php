@@ -1,20 +1,30 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Shocco - Shocco's Login</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="We care and love your pets, Book Pets, Book users, find a home, book pet, book host, book guest, book users, book pets, find people near you.">
+    <meta name="author" content="">
+
+    <title>Shocco - Shocco's Home</title>
+    <link rel="shortcut icon" href="<?=base_url();?>assets/img/favicon.ico" type="image/x-icon">
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
+    <!-- Plugin CSS -->
+    <link href="<?=base_url();?>assets/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template -->
     <link href="<?=base_url();?>assets/css/login-css.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <input type="hidden" id="base_url" value="<?=base_url()?>">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
 </head>
 <body>
+
     <main role="main">
         <div class="container">
             <div class=" overlay2 rgba-black-strong">
                 <div class="container">
+                <div id="mLoader"></div>
                     <div class="login-wrapper">
                         <a href="<?=base_url();?>"> 
                             <img class="login-logo" src="<?=base_url();?>assets/img/logo.png" alt="Shocco's Logo">
@@ -28,18 +38,26 @@
                             }
                         ?>
                         
-                        <form role="form" action="<?=base_url();?>auth/user_login" id="adminlog" method="post">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i class="fa fa-user"></i>
-                                    </span>
+                        <form action="javascript:;">
+                            <div class="row">
+                                <div class="col-md-12" id="error-msg">
+                                   
                                 </div>
-                                <input type="text" name="email" class="form-control" id="email" aria-describedby="email" placeholder="Email Address" required="">
+                                <div class="col-md-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="recovery_email" class="form-control" id="recovery_email"  placeholder="Email Address" required="">
+                                    </div>
+                                </div>
                             </div>
+                            
 
                             <div class="form-group">
-                            <button type="submit" id="sublog" value="sublog" name="sublog" class="btn btn-primary btn-block btn-rounded mb-3">Send a link to recover password</button>
+                                <button type="button" onclick="recoverPassword()" class="btn btn-primary btn-block btn-rounded mb-3">Send a link to recover password</button>
                             </div>
                         </form>
                     </div>
@@ -60,4 +78,17 @@
         </div>
     </main>
 </body>
+<!-- Bootstrap core JavaScript -->
+<script src="<?=base_url();?>assets/vendor/jquery/jquery.js"></script>
+<script src="<?=base_url();?>assets/js/popper.min.js"></script>
+<script src="<?=base_url();?>assets/js/bootstrap.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="<?=base_url();?>assets/vendor/jquery-easing/jquery.easing.js"></script>
+<script src="<?=base_url();?>assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+<script src="<?=base_url();?>assets/vendor/notifications/notifications.js"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="<?=base_url();?>assets/js/jqBootstrapValidation.js"></script>
+<script src="<?=base_url();?>assets/js/initializations/init_recovery.js"></script>
 </html>

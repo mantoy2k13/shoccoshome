@@ -38,9 +38,10 @@
                 </div>
                 <div class="gal-wrapper">
                     <?php if($all_albums){?>
+                        <div id="albMsg"></div>
                         <div class="row">    
                             <?php foreach($all_albums as $album){ extract($album); ?>
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-3 col-md-6 myAlbums" id="myAlbums<?=$album_id?>">
                                     <div class="thumbnail" onclick="location.href='<?=base_url();?>album/view_album/<?=$album_id;?>'">
                                         <?php $getImg = $this->Album_model->get_single_image($album_id);?>
                                         <a href="javascript:;">
@@ -66,7 +67,7 @@
                                 </div>
                             <?php } ?>
                         </div>
-                        <div class="row m-t-20">
+                        <div class="row m-t-20" id="albPagi">
                             <div class="col-md-12">
                                 <nav class="text-center">
                                     <?=$links;?>

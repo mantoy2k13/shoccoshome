@@ -48,7 +48,26 @@ $(document).ready(function(){
              showLoaderOnConfirm: true
          },
          ()=>{
-             window.location.href = base_url+"album/delete_album/"+album_id;
+            $.ajax({
+                url: base_url+"album/delete_album/"+album_id,
+                success: (res)=>{
+                    if(res==1){
+                        $('#myAlbums'+album_id).fadeOut('slow').remove();
+                        var cntAlbum = $('.myAlbums').length;
+                        if(cntAlbum==0){
+                            $('#albMsg').html(''+
+                                '<div class="alert alert-success alert-dismissible f-15" role="alert">'+
+                                    '<strong><i class="fa fa-check"></i> Empty!</strong> You have no albums added.'+
+                                '</div>'
+                            );
+                            $('#albPagi').remove();
+                        }
+                        swal('Deleted!', 'Album was successfully deleted!', 'success');
+                    }else{
+                        swal('Failed!', 'A problem deleting your album. Please try again!', 'error');
+                    }
+                }
+            });
          });
      }
 

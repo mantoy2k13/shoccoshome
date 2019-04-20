@@ -5,9 +5,7 @@ class Auth_model extends CI_model{
     }
     
     public function email_check($email){
-        $this->db->select('*');
-        $this->db->from('sh_users');
-        $this->db->where('email',$email);
+        $this->db->select('*')->from('sh_users')->where('email',$email);
         $query=$this->db->get();
         return ($query->num_rows()>0) ? false : true;
     }
@@ -17,9 +15,7 @@ class Auth_model extends CI_model{
     }
         
     public function fetchuserlogindata($uemail){
-        $this->db->select('*');
-        $this->db->from('sh_users');
-        $this->db->where('email', $uemail);
+        $this->db->select('*')->from('sh_users')->where('email', $uemail);
         $query = $this->db->get();
         return $query->row();
     }

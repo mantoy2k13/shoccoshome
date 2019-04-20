@@ -118,8 +118,6 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
 
-    <!-- Select pictures options -->  
-
     <!-- Select from pictures -->  
     <div class="modal fade" id="selPics" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -129,36 +127,36 @@
                     <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> Choose from photos</p>
                 </div>
                 <div class="modal-body">
-                    <form action="javascript:;" id="addPhotoAlbumForm">
+                    <form action="<?=base_url();?>pictures/addPhotoAlbum/<?=$view_album['album_id'];?>" id="addPhotoAlbumForm" method="POST">
                         <div class="row">
-                        <?php if($get_img_no_album){ ?>
-                            <?php foreach($get_img_no_album as $img){ extract($img); ?>
-                                <div class="col-md-3">
-                                    <div class="thumbnail">
-                                        <a href="javascript:;">
-                                            <div class="gal-img">
-                                                <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
-                                            </div>
-                                            <div class="custom-control custom-checkbox m-b-5 floatCBox">
-                                                <input type="checkbox" class="custom-control-input selFromAlbumBox" id="<?=$img_id?>" name="img_id[]" value="<?=$img_id?>">
-                                                <label class="custom-control-label" for="<?=$img_id?>"></label>
-                                            </div>
-                                        </a>
+                            <?php if($get_img_no_album){ ?>
+                                <?php foreach($get_img_no_album as $img){ extract($img); ?>
+                                    <div class="col-md-3">
+                                        <div class="thumbnail">
+                                            <a href="javascript:;">
+                                                <div class="gal-img">
+                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$user_id;?>/<?=$img_name;?>" style="width:100%" alt="Picture">
+                                                </div>
+                                                <div class="custom-control custom-checkbox m-b-5 floatCBox">
+                                                    <input type="checkbox" class="custom-control-input selFromAlbumBox" id="<?=$img_id?>" name="imgs_id[]" value="<?=$img_id?>">
+                                                    <label class="custom-control-label" for="<?=$img_id?>"></label>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } else{ ?>
+                                <div class="col-md-12">
+                                    <div class="alert alert-info alert-dismissible f-15" role="alert">
+                                        <strong><i class="fa fa-check"></i> Empty!</strong> There are no photos found that has no album.
                                     </div>
                                 </div>
                             <?php } ?>
-                        <?php } else{ ?>
-                            <div class="col-md-12">
-                                <div class="alert alert-info alert-dismissible f-15" role="alert">
-                                    <strong><i class="fa fa-check"></i> Empty!</strong> There are no photos found that has no album.
+                            <?php if($get_img_no_album){ ?>
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn bg-orange sub-btn"><i class="fa fa-save"></i> Add to Albums</button>
                                 </div>
-                            </div>
-                        <?php } ?>
-                        <?php if($get_img_no_album){ ?>
-                            <div class="col-md-12 text-center">
-                                <button onclick="transImgToAlbum(<?=$view_album['album_id'];?>)" type="button" class="btn bg-orange sub-btn"><i class="fa fa-save"></i> Add to Albums</button>
-                            </div>
-                        <?php } ?>
+                            <?php } ?>
                         </div>
                     </form>
                 </div>

@@ -34,7 +34,12 @@ class Album_model extends CI_Model {
 	public function delete_album($album_id){
 		$this->db->where('album_id', $album_id);
 		$res = $this->db->delete('sh_albums');
-		return ($res) ? true : false;
+		if($res){
+			$this->db->set('album_id', 0);
+			$this->db->where('album_id', $album_id);
+			$res = $this->db->update('sh_images');
+			return ($res) ? true : false;
+		} return false;
 	}
 
 	public function get_album(){
