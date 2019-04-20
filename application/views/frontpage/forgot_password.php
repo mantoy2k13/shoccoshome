@@ -21,7 +21,7 @@
 <body>
 
     <main role="main">
-        <div class="container">
+        <div class="container font-baloo">
             <div class=" overlay2 rgba-black-strong">
                 <div class="container">
                 <div id="mLoader"></div>

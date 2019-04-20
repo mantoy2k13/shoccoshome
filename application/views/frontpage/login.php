@@ -9,8 +9,7 @@
     <link href="<?=base_url();?>assets/vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="<?=base_url();?>assets/vendor/fontawesome-free/css/all.css" rel="stylesheet" type="text/css">
     <link href="<?=base_url();?>assets/css/login-css.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Thambi" rel="stylesheet">
     <input type="hidden" id="base_url" value="<?=base_url()?>">
     <script src="<?=base_url();?>assets/vendor/jquery/jquery.js"></script>
     <script src="<?=base_url();?>assets/js/popper.min.js"></script>
@@ -24,7 +23,7 @@
 </head>
 <body>
     <main role="main">
-        <div class="container">
+        <div class="container font-baloo">
             <div class=" overlay2 rgba-black-strong">
                 <div class="container">
                     <div class="login-wrapper">

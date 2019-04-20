@@ -1,4 +1,4 @@
-<header class="masthead mainpage-banner text-white text-center">	
+<header class="masthead mainpage-banner text-white text-center font-baloo">	
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -16,7 +16,7 @@
                 <img class="cust-slider-img" src="<?=base_url();?>assets/img/frontpage/slider/slider3.jpg" alt="Slide Image3">
             </div>
             <div class="slide__overlay"></div>
-                <div class="banner-form">
+                <div class="banner-form font-baloo">
                     <p>
                     <span>AMAZING <br>SERVICES</span> <br><br>
                         WE LOVE PETS! WE OFFER ALL <br>

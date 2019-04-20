@@ -12,7 +12,7 @@
     <?php $this->load->view('common/banner');?>
 
     <!-- Portfolio Grid Section -->
-    <section class="content">
+    <section class="content font-baloo">
       <!-- 2nd Navbar -->
       <?php $this->load->view('common/profile-nav');?>
 

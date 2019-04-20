@@ -1,7 +1,7 @@
 <?php $cover_photo = $user_logindata->cover_photo;  $cover_pos = $user_logindata->cover_pos; ?>
 <?php $all_pictures = $this->Pictures_model->get_all_pictures();?>
 <?php $uid = $this->session->userdata('user_id'); ?>
-<header class="masthead bg-primary text-white text-center" <?=($cover_photo) ? 'style="background-image: url('.base_url().'assets/img/pictures/usr'.$uid.'/'.$cover_photo.')"' : '';?>>	
+<header class="masthead bg-primary font-baloo text-white text-center" <?=($cover_photo) ? 'style="background-image: url('.base_url().'assets/img/pictures/usr'.$uid.'/'.$cover_photo.')"' : '';?>>	
     <button class="btn banner-btn" data-toggle="modal" data-target="#chCover"><i class="fa fa-camera fa-2x"></i> Change Cover </button>
     <?php if($cover_photo){ ?>
     <div class="coverContainer">

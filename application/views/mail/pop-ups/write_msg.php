@@ -1,5 +1,5 @@
 <!-- Modal -->  
-<div class="modal fade msgModalCustom" id="writeMsg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade msgModalCustom font-baloo" id="writeMsg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <form action="<?=base_url();?>mail/send_message" method="POST">
             <div class="modal-content">

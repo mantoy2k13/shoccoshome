@@ -2,7 +2,7 @@
         $get_all_pet_color = $this->Pet_model->get_all_pet_color();
         $categories        = $this->Pet_model->get_all_pet_cat();
 ?>
-<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+<div class="modal fade font-baloo" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xxl" role="document">
       <form action="<?=base_url()?>pet/search_pets">
         <div class="modal-content custSearchModal bg-orange-l">

@@ -4,7 +4,7 @@
   if(!(in_array($is_page,$page))){ ?>
   <?php $this->load->view('common/search_modal');?>
 <?php } ?>
-<footer class="footer text-center">
+<footer class="footer text-center font-baloo">
       <div class="container">
         <div class="row">
           <div class="col-md-3 mb-5 mb-lg-0">
@@ -23,8 +23,8 @@
             <p class="lead mb-0"><i class="fa fa-envelope text-orange"></i> <a href="mailto:site@email.com" class="text-white">Email: site@email.com </a></p>
             <p class="lead mb-0"><i class="fa fa-home text-orange"></i> 5042 Wilshire Blvd Los Angeles 90036 </p>
 		  </div>
-		  <div class="col-md-3 mb-5 mb-lg-0">
-            <h4 class="text-uppercase mb-4">Follow Us</h4>
+		  <div class="col-md-3 mb-5 mb-lg-0 font-baloo">
+            <h4 class="text-uppercase mb-4 font-baloo">Follow Us</h4>
             <ul class="list-inline mb-0">
               <li class="list-inline-item">
                 <a class="btn bg-orange btn-outline-light btn-social text-center rounded-circle" href="javascript:;">
@@ -58,7 +58,7 @@
     </footer>
 
     <div class="copyright py-4 text-center text-white">
-      <div class="container">
+      <div class="container font-baloo">
         <small>Copyright &copy; <?=date('Y');?> - Designed by TBL Tech Nerds</small>
       </div>
     </div>
@@ -73,7 +73,7 @@
     <?php if($this->session->userdata('user_email')){ $is_complete = $this->Account_model->is_complete();
         if(!$is_complete['is_complete']){ ?>
         <!-- Welcome Modal -->
-        <div class="modal fade welcomeModal" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModal" aria-hidden="true">
+        <div class="modal fade welcomeModal font-baloo" id="welcomeModal" tabindex="-1" role="dialog" aria-labelledby="welcomeModal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">

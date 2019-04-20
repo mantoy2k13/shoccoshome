@@ -13,7 +13,7 @@
     <?php $this->load->view('frontpage/banner');?>
 
     <!-- Portfolio Grid Section -->
-    <section class="content">
+    <section class="content font-baloo">
 
 	  <div class="row m-t-10">
         

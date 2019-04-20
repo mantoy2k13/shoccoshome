@@ -15,7 +15,7 @@
     <section class="map-section">
         <div id="map"></div>
     </section>
-    <section class="content">
+    <section class="content font-baloo">
 	  <div class="row m-t-10">
           <!-- Main Content -->
 		    <div class="features col-md-3">
