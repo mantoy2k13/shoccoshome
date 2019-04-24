@@ -105,7 +105,7 @@
                     <div class="row">
                         <div class="col-md-12 f-list-wrap">
                             <div class="alert alert-info f-15">
-                                <strong><i class="fa fa-check"></i> Empty!</strong> No users found base on your zip code <i>"<?=$zipcode; ?>"</i></i>.
+                                <strong><i class="fa fa-check"></i> Empty!</strong> No users found base on your zip code <i>"<?=$_SESSION['zipcode']; ?>"</i></i>.
                             </div>
                         </div>
                     </div>
