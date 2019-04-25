@@ -68,3 +68,7 @@ button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right
     width: 100%;
     padding: 13px;
 }
+
+.fc-content {
+    cursor: pointer;
+}
