@@ -126,4 +126,18 @@ class Home extends CI_Controller {
 	public function forgot_password(){
 		$this->load->view('frontpage/forgot_password');
 	}
+
+	public function adminpage(){
+		if ($this->session->userdata('user_email')){
+			$uid  = $this->session->userdata('user_id');
+			$user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
+			$data['is_page'] = 'admin';
+			$this->load->view('admin/admin',$data);
+		}
+		else{
+			redirect('home/login');
+		}
+	}
 }
