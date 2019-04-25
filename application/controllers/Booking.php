@@ -257,7 +257,7 @@ class Booking extends CI_Controller {
                         $ndt = json_decode($r['ns_date_to']); 
                         $start = $ndf[0];
                         $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
-                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end,'color'=>'#376afa');
                         $user_dates[] = $datas;
                     }
 
@@ -268,7 +268,7 @@ class Booking extends CI_Controller {
                         $ndt = json_decode($r['ns_date_to']); 
                         $start = $ndf[0];
                         $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
-                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
+                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end,'color'=>'#376afa');
                         $user_dates[] = $datas;
                     }
 
