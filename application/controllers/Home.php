@@ -133,7 +133,7 @@ class Home extends CI_Controller {
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
-			$data['is_page'] = 'admin';
+			$data['is_page'] = 'adminpage';
 			$this->load->view('admin/admin',$data);
 		}
 		else{

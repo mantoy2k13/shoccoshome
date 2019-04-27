@@ -49,7 +49,11 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.rawgit.com/ryandrewjohnson/jquery-fblogin/master/dist/jquery.fblogin.min.js"></script>
-
+   
+    <?php if($is_page=='adminpage'){?>
+     <!-- Admin Dashboard-->
+    
+    <?php }?>
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="364585571683-dvn2i1408p68kb6o058hnh9lfafqco7i.apps.googleusercontent.com">
     <script>

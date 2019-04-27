@@ -17,7 +17,7 @@
 
             <div class="row m-t-10">
                 <!-- Left Navbar -->
-                <?php $this->load->view('common/left-nav');?>
+               
 
                 <!-- Main Content -->
                 <div class="col-md-9 m-t-10 p-l-0">
