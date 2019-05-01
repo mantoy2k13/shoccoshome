@@ -50,7 +50,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//cdn.rawgit.com/ryandrewjohnson/jquery-fblogin/master/dist/jquery.fblogin.min.js"></script>
    
-    <?php if($is_page=='adminpage'){?>
+    <?php if($is_page=='adminpage' || $is_page=="userlist"){?>
      <!-- Admin Dashboard-->
     <!-- Custom fonts for this template-->
     <link href="<?=base_url();?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
