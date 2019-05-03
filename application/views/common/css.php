@@ -58,6 +58,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?=base_url();?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?=base_url();?>assets/vendor/dataTables/dataTable.css" rel="stylesheet">    
     <?php }?>
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="364585571683-dvn2i1408p68kb6o058hnh9lfafqco7i.apps.googleusercontent.com">

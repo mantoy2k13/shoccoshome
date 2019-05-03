@@ -1,6 +1,6 @@
 <?php if($is_page=="adminpage" || $is_page=="userlist"){?>
 <!-- Bootstrap core JavaScript-->
-<script src="<?=base_url();?>assets/vendor/jquery/jquery.min.js"></script>
+  <script src="<?=base_url();?>assets/vendor/jquery/jquery.min.js"></script>
   <script src="<?=base_url();?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -15,5 +15,6 @@
   <!-- Page level custom scripts -->
   <script src="<?=base_url();?>assets/js/demo/chart-area-demo.js"></script>
   <script src="<?=base_url();?>assets/js/demo/chart-pie-demo.js"></script>
-
+  <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.min.js"></script>
+  <script src="<?=base_url();?>assets/js/custom.js"></script>
 <?php }?>

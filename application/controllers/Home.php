@@ -146,7 +146,7 @@ class Home extends CI_Controller {
 			$uid = $this->session->userdata('user_id');
 			$user_email =$this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
+			$data["get_all_userlist"] = $this->Auth_model->get_all_users_data();
 			$data['is_page'] = 'userlist';
 			$this->load->view('admin/userlist',$data);
 		}

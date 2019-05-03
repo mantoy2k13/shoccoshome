@@ -37,6 +37,41 @@
                   <div class="panel-heading bg-blue">
                     <i class="fa fa-list"></i><span> User Lists</span>
                   </div>
+                  <div class="table-responsive">
+                      <table class="table table-striped" id="datatables">
+                          <thead>
+                            <tr>
+                              <th scope="col">Full Name</th>
+                              <th scope="col">Occupation</th>
+                              <th scope="col">Mobile #</th>
+                              <th scope="col">Address</th>
+                              <th scope="col">Zip Code</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php if($get_all_userlist){?>
+                              <?php foreach($get_all_userlist as $userlist){?>
+                                <tr>
+                                    <td><?=$userlist->fullname; ?></td>
+                                    <td><?=$userlist->occupation; ?></td>
+                                    <td><?=$userlist->mobile_number; ?></td>
+                                    <td><?=substr($userlist->complete_address,0,50); ?></td>
+                                    <td><?=$userlist->zip_code; ?></td>
+                                    <td><div class="btn-group">
+                                          <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> <span class="caret"></span></button>
+                                          <ul class="dropdown-menu">
+                                            <li><a href="#" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a></li>
+                                            <li><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a></li>
+                                          </ul>
+                                        </div>
+                                  </td>
+                                </tr>
+                              <?php }?>
+                            <?php }?>
+                          </tbody>
+                      </table>
+                  </div>
               </div>
             </div>
           </div>
