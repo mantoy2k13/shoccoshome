@@ -81,7 +81,10 @@ class Booking extends CI_Controller {
                 $this->load->view('booking/select_pet_booking', $data);
             }
 		}
-		else { redirect('home/login'); }
+		else { 
+            $_SESSION['is_in_book'] = true;
+            redirect('home/login'); 
+        }
     }
 
     public function book_user_pets($uid){
@@ -105,6 +108,21 @@ class Booking extends CI_Controller {
             $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
             $data['user_id'] = $uid;
             $this->load->view('booking/book_this_user', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
+    public function booking_as_host()
+	{
+        if ($this->session->userdata('user_email')){ 
+            $user_email  = $this->session->userdata('user_email');
+            $uid  = $this->session->userdata('user_id');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']    = 'booking_as_host';
+            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+            $data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
+            $this->load->view('booking/booking_as_host', $data);
         }
 		else { redirect('home/login'); }
     }
@@ -305,13 +323,27 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-    public function sampleData()
+    public function get_avail_host()
 	{
-        $data = array('title'=>'Hello', 'start'=>'2019-04-20');
-        $data2 = array('title'=>'Hello', 'start'=>'2019-04-20');
-        $dates[] = $data;
-        $dates[] = $data2;
-        echo json_encode($dates);
+		if($this->session->userdata('user_email')){
+            $get_avail_host = $this->Booking_model->get_avail_host();
+            if($get_avail_host){
+                foreach($get_avail_host as $p){
+                    $book_type = ($p['fullname']) ? ' (HOST)' : ' (GUEST)';
+                    $title = $p['fullname'].$book_type;
+                    // $end   = date('Y-m-d', strtotime($p['fullname'] . ' +1 day'));
+                    $start = date('Y-m-d', strtotime($p['book_avail_from']));
+                    $end   = date('Y-m-d', strtotime($p['book_avail_to']));
+                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end);
+                    $user_dates[] = $data;
+                }
+            } else{
+                $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
+                $user_dates[] = $data;
+            }
+            echo json_encode($user_dates);
+        }
+        else{ echo 0;}
     }
 
 }

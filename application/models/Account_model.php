@@ -200,14 +200,22 @@ class Account_model extends CI_Model {
         return ($res) ? true : false;
     }
 
-    public function set_sitter_time(){
+    public function set_my_dates($book_avail_from, $book_avail_to){
         $uid = $this->session->userdata('user_id');
-        $setTime[] = $this->input->post('date_from');
-        $setTime[] = $this->input->post('date_to');
-        $data = array('isAvail'=>true,'sitter_availability'=>json_encode($setTime));
+        foreach($this->input->post('pet_cat_list') as $cat_id){
+            $cat_list[] = $cat_id;
+        }
+        $data = array(
+            'book_avail_from' => $book_avail_from,
+            'book_avail_to'   => $book_avail_to,
+            'cat_list'        => json_encode($cat_list),
+            'book_type'       => $this->input->post('book_type'),
+            'book_note'       => $this->input->post('book_note'),
+            'isAvail'         => true,
+        );
         $this->db->where('id', $uid);
         $res = $this->db->update('sh_users', $data);
-        return ($res) ? 1 : 0;
+        return ($res) ? true : false;
     }
 
     public function need_sitter_set_time(){
@@ -286,6 +294,21 @@ class Account_model extends CI_Model {
         $this->db->where('isAvailable',true);
         $data = $this->db->get()->result_array();
         return $data;
+    }
+
+    public function unset_dates($t){
+        $uid = $this->session->userdata('user_id');
+        $data = array(
+            'book_avail_from' => '',
+            'book_avail_to'   => '',
+            'cat_list'        => '',
+            'book_type'       => '',
+            'book_note'       => '',
+            'isAvail'         => false,
+        );
+        $this->db->where('id', $uid);
+        $res = $this->db->update('sh_users', $data);
+        return ($res) ? true : false;
     }
 
     public function resetDate($t){

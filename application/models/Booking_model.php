@@ -280,7 +280,6 @@ class Booking_model extends CI_Model {
             $radiusKm  = ((int) $length_value)  * 0.001; 
         }
 
-        // $radiusKm  = ((int) $length_value);
         $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
         $this->db->select('*')->from('sh_users');
         $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
@@ -288,6 +287,26 @@ class Booking_model extends CI_Model {
         $this->db->where('id !=', $uid);
         $this->db->where('isAvail', true);
         $this->db->limit($limit, $start);
+        return $this->db->get()->result_array();
+    }
+
+    public function get_avail_host(){
+        $uid = $this->session->userdata('user_id');
+        $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : $this->input->post('cur_lat');
+        $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : $this->input->post('cur_lng');
+        $radiusKm  = 50; 
+        $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+        $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+        if($this->input->post('book_avail_from') && $this->input->post('book_avail_to')){
+            $book_avail_from = date('Y-m-d', strtotime($this->input->post('book_avail_from')));
+            $book_avail_to   = date('Y-m-d', strtotime($this->input->post('book_avail_to')));
+            $this->db->where('STR_TO_DATE(book_avail_from, "%Y-%m-%d") >=', $book_avail_from);
+            $this->db->where('STR_TO_DATE(book_avail_to, "%Y-%m-%d") <=', $book_avail_to);
+        }
+        
+        $this->db->where('isAvail', true);
         return $this->db->get()->result_array();
     }
 

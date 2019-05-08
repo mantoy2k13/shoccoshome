@@ -32,7 +32,13 @@ class Auth extends CI_Controller{
 			$password = md5($this->input->post('password'));
 			$check_user = $this->Auth_model->check_user_if_exist($email, $password);
 			if($check_user){
-				redirect('home/homepage');
+                if(isset($_SESSION['is_in_book'])){
+                    unset($_SESSION['is_in_book']);
+                    redirect('booking/booking_as_host');
+                } else{
+                    redirect('home/homepage');
+                }
+				
 			} else{ 
                 $this->session->set_flashdata('error_msg', 'Incorrect email address or password.');
                 redirect('home/login');

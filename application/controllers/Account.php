@@ -136,9 +136,12 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-    public function set_sitter_time(){
+    public function set_my_dates(){
         if($this->session->userdata('user_email')){
-            echo $this->Account_model->set_sitter_time();
+            $book_avail_from = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_from').' '.$this->input->post('book_time_from')));
+            $book_avail_to = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_to').' '.$this->input->post('book_time_to')));
+            $res = $this->Account_model->set_my_dates($book_avail_from, $book_avail_to);
+            echo ($res) ? 1 : 0;
         }
         else{ echo false;}
     }
@@ -157,9 +160,9 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-    public function resetDate($t){
+    public function unset_dates($t){
 		if ($this->session->userdata('user_email')){ 
-            echo $this->Account_model->resetDate($t);
+            echo $this->Account_model->unset_dates($t);
         }
 		else { echo false; }
     }

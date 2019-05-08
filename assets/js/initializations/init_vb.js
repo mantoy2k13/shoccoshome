@@ -1,88 +1,89 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('availability');
-    var calendarPet = document.getElementById('calendarPet');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        header: {
-            left: 'month',
-            center: 'title',
-            right: 'prev,next today'
-        },
-        navLinks: true, // can click day/week names to navigate views
-        editable: false,
-        eventLimit: false, // allow "more" link when too many events
-        events: [
-            {
-                title: 'Avalable',
-                start: $('#a_date_from').val(),
-                end: $('#a_date_to').val(),
-                color: '#00f9f0',
-                rendering: 'background'
-            },
-            {
-                title: 'Need Sitter',
-                start: $('#pDate_from').val(),
-                end: $('#pDate_to').val(),
-                color: '#fa5637'
+navigator.geolocation.getCurrentPosition(
+    function(position){ // success cb
+        var cur_lat   = position.coords.latitude;
+        var cur_lng   = position.coords.longitude;
+        var isAvail   = $('#isAvail').val();
+        var book_type = $('#book_type').val();
+        var book_avail_from = $('#book_avail_from').val();
+        var book_avail_to = $('#book_avail_to').val();
+        $.ajax({
+            url: base_url+'booking/get_avail_host',
+            type: "POST",
+            dataType: 'JSON',
+            data: {cur_lat: cur_lat, cur_lng: cur_lng, isAvail: isAvail, book_type: book_type, book_avail_from: book_avail_from, book_avail_to: book_avail_to},
+            success: (res)=>{
+                console.log(res)
+                var calendarEl = document.getElementById('users_calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    header: {
+                        left: 'month',
+                        center: 'title',
+                        right: 'prev,next today'
+                    },
+                    navLinks: true, 
+                    editable: false,
+                    eventLimit: true, 
+                    events: res,
+                    eventClick: function(calEvent) {
+                        viewUserDetails(calEvent['event']['id'])
+                    },
+                    
+                });
+                calendar.render();
             }
-        ],
-    });
+        }); 
+    },
+    function(){ 
+        alert('Failed to get location');
+    }
+);
 
-    var calPet = new FullCalendar.Calendar(calendarPet, {
-        header: {
-            left: 'month',
-            center: 'title',
-            right: 'prev,next today'
-        },
-        navLinks: true, // can click day/week names to navigate views
-        editable: false,
-        eventLimit: false, // allow "more" link when too many events
-        events: [
-            {
-                title: 'Avalable',
-                start: $('#pDate_from').val(),
-                end: $('#pDate_to').val(),
-                color: '#ff2c00',
-                rendering: 'background'
-            }
-        ],
-    });
-    
-    calendar.render();
-    calPet.render();
-});
+var viewUserDetails = (uid)=>{
+    alert(uid)
+}
 
 var checkDateTime = ()=>{
-    var curr_date  = $('#curr_date').val();
-    var date_from  = $('#date_from').val();
-    var date_to    = $('#date_to').val();
+    var curr_date       = $('#curr_date').val();
+    var book_avail_from = $('#book_avail_from').val();
+    var book_avail_to   = $('#book_avail_to').val();
+    var book_time_from  = $('#book_time_from').val();
+    var book_time_to    = $('#book_time_to').val();
+    var pet_cat_list    = $('#pet_cat_list').val();
+    var book_type       = $('#book_type').val();
+    var book_note       = $('#book_note').val();
     
-    if(date_from && date_to){
-        var date_today = new Date(curr_date);
-        var given_date_from = new Date(date_from);
-        var given_date_to = new Date(date_to);
+    if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_cat_list.length!=0){
+        var date_today      = new Date(curr_date);
+        var given_date_from = new Date(book_avail_from);
+        var given_date_to   = new Date(book_avail_to);
 
         if(given_date_from < date_today){
             $('.setTimeMsg').html(setMsg('Date From must be equal or greater than the date today'));
-            $('#date_from').focus();
+            $('#book_avail_from').focus();
         } else if(given_date_to < date_today){
             $('.setTimeMsg').html(setMsg('Date To must be equal or greater than the date today'));
-            $('#date_to').focus();
+            $('#book_avail_to').focus();
         } else if(given_date_to < given_date_from){
             $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date to'));
-            $('#date_to').focus();
+            $('#book_avail_to').focus();
         } else{
             $.ajax({
-                url: base_url+'account/set_sitter_time',
+                url: base_url+'account/set_my_dates',
                 method: 'POST',
-                data: { date_from: date_from, date_to:date_to },
+                data: { 
+                    book_avail_from: book_avail_from, 
+                    book_avail_to:   book_avail_to,
+                    book_time_from:  book_time_from, 
+                    book_time_to:    book_time_to,
+                    pet_cat_list:    pet_cat_list,
+                    book_type:       book_type,
+                    book_note:       book_note
+                },
                 success: (res)=>{
+                    console.log(res)
                     if(res==1){
-                        swal({title: "Success!", text: "Set time availability successful.", type: 
-                        "success"},
-                            function(){ 
-                                location.reload();
-                            }
-                        );
+                        swal({title: "Success!", text: "Your time was successfully set as a host.", type: 
+                        "success"}, function(){ location.reload(); });
                     } else{
                         swal('Failed!', 'A problem occured please try again.', 'error');
                     }
@@ -90,7 +91,7 @@ var checkDateTime = ()=>{
             });
         }
     } else{
-        $('.setTimeMsg').html(setMsg('Please set all dates to proceed'));
+        $('.setTimeMsg').html(setMsg('Please fill all fields to proceed.'));
     }
 }
 
@@ -139,23 +140,23 @@ var checkDateTime2 = ()=>{
     }
 }
 
-var resetDate=(t)=>{
+var unsetDates=(t)=>{
     swal({
-        title: "Reset Date?",
+        title: "Unset Dates?",
         text: "All dates will be remove. Continue?",
         type: "warning",
         showCancelButton: true,
-        confirmButtonText: "Yes, reset it!",
+        confirmButtonText: "Yes, unset it!",
         closeOnConfirm: false,
         confirmButtonColor: "#f77506",
         showLoaderOnConfirm: true
     },
     function(){
         $.ajax({
-            url: base_url+'account/resetDate/'+t,
+            url: base_url+'account/unset_dates/'+t,
             success: (res)=>{
                 if(res==1){
-                    swal({title: "Success!", text: 'Date reset successfully.', type: 
+                    swal({title: "Success!", text: 'All dates was unset successfully.', type: 
                     "success"}, function(){ location.reload(); });
                 } else{
                     swal('Failed!', 'A problem occured please try again.', 'error');
