@@ -37,12 +37,13 @@
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
   
 
-    <?php if($is_page=="homepage" || $is_page=="people_near_me" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="book_this_user" || $is_page=="booking_set_dates" || $is_page=="booking_as_host"){ ?>
+    <?php if($is_page=="homepage" || $is_page=="people_near_me" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="book_this_user" || $is_page=="booking_set_dates" || $is_page=="choose_user_calendar"){ ?>
       <!-- Calendar -->
       <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
       <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>
     <?php } ?>
     <input type="hidden" id="base_url" value="<?=base_url(); ?>">
+    <input type="hidden" id="my_user_id" value="<?=($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : ''; ?>">
     <audio id="notif">
         <source src="<?=base_url();?>assets/audio/notify.ogg" type="audio/ogg">
     </audio>

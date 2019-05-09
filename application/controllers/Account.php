@@ -99,6 +99,23 @@ class Account extends CI_Controller {
 		else { redirect('home/login'); }
     }
 
+    public function get_user_info($uid){
+        if($this->session->userdata('user_email')){
+            $user_data = $this->Account_model->get_user($uid);
+            $get_cat   = $this->Pet_model->get_all_pet_cat();
+            $cats      = json_decode($user_data['cat_list']);
+            $c = "";
+            foreach($get_cat as $cat){
+                if(in_array($cat['cat_id'], $cats)){
+                    $c .= $cat['cat_name'].', ';
+                }
+            } $my_cat = array('my_cat'=>$c);
+            $data = $user_data + $my_cat;
+            echo ($data) ? json_encode($data) : 0;
+        }
+        else{ echo false;}
+    }
+
     public function compLater(){
 		if ($this->session->userdata('user_email')){ 
             echo $this->Account_model->compLater();

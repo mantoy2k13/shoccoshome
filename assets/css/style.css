@@ -450,6 +450,14 @@ i.fa.upload-icon {
     background-color: #b2fdfa;  
 }
 
+.bg-native-blue{
+    background-color: #2f59f3;  
+}
+
+.bg-native-blue{
+    background-color: #2f59f3;  
+}
+
 .bg-yellow-l {
     background: #fff5bf;
 }
@@ -1092,6 +1100,11 @@ div#map {
     font-size: 20px;
 }
 
+.font-san-serif{
+    font-family: sans-serif;
+}
+
+
 .badge.cus-f-badge {
     position: absolute;
     right: 59px;
@@ -1576,7 +1589,7 @@ a.viewAllImg {
 }
 
 .avIcon {
-    padding: 1px 9px;
+    padding: 0px 11px;
     margin: 10px;
     border: 1px solid #ced4da;
 }

@@ -95,6 +95,11 @@ class Account_model extends CI_Model {
         return $data;
     }
 
+    public function get_user($uid){
+        $this->db->select('*')->from('sh_users')->where('id', $uid);
+        return $this->db->get()->row_array();
+    }
+
     public function view_bio($uid){
         $this->db->select('*')->from('sh_users');
         $this->db->where('id',$uid);

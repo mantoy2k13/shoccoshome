@@ -99,7 +99,7 @@ class Booking extends CI_Controller {
 		else { redirect('home/login'); }
     }
 
-    public function book_this_user($uid){
+    public function book_this_user2($uid){
 		if ($this->session->userdata('user_email')){ 
             $user_email       = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
@@ -111,8 +111,8 @@ class Booking extends CI_Controller {
         }
 		else { redirect('home/login'); }
     }
-
-    public function booking_as_host()
+/* New Booking steps */
+    public function booking_as_host() // Step 1
 	{
         if ($this->session->userdata('user_email')){ 
             $user_email  = $this->session->userdata('user_email');
@@ -121,11 +121,45 @@ class Booking extends CI_Controller {
             $data['is_page']    = 'booking_as_host';
             $data['bio']        = $this->Account_model->view_bio($uid);
             $data['categories'] = $this->Pet_model->get_all_pet_cat();
-            $data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
-            $this->load->view('booking/booking_as_host', $data);
+            $this->load->view('booking/booking_steps/booking_as_host', $data);
         }
 		else { redirect('home/login'); }
     }
+
+    public function choose_user_calendar() // Step 2
+	{
+        if ($this->session->userdata('user_email')){ 
+            $user_email  = $this->session->userdata('user_email');
+            $uid  = $this->session->userdata('user_id');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']    = 'choose_user_calendar';
+            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+            $this->load->view('booking/booking_steps/choose_user_calendar', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
+    public function book_this_user($uid, $book_type){ // Step 3
+		if ($this->session->userdata('user_email')){ 
+            $user_email  = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']    = 'book_this_user';
+            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+            if($book_type==1){
+                // Book Host
+                $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+                $this->load->view('booking/booking_steps/book_this_host', $data);
+
+            } else{
+                //Book Guest
+            }
+        }
+		else { redirect('home/login'); }
+    }
+
+/* Close New Booking steps */
 
     public function booking_set_dates()
 	{
@@ -329,12 +363,12 @@ class Booking extends CI_Controller {
             $get_avail_host = $this->Booking_model->get_avail_host();
             if($get_avail_host){
                 foreach($get_avail_host as $p){
-                    $book_type = ($p['fullname']) ? ' (HOST)' : ' (GUEST)';
+                    $book_type = ($p['book_type']==1) ? ' (HOST)' : ' (GUEST)';
+                    $color = ($p['book_type']==2) ? '#fa5637' : '#2f59f3';
                     $title = $p['fullname'].$book_type;
-                    // $end   = date('Y-m-d', strtotime($p['fullname'] . ' +1 day'));
                     $start = date('Y-m-d', strtotime($p['book_avail_from']));
-                    $end   = date('Y-m-d', strtotime($p['book_avail_to']));
-                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end);
+                    $end   = date('Y-m-d', strtotime($p['book_avail_to'].' +1 day'));
+                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
                     $user_dates[] = $data;
                 }
             } else{

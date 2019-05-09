@@ -28,10 +28,9 @@
 				<div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking
+                            <i class="fa fa-history f-25 text-blue "></i> Booking History
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_set_dates" class="p-nav b-700 f-14 <?=($is_page=='booking_set_dates') ? 'active' : '';?>">Book me now </a>
                             <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request
                             <?php if($cntba!=0){ ?> 
                                 <span class="badge badge-info"><?=$cntba;?></span>
@@ -42,7 +41,7 @@
                                 <span class="badge badge-danger"><?=$cntMgb;?></span>
                             <?php } ?>
                             </a>
-                            <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
+                            <a href="<?=base_url();?>booking/booking_as_host" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-calendar-alt"></i> Booking Dates</a>
                         </div>
                     </div>
                 </div>

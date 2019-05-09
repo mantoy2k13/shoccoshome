@@ -304,6 +304,9 @@ class Booking_model extends CI_Model {
             $book_avail_to   = date('Y-m-d', strtotime($this->input->post('book_avail_to')));
             $this->db->where('STR_TO_DATE(book_avail_from, "%Y-%m-%d") >=', $book_avail_from);
             $this->db->where('STR_TO_DATE(book_avail_to, "%Y-%m-%d") <=', $book_avail_to);
+        } else{
+            $current_date = date('Y-m-d');
+            $this->db->where('STR_TO_DATE(book_avail_from, "%Y-%m-%d") >=', $current_date);
         }
         
         $this->db->where('isAvail', true);

@@ -1,4 +1,5 @@
 var base_url = $('#base_url').val();
+var my_user_id = $('#my_user_id').val();
 $(document).ready(function(){
     $(document).tooltip('disabled')
 });

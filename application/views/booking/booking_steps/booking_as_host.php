@@ -3,7 +3,7 @@
 
   <!-- Header CSS -->
   <?php $this->load->view('common/css');?>
-
+  <link href="<?=base_url();?>assets/css/breadcrumbs.css" rel="stylesheet" type="text/css">
   <body id="page-top">
   
     <!-- Navigation -->
@@ -30,33 +30,25 @@
                             <i class="fa fa-book f-25 text-blue "></i> Booking
                         </div>
                         <div class="col-md-12 m-t-10">
-                        
-                            <a href="<?=base_url();?>booking/booking_set_dates" class="p-nav b-700 f-14 <?=($is_page=='booking_as_host') ? 'active' : '';?>">Become a Host</a>
-                            <a href="<?=base_url();?>booking/booking_set_dates" class="p-nav b-700 f-14 <?=($is_page=='booking_as_guest') ? 'active' : '';?>">Become a Guest</a>
-                            <a href="<?=base_url();?>booking/booking_list/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Request
-                            <?php if($cntba!=0){ ?> 
-                                <span class="badge badge-info"><?=$cntba;?></span>
-                            <?php } ?>
-                            </a>
-                            <a href="<?=base_url();?>booking/booking_list/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">People Request
-                            <?php if($cntMgb!=0){ ?> 
-                                <span class="badge badge-danger"><?=$cntMgb;?></span>
-                            <?php } ?>
-                            </a>
+                            <a href="<?=base_url();?>booking/booking_as_host" class="p-nav b-700 f-14 active">Become a Host</a>
+                            <a href="<?=base_url();?>booking/booking_as_guest" class="p-nav b-700 f-14">Become a Guest</a>
+                            <a href="<?=base_url();?>booking/booking_list/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12">
+                    <!-- Breadcrumbs -->
+                    <?php $this->load->view('booking/booking_steps/breadcrumbs');?>
+                    <div class="col-lg-12 col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Become a Host <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="If you want to become a host and watch other pets, you need to set your available time here. If you don't set your available time, other people won't find or search you."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Post your available dates here to be able to watch someone's pet.</p>
+                                        <i class="fa fa-calendar-alt"></i> Step 1: Set your date as host  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
-                                        <form onchange="$('.setTimeMsg2').html('');" id="setTimeForm">
+                                        <form onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" value="<?=$today;?>">
@@ -111,23 +103,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="cus-card">
-                            <div class="row">
-                                <div class="cus-card-header col-md-12">
-                                    <i class="fa fa-calendar-alt"></i> Scheduled Dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Scheduled Dates"></i>
-                                </div>
-                                <div class="cus-card-body">
-                                    <p class="f-15 m-b-0 m-t-20 text-center">
-                                        <span class="avIcon bg-orange"></span> Host 
-                                        <span class="avIcon bg-skyblue"></span> Guest 
-                                        <span class="avIcon bg-yellow-l"></span> Today
-                                    </p>
-                                    <div class="m-t-20" id='users_calendar'></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 
             </div>
@@ -136,11 +111,7 @@
     </section>
 
     <!-- Footer -->
-    <?php $this->load->view('booking/booking_modal');?>
-    <?php $this->load->view('booking/booking_info');?>
     <?php $this->load->view('common/footer');?>
-    <?php $this->load->view('mail/pop-ups/inst_msg');?>
-
     <script src="<?=base_url();?>assets/js/initializations/init_vb.js"></script>
   </body>
 

@@ -72,3 +72,8 @@ button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right
 .fc-content {
     cursor: pointer;
 }
+
+.fc-day-grid-event {
+    margin: 1px 0px;
+    border-radius: 0;
+}
