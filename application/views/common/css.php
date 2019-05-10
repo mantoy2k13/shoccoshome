@@ -37,7 +37,7 @@
     <link href="<?=base_url();?>assets/vendor/fastselect/custom-select.css" rel="stylesheet">
   
 
-    <?php if($is_page=="homepage" || $is_page=="people_near_me" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="book_this_user" || $is_page=="booking_set_dates" || $is_page=="choose_user_calendar"){ ?>
+    <?php if($is_page=="homepage" || $is_page=="people_near_me" || $is_page=="pet_details" || $is_page=='book_user_pets' || $is_page=="booking_set_dates" || $is_page=="choose_user_calendar"){ ?>
       <!-- Calendar -->
       <script src="<?=base_url();?>assets/vendor/calendar/js/fullcalendar.min.js"></script>
       <script src="<?=base_url();?>assets/vendor/calendar/js/calendar_init.js"></script>

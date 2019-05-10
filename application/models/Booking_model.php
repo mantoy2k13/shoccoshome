@@ -34,29 +34,48 @@ class Booking_model extends CI_Model {
         }
     }
 
-    public function book_user(){
-        $book_date_from[] = $this->input->post('date_from');
-        $book_date_from[] = $this->input->post('time_start');
-        $book_date_to[]   = $this->input->post('date_to');
-        $book_date_to[]   = $this->input->post('time_end');
-        foreach ($this->input->post('pet_list') as $k => $v) {
+    /* New Booking steps */
+    public function book_me_now($book_id){
+        foreach ($this->input->post('pet_list') as $v) {
            $pet_list[] = $v;
         }
 		$data = array(
-            'user_id'        => $this->session->userdata('user_id'),
-            'book_user_id'   => $this->input->post('book_user_id'),
-            'book_date_from' => json_encode($book_date_from),
-            'book_date_to'   => json_encode($book_date_to),
+            'book_by'        => $this->session->userdata('user_id'),
+            'book_to'        => $this->input->post('book_to'),
+            'book_date_from' => $this->input->post('book_avail_from').' '.$this->input->post('book_time_from'),
+            'book_date_to'   => $this->input->post('book_avail_to').' '.$this->input->post('book_time_to'),
             'pet_list'       => json_encode($pet_list),
             'user_type'      => $this->input->post('user_type'),
-            'message'        => $this->input->post('message'),
+            'short_message'  => $this->input->post('short_message'),
             'book_status'    => 1,
             'is_notify'      => 1
         );
 
-        $res = $this->db->insert('sh_book', $data);
-        return ($res) ? 1 : 0;
+        if($book_id){
+            $this->db->where('book_id', $book_id);
+            $res = $this->db->update('sh_book', $data);
+        } else{
+            $this->db->insert('sh_book', $data);
+            $res = $this->db->insert_id();
+        }
+        
+        return ($res) ? $res : false;
     }
+
+    public function get_book_info($book_id){
+        $this->db->select('*')->from('sh_book')->where('book_id', $book_id);
+        return $this->db->get()->row_array();
+    }
+
+    public function check_booking($book_by, $book_to){
+        $this->db->where('book_by', $book_by);
+        $this->db->where('book_to', $book_to);
+        $this->db->where('book_status', 1);
+        $this->db->select('*')->from('sh_book');
+        return $this->db->get()->row_array();
+    }
+
+    /* Close New Booking steps */
 
     public function update_book_user($bid){
         $book_date_from[] = $this->input->post('date_from');
@@ -89,8 +108,8 @@ class Booking_model extends CI_Model {
            $pet_list[] = $v;
         }
 		$data = array(
-            'user_id'        => $this->session->userdata('user_id'),
-            'book_user_id'   => $this->input->post('book_user_id'),
+            'book_by'        => $this->session->userdata('user_id'),
+            'book_to'        => $this->input->post('book_user_id'),
             'book_date_from' => json_encode($book_date_from),
             'book_date_to'   => json_encode($book_date_to),
             'pet_list'       => json_encode($pet_list),
@@ -123,14 +142,6 @@ class Booking_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
-    public function check_booking($uid, $bud){
-        $this->db->where('user_id', $uid);
-        $this->db->where('book_user_id', $bud);
-        $this->db->where('book_status', 1);
-        $this->db->select('*')->from('sh_book');
-        return $this->db->get()->row_array();
-    }
-
     public function bookng_approvals($bid, $status){
         $data = ($status==4) ? array('book_status' => $status, 'is_notify' => 3) : array('book_status' => $status);
         $this->db->where('book_id', $bid);
@@ -148,11 +159,11 @@ class Booking_model extends CI_Model {
     public function booking_list($uid, $type){
         $this->db->select('*')->from('sh_book');
         if($type==1){
-            $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
-            $this->db->where('sh_book.user_id', $uid);
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
+            $this->db->where('sh_book.book_by', $uid);
         } else{
-            $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
-            $this->db->where('sh_book.book_user_id', $uid);
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_by', 'left');
+            $this->db->where('sh_book.book_to', $uid);
         }
         return $this->db->get()->result_array();
     }
@@ -160,10 +171,10 @@ class Booking_model extends CI_Model {
     public function get_booking_info($bid, $type){
         $this->db->select('*')->from('sh_book');
         if($type==1){
-            $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
             $this->db->where('sh_book.book_id', $bid);
         } else{
-            $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_by', 'left');
             $this->db->where('sh_book.book_id', $bid);
         }
         return $this->db->get()->row_array();
@@ -171,7 +182,7 @@ class Booking_model extends CI_Model {
 
     public function count_mgb(){
         $uid = $this->session->userdata('user_id');
-        $this->db->where('book_user_id', $uid);
+        $this->db->where('book_to', $uid);
         $this->db->where('book_status', 1);
         $r = $this->db->get('sh_book');
         return ($r) ? $r->num_rows() : 0;
@@ -179,7 +190,7 @@ class Booking_model extends CI_Model {
 
     public function count_ba(){
         $uid = $this->session->userdata('user_id');
-        $this->db->where('user_id', $uid);
+        $this->db->where('book_by', $uid);
         $this->db->where('book_status', 4);
         $r = $this->db->get('sh_book');
         return ($r) ? $r->num_rows() : 0;
@@ -188,8 +199,8 @@ class Booking_model extends CI_Model {
     public function get_guest_req(){
         $uid = $this->session->userdata('user_id');
         $this->db->select('*')->from('sh_book');
-        $this->db->join('sh_users', 'sh_users.id=sh_book.user_id', 'left');
-        $this->db->where('book_user_id', $uid);
+        $this->db->join('sh_users', 'sh_users.id=sh_book.book_by', 'left');
+        $this->db->where('book_to', $uid);
         $this->db->where('is_notify', 1);
         $this->db->where('book_status', 1);
         return $this->db->get()->result_array();
@@ -205,8 +216,8 @@ class Booking_model extends CI_Model {
     public function get_host_approve(){
         $uid = $this->session->userdata('user_id');
         $this->db->select('*')->from('sh_book');
-        $this->db->join('sh_users', 'sh_users.id=sh_book.book_user_id', 'left');
-        $this->db->where('user_id', $uid);
+        $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
+        $this->db->where('book_by', $uid);
         $this->db->where('is_notify', 3);
         $this->db->where('book_status', 4);
         return $this->db->get()->result_array();

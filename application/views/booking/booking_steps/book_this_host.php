@@ -5,7 +5,7 @@
   <?php $this->load->view('common/css');?>
   <link href="<?=base_url();?>assets/css/breadcrumbs.css" rel="stylesheet" type="text/css">
   <body id="page-top">
-  
+  <?php $uid = $this->session->userdata('user_id');?>
     <!-- Navigation -->
     <?php $this->load->view('common/main-nav');?>
 
@@ -44,42 +44,49 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Step 3: Fill up book form  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
+                                        <i class="fa fa-calendar-alt"></i> Step 3: Fill up book form  
+                                        <?=($book && $book['book_status']==1) ? '<span class="badge bg-orange text-white font-san-serif pull-right m-t-5 f-12"><i class="fa fa-history"></i> Waiting for approval</span>' : ''; ?>
+                                        <?=($book && $book['book_status']==2) ? '<span class="badge badge-danger font-san-serif pull-right m-t-5 f-12"><i class="fa fa-times"></i> Cancelled</span>' : ''; ?>
+                                        <?=($book && $book['book_status']==3) ? '<span class="badge badge-danger font-san-serif pull-right m-t-5 f-12"><i class="fa fa-thumbs-down"></i> Disapproved</span>' : ''; ?>
+                                        <?=($book && $book['book_status']==4) ? '<span class="badge badge-info font-san-serif pull-right m-t-5 f-12"><i class="fa fa-thumbs-up"></i> Approve</span>' : ''; ?>
+                                        <?=($book && $book['book_status']==5) ? '<span class="badge badge-success font-san-serif pull-right m-t-5 f-12"><i class="fa fa-check"></i> Completed</span>' : ''; ?>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available dates to book this user. Dates will depend upon the user's available time and date to book in.</p>
                                     </div>
                                     <div class="cus-card-body">
                                         <form onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" value="<?=$today;?>">
+                                            <input type="hidden" id="user_type" value="2">
+                                            <input type="hidden" id="book_to" value="<?=$bio[0]['id'] ? $bio[0]['id'] : '';?>">
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
                                                     <label for="book_avail_from">Date From: </label>
-                                                    <input type="date" class="form-control" name="book_avail_from" id="book_avail_from" value="">
+                                                    <input type="date" class="form-control" name="book_avail_from" id="book_avail_from" value="<?=$book ? date('Y-m-d', strtotime($book['book_date_from'])) : '';?>">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label for="book_time_from">Time From: </label>
-                                                    <input type="time" class="form-control" name="book_time_from" id="book_time_from" value="">
+                                                    <input type="time" class="form-control" name="book_time_from" id="book_time_from" value="<?=$book ? date('H:i', strtotime($book['book_date_from'])) : '';?>">
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
                                                     <label for="book_avail_to">Date To: </label>
-                                                    <input type="date" class="form-control" name="book_avail_to" id="book_avail_to" value="">
+                                                    <input type="date" class="form-control" name="book_avail_to" id="book_avail_to" value="<?=$book ? date('Y-m-d', strtotime($book['book_date_to'])) : '';?>">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label for="book_time_to">Time To: </label>
-                                                    <input type="time" class="form-control" name="book_time_to" id="book_time_to" value="">
+                                                    <input type="time" class="form-control" name="book_time_to" id="book_time_to" value="<?=$book ? date('H:i', strtotime($book['book_date_to'])) : '';?>">
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
                                                 <label for="pet_list">Choose your pet from pet list</label>
-                                                <select id="petList" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                                <select id="pet_list" name="pet_list[]" class="multipleSelect form-control" multiple>
                                                 <?php if($my_pets){ 
                                                     foreach($my_pets as $pets){ extract($pets); ?>
-                                                    <?php if($cb){ ?>
-                                                        <?php if(in_array($pet_id, $pl)){ ?>
+                                                    <?php if($book){ ?>
+                                                        <?php if(in_array($pet_id, json_decode($book['pet_list']))){ ?>
                                                         <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                                         <?php } else{ ?>
                                                             <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
@@ -93,13 +100,19 @@
                                                 </select>
                                                 </div>
                                                 <div class="col-md-12 m-t-10">
-                                                    <label for="book_note">Additional Info: </label>
-                                                    <textarea class="form-control" name="book_note" id="book_note" cols="30" rows="3" placeholder="Any message or additional information.."><?=$bio[0]['book_note'];?></textarea>
+                                                    <label for="short_message">Additional Info: </label>
+                                                    <textarea class="form-control" name="short_message" id="short_message" cols="30" rows="3" placeholder="Any message or additional information.."><?=$book ? $book['short_message'] : '';?></textarea>
+                                                </div>
+                                                <div class="col-md-12 m-t-10">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input ai_box" id="verify_check">
+                                                        <label class="custom-control-label f-15" for="verify_check"> I have checked and verified above information.</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 text-center">
-                                                    <button type="button" onclick="checkDateTime()" class="btn btn-success"><i class="fa fa-check"></i> Save and Book</button>
+                                                    <button type="button" onclick="checkBookTime(<?=$book ? $book['book_id'] : '0';?>)" class="btn btn-success"><i class="fa fa-check"></i> <?=$book ? 'Save changes' : 'Book me now';?></button>
                                                 </div>
                                             </div>
                                         </form>
@@ -110,8 +123,8 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-user"></i> User schedule info<i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Schedule of users and it's basic information."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Schedule of users and it's basic information.</p>
+                                        <i class="fa fa-user"></i> User schedule and info<i class="fa fa-question-circle pull-right m-t-5 text-info" title="User available schedule and my basic information."></i>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">User available schedule and my basic information.</p>
                                     </div>
                                     <div class="cus-card-body">
                                         <div class="bio-head">
@@ -121,15 +134,15 @@
                                                 <?php }else{ ?>
                                                     <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
                                                 <?php } ?>
-                                            </div>
-                                            <?php $uid = $this->session->userdata('user_id');?>
+                                            </div>  
+                                            <!-- Check if Friends -->
                                             <?php if($this->Friends_model->check_if_friends($bio[0]['id'])){ ?>
                                                 <?php if($uid != $bio[0]['id']){?>
                                                     <div class="options<?=$bio[0]['id'];?>">
                                                         <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Friends</span>
                                                         <div class="dropdown-menu" aria-labelledby="f-menu">
                                                             <a onclick="request_friends(<?=$bio[0]['id'];?>,3,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Unfriend</a>
-                                                            <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
+                                                            <a target="_blank" class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
                                                             <a onclick="instMsg(<?=$bio[0]['id'];?>,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                         </div>
                                                     </div>
@@ -141,7 +154,7 @@
                                                             <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i>  Request Sent</span>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                                 <a onclick="request_friends(<?=$bio[0]['id'];?>,2,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Remove Request</a>
-                                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
+                                                                <a target="_blank" class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
                                                                 <a onclick="instMsg(<?=$bio[0]['id'];?>,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                             </div>
                                                         </div>
@@ -152,13 +165,14 @@
                                                             <span class="badge badge-default pull-right b-hover dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-check"></i> Add friend</span>
                                                             <div class="dropdown-menu" aria-labelledby="f-menu">
                                                                 <a onclick="request_friends(<?=$bio[0]['id'];?>,1,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Add Friend</a>
-                                                                <a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
+                                                                <a target="_blank" class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$bio[0]['id'];?>">View profile</a>
                                                                 <a onclick="instMsg(<?=$bio[0]['id'];?>,'<?=$bio[0]['email'];?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                             </div>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } ?>
                                             <?php } ?>
+                                            <!-- Close Check if Friends -->
                                             <?php 
                                                 if($bio[0]['fullname']){ $getName = $bio[0]['fullname'];}
                                                 else{
@@ -179,22 +193,22 @@
                                         </p>
                                         <div class="row m-t-10">
                                             <div class="col-md-7">
-                                                <label for="book_avail_from">Date From: </label>
-                                                <input type="date" class="form-control" name="book_avail_from" value="<?=$bio[0]['book_avail_from'] ? date('Y-m-d', strtotime($bio[0]['book_avail_from'])) : '';?>" disabled>
+                                                <label>Date From: </label>
+                                                <input type="date" class="form-control" value="<?=$bio[0]['book_avail_from'] ? date('Y-m-d', strtotime($bio[0]['book_avail_from'])) : '';?>" id="user_date_from" readonly>
                                             </div>
                                             <div class="col-md-5">
-                                                <label for="book_time_from">Time From: </label>
-                                                <input type="time" class="form-control" name="book_time_from" id="" value="<?=$bio[0]['book_avail_from'] ? date('H:i', strtotime($bio[0]['book_avail_from'])) : '';?>" disabled>
+                                                <label>Time From: </label>
+                                                <input type="time" class="form-control" value="<?=$bio[0]['book_avail_from'] ? date('H:i', strtotime($bio[0]['book_avail_from'])) : '';?>" id="" readonly>
                                             </div>
                                         </div>
                                         <div class="row m-t-10">
                                             <div class="col-md-7">
-                                                <label for="book_avail_to">Date To: </label>
-                                                <input type="date" class="form-control" name="book_avail_to" id="" value="<?=$bio[0]['book_avail_to'] ? date('Y-m-d', strtotime($bio[0]['book_avail_to'])) : '';?>" disabled>
+                                                <label>Date To: </label>
+                                                <input type="date" class="form-control" value="<?=$bio[0]['book_avail_to'] ? date('Y-m-d', strtotime($bio[0]['book_avail_to'])) : '';?>" id="user_date_to" readonly>
                                             </div>
                                             <div class="col-md-5">
                                                 <label for="book_time_to">Time To: </label>
-                                                <input type="time" class="form-control" name="book_time_to" id="" value="<?=$bio[0]['book_avail_to'] ? date('H:i', strtotime($bio[0]['book_avail_to'])) : '';?>" disabled>
+                                                <input type="time" class="form-control" name="book_time_to" value="<?=$bio[0]['book_avail_to'] ? date('H:i', strtotime($bio[0]['book_avail_to'])) : '';?>" id="" readonly>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -206,7 +220,7 @@
                                             </div>
                                             <div class="col-md-12 m-t-10">
                                                 <label for="book_note">Note/Remarks: </label>
-                                                <textarea class="form-control" name="book_note" id="" cols="30" rows="3" placeholder="Additional Notes.." disabled><?=$bio[0]['book_note'];?></textarea>
+                                                <textarea class="form-control" cols="30" rows="3" placeholder="Additional Notes.." disabled><?=$bio[0]['book_note'];?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -223,7 +237,7 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
-    <script src="<?=base_url();?>assets/js/initializations/init_vb.js"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
   </body>
 
 </html>

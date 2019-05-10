@@ -129,12 +129,12 @@ class Booking extends CI_Controller {
     public function choose_user_calendar() // Step 2
 	{
         if ($this->session->userdata('user_email')){ 
-            $user_email  = $this->session->userdata('user_email');
-            $uid  = $this->session->userdata('user_id');
+            $user_email             = $this->session->userdata('user_email');
+            $my_user_id             = $this->session->userdata('user_id');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']    = 'choose_user_calendar';
-            $data['bio']        = $this->Account_model->view_bio($uid);
-            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+            $data['is_page']        = 'choose_user_calendar';
+            $data['bio']            = $this->Account_model->view_bio($my_user_id);
+            $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $this->load->view('booking/booking_steps/choose_user_calendar', $data);
         }
 		else { redirect('home/login'); }
@@ -142,22 +142,77 @@ class Booking extends CI_Controller {
 
     public function book_this_user($uid, $book_type){ // Step 3
 		if ($this->session->userdata('user_email')){ 
-            $user_email  = $this->session->userdata('user_email');
+            $my_user_id             = $this->session->userdata('user_id');
+            $user_email             = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']    = 'book_this_user';
-            $data['bio']        = $this->Account_model->view_bio($uid);
-            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+            $data['is_page']        = 'book_this_user';
+            $data['bio']            = $this->Account_model->view_bio($uid);
+            $data['categories']     = $this->Pet_model->get_all_pet_cat();
+            $check_booking          = $this->Booking_model->check_booking($my_user_id, $uid);
+            $data['book']           = $check_booking ? $this->Booking_model->get_book_info($check_booking['book_id']) : "";
             if($book_type==1){
                 // Book Host
-                $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+                $data['my_pets']  = $this->Account_model->get_my_pets($my_user_id);
                 $this->load->view('booking/booking_steps/book_this_host', $data);
-
             } else{
                 //Book Guest
             }
         }
 		else { redirect('home/login'); }
     }
+
+    public function book_me_now($book_id)
+	{
+		if($this->session->userdata('user_email')){
+            $res = $this->Booking_model->book_me_now($book_id);
+            echo ($res) ? (($book_id) ? $book_id : $res) : 0;
+        }
+        else{ echo 0;}
+    }
+
+    public function booking_summary($book_id, $book_to){ // Final Step
+		if ($this->session->userdata('user_email')){ 
+            $my_user_id             = $this->session->userdata('user_id');
+            $user_email             = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']        = 'booking_summary';
+            $data['book']           = $this->Booking_model->get_book_info($book_id);
+            $data['bio']            = $this->Account_model->view_bio($book_to);
+            $data['categories']     = $this->Pet_model->get_all_pet_cat();
+            $data['my_pets']        = $this->Account_model->get_my_pets($my_user_id);
+            $this->load->view('booking/booking_steps/booking_summary', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
+    public function update_book_user($book_id, $uid, $book_type){ // Step 3
+		if ($this->session->userdata('user_email')){ 
+            $my_user_id             = $this->session->userdata('user_id');
+            $user_email             = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']        = 'book_this_user';
+            $data['bio']            = $this->Account_model->view_bio($uid);
+            $data['book']           = $this->Booking_model->get_book_info($book_id);
+            $data['categories']     = $this->Pet_model->get_all_pet_cat();
+            if($book_type==1){
+                // Book Host
+                $data['my_pets']  = $this->Account_model->get_my_pets($my_user_id);
+                $this->load->view('booking/booking_steps/book_this_host', $data);
+            } else{
+                //Book Guest
+                $data['my_pets']  = $this->Account_model->get_my_pets($my_user_id);
+                $this->load->view('booking/booking_steps/book_this_host', $data);
+            }
+        }
+		else { redirect('home/login'); }
+    }
+
+    // public function update_book_user($bid){
+	// 	if($this->session->userdata('user_email')){
+    //         echo $this->Booking_model->update_book_user($bid);
+    //     }
+    //     else{ echo 0;}
+    // }
 
 /* Close New Booking steps */
 
@@ -192,21 +247,7 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-    public function book_user()
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->book_user();
-        }
-        else{ echo 0;}
-    }
-
-    public function update_book_user($bid)
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->update_book_user($bid);
-        }
-        else{ echo 0;}
-    }
+    
 
     public function book_pet_user()
 	{
