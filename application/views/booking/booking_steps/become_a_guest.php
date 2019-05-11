@@ -22,17 +22,15 @@
 			<?php $this->load->view('common/left-nav');?>
             <!-- Main Content -->
             <div class="col-md-9 m-t-10 p-l-0">
-                <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking
+                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a guest
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_as_host" class="p-nav b-700 f-14 active">Become a Host</a>
-                            <a href="<?=base_url();?>booking/booking_as_guest" class="p-nav b-700 f-14">Become a Guest</a>
-                            <a href="<?=base_url();?>booking/booking_list/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
+                            <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14">Become a Host</a>
+                            <a href="<?=base_url();?>booking/become_a_guest" class="p-nav b-700 f-14 active">Become a Guest</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
                         </div>
                     </div>
                 </div>
@@ -44,15 +42,15 @@
                             <div class="col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Step 1: Set your date as host  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
+                                        <i class="fa fa-calendar-alt"></i> Step 1: Set your dates  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates."></i>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
                                         <form onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" value="<?=$today;?>">
-                                            <input type="hidden" id="book_type" value="1">
+                                            <input type="hidden" id="book_type" value="2">
                                             <input type="hidden" id="isAvail" value="<?=$bio[0]['isAvail'];?>">
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
@@ -76,7 +74,7 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
-                                                    <label for="pet_cat" class="f-15">What kind of pet do you like?</label><br />
+                                                    <label for="pet_cat" class="f-15">What pet category do you have?</label><br />
                                                     <?php $cat_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
                                                     <select name="pet_cat[]" class="multipleSelect form-control petCat" multiple id="pet_cat_list">
                                                         <?php foreach($categories as $cat){ extract($cat); ?>
@@ -91,7 +89,7 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 text-center">
-                                                    <button type="button" onclick="checkDateTime()" class="btn btn-success"><i class="fa fa-check"></i> Save Dates</button>
+                                                    <button type="button" onclick="checkDateTime(1)" class="btn btn-success"><i class="fa fa-check"></i> Save and Next</button>
                                                     <?php if($bio[0]['isAvail']){?>
                                                         <button type="button" onclick="unsetDates(1)" class="btn btn-info"><i class="fa fa-history"></i> Unset Dates</button>
                                                     <?php } ?>

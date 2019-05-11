@@ -1,12 +1,12 @@
-var checkDateTime = ()=>{
+var checkDateTime = (type)=>{
     var curr_date       = $('#curr_date').val();
     var book_avail_from = $('#book_avail_from').val();
     var book_avail_to   = $('#book_avail_to').val();
     var book_time_from  = $('#book_time_from').val();
     var book_time_to    = $('#book_time_to').val();
     var pet_cat_list    = $('#pet_cat_list').val();
-    var book_type       = $('#book_type').val();
     var book_note       = $('#book_note').val();
+    var book_type       = $('#book_type').val();
     
     if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_cat_list.length!=0){
         var date_today      = new Date(curr_date);
@@ -38,7 +38,7 @@ var checkDateTime = ()=>{
                 success: (res)=>{
                     console.log(res)
                     if(res==1){
-                        location.href = base_url+'booking/choose_user_calendar';
+                        location.href = base_url+'booking/choose_user_calendar/'+type;
                     } else{
                         swal('Failed!', 'A problem occured please try again.', 'error');
                     }
@@ -61,9 +61,9 @@ var checkBookTime = (book_id)=>{
     var user_date_from  = $('#user_date_from').val();
     var user_date_to    = $('#user_date_to').val();
     var user_type       = $('#user_type').val();
+    var book_type       = $('#book_type').val();
     var book_to         = $('#book_to').val();
     var swal_title      = (book_id==0) ? 'Book user now?' : 'Update booking info?';
-    var swal_succ       = (book_id==0) ? 'Your booking request was successfully sent to this user. Click "OK" to view booking summary' : 'Booking was updated successfully. Click ok to finish.';
     
     if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_list.length!=0){
         var date_today      = new Date(curr_date);
@@ -115,9 +115,9 @@ var checkBookTime = (book_id)=>{
                         user_type:       user_type,
                         book_to:         book_to
                     },
-                    success: (res)=>{
-                        if(res!=0){
-                            location.href = base_url+'booking/booking_summary/'+res+'/'+book_to;
+                    success: (bid)=>{
+                        if(bid!=0){
+                            location.href = base_url+'booking/booking_summary/'+book_type+'/'+book_to+'/'+bid;
                         } else{
                             swal('Failed!', 'A problem occured please try again.', 'error');
                         }

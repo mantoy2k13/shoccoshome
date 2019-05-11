@@ -32,8 +32,8 @@
                     </div>
                     <!-- My Booking Request Summary -->
                     <?php $uid = $this->session->userdata('user_id');?>
-                    <?php $mbr = $this->Booking_model->booking_list($uid, 1); 
-                        $mgb = $this->Booking_model->booking_list($uid, 2);
+                    <?php $mbr = $this->Booking_model->booking_history($uid, 1); 
+                        $mgb = $this->Booking_model->booking_history($uid, 2);
                         $cntAllMbr = count($mbr); $cntAllMgb = count($mgb);
                         $cntMbrComp=0; $cntMbrApp=0; $cntMbrNA=0; $cntMbrCanc=0; $cntMbrAw=0; 
                         $cntMgbComp=0; $cntMgbApp=0; $cntMgbNA=0; $cntMgbCanc=0; $cntMgbAw=0; 
@@ -117,7 +117,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <a href="<?=base_url()?>booking/booking_list/1" class="btn bg-orange text-white col-md-12">View Request Table</a>
+                                            <a href="<?=base_url()?>booking/booking_history/1" class="btn bg-orange text-white col-md-12">View Request Table</a>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <a href="<?=base_url()?>booking/booking_list/2" class="btn bg-orange text-white col-md-12">View Guest Table</a>
+                                            <a href="<?=base_url()?>booking/booking_history/2" class="btn bg-orange text-white col-md-12">View Guest Table</a>
                                         </div>
                                     </div>
                                 </div>

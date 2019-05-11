@@ -67,6 +67,18 @@ class Booking_model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
+    public function get_booking_info($bid, $type){
+        $this->db->select('*')->from('sh_book');
+        if($type==1){
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
+            $this->db->where('sh_book.book_id', $bid);
+        } else{
+            $this->db->join('sh_users', 'sh_users.id=sh_book.book_by', 'left');
+            $this->db->where('sh_book.book_id', $bid);
+        }
+        return $this->db->get()->row_array();
+    }
+
     public function check_booking($book_by, $book_to){
         $this->db->where('book_by', $book_by);
         $this->db->where('book_to', $book_to);
@@ -142,7 +154,7 @@ class Booking_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
-    public function bookng_approvals($bid, $status){
+    public function booking_approvals($bid, $status){
         $data = ($status==4) ? array('book_status' => $status, 'is_notify' => 3) : array('book_status' => $status);
         $this->db->where('book_id', $bid);
         $res = $this->db->update('sh_book', $data);
@@ -156,7 +168,7 @@ class Booking_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
-    public function booking_list($uid, $type){
+    public function booking_history($uid, $type){
         $this->db->select('*')->from('sh_book');
         if($type==1){
             $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
@@ -166,18 +178,6 @@ class Booking_model extends CI_Model {
             $this->db->where('sh_book.book_to', $uid);
         }
         return $this->db->get()->result_array();
-    }
-
-    public function get_booking_info($bid, $type){
-        $this->db->select('*')->from('sh_book');
-        if($type==1){
-            $this->db->join('sh_users', 'sh_users.id=sh_book.book_to', 'left');
-            $this->db->where('sh_book.book_id', $bid);
-        } else{
-            $this->db->join('sh_users', 'sh_users.id=sh_book.book_by', 'left');
-            $this->db->where('sh_book.book_id', $bid);
-        }
-        return $this->db->get()->row_array();
     }
 
     public function count_mgb(){
@@ -301,7 +301,7 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_avail_host(){
+    public function get_available_user(){
         $uid = $this->session->userdata('user_id');
         $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : $this->input->post('cur_lat');
         $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : $this->input->post('cur_lng');
@@ -321,6 +321,7 @@ class Booking_model extends CI_Model {
         }
         
         $this->db->where('isAvail', true);
+        $this->db->where('book_type', $this->input->post('book_type'));
         return $this->db->get()->result_array();
     }
 

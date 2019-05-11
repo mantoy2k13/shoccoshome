@@ -22,17 +22,16 @@
 			<?php $this->load->view('common/left-nav');?>
             <!-- Main Content -->
             <div class="col-md-9 m-t-10 p-l-0">
-                <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
-                <div class="pic-head bg-greyish">                
+               <?php $book_type = $this->uri->segment(3); ?> 
+               <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking
+                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a <?=($book_type==1)?'guest':'host';?>
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_as_host" class="p-nav b-700 f-14 active">Become a Host</a>
-                            <a href="<?=base_url();?>booking/booking_as_guest" class="p-nav b-700 f-14">Become a Guest</a>
-                            <a href="<?=base_url();?>booking/booking_list/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
+                            <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14 <?=($book_type==2)?'active':'';?>">Become a Host</a>
+                            <a href="<?=base_url();?>booking/become_a_guest" class="p-nav b-700 f-14 <?=($book_type==1)?'active':'';?>">Become a Guest</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
                         </div>
                     </div>
                 </div>
@@ -104,32 +103,35 @@
                                                 <textarea class="form-control" cols="30" rows="3" placeholder="Any message or additional information.." disabled><?=$book['short_message']?></textarea>
                                             </div>
                                         </div>
-                                        <div class="row m-t-10">
-                                            <div class="col-md-12">
-                                                <label class="text-orange">Pets requested</label>
+                                        <?php if($book){ ?>
+                                            <div class="row m-t-10">
+                                                <div class="col-md-12">
+                                                    <label class="text-orange">Pets requested</label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php } ?>
                                         <div class="row">
-                                            <?php if($my_pets){ foreach($my_pets as $pets){ extract($pets); ?>
-                                            <?php $pet_req = $book['pet_list'] ? json_decode($book['pet_list']) : []; ?>
-                                                <?php if(in_array($pet_id, $pet_req)){ ?>
-                                                    <div class="col-lg-4 col-md-6 col-sm-12">
-                                                        <div class="card bg-grey friend-card">
-                                                            <div class="card-body">
-                                                                <div class="pet-bio-img">
-                                                                    <?php $pet_img = $primary_pic ? 'usr'.$book['book_by'].'/'.$primary_pic : 'default_pet.png';?>
-                                                                    <img class="zoomable" src="<?=base_url();?>assets/img/pictures/<?=$pet_img?>" alt="Pet Image">
+                                            <?php if($my_pets){ ?>
+                                                <?php foreach($my_pets as $pt){ ?>
+                                                <?php $pet_req = $book['pet_list'] ? json_decode($book['pet_list']) : []; ?>
+                                                    <?php if(in_array($pt['pet_id'], $pet_req)){ ?>
+                                                        <div class="col-lg-4 col-md-6 col-sm-12">
+                                                            <div class="card bg-grey friend-card">
+                                                                <div class="card-body">
+                                                                    <div class="pet-bio-img">
+                                                                        <?php $pet_img = $pt['primary_pic'] ? 'usr'.$pt['user_id'].'/'.$pt['primary_pic'] : 'default_pet.png';?>
+                                                                        <img class="zoomable" src="<?=base_url();?>assets/img/pictures/<?=$pet_img?>" alt="Pet Image">
+                                                                    </div>
+                                                                    <p class="text-blue f-20 b-700">
+                                                                        <a href="<?=base_url();?>pet/pet_details/<?=$pt['pet_id']?>" target="_blank"><?=$pt['pet_name'];?></a>
+                                                                    </p>
+                                                                    <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$pt['breed_name'];?></span></p>
+                                                                    <p class="b-700 f-14">Cat: <span class="b-700 text-black"><?=$pt['cat_name'];?></span></p>
                                                                 </div>
-                                                                <p class="text-blue f-20 b-700">
-                                                                    <a href="<?=base_url();?>pet/pet_details/<?=$pet_id?>" target="_blank"><?=$pet_name;?></a>
-                                                                </p>
-                                                                <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?></span></p>
-                                                                <p class="b-700 f-14">Cat: <span class="b-700 text-black"><?=$cat_name;?></span></p>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <?php } ?>
-                                            <?php } } else { ?>
+                                                    <?php } ?>
+                                                <?php } } else { ?>
                                                 <div class="col-md-12">
                                                     <div class="alert alert-info f-15">
                                                         <strong><i class="fa fa-check"></i> Empty!</strong> No pets found. Pet booked history might be deleted or doesn't exist.
@@ -137,12 +139,15 @@
                                                 </div>
                                             <?php } ?>
                                         </div>
-                                        <div class="row m-t-10">
-                                            <div class="col-md-12 text-right">
-                                                <a href="<?=base_url();?>booking/update_book_user/<?=$book['book_id'].'/'.$book['book_to'].'/'.'1';?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit booking</a>
-                                                <a href="javascript:;" class="btn btn-success"><i class="fa fa-check"></i> Finish</a>
+                                        <?php if($book && ($book['book_status']==1 || $book['book_status']==4)){ ?>
+                                            <div class="row m-t-10">
+                                                <div class="col-md-12 text-right">
+                                                    <a href="<?=base_url();?>booking/book_user/" class="btn btn-danger"><i class="fa fa-times"></i> Cancel booking</a>
+                                                    <a href="<?=base_url();?>booking/book_user/<?=$book_type.'/'.$book['book_to'];?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit booking</a>
+                                                    <a href="<?=base_url();?>booking/booking_history/1" class="btn btn-success"><i class="fa fa-check"></i> Finish</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>

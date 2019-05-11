@@ -22,17 +22,16 @@
 			<?php $this->load->view('common/left-nav');?>
             <!-- Main Content -->
             <div class="col-md-9 m-t-10 p-l-0">
-                <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
+                <?php $book_type = $this->uri->segment(3); ?> 
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking
+                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a <?=($book_type==1)?'guest':'host';?>
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_as_host" class="p-nav b-700 f-14 active">Become a Host</a>
-                            <a href="<?=base_url();?>booking/booking_as_guest" class="p-nav b-700 f-14">Become a Guest</a>
-                            <a href="<?=base_url();?>booking/booking_list/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
+                            <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14 <?=($book_type==2)?'active':'';?>">Become a Host</a>
+                            <a href="<?=base_url();?>booking/become_a_guest" class="p-nav b-700 f-14 <?=($book_type==1)?'active':'';?>">Become a Guest</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
                         </div>
                     </div>
                 </div>
@@ -47,12 +46,8 @@
                                     <p class="f-12 m-b-0" style="line-height: 15px;">Click the user on the calendar to view their information. Click the calendar number date to expand and view more users.</p>
                                 </div>
                                 <div class="cus-card-body">
-                                    <p class="f-15 m-b-0 text-center">
-                                        <span class="avIcon bg-orange"></span> Guest
-                                        <span class="avIcon bg-native-blue"></span> Host
-                                        <span class="avIcon bg-yellow-l"></span> Today
-                                    </p>
                                     <input type="hidden" id="isAvail" value="<?=$bio[0]['isAvail'];?>">
+                                    <input type="hidden" id="book_type" value="<?=$book_type;?>">
                                     <input type="hidden" name="book_avail_from" id="book_avail_from" value="<?=$bio[0]['book_avail_from'] ? date('Y-m-d', strtotime($bio[0]['book_avail_from'])) : '';?>">
                                     <input type="hidden" name="book_avail_to" id="book_avail_to" value="<?=$bio[0]['book_avail_to'] ? date('Y-m-d', strtotime($bio[0]['book_avail_to'])) : '';?>">
                                     <div class="m-t-20" id='users_calendar'></div>

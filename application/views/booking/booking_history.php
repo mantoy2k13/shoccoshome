@@ -5,7 +5,7 @@
   <?php $this->load->view('common/css');?>
 
   <body id="page-top">
-
+  
     <!-- Navigation -->
     <?php $this->load->view('common/main-nav');?>
 
@@ -23,95 +23,112 @@
 			
 			<!-- Main Content -->
 			<div class="col-md-9 m-t-10 p-l-0">
-            <?php $bPage = $this->uri->segment(3); ?>
+                <?php $bPage = $this->uri->segment(3); ?> 
+                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
 				<div class="pic-head bg-greyish">                
                     <div class="row">
-                        <div class="col-md-12">
-                            <i class="fa fa-book f-25 text-blue"></i> Booking History 
+                        <div class="col-md-12 text-black">
+                            <i class="fa fa-history f-25 text-blue "></i> Booking History
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_history/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">Pending</a>
-                            <a href="<?=base_url();?>booking/booking_history/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Approved</a>
-                            <a href="<?=base_url();?>booking/booking_history/3" class="p-nav b-700 f-14 <?=($bPage==3) ? 'active' : '';?>">Completed</a>
-                            <a href="<?=base_url();?>booking/booking_request/1" class="btn bg-blue-a btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking Request</a>
-                            <a href="javascript:;" class="btn bg-orange btn-xs pull-right text-white m-r-5" data-toggle="modal" data-target="#booking_modal"><i class="fa fa-search"></i> Find a home</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="p-nav b-700 f-14 <?=($bPage==1) ? 'active' : '';?>">My Requests
+                            <?php if($cntba!=0){ ?> 
+                                <span class="badge badge-info"><?=$cntba;?></span>
+                            <?php } ?>
+                            </a>
+                            <a href="<?=base_url();?>booking/booking_history/2" class="p-nav b-700 f-14 <?=($bPage==2) ? 'active' : '';?>">Requesters
+                            <?php if($cntMgb!=0){ ?> 
+                                <span class="badge badge-danger"><?=$cntMgb;?></span>
+                            <?php } ?>
+                            </a>
+                            <a href="<?=base_url();?>booking/select_booking" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-phone"></i> Book Now</a>
                         </div>
                     </div>
                 </div>
-
-				<div class="row form-group m-t-20">
-                <?php if($booking_history){ foreach($booking_history as $bl){ extract($bl);?>
-					<div class="col-md-6">
-						<div class="card bg-grey friend-card">
-							<div class="card-body">
-								<div class="friend-img">
-                                    <?php if($user_img) { ?>
-                                        <img src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
-                                    <?php }else{ ?>
-                                        <img src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                <div class="cus-card">
+                    <div class="cus-card-header"><i class="fa fa-history"></i> <?=($bPage==1) ? 'My Request' : 'People Request';?> <p class="f-15 m-b-0">List of your bookings below</p></div>
+                    <div class="cus-card-body">
+                        <div class="table-resp-custom m-t-10">
+                            <table class="table table-hover m-t-20" id="datatable">
+                                <thead>
+                                    <tr>
+                                        <th>Book ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($booking_history as $bl){ extract($bl); ?>
+                                        <tr>
+                                            <td><?=$book_id;?></td>
+                                            <td class="text-center">
+                                                <div class="profile-img">
+                                                    <?php $prof_img = ($user_img) ? 'usr'.$id.'/'.$user_img : 'default.png';?>
+                                                    <img class="zoomable" src="<?=base_url();?>assets/img/pictures/<?=$prof_img;?>" alt="Profile Image">
+                                                </div>
+                                            </td>
+                                            <td><a href="<?=base_url();?>account/view_bio/<?=$id?>" data-toggle="tooltip" data-placement="right" title="<?=$email;?>"><?=($fullname) ? $fullname : "No Name";?></a> <?=($book_type==1) ? '<span class="badge badge-primary font-san-serif"><i class="fa fa-user"></i> HOST</span>' : '<span class="badge bg-orange text-white font-san-serif"><i class="fa fa-user"></i> GUEST</span>'; ?></td>
+                                            <td class="text-center"><?=($complete_address&&$zip_code) ? $complete_address.', '.$zip_code : 'No Address'; ?></td>
+                                            <td class="text-center font-san-serif">
+                                                <?=($book_status==1) ? '<span class="badge bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ''; ?>
+                                                <?=($book_status==2) ? '<span class="badge badge-danger"><i class="fa fa-times"></i> Cancelled</span>' : ''; ?>
+                                                <?=($book_status==3) ? '<span class="badge badge-danger"><i class="fa fa-thumbs-down"></i> Disapproved</span>' : ''; ?>
+                                                <?=($book_status==4) ? '<span class="badge badge-info"><i class="fa fa-thumbs-up"></i> Approve</span>' : ''; ?>
+                                                <?=($book_status==5) ? '<span class="badge badge-success"><i class="fa fa-check"></i> Completed</span>' : ''; ?>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge badge-info font-san-serif"><?=$this->Account_model->relative_date(strtotime($book_date));?></span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="btn bg-blue-a btn-xs text-white dropdown-toggle" id="option-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options </span>
+                                                <div class="dropdown-menu option-menu" aria-labelledby="option-menu">
+                                                    <?php if($bPage==1){ ?>
+                                                        <?php if($book_status==1){ ?>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,2)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
+                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
+                                                        <?php } ?>
+                                                        <?php if($book_status==4){ ?>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
+                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
+                                                        <?php } ?>
+                                                    <?php } else{ ?>
+                                                        <?php if($book_status==1){ ?>
+                                                            <input type="hidden" id="userID" value="<?=$id;?>">
+                                                            <input type="hidden" id="userEmail" value="<?=$email;?>">
+                                                            <a onclick="bookAppr(<?=$book_id;?>,4,'<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Approve</a>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,3,'<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Disapprove</a>
+                                                        <?php } ?>
+                                                        <?php if($book_status==3){ ?>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,1)" class="dropdown-item" href="javascript:;">Mark as pending</a>
+                                                        <?php } ?>
+                                                        <?php if($book_status==4){ ?>
+                                                            <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
+                                                        <?php } ?>
+                                                    <?php } ?>
+                                                    <a href="<?=base_url();?>booking/booking_info/<?=$user_type.'/'.$book_to.'/'.$book_id;?>" target="_blank" class="dropdown-item" >Booking Info</a>
+                                                    <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
-								</div>
-								<div class="options27">
-									<span class="btn bg-orange pull-right btn-xs text-white dropdown-toggle" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-paw"></i> Options</span>
-									<div class="dropdown-menu" aria-labelledby="f-menu">
-										<a class="dropdown-item" href="<?=base_url();?>account/view_bio/<?=$id?>">Booking Info</a>
-										<a onclick="cancelBook(<?=$book_id;?>)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
-										<a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
-									</div>
-								</div>
-								<p class="text-head"><a href="<?=base_url();?>account/view_bio/<?=$id?>"><?=($fullname) ? $fullname : "No Name";?></a> </p>
-                                <p class="text-desc"> <?=($complete_address&&$zip_code) ? $complete_address.', '.$zip_code : 'No Address'; ?></p>
-                                <p class="f-14">Email: <span class="b-700 text-black"><?=$email;?></span></p>
-								<p class="text-desc">
-									<span class="badge badge-danger f-12 m-t-10"><i class="fa fa-check"></i> Waiting for approval</span>
-								</p>
-							</div>
-						</div>
-					</div>
-                <?php } } else{ ?>
-                    <div class="col-md-12">
-                        <div class="alert alert-info f-15">
-                            <strong><i class="fa fa-check"></i> Empty!</strong> You have no <?=($bPage==1) ? 'Pending' : ($bPage==2) ? 'approved' : 'completed';?> booking request.</i>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                <?php } ?>
-				</div>
+                </div>
 			</div>
 			<!-- Close Main Content -->
 		</div>
     </section>
 
     <!-- Footer -->
-    <?php $this->load->view('booking/booking_modal');?>
     <?php $this->load->view('common/footer');?>
-	<?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <script>
-        var cancelBook = (bid)=>{
-            swal({
-                title: "Cancel?",
-                text: "This booking will be deleted permamently.",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, cancel it!",
-                closeOnConfirm: false,
-                confirmButtonColor: "#f77506",
-                showLoaderOnConfirm: true
-            },
-            function(){
-                $.ajax({
-                    url: base_url + "booking/cancel_booking/"+bid,
-                    success: function(res){
-                        if(res==1){
-                            swal({title: "Cancelled!", text: 'Booking was cancelled sucessfully!', type: 
-                                "success"}, function(){ location.reload(); });
-                        } else{
-                            swal("Failed",'A problem occured please try again.', 'error');
-                        }
-                    }
-                }); 
-            });
-        }
-    </script>
+    <?php $this->load->view('mail/pop-ups/inst_msg');?>
+    <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>    
   </body>
 
 </html>

@@ -1,5 +1,5 @@
 
-<div class="modal fade msgModalCustom" id="user_info" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade msgModalCustom font-baloo" id="user_info" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="<?=base_url();?>booking/select_and_book" method="POST">
             <div class="modal-content">
@@ -15,10 +15,10 @@
                             </div>
                         </div>
                         <div class="col-md-8 bio-head text-left">
-                            <p class="f-30 b-700 m-b-0 text-black-l" id="fullname_info"></p>
+                            <p class="f-30 b-700 m-b-0 text-orange-d" id="fullname_info"></p>
                             <p class="f-15 text-black-l m-b-0" id="address_info"></p>
-                            <p class="f-15 text-black-l m-b-0" id="schedule_info"></p>
-                            <p class="f-15 text-black-l" id="book_type_info"></p>
+                            <p class="f-15 text-black-l m-b-0 font-san-serif" id="schedule_info"></p>
+                            <p class="f-15 text-black-l font-san-serif" id="book_type_info"></p>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -29,8 +29,8 @@
                         <div class="col-lg-12 m-t-10 book_note_wrapper"></div>
                         <div class="col-md-12 m-t-10">
                             <p class="f-15 text-black-l">
-                                <span id="smoke_info"></span>
-                                <span class="badge badge-info" id="home_info"></span>
+                                <span class="font-san-serif" id="smoke_info"></span>
+                                <span class="badge badge-info font-san-serif" id="home_info"></span>
                             </p>
                         </div>
                     </div>

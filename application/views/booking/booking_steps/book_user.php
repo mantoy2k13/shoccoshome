@@ -22,17 +22,17 @@
 			<?php $this->load->view('common/left-nav');?>
             <!-- Main Content -->
             <div class="col-md-9 m-t-10 p-l-0">
-                <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
+                <?php $book_type = $this->uri->segment(3); ?> 
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking
+                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a <?=($book_type==1)?'guest':'host';?>
                         </div>
                         <div class="col-md-12 m-t-10">
-                            <a href="<?=base_url();?>booking/booking_as_host" class="p-nav b-700 f-14 active">Become a Host</a>
-                            <a href="<?=base_url();?>booking/booking_as_guest" class="p-nav b-700 f-14">Become a Guest</a>
-                            <a href="<?=base_url();?>booking/booking_list/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
+                            <input type="hidden" id="book_type" value="<?=$book_type;?>">
+                            <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14 <?=($book_type==2)?'active':'';?>">Become a Host</a>
+                            <a href="<?=base_url();?>booking/become_a_guest" class="p-nav b-700 f-14 <?=($book_type==1)?'active':'';?>">Become a Guest</a>
+                            <a href="<?=base_url();?>booking/booking_history/1" class="btn bg-orange btn-xs pull-right text-white"><i class="fa fa-history"></i> Booking History</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" value="<?=$today;?>">
-                                            <input type="hidden" id="user_type" value="2">
+                                            <input type="hidden" id="user_type" value="<?=$bio[0]['book_type'];?>">
                                             <input type="hidden" id="book_to" value="<?=$bio[0]['id'] ? $bio[0]['id'] : '';?>">
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
@@ -79,27 +79,58 @@
                                                     <input type="time" class="form-control" name="book_time_to" id="book_time_to" value="<?=$book ? date('H:i', strtotime($book['book_date_to'])) : '';?>">
                                                 </div>
                                             </div>
+                                            
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
-                                                <label for="pet_list">Choose your pet from pet list</label>
-                                                <select id="pet_list" name="pet_list[]" class="multipleSelect form-control" multiple>
-                                                <?php if($my_pets){ 
-                                                    foreach($my_pets as $pets){ extract($pets); ?>
-                                                    <?php if($book){ ?>
-                                                        <?php if(in_array($pet_id, json_decode($book['pet_list']))){ ?>
-                                                        <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
-                                                        <?php } else{ ?>
+                                                    <label for="pet_list">Choose pets  <?=($book_type==2)?'you want to watch':'to be watch';?></label>
+                                                    <select id="pet_list" name="pet_list[]" class="multipleSelect form-control" multiple>
+                                                    <?php if($my_pets){ 
+                                                        foreach($my_pets as $pets){ extract($pets); ?>
+                                                        <?php if($book){ ?>
+                                                            <?php if(in_array($pet_id, json_decode($book['pet_list']))){ ?>
+                                                            <option value="<?=$pet_id;?>" selected><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                            <?php } else{ ?>
+                                                                <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                            <?php } ?>
+                                                        <?php } else{?>
                                                             <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                                         <?php } ?>
-                                                    <?php } else{?>
-                                                        <option value="<?=$pet_id;?>"><?=$pet_name;?> (<?=$cat_name ;?>)</option>
-                                                    <?php } ?>
-                                                    <?php } } else { ?>
-                                                        <option value="">You have no pets added.</option>
-                                                    <?php } ?>
-                                                </select>
+                                                        <?php } } else { ?>
+                                                            <option>You have no pets added.</option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
-                                                <div class="col-md-12 m-t-10">
+                                            </div>
+                                            <?php if($book_type==2){?>
+                                                <div class="row m-t-10">
+                                                    <?php if($my_pets){ ?>
+                                                        <?php foreach($my_pets as $p){ ?>
+                                                            <div class="col-lg-6 col-md-12">
+                                                                <div class="card bg-grey friend-card">
+                                                                    <div class="card-body">
+                                                                        <div class="pet-bio-img">
+                                                                            <?php $pet_img = $p['primary_pic'] ? 'usr'.$p['user_id'].'/'.$p['primary_pic'] : 'default_pet.png';?>
+                                                                            <img class="zoomable" src="<?=base_url();?>assets/img/pictures/<?=$pet_img;?>" alt="Pet Image">
+                                                                        </div>
+                                                                        <p class="text-blue f-20 b-700">
+                                                                            <a href="<?=base_url();?>pet/pet_details/<?=$p['pet_id']?>" title="<?=$p['pet_name'];?>" target="_blank"><?=$p['pet_name'];?></a>
+                                                                        </p>
+                                                                        <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$p['breed_name'];?></span></p>
+                                                                        <p class="b-700 f-14">Cat: <span class="b-700 text-black"><?=$p['cat_name'];?></span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <?php } } else { ?>
+                                                        <div class="col-md-12">
+                                                            <div class="alert alert-info f-15">
+                                                                <strong><i class="fa fa-check"></i> Empty!</strong> No pets found. Pet booked history might be deleted or doesn't exist.
+                                                            </div>
+                                                        </div>
+                                                    <?php } ?>
+                                                </div>
+                                            <?php } ?>
+                                            <div class="row">
+                                                <div class="col-md-12">
                                                     <label for="short_message">Additional Info: </label>
                                                     <textarea class="form-control" name="short_message" id="short_message" cols="30" rows="3" placeholder="Any message or additional information.."><?=$book ? $book['short_message'] : '';?></textarea>
                                                 </div>
@@ -112,7 +143,10 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 text-center">
-                                                    <button type="button" onclick="checkBookTime(<?=$book ? $book['book_id'] : '0';?>)" class="btn btn-success"><i class="fa fa-check"></i> <?=$book ? 'Save changes' : 'Book me now';?></button>
+                                                    <button type="button" onclick="checkBookTime(<?=$book ? $book['book_id'] : '0';?>)" class="btn btn-success"> <?=$book ? '<i class="fa fa-check"></i> Save changes' : '<i class="fa fa-phone"></i> Save and Book '.$bio[0]['fullname'].' Now';?></button>
+                                                    <?php if($book){ ?>
+                                                        <button type="button" onclick="cancelBooking(<?=$book['book_id'];?>)" class="btn btn-danger"><i class="fa fa-times"></i> Cancel Booking</button>
+                                                    <?php } ?>
                                                 </div>
                                             </div>
                                         </form>
@@ -123,7 +157,7 @@
                             <div class="col-lg-6 col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-user"></i> User schedule and info<i class="fa fa-question-circle pull-right m-t-5 text-info" title="User available schedule and my basic information."></i>
+                                        <i class="fa fa-user"></i> User schedule and info
                                         <p class="f-12 m-b-0" style="line-height: 15px;">User available schedule and my basic information.</p>
                                     </div>
                                     <div class="cus-card-body">

@@ -2,14 +2,15 @@ navigator.geolocation.getCurrentPosition(
     function(position){ // success cb
         var cur_lat         = position.coords.latitude;
         var cur_lng         = position.coords.longitude;
+        var book_type       = $('#book_type').val();
         var isAvail         = $('#isAvail').val();
         var book_avail_from = $('#book_avail_from').val();
         var book_avail_to   = $('#book_avail_to').val();
         $.ajax({
-            url: base_url+'booking/get_avail_host',
+            url: base_url+'booking/get_available_user',
             type: "POST",
             dataType: 'JSON',
-            data: {cur_lat: cur_lat, cur_lng: cur_lng, isAvail: isAvail, book_avail_from: book_avail_from, book_avail_to: book_avail_to},
+            data: {cur_lat: cur_lat, cur_lng: cur_lng, isAvail: isAvail, book_avail_from: book_avail_from, book_avail_to: book_avail_to, book_type: book_type},
             success: (res)=>{
                 var calendarEl = document.getElementById('users_calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -23,7 +24,7 @@ navigator.geolocation.getCurrentPosition(
                     eventLimit: true, 
                     events: res,
                     eventClick: function(calEvent) {
-                        viewUserDetails(calEvent['event']['id'])
+                        viewUserDetails(book_type, calEvent['event']['id'])
                     },
                     
                 });
@@ -36,13 +37,12 @@ navigator.geolocation.getCurrentPosition(
     }
 );
 
-var viewUserDetails = (uid)=>{
+var viewUserDetails = (b_type, uid)=>{
     $('#mLoader').html('<div class="loading"> Loading..</div>');
     $.ajax({
         url: base_url+'account/get_user_info/'+uid,
         dataType: "JSON",
         success: (res)=>{
-            console.log(res)
             if(res!=0){
                 var usrImg = (res['user_img']!="") ? base_url+'assets/img/pictures/usr'+res['id']+'/'+res['user_img'] : base_url+'assets/img/pictures/default.png';
                 var sched = '<span class="badge badge-success">'+dateFormat(new Date(res['book_avail_from']), "dd mmm yyyy, hh:MM TT")+'</span> - <span class="badge badge-success">'+dateFormat(new Date(res['book_avail_to']), "dd mmm yyyy, hh:MM TT")+'</span>';
@@ -64,7 +64,7 @@ var viewUserDetails = (uid)=>{
                 }
                 $('#smoke_info').html(smoke_info);
                 $('#home_info').html('<i class="fa fa-home"></i> Living in '+living);
-                var book_btn = (my_user_id!=res['id']) ? '<a href="'+base_url+'booking/book_this_user/'+res['id']+'/'+res['book_type']+'" class="btn btn-success btn-sm"><i class="fa fa-phone"></i> Contact '+res['fullname']+'</a>' : '';
+                var book_btn = (my_user_id!=res['id']) ? '<a href="'+base_url+'booking/book_user/'+b_type+'/'+res['id']+'" class="btn btn-success btn-sm"><i class="fa fa-phone"></i> Contact '+res['fullname']+'</a>' : '';
                 $('#user_footer_btn').html(''+book_btn+
                     '<a href="'+base_url+'account/view_bio/'+res['id']+'" class="btn btn-info btn-sm"><i class="fa fa-user"></i> View Profile</a>'
                 );

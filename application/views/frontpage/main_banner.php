@@ -25,7 +25,7 @@
                         <br>
                     </p>
                     <div class="search-form">
-                        <form action="<?=base_url();?>booking/select_and_book" method="POST" >
+                        <form action="<?=base_url();?>booking/select_booking_page" method="POST" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="zipcode">Enter your Zip Code</label>
