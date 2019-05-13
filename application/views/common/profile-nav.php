@@ -48,7 +48,7 @@
                         <a href="<?=base_url();?>pet/my_pets" class="btn-menu btn bg-blue <?=($is_page=="my_pets" || $is_page=="pet_details" || $is_page=="add_pet" || $is_page=="search_pets") ? 'active' : ''; ?>">My Pets</a>
                     </div>
                     <div class="col-md-8r">
-                        <a href="<?=base_url();?>booking/select_booking" class="btn-menu btn bg-blue <?=($is_page=="book_user" || $is_page=="become_a_host" || $is_page=="become_a_guest" ||$is_page=='select_booking' ||$is_page=='booking_info') ? 'active' : ''; ?>">Booking</a>
+                        <a href="<?=base_url();?>booking/select_booking" class="btn-menu btn bg-blue <?=($is_page=="book_user" || $is_page=="become_a_host" || $is_page=="become_a_guest" ||$is_page=='select_booking' || $is_page=='booking_info' || $is_page=='booking_history') ? 'active' : ''; ?>">Booking</a>
                     </div>
                     <div class="col-md-8r">
                         <a href="<?=base_url();?>account/bio" class="btn-menu btn bg-blue <?=($is_page=="bio" || $is_page=="view_bio") ? 'active' : ''; ?>">Bio</a>

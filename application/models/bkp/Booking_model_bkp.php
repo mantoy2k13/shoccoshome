@@ -3,6 +3,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Booking_model extends CI_Model {
 
+    public function get_avail_users($limit, $start, $type){
+		$this->db->select('*')->from('sh_users');
+        $this->db->where('zip_code', $_SESSION['zipcode']);
+        $this->db->where('id !=', $this->session->userdata('user_id'));
+        if($type==1){
+            return $this->db->get()->num_rows();   
+        } else{
+            $this->db->limit($limit, $start);
+            return $this->db->get()->result_array();   
+        } 
+    }
+
+    public function get_avail_pets($limit, $start, $type){
+        $this->db->select('sh_pets.*, sh_category.cat_name, sh_users.fullname, sh_breeds.breed_name, sh_color.color_name')->from('sh_pets');
+        $this->db->join('sh_users',   'sh_users.id=sh_pets.user_id', 'left');
+		$this->db->join('sh_category','sh_category.cat_id=sh_pets.cat_id', 'left');
+        $this->db->join('sh_breeds',  'sh_breeds.breed_id=sh_pets.breed_id', 'left');
+        $this->db->join('sh_color',   'sh_color.color_id=sh_pets.color_id', 'left');
+        
+        $this->db->where_in('sh_pets.cat_id', json_decode($_SESSION['pet_cat']));
+        $this->db->where('sh_pets.zip_code', $_SESSION['zipcode']);
+        $this->db->where('sh_pets.isAvailable', 1);
+        $this->db->where('sh_pets.user_id !=', $this->session->userdata('user_id'));
+        if($type==1){
+            return $this->db->get()->num_rows();   
+        } else{
+            $this->db->limit($limit, $start);
+            return $this->db->get()->result_array();   
+        }
+    }
+
     /* New Booking steps */
     public function book_me_now($book_id){
         foreach ($this->input->post('pet_list') as $v) {

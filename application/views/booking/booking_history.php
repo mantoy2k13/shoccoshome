@@ -52,13 +52,13 @@
                             <table class="table table-hover m-t-20" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>Book ID</th>
+                                        <th>Book ID <?=$is_page;?></th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th class="text-center">Address</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Date</th>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center" style="width:90px;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,11 +89,11 @@
                                                     <?php if($bPage==1){ ?>
                                                         <?php if($book_status==1){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,2)" class="dropdown-item" href="javascript:;">Cancel Booking</a>
-                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
+                                                            <a class="dropdown-item" href="<?=base_url();?>booking/book_user/<?=(($bPage==1) ? 2 : 1).'/'.$id;?>">Edit Info</a>
                                                         <?php } ?>
                                                         <?php if($book_status==4){ ?>
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
-                                                            <a onclick="editBookingInfo(<?=$book_id;?>, '<?=$user_type;?>')" class="dropdown-item" href="javascript:;">Edit Info</a>
+                                                            <a class="dropdown-item" href="<?=base_url();?>booking/book_user/<?=(($bPage==1) ? 2 : 1).'/'.$id;?>">Edit Info</a>
                                                         <?php } ?>
                                                     <?php } else{ ?>
                                                         <?php if($book_status==1){ ?>
@@ -109,7 +109,7 @@
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <a href="<?=base_url();?>booking/booking_info/<?=$user_type.'/'.$book_to.'/'.$book_id;?>" target="_blank" class="dropdown-item" >Booking Info</a>
+                                                    <a href="<?=base_url();?>booking/view_booking_info/<?=$bPage.'/'.$id.'/'.$book_type.'/'.$book_id;?>" target="_blank" class="dropdown-item" >Booking Info</a>
                                                     <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                 </div>
                                             </td>
@@ -128,7 +128,14 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('mail/pop-ups/inst_msg');?>
-    <script src="<?=base_url();?>assets/js/initializations/init_bl.js"></script>    
+    <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable( {
+                order: [[ 0, 'desc' ]]
+            });
+        });
+    </script>
   </body>
 
 </html>

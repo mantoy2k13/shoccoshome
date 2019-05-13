@@ -153,6 +153,7 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
+/* Account Use Codes */
     public function set_my_dates(){
         if($this->session->userdata('user_email')){
             $book_avail_from = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_from').' '.$this->input->post('book_time_from')));
@@ -169,6 +170,15 @@ class Account extends CI_Controller {
         }
         else{ echo false;}
     }
+    
+    public function unset_dates($t){
+		if ($this->session->userdata('user_email')){ 
+            echo $this->Account_model->unset_dates($t);
+        }
+		else { echo false; }
+    }
+    
+/* Close Account Use Codes */
 
     public function update_need_pet_sitter($pid){
         if($this->session->userdata('user_email')){
@@ -177,12 +187,7 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-    public function unset_dates($t){
-		if ($this->session->userdata('user_email')){ 
-            echo $this->Account_model->unset_dates($t);
-        }
-		else { echo false; }
-    }
+    
 
     public function send_password_recovery(){
         if($this->input->post('email')){

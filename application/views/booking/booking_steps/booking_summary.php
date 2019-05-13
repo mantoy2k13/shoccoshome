@@ -139,15 +139,36 @@
                                                 </div>
                                             <?php } ?>
                                         </div>
-                                        <?php if($book && ($book['book_status']==1 || $book['book_status']==4)){ ?>
-                                            <div class="row m-t-10">
-                                                <div class="col-md-12 text-right">
-                                                    <a href="<?=base_url();?>booking/book_user/" class="btn btn-danger"><i class="fa fa-times"></i> Cancel booking</a>
-                                                    <a href="<?=base_url();?>booking/book_user/<?=$book_type.'/'.$book['book_to'];?>" class="btn btn-primary"><i class="fa fa-edit"></i> Edit booking</a>
-                                                    <a href="<?=base_url();?>booking/booking_history/1" class="btn btn-success"><i class="fa fa-check"></i> Finish</a>
-                                                </div>
+                                        <div class="row m-t-10">
+                                            <div class="col-md-12 text-right">
+                                                <?php if($book_type==2){ ?>
+                                                    <?php if($book['book_status']==1){ ?>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,2)" class="btn btn-danger btn-sm" href="javascript:;"><i class="fa fa-times"></i> Cancel Booking</a>
+                                                        <a href="<?=base_url();?>booking/book_user/<?=$book_type.'/'.$book['book_to'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit booking</a>
+                                                    <?php } ?>
+                                                    <?php if($book['book_status']==4){ ?>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,5)" class="btn btn-success btn-sm" href="javascript:;">Complete Booking</a>
+                                                        <a href="<?=base_url();?>booking/book_user/<?=$book_type.'/'.$book['book_to'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit booking</a>
+                                                        
+                                                    <?php } ?>
+                                                <?php } else{ ?>
+                                                    <?php if($book['book_status']==1){ ?>
+                                                        <input type="hidden" id="userID" value="<?=$bio[0]['id'];?>">
+                                                        <input type="hidden" id="userEmail" value="<?=$bio[0]['email'];?>">
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,4,'<?=$book['user_type'];?>')" class="btn btn-success btn-sm" href="javascript:;"><i class="fa fa-thumbs-up"></i> Approve</a>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,3,'<?=$book['user_type'];?>')" class="btn btn-danger btn-sm" href="javascript:;"><i class="fa fa-thumbs-down"></i> Disapprove</a>
+                                                    <?php } ?>
+                                                    <?php if($book['book_status']==3){ ?>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,1)" class="btn btn-danger btn-sm" href="javascript:;">Mark as pending</a>
+                                                    <?php } ?>
+                                                    <?php if($book['book_status']==4){ ?>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,5)" class="btn btn-success btn-sm" href="javascript:;"><i class="fa fa-check"></i> Complete Booking</a>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                                <a onclick="instMsg(<?=$bio[0]['id'];?>,'<?=$bio[0]['email'];?>')" class="btn btn-info btn-sm" href="javascript:;"><i class="fa fa-envelope"></i> Send Message</a>
+                                                <a href="<?=base_url();?>booking/booking_history/1" class="btn btn-success btn-sm"><i class="fa fa-check"></i> Finish</a>
                                             </div>
-                                        <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -162,6 +183,7 @@
 
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
+    <?php $this->load->view('mail/pop-ups/inst_msg');?>
     <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
   </body>
 

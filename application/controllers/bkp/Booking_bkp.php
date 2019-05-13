@@ -7,6 +7,93 @@ class Booking extends CI_Controller {
         parent::__construct();
     }
 
+    public function create_booking()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email  = $this->session->userdata('user_email');
+            $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data["user_info"] = $this->Account_model->get_user_info();
+            $data['is_page'] = 'create_booking';
+            $data['zipcode'] = $this->input->post('zipcode');
+            $data['user_type'] = $this->input->post('user_type');
+            $data['pet_list'] = $this->input->post('pet_list');
+            $data['pet_cat'] = $this->input->post('pet_cat');
+            $data['categories'] = $this->Pet_model->get_all_pet_cat();
+		    $data['my_pets'] = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $this->load->view('booking/create_booking', $data);          
+		}
+		else { redirect('home/login'); }
+    }
+
+    public function select_and_book()
+	{
+		if ($this->session->userdata('user_email'))
+		{
+			$user_email              = $this->session->userdata('user_email');
+            $data["user_logindata"]  = $this->Auth_model->fetchuserlogindata($user_email);
+            $data["user_info"]       = $this->Account_model->get_user_info();
+            $data['is_page']         = 'select_and_book';
+            $_SESSION['zipcode']     = ($this->input->post('zipcode')) ? rtrim($this->input->post('zipcode')) : $_SESSION['zipcode'];
+            $_SESSION['user_type']   = ($this->input->post('user_type')) ? rtrim($this->input->post('user_type')) : $_SESSION['user_type'];
+            $data['categories']      = $this->Pet_model->get_all_pet_cat();
+            $data['my_pets']         = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $data['base_url'] = base_url().'booking/select_and_book';
+            $data['per_page'] = 20;
+            $data["uri_segment"] = 3;
+            $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+            
+            if($_SESSION['user_type']=="guest"){
+                $data['total_rows'] = $this->Booking_model->get_avail_users(null, null, 1);
+                $this->pagination->initialize($data);
+                $data["links"] = $this->pagination->create_links();
+                $data['get_avail_users'] = $this->Booking_model->get_avail_users($data["per_page"], $page, 2);
+                $this->load->view('booking/select_user_booking', $data);   
+            } else{
+                if($this->input->post('pet_cat')){
+                    $ids = array();
+                    foreach($this->input->post('pet_cat') as $k=>$cat_id){
+                        $ids[] = $cat_id;
+                    }
+                    $_SESSION['pet_cat'] = json_encode($ids);
+                }
+                $data['total_rows'] = $this->Booking_model->get_avail_pets(null, null, 1);
+                $this->pagination->initialize($data);
+                $data["links"] = $this->pagination->create_links();
+                $data['get_avail_pets'] = $this->Booking_model->get_avail_pets($data["per_page"], $page, 2);
+                $this->load->view('booking/select_pet_booking', $data);
+            }
+		}
+		else { 
+            $_SESSION['is_in_book'] = true;
+            redirect('home/login'); 
+        }
+    }
+
+    public function book_user_pets($uid){
+		if ($this->session->userdata('user_email')){ 
+            $user_email       = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']  = 'book_user_pets';
+            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['user_id'] = $uid;
+            $this->load->view('booking/book_user_pets', $data);
+        }
+		else { redirect('home/login'); }
+    }
+
+    public function book_this_user2($uid){
+		if ($this->session->userdata('user_email')){ 
+            $user_email       = $this->session->userdata('user_email');
+			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
+            $data['is_page']  = 'book_this_user';
+            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
+            $data['user_id'] = $uid;
+            $this->load->view('booking/book_this_user', $data);
+        }
+		else { redirect('home/login'); }
+    }
 /* New Booking steps */
     public function select_booking_page() // Step 1 on Homapage
     {
@@ -195,6 +282,50 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
+/* Close New Booking steps */
+
+    public function get_single_pet_ajax($pid)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Pet_model->get_single_pet_data($pid));
+        }
+        else{ echo 0;}
+    }
+
+    public function get_user_pets_ajax($uid)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Account_model->get_my_pets($uid));
+        }
+        else{ echo 0;}
+    }
+
+    
+
+    public function book_pet_user()
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->book_pet_user();
+        }
+        else{ echo 0;}
+    }
+
+    public function update_book_pet_user($bid)
+	{
+		if($this->session->userdata('user_email')){
+            echo $this->Booking_model->update_book_pet_user($bid);
+        }
+        else{ echo 0;}
+    }
+
+    public function get_booking_info($bid,$type)
+	{
+		if($this->session->userdata('user_email')){
+            echo json_encode($this->Booking_model->get_booking_info($bid,$type));
+        }
+        else{ echo 0;}
+    }
+
     public function get_guest_req()
 	{
 		if($this->session->userdata('user_email')){
@@ -223,46 +354,6 @@ class Booking extends CI_Controller {
 	{
 		if($this->session->userdata('user_email')){
             echo $this->Booking_model->update_host_approve($bid);
-        }
-        else{ echo 0;}
-    }
-
-/* Close New Booking steps */
-
-
-/* Clarifications */
-    public function book_user_pets($uid){
-        if ($this->session->userdata('user_email')){ 
-            $user_email       = $this->session->userdata('user_email');
-            $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']  = 'book_user_pets';
-            $data['view_bio'] = $this->Account_model->view_bio($uid);
-            $data['user_id'] = $uid;
-            $this->load->view('booking/book_user_pets', $data);
-        }
-        else { redirect('home/login'); }
-    }
-    
-    public function book_pet_user()
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->book_pet_user();
-        }
-        else{ echo 0;}
-    }
-
-    public function update_book_pet_user($bid)
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->update_book_pet_user($bid);
-        }
-        else{ echo 0;}
-    }
-
-    public function get_booking_info($bid,$type)
-	{
-		if($this->session->userdata('user_email')){
-            echo json_encode($this->Booking_model->get_booking_info($bid,$type));
         }
         else{ echo 0;}
     }
@@ -344,6 +435,6 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-/* Close Clarifications */
+  
 
 }
