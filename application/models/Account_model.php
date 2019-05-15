@@ -63,7 +63,7 @@ class Account_model extends CI_Model {
         }
     }
 
-    public function update_profile_pic(){
+    public function update_profile_pic2(){
         $uid = $this->session->userdata('user_id');
         if (!is_dir('./assets/img/pictures/usr'.$uid."/")) {
             mkdir('./assets/img/pictures/usr'.$uid."/");
@@ -85,6 +85,26 @@ class Account_model extends CI_Model {
             return ($result) ? true : false;
         }else{
             return false;
+        }
+    }
+
+    public function update_profile_pic(){
+        $uid = $this->session->userdata('user_id');
+        if($_FILES["user_img"]){
+            $target_path = './assets/img/pictures/usr'.$uid."/";
+            $imgName = 'p'.'_'.uniqid().".jpg"; 
+            $status = move_uploaded_file($_FILES["user_img"]["tmp_name"],
+            $target_path . $imgName);
+            if($status){
+                $data = array('user_img' => $imgName);
+                $this->db->where('id', $uid);
+                $this->db->update('sh_users', $data);
+                $data = array('img_name'=> $imgName, 'user_id'=>$uid, 'album_id'=>0);
+                $result = $this->db->insert('sh_images', $data);
+                return ($result) ? true : false;
+            }else{
+                return false;
+            }
         }
     }
 

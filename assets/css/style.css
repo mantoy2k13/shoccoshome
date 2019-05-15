@@ -1604,6 +1604,12 @@ a.viewAllImg {
     border-color: #ff9b28;
 }
 
+span.navBadge {
+    position: absolute;
+    top: 28px;
+    right: -2px;
+}
+
 /*Daryl code*/
 
 div.prof-desc {

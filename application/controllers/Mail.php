@@ -37,12 +37,10 @@ class Mail extends CI_Controller {
 			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 			$data["links"] = $this->pagination->create_links();
             $data['get_mails']      = $this->Mail_model->get_mails($data["per_page"], $page);
-            $data['my_friends']     = $this->Friends_model->get_my_friends_pagi($data["per_page"], $page);
-			$this->load->view('mail/mail', $data);
-			
+            $data['my_friends']     = $this->Friends_model->get_my_friends();
+			$this->load->view('mail/inbox', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
     }
@@ -65,8 +63,7 @@ class Mail extends CI_Controller {
             $data['my_friends']     = $this->Friends_model->get_my_friends_pagi($data["per_page"], $page);
 			$this->load->view('mail/sents', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
     }
@@ -89,8 +86,7 @@ class Mail extends CI_Controller {
            	$data['my_friends']     = $this->Friends_model->get_my_friends();
 			$this->load->view('mail/drafts', $data);
 		}
-		else
-		{
+		else{
 			redirect('home/login');
 		}
 	}
@@ -101,13 +97,7 @@ class Mail extends CI_Controller {
 		{
 			if($this->input->post()){
                 $res = $this->Mail_model->send_messages();
-                if($res){
-                    $this->session->set_flashdata('mail_msg', 'Sent');
-                    redirect('mail/sent_messages#messages');
-                } else{
-                    $this->session->set_flashdata('mail_msg', 'Error');
-                    redirect('mail/sent_messages#messages');
-                }
+                echo $res ? 1 : 0;
             }
 		}
 		else { redirect('home/login'); }

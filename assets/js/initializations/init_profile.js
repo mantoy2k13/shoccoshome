@@ -58,13 +58,11 @@ var checkPass = ()=>{
                 '</div>'
             );
         } else{
-            console.log('nasulod')
             $.ajax({
                 url: base_url+'account/change_password',
                 type: 'POST',
                 data: { npass: npass, curPass: curPass },
                 success: (res)=>{
-                    console.log(res)
                     if(res!=0){
                         swal("Change!", "Password change successfully.","success");
                         $('#pass-err-msg').html('');
@@ -112,7 +110,8 @@ function readURL(input) {
                 $('#img-profile').attr('src', e.target.result);
                 $('#img-profile').hide();
                 $('#img-profile').fadeIn(650);
-                document.getElementById('img_data').value = e.target.result;
+                // document.getElementById('img_data').value = e.target.result;
+                $('.saveImgBtn').removeClass('d-none');
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -159,4 +158,28 @@ var cImgChange = (type) => {
     ()=>{
         window.location.href = (type==1) ? base_url+"pictures/pictures" : base_url+"album/albums";
     });
+}
+
+$("#imgForm").on('submit',(function(e) {
+    e.preventDefault();
+    $.ajax({
+        url: base_url+"account/uploadImg",
+        type: "POST",
+        data: new FormData(this), 
+        contentType: false,
+        cache: false, 
+        processData:false, 
+        success: function(res){
+            if(res==1){
+                swal('Saved!', 'Profile image was successfully changed.', 'success');
+                $('.saveImgBtn').addClass('d-none');
+            } else{
+                swal('Failed!', 'A problem occured please try again.', 'error');
+            }
+        }
+    });
+}));
+
+function updateProfile(){
+    console.log($('#accForm').serialize())
 }

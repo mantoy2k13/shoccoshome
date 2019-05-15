@@ -153,7 +153,6 @@ class Friends_model extends CI_Model {
 		$my_id = $this->session->userdata('user_id');
 		$this->db->where("user_req_to ", $my_id);
 		$query = $this->db->get("sh_friend_request");
-
 		return $query->num_rows();
 	}
 	public function get_my_friends_count(){

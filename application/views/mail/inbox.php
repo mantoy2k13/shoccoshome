@@ -23,8 +23,6 @@
         
           <!-- Main Content -->
 		  <div class="col-md-9 m-t-10 p-l-0">
-                
-          <input type="hidden" value="<?=(isset($_SESSION['mail_msg'])) ? $_SESSION['mail_msg'] : '0';?>" id="getAlertval">
                 <div class="pic-head bg-greyish" id="messages">
                     <div class="row">
                         <div class="col-md-12">
@@ -54,7 +52,7 @@
                                 </p>
                             </div>
                             <div class="col-md-7" onclick="readMsg(<?=$mail_id;?>, 1)" title="Click to view Message">
-                                <p class="f-15"><span class="text-black b-700"><?=$subject;?></span> - <?=$message;?> <i class="f-12"> (<?=$this->Account_model->relative_date(strtotime($date_send));?>)</i></p>
+                                <p class="f-15"><span class="text-black b-700"><?=$subject ? $subject : 'No Subject';?></span> - <?=$message;?> <i class="f-12"> (<?=$this->Account_model->relative_date(strtotime($date_send));?>)</i></p>
                             </div>
                             <div class="col-md-2 text-right">
                                 <a class="delMsgBtn" onclick="delMsg(<?=$mail_id;?>)" href="javascript:;"><i class="fa fa-trash text-blue"></i></a>
@@ -64,12 +62,12 @@
                         
                 <?php }?> 
                 <div class="row m-t-20">
-                            <div class="col-md-12">
-                                <nav class="text-center">
-                                    <?=$links;?>
-                                </nav>
-                            </div>
-                        </div>
+                    <div class="col-md-12">
+                        <nav class="text-center">
+                            <?=$links;?>
+                        </nav>
+                    </div>
+                </div>
                 <?php } else{ ?>
                     <div class="row">
                         <div class="col-md-12 m-t-10">

@@ -117,7 +117,8 @@ var checkBookTime = (book_id)=>{
                     },
                     success: (bid)=>{
                         if(bid!=0){
-                            location.href = base_url+'booking/booking_summary/'+book_type+'/'+book_to+'/'+bid;
+                            swal({title: "Book Successful!", text: "Click ok to view details.", type: 
+                            "success"},function(){ location.href = base_url+'booking/booking_summary/'+book_type+'/'+book_to+'/'+bid; });
                         } else{
                             swal('Failed!', 'A problem occured please try again.', 'error');
                         }

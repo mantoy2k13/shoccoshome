@@ -1,38 +1,9 @@
-$(document).ready(function(){
-    var alertMsg = $('#getAlertval').val();
-    if(alertMsg!=0){
-        switch(alertMsg){
-            case 'Sent':
-                var title = "Message Sent!";
-                var msg = "Message was sent successfully!";
-                var type = 'success';
-            break;
-            case 'Updated':
-                var title = "Updated!";
-                var msg = "Message was updated successfully!";
-                var type = 'success';
-            break;
-            case 'Error':
-                var title = "Error!";
-                var msg = "A problem occured. Please try again!";
-                var type = 'warning';
-            break;
-        }
-
-        setAlertMsg(title, msg, type);
+function writeMsg(e){
+    if(!e){
+        swal('Oops!', 'You cannot compose message if you have no friends in your list. You can search an user and send them messages directly. You can add them as a friend too.', 'warning');
+    } else{
+        $('#writeMsg').modal('show');
     }
-
-    writeMsg = (type)=> {
-        if(!type){
-            swal('Oops!', 'You cannot compose message if you have no friends in your list. You can search an user and send them messages directly. You can add them as a friend too.', 'warning');
-        } else{
-            $('#writeMsg').modal('show');
-        }
-    }
-});
-
-function setAlertMsg(title, msg, type){
-    swal(title, msg, type);
 }
 
 function delMsg(mid){
@@ -81,6 +52,7 @@ function readMsg(mid,type){
         dataType: 'json',
         success: function(res){
             if(res){
+                var subj1 = res[0]['subject'] ? res[0]['subject'] : 'No Subject';
                 $.ajax({ url: base_url + "mail/cntUnrMsg", 
                     success: function(cnt){
                         if(cnt!=0){
@@ -100,12 +72,13 @@ function readMsg(mid,type){
                         dataType: 'json',
                         success: function(pRes){
                            if(pRes){
-                               $('#msg-read-quote').html(''+
+                                var subj2 = pRes[0]['subject'] ? pRes[0]['subject'] : 'No Subject';
+                                $('#msg-read-quote').html(''+
                                 '<div class="row m-t-10">'+
                                     '<div class="col-md-12">'+
                                        '<div class="msg-quote">'+
                                             '<span class="pull-right"><i class="fa fa-quote-right"></i></span>'+
-                                            '<label>'+pRes[0]['subject']+'</label>'+
+                                            '<label>'+subj2+'</label>'+
                                             '<p class="date">'+dateFormat(new Date(pRes[0]['date_send']), "dd mmm yyyy, hh:MM TT")+'</p>'+
                                             '<p>'+pRes[0]['message']+'</p>'+
                                         '</div>'+
@@ -131,7 +104,7 @@ function readMsg(mid,type){
                 /* Set Values */
                 $('#msgFrom').val(res[0]['fullname']+' ('+res[0]['email']+')');
                 $('#msgDate').val(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
-                $('#msgSubject').val(res[0]['subject']);
+                $('#msgSubject').val(subj1);
                 $('#msgContent').val(res[0]['message']);
                 $('#drftBtn').attr('onClick','moveToDrafts('+mid+')');
                 $('#modDelBtn').attr('onClick','delMsg('+mid+')');
@@ -154,17 +127,19 @@ function readMsg2(mid,type){
         dataType: 'json',
         success: function(res){
             if(res){    
+                var subj1 = res[0]['subject'] ? res[0]['subject'] : 'No Subject';
                 if(res[0]['parent_id']){
                     $.ajax({ url: base_url + "mail/view_message/"+res[0]['parent_id']+"/"+type, 
                          dataType: 'json',
                          success: function(pRes){
                             if(pRes){
+                                var subj2 = pRes[0]['subject'] ? pRes[0]['subject'] : 'No Subject';
                                 $('#msg-read-quote').html(''+
                                  '<div class="row m-t-10">'+
                                      '<div class="col-md-12">'+
                                         '<div class="msg-quote">'+
                                              '<span class="pull-right"><i class="fa fa-quote-right"></i></span>'+
-                                             '<label>'+pRes[0]['subject']+'</label>'+
+                                             '<label>'+subj2+'</label>'+
                                              '<p class="date">'+dateFormat(new Date(pRes[0]['date_send']), "dd mmm yyyy, hh:MM TT")+'</p>'+
                                              '<p>'+pRes[0]['message']+'</p>'+
                                          '</div>'+
@@ -199,7 +174,7 @@ function readMsg2(mid,type){
 
                 $('#msgFrom').val(res[0]['fullname']+' ('+res[0]['email']+')');
                 $('#msgDate').val(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
-                $('#msgSubject').val(res[0]['subject']);
+                $('#msgSubject').val(subj1);
                 $('#msgContent').val(res[0]['message']);
                 $('#modDelBtn').attr('onClick','delMsg('+mid+')');
                 $('#mLoader').html('');
@@ -237,13 +212,14 @@ function replyMsg(mid){
         url: base_url + "mail/view_message/"+mid+"/"+2,
         dataType: 'json',
         success: function(res){
-            if(res){                
+            if(res){     
+                var subj = res[0]['subject'] ? res[0]['subject'] : 'No Subject';       
                 $('#replyTo').val(res[0]['fullname']+' ('+res[0]['email']+')');
                 $('#mail_to').val(res[0]['id']);
                 $('#replySubject').val(res[0]['subject']);
                 $('#replyContent').val(res[0]['message']);
                 $('#parent_id').val(mid);
-                $('#qSub').html(res[0]['subject']);
+                $('#qSub').html(subj);
                 $('#qContent').html(res[0]['message']);
                 $('#qDate').html(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
                 $('#backBtn').attr('onClick','readMsg('+mid+')');
@@ -295,3 +271,4 @@ function moveToDrafts(mid){
         }); 
     });
 }
+

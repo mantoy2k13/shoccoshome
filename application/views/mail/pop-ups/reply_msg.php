@@ -1,7 +1,7 @@
 <!-- Modal -->  
 <div class="modal fade msgModalCustom font-baloo" id="replyMsg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="<?=base_url();?>mail/send_message" method="POST">
+        <form action="<?=base_url();?>mail/send_message" method="POST" id="replyMsgForm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="replyBtn" type="submit" class="btn btn-info"><i class="fa fa-reply"></i> Reply</button>
+                    <button id="replyBtn" type="button" onclick="sendMessage(2)" class="btn btn-info"><i class="fa fa-reply"></i> Reply</button>
                     <button id="backBtn" type="button" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</button>
                 </div>
             </div>

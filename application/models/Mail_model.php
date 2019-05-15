@@ -8,8 +8,7 @@ class Mail_model extends CI_Model {
 	}
 
 	public function send_messages(){
-        $mail_to = $_POST['mail_to'];
-        foreach($mail_to as $mid){
+        foreach($this->input->post('mail_to') as $mid){
             $data = array(
                 'user_id'   => $this->session->userdata('user_id'),
                 'mail_to'   => $mid,
@@ -89,9 +88,14 @@ class Mail_model extends CI_Model {
 
     public function delete_message($mid){
         $my_id = $this->session->userdata('user_id');
+        $this->db->set('is_read', 1);
+        $this->db->where('mail_id', $mid);
+        $this->db->update('sh_mail');
+        
         $this->db->select('user_id, del_by_mailto, del_by_uid')->from('sh_mail');
         $this->db->where('mail_id', $mid);
         $data = $this->db->get()->row_array();
+        
         if($my_id==$data['user_id']){
             //check if deleted ba ni del_by_mailto and message
             if($data['del_by_mailto']){

@@ -177,6 +177,14 @@ class Account extends CI_Controller {
         }
 		else { echo false; }
     }
+
+    public function uploadImg(){
+        if ($this->session->userdata('user_email')){ 
+            $res = $this->Account_model->update_profile_pic(); 
+            echo $res ? 1 : 0;
+        }
+		else { echo false; }
+    }
     
 /* Close Account Use Codes */
 
@@ -187,7 +195,6 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-    
 
     public function send_password_recovery(){
         if($this->input->post('email')){

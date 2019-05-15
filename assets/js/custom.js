@@ -226,7 +226,7 @@ function getGuestReq(){
                     }); 
                     var notif = document.getElementById("notif"); 
                     notif.play(); 
-                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_list/2" });
+                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_history/2" });
                     $.ajax({ url: base_url + "booking/update_guest_req/"+key['book_id'],success: function(result){}});
                 });
             }
@@ -251,7 +251,7 @@ function getHostApprove(){
                     }); 
                     var notif = document.getElementById("notif"); 
                     notif.play(); 
-                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_list/1" });
+                    $(document).on('click', '.ncf-container p', ()=> {  window.location.href = base_url+"booking/booking_history/1" });
                     $.ajax({ url: base_url + "booking/update_host_approve/"+key['book_id'],success: function(result){}});
                 });
             }

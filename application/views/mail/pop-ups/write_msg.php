@@ -1,7 +1,7 @@
 <!-- Modal -->  
 <div class="modal fade msgModalCustom font-baloo" id="writeMsg" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form action="<?=base_url();?>mail/send_message" method="POST">
+        <form action="<?=base_url();?>mail/send_message" method="POST" id="sendMsgForm">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -33,10 +33,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                     <?php if($my_friends){ ?>
-                    <button type="submit" class="btn btn-info"><i class="fa fa-paper-plane"></i> Send</button>
+                        <button type="button" onclick="sendMessage(1)" class="btn btn-info"><i class="fa fa-paper-plane"></i> Send</button>
                     <?php } ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i> Cancel</button>
                 </div>
             </div>
         </form>

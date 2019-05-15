@@ -28,21 +28,24 @@
             <?php foreach($user_info as $info) { extract($info); ?>
                 <div class="row">
                     <div class="col-md-3 text-center">
-                        <div class="acc-img">
-                                <?php  
-                                if($user_img) { ?>
-                                    <img id="img-profile" src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
-                                <?php }else{ ?>
-                                    <img id="img-profile" src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
-                                <?php } ?>
-                            <input type="file" name="user_img" class="input-img" id="input-img">
-                        </div>
-                        <span class="btn bg-orange text-white btn-sm dropdown-toggle m-t-10" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-image"></i> Click to choose image</span>
-                        <div class="dropdown-menu" aria-labelledby="f-menu">
-                            <a class="dropdown-item" onclick="$('#input-img').trigger('click');" href="javascript:;">Choose from your device</a>
-                            <a class="dropdown-item" onclick="cImgChange(1)" href="javascript:;">Choose from your pictures</a>
-                            <a class="dropdown-item" onclick="cImgChange(2)" href="javascript:;">Choose from your albums</a>
-                        </div>
+                        <form role="form" method="post" enctype="multipart/form-data" id="imgForm">
+                            <div class="acc-img">
+                                    <?php  
+                                    if($user_img) { ?>
+                                        <img id="img-profile" src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
+                                    <?php }else{ ?>
+                                        <img id="img-profile" src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
+                                    <?php } ?>
+                                <input type="file" name="user_img" class="input-img" id="input-img">
+                            </div>
+                            <span class="btn bg-orange text-white btn-sm dropdown-toggle m-t-10" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-image"></i> Click to choose image</span>
+                            <div class="dropdown-menu" aria-labelledby="f-menu">
+                                <a class="dropdown-item" onclick="$('#input-img').trigger('click');" href="javascript:;">Choose from your device</a>
+                                <a class="dropdown-item" onclick="cImgChange(1)" href="javascript:;">Choose from your pictures</a>
+                                <a class="dropdown-item" onclick="cImgChange(2)" href="javascript:;">Choose from your albums</a>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-xs m-t-10 saveImgBtn d-none"><i class="fa fa-check"></i> Save Image</button>
+                        </form>
                     </div>
                     <div class="col-md-9">
                         <p class="f-25 b-700 text-orange-d">Account</p>
@@ -55,7 +58,7 @@
 
                         <div class="tab-content">
                             <div id="account" class="tab-pane fade in active show">
-                                <form action="<?=base_url();?>account/account_update" role="form" method="post" enctype="multipart/form-data" >
+                                <form action="<?=base_url();?>account/account_update" role="form" method="post" enctype="multipart/form-data" id="accForm">
                                     <div class="form-group row m-t-20">
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Fullname</label>
@@ -109,7 +112,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn bg-orange sub-btn">Save</button>
+                                            <button onclick="updateProfile()" type="button" class="btn bg-orange sub-btn">Save</button>
                                         </div>
                                     </div>
                                 </form>
