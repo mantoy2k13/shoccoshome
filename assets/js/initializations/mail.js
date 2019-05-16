@@ -175,6 +175,7 @@ function readMsg2(mid,type){
                 $('#msgFrom').val(res[0]['fullname']+' ('+res[0]['email']+')');
                 $('#msgDate').val(dateFormat(new Date(res[0]['date_send']), "dd mmm yyyy, hh:MM TT"));
                 $('#msgSubject').val(subj1);
+                $('#redMid').val(mid);
                 $('#msgContent').val(res[0]['message']);
                 $('#modDelBtn').attr('onClick','delMsg('+mid+')');
                 $('#mLoader').html('');

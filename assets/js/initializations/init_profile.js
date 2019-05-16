@@ -1,37 +1,3 @@
-$(document).ready(function(){
-    var alertMsg = $('#getProfAlert').val();
-    if(alertMsg!=0){
-        switch(alertMsg){
-            case 'Updated':
-                var title = "Profile Updated!";
-                var msg   = "Your profile was successfully updated!";
-                var type  = 'success';
-            break;
-            case 'Exist':
-                var title = "Oops!";
-                var msg   = "Email already exists. Please enter a valid email address.";
-                var type  = 'error';
-            break;
-            case 'Error':
-                var title = "Error!";
-                var msg   = "A problem occured while updating your profile. Please try again!";
-                var type  = 'error';
-            break;
-            case 'ErrorImg':
-                var title = "Oops!";
-                var msg   = "A problem occured while updating your image. Please try again!";
-                var type  = 'error';
-            break;
-        }
-
-        setProfAlert(title, msg, type);
-    }
-});
-
-function setProfAlert(title, msg, type){
-    swal(title, msg, type);
-}
-
 var navTabs = (type)=> {
     if(type==1){
         $('.nav2').removeClass('active');
@@ -58,25 +24,39 @@ var checkPass = ()=>{
                 '</div>'
             );
         } else{
-            $.ajax({
-                url: base_url+'account/change_password',
-                type: 'POST',
-                data: { npass: npass, curPass: curPass },
-                success: (res)=>{
-                    if(res!=0){
-                        swal("Change!", "Password change successfully.","success");
-                        $('#pass-err-msg').html('');
-                    } else{
-                        $('#pass-err-msg').html(''+
-                            '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
-                                '<strong><i class="fa fa-check"></i> Oopss!</strong> Current password is incorrect.'+
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
-                                    '<span aria-hidden="true">&times;</span>'+
-                                '</button>'+
-                            '</div>'
-                        );
+            swal({
+                title: "Change Password?",
+                text: "Your password will be changed and save to database. Continue?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Yes, continue!",
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true,
+                confirmButtonColor: "#fa9737",
+            },
+            ()=>{
+                $.ajax({
+                    url: base_url+'account/change_password',
+                    type: 'POST',
+                    data: { npass: npass, curPass: curPass },
+                    success: (res)=>{
+                        if(res!=0){
+                            swal("Change!", "Password change successfully.","success");
+                            $('#pass-err-msg').html('');
+                        } else{
+                            swal("Failed!", "Please check your password.","error");
+                            $('#pass-err-msg').html(''+
+                                '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                                    '<strong><i class="fa fa-check"></i> Oopss!</strong> Current password is incorrect.'+
+                                    '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                                        '<span aria-hidden="true">&times;</span>'+
+                                    '</button>'+
+                                '</div>'
+                            );
+                        }
                     }
-                }
+                });
             });
         }
     } else{
@@ -89,10 +69,6 @@ var checkPass = ()=>{
             '</div>'
         );
     }
-}
-
-var errClear = ()=>{
-    $('#pass-err-msg').html('');
 }
 
 function readURL(input) {
@@ -110,7 +86,6 @@ function readURL(input) {
                 $('#img-profile').attr('src', e.target.result);
                 $('#img-profile').hide();
                 $('#img-profile').fadeIn(650);
-                // document.getElementById('img_data').value = e.target.result;
                 $('.saveImgBtn').removeClass('d-none');
             }
             reader.readAsDataURL(input.files[0]);
@@ -162,24 +137,128 @@ var cImgChange = (type) => {
 
 $("#imgForm").on('submit',(function(e) {
     e.preventDefault();
-    $.ajax({
-        url: base_url+"account/uploadImg",
-        type: "POST",
-        data: new FormData(this), 
-        contentType: false,
-        cache: false, 
-        processData:false, 
-        success: function(res){
-            if(res==1){
-                swal('Saved!', 'Profile image was successfully changed.', 'success');
-                $('.saveImgBtn').addClass('d-none');
-            } else{
-                swal('Failed!', 'A problem occured please try again.', 'error');
+    swal({
+        title: "Update Image?",
+        text: "Your profile image will be change.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, update!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+        confirmButtonColor: "#fa9737",
+    },
+    ()=>{
+        $.ajax({
+            url: base_url+"account/uploadImg",
+            type: "POST",
+            data: new FormData(this), 
+            contentType: false,
+            cache: false, 
+            processData:false, 
+            success: function(res){
+                if(res==1){
+                    swal('Saved!', 'Profile image was successfully changed.', 'success');
+                    $('.saveImgBtn').addClass('d-none');
+                } else{
+                    swal('Failed!', 'A problem occured please try again.', 'error');
+                }
             }
-        }
+        });
     });
 }));
 
 function updateProfile(){
-    console.log($('#accForm').serialize())
+    var compAdd = $('#complete_address').val();
+    var pCode   = $('#postal_code').val();
+    if(!compAdd){
+        $('#pass-err-msg2').html(''+
+            '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                '<strong><i class="fa fa-check"></i> Failed!</strong> Please enter your address.'+
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+            '</div>'
+        );
+        $('#complete_address').focus();
+    }
+    if(!pCode){
+        $('#pass-err-msg2').html(''+
+            '<div class="alert alert-danger alert-dismissible m-t-20 f-15" role="alert">'+
+                '<strong><i class="fa fa-check"></i> Failed!</strong> Please enter your zip code.'+
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                    '<span aria-hidden="true">&times;</span>'+
+                '</button>'+
+            '</div>'
+        );
+        $('#postal_code').focus();
+    }
+
+    if(compAdd&&pCode){
+        swal({
+            title: "Save Changes?",
+            text: "All data will be saved directly.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Yes, save!",
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true,
+            confirmButtonColor: "#fa9737",
+        },
+        ()=>{
+            $.ajax({
+                url: base_url+'account/account_update',
+                method: 'POST',
+                data: $('#accForm').serialize(),
+                success: (res)=>{
+                    if(res==1){
+                        swal('Saved!', 'Profile information was successfully saved.', 'success');
+                        $('#pass-err-msg2').html('');
+                    } else{
+                        swal('Failed!', 'A problem occured please try again.', 'error');
+                        $('#pass-err-msg2').html('');
+                    }
+                }
+            });
+        });
+    }
+}
+
+var checkEmail = ()=>{
+    var newEmail = $('#newEmail').val();
+    var oldEmail = $('#oldEmail').val();
+    $('#chk-email-msg').html('<span class="pname-warm"><i class="fa fa-spinner"></i> Checking email..</span>');
+    if(newEmail){
+        if(newEmail!=oldEmail){
+            $.ajax({
+                url: base_url+'account/check_email',
+                type: 'POST',
+                data: { newEmail:newEmail },
+                success: (res)=>{
+                    if(res==0){
+                        $('#chk-email-msg').html('<span class="pname-suc"><i class="fa fa-check"></i> Email is available!</span>');
+                        $('#accSaveBtn').removeAttr('disabled');
+                    } else{
+                        $('#chk-email-msg').html('<span class="pname-err"><i class="fa fa-times"></i> Email name already exist.</span>');
+                        $('#newEmail').focus();
+                        $('#accSaveBtn').attr('disabled', '');
+                    }
+                }
+            });
+        } else{
+            $('#chk-email-msg').html('');
+            $('#accSaveBtn').removeAttr('disabled');
+        }
+    } else{
+        $('#chk-email-msg').html('<span class="pname-err"><i class="fa fa-times"></i> Please enter your email.</span>');
+        $('#newEmail').focus();
+        $('#accSaveBtn').attr('disabled', '');
+    }
+
+}
+
+var errClear = ()=>{
+    $('#pass-err-msg').html('');
+    $('#pass-err-msg2').html('');
 }

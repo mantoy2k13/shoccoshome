@@ -68,7 +68,7 @@ class Home extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
 			$data['is_page'] = 'homepage';
-			$data['view_bio'] = $this->Account_model->view_bio($uid);
+			$data['view_bio'] = $this->Account_model->get_user_info($uid);
 			$data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
 			$this->load->view('homepage/homepage', $data);
 		}
@@ -87,7 +87,7 @@ class Home extends CI_Controller {
 			$user_email  = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'people_near_me';
-			$data['view_bio'] = $this->Account_model->view_bio($uid);
+			$data['view_bio'] = $this->Account_model->get_user_info($uid);
 			$data['base_url'] = base_url().'home/people_near_me';
 			$data['total_rows'] = $this->Booking_model->getCountNearPeople();
 			$data['per_page'] = 20;

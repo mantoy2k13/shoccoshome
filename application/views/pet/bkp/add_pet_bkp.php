@@ -49,7 +49,7 @@
                             <strong><i class="fa fa-times"></i> Oops!</strong> You can not add your pets if profile is not completed. Adding of pets needs your profile address. Click <a href="<?=base_url()?>account/account">here</a> to update your profile now.
                         </div>
                     <?php } else { ?>
-                        <form id="addPetForm" action="<?=base_url().$formUrl;?>" method="post" enctype="multipart/form-data">
+                        <form  action="<?=base_url().$formUrl;?>" method="post" enctype="multipart/form-data">
                             <!-- Pet Details -->
                             <div class="row form-group">
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Pet Details</div>
@@ -353,7 +353,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button onclick="" type="button" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
+                                    <button type="submit" name="postType" value="<?=$postType;?>" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
                                 </div>
                             </div>
                         </form>

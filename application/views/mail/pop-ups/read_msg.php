@@ -22,6 +22,7 @@
                         <div class="col-md-12 m-t-10">
                             <label for="message_to">Subject:</label>
                             <input type="text" class="form-control" placeholder="Subject" name="subject" id="msgSubject" readonly>
+                            <input type="hidden" name="mail_id" id="redMid">
                         </div>
                     </div>
                     <div id="msg-read-quote"></div>               
@@ -36,7 +37,7 @@
                     <button id="replyBtn" type="button" class="btn btn-info"><i class="fa fa-reply"></i> Reply</button>
                     <button id="drftBtn" type="button" class="btn btn-success" ><i class="fa fa-inbox"></i> Move to Drafts</button>
                     <button id="editBtn" onclick="edit_msg(1)" type="button" class="btn btn-success text-white"><i class="fa fa-edit"></i> Edit Message</button>
-                    <button id="saveBtn" type="submit" class="btn btn-info"><i class="fa fa-save"></i> Save Changes</button>
+                    <button id="saveBtn" onclick="editMessage()" type="button" class="btn btn-info"><i class="fa fa-save"></i> Save Changes</button>
                     <button id="cancelBtn" onclick="edit_msg(2)" type="button" class="btn btn-danger text-white"><i class="fa fa-times"></i> Cancel</button>
                     <button id="modDelBtn" type="button" class="btn btn-danger"><i class="fa fa-times"></i> Delete</button>
                 </div>

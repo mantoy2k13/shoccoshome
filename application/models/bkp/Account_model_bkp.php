@@ -7,17 +7,38 @@ class Account_model extends CI_Model {
 		parent::__construct();
     }
 
+    public function pagination_settings(){
+        $data["use_page_numbers"] = TRUE;
+        $data["full_tag_open"] = '<ul class="pagination">';
+        $data["full_tag_close"] = '</ul>';
+        $data["first_tag_open"] = '<li class="page-item">';
+        $data["first_tag_close"] = '</a></li>';
+        $data["last_tag_open"] = '<li class="page-item">';
+        $data["last_tag_close"] = '</li>';
+        $data["next_link"] = 'Next';
+        $data["next_tag_open"] = '<li class="page-item">';
+        $data["next_tag_close"] = '</li>';
+        $data["prev_link"] = 'Previous';
+        $data["prev_tag_open"] = '<li class="page-item">';
+        $data["prev_tag_close"] = '</li>';
+        $data["cur_tag_open"] = '<li class="page-item active"><a class="page-link" href="javascript:;">';
+        $data["cur_tag_close"] = '</a></li>';
+        $data["num_tag_open"] = '<li class="page-item">';
+        $data["num_tag_close"] = '</li>';
+        $data["num_links"] = 2;
+        $data['attributes'] = array('class' => 'page-link');
+        return $data;
+    }
+    
     public function check_email($email){
-        $this->db->select('*')->from('sh_users')->where('email', $email);
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('email', $email);
         $query = $this->db->get();
         return ($query->num_rows() > 0) ? true : false;
     }
 
-/* Working Codes ================================================================*/
-
-    public function update_profile_info(){
-        $uid   = $this->session->userdata('user_id');
-        $email = $this->input->post('email');
+    public function update_profile_info($email){
+        $uid = $this->session->userdata('user_id');
         $data = array(
             'fullname'         => $this->input->post('fullname'),
             'email'            => $email,
@@ -28,8 +49,6 @@ class Account_model extends CI_Model {
             'user_lat'         => $this->input->post('user_lat'),
             'user_lng'         => $this->input->post('user_lng'),
             'zip_code'         => $this->input->post('zip_code'),
-            'is_smoker'        => $this->input->post('is_smoker'),
-            'living_in'        => $this->input->post('living_in'),
             'bio'              => $this->input->post('bio'),
             'is_complete'      => 1,
         );
@@ -39,6 +58,31 @@ class Account_model extends CI_Model {
             $data = array('user_email' => $email);
             $this->session->set_userdata($data);
             return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function update_profile_pic2(){
+        $uid = $this->session->userdata('user_id');
+        if (!is_dir('./assets/img/pictures/usr'.$uid."/")) {
+            mkdir('./assets/img/pictures/usr'.$uid."/");
+            $target_path = './assets/img/pictures/usr'.$uid."/";
+        } else{
+            $target_path = "./assets/img/pictures/usr".$uid."/";
+        }
+
+        $imgName = 'p'.'_'.uniqid().".jpg"; 
+        $data = explode(',', $this->input->post('img_data'));
+        $decoded = base64_decode($data[1]);
+        $status = file_put_contents($target_path.$imgName,$decoded); 
+        if($status){
+            $data = array('user_img' => $imgName);
+            $this->db->where('id', $uid);
+            $this->db->update('sh_users', $data);
+            $data = array('img_name'=> $imgName, 'user_id'=>$uid, 'album_id'=>0);
+            $result = $this->db->insert('sh_images', $data);
+            return ($result) ? true : false;
         }else{
             return false;
         }
@@ -64,9 +108,21 @@ class Account_model extends CI_Model {
         }
     }
 
-    public function get_user_info($uid){
-        $this->db->select('*')->from('sh_users')->where('id', $uid);
+    public function get_user_info(){
+        $this->db->select('*')->from('sh_users')->where('id', $this->session->userdata('user_id'));
         return $this->db->get()->result_array();
+    }
+
+    public function get_user($uid){
+        $this->db->select('*')->from('sh_users')->where('id', $uid);
+        return $this->db->get()->row_array();
+    }
+
+    public function view_bio($uid){
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('id',$uid);
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 
     public function get_my_pets($uid){
@@ -74,8 +130,9 @@ class Account_model extends CI_Model {
         $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
         $this->db->where('sh_pets.user_id',$uid);
-        return $this->db->get()->result_array();
-    }   
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
 
     public function relative_date($time) {
         $today = strtotime(date('M j, Y'));
@@ -110,7 +167,8 @@ class Account_model extends CI_Model {
     public function is_complete(){
         $this->db->select('is_complete')->from('sh_users');
         $this->db->where('id', $this->session->userdata('user_id'));
-        return $this->db->get()->row_array();
+        $data = $this->db->get()->row_array();
+        return $data;
     }
 
     public function compLater(){
@@ -118,6 +176,13 @@ class Account_model extends CI_Model {
         $this->db->where('id', $this->session->userdata('user_id'));
         $res = $this->db->update('sh_users');
         return ($res) ? true : false;
+    }
+
+    public function getAddress(){
+        $this->db->select('complete_address,zip_code')->from('sh_users');
+        $this->db->where('id', $this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 
     public function change_password(){
@@ -176,6 +241,65 @@ class Account_model extends CI_Model {
         return ($res) ? true : false;
     }
 
+    public function need_sitter_set_time(){
+        $uid = $this->session->userdata('user_id');
+        $ns_date_from[] = $this->input->post('ns_date_from');
+        $ns_date_from[] = $this->input->post('ns_time_start');
+        $ns_date_to[] = $this->input->post('ns_date_to');
+        $ns_date_to[] = $this->input->post('ns_time_end');
+        $ndf = json_encode($ns_date_from);
+        $ndt = json_encode($ns_date_to);
+        $emptyDate = array(
+            'ns_date_from' => '',
+            'ns_date_to'   => '',
+            'isAvailable'  => false,
+        );
+
+        $ures = $this->db->update('sh_pets', $emptyDate);
+        if($ures){
+            $data = array(
+                'ns_date_from' => $ndf,
+                'ns_date_to'   => $ndt,
+                'isAvailable'  => true,
+            );
+
+            foreach($this->input->post('pet_list') as $k=>$v){
+                $this->db->where('pet_id', $v);
+                $this->db->update('sh_pets', $data);
+            }
+            $data = array('isAvail'=>true);
+            $this->db->where('id', $uid);
+            $res = $this->db->update('sh_users', $data);
+            return ($res) ? 1 : 0;
+        } else{
+            return 0;
+        }
+    }
+
+    public function update_need_pet_sitter($pid){
+        $ns_date_from[] = $this->input->post('ns_date_from');
+        $ns_date_from[] = $this->input->post('ns_time_start');
+        $ns_date_to[] = $this->input->post('ns_date_to');
+        $ns_date_to[] = $this->input->post('ns_time_end');
+        $ndf = json_encode($ns_date_from);
+        $ndt = json_encode($ns_date_to);
+        $data = array(
+            'ns_date_from' => $ndf,
+            'ns_date_to'   => $ndt
+        );
+
+        $this->db->where('pet_id', $pid);
+        $res = $this->db->update('sh_pets', $data);
+        return ($res) ? 1 : 0;
+    }
+
+    public function get_date(){
+        $this->db->select('sitter_availability')->from('sh_users');
+        $this->db->where('id',$this->session->userdata('user_id'));
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
     public function get_users_images($user_id, $limit){
         $this->db->select('*')->from('sh_images');
         $this->db->where('user_id', $user_id);
@@ -183,6 +307,16 @@ class Account_model extends CI_Model {
             $this->db->limit($limit);
         }
         return $this->db->get()->result_array();
+    }
+
+    public function get_my_pets_to_sit($uid){
+        $this->db->select('*')->from('sh_pets');
+        $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
+        $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
+        $this->db->where('user_id', $uid);
+        $this->db->where('isAvailable',true);
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 
     public function unset_dates($t){
@@ -200,23 +334,42 @@ class Account_model extends CI_Model {
         return ($res) ? true : false;
     }
 
+    public function resetDate($t){
+        $uid = $this->session->userdata('user_id');
+        $emptyDate1 = array(
+            'ns_date_from' => '',
+            'ns_date_to'   => '',
+            'isAvailable'  => false,
+        );
+
+        if($t==1){
+            $this->db->select('pet_id')->from('sh_pets')->where('isAvailable', true);
+            $checkPet = $this->db->get()->num_rows();
+            $emptyDate2 = ($checkPet > 0) ? array('sitter_availability' => '') : array('sitter_availability' => '', 'isAvail'=>false);
+            $this->db->where('id', $uid);
+            $res = $this->db->update('sh_users', $emptyDate2);
+        } else{
+            $this->db->where('id', $uid);
+            $this->db->where('sitter_availability !=', '');
+            $checkAvail = $this->db->get('sh_users')->num_rows();
+
+            if($checkAvail == 0){
+                $this->db->set('isAvail', false);
+                $this->db->where('id', $uid);
+                $this->db->update('sh_users');
+            }
+
+            $this->db->where('user_id', $uid);
+            $res = $this->db->update('sh_pets', $emptyDate1);
+        }
+        
+        return ($res) ? 1 : 0;
+    }
+
     public function update_new_password($newPass,$email){
         $this->db->where('email', $email);
         $this->db->set('password', md5($newPass));
         $res = $this->db->update('sh_users');
         return ($res) ? true : false;
     }
-
-    /* Close Working Codes ================================================================*/
-
-    public function get_my_pets_to_sit($uid){
-        $this->db->select('*')->from('sh_pets');
-        $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
-        $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
-        $this->db->where('user_id', $uid);
-        $this->db->where('isAvailable',true);
-        return $this->db->get()->result_array();
-    }
-
-    
 }

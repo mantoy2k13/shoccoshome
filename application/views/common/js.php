@@ -30,6 +30,7 @@
     <?php if(!$is_complete['is_complete']){ ?>
         <script src="<?=base_url();?>assets/js/initializations/welcomeModal.js"></script>
 <?php } } } ?>
+
 <?php if($is_page=="albums"){ ?>
     <script src="<?=base_url();?>assets/js/initializations/init_album.js"></script>
 <?php }?>
@@ -61,5 +62,3 @@
 <?php } ?>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
-
-<!-- <h1><?=$is_page;?></h1> -->

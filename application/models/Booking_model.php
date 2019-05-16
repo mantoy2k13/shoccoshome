@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Booking_model extends CI_Model {
 
-    /* New Booking steps */
+    /* New Booking steps ================================================================*/
     public function book_me_now($book_id){
         foreach ($this->input->post('pet_list') as $v) {
            $pet_list[] = $v;
@@ -56,84 +56,10 @@ class Booking_model extends CI_Model {
         return $this->db->get()->row_array();
     }
 
-    /* Close New Booking steps */
-
-    public function update_book_user($bid){
-        $book_date_from[] = $this->input->post('date_from');
-        $book_date_from[] = $this->input->post('time_start');
-        $book_date_to[]   = $this->input->post('date_to');
-        $book_date_to[]   = $this->input->post('time_end');
-        
-        foreach ($this->input->post('pet_list') as $k => $v) {
-           $pet_list[] = $v;
-        }
-
-		$data = array(
-            'book_date_from' => json_encode($book_date_from),
-            'book_date_to'   => json_encode($book_date_to),
-            'pet_list'       => json_encode($pet_list),
-            'message'        => $this->input->post('message')
-        );
-
-        $this->db->where('book_id', $bid);
-        $res = $this->db->update('sh_book', $data);
-        return ($res) ? 1 : 0;
-    }
-
-    public function book_pet_user(){
-        $book_date_from[] = $this->input->post('date_from');
-        $book_date_from[] = $this->input->post('time_start');
-        $book_date_to[]   = $this->input->post('date_to');
-        $book_date_to[]   = $this->input->post('time_end');
-        foreach ($this->input->post('pet_list') as $k => $v) {
-           $pet_list[] = $v;
-        }
-		$data = array(
-            'book_by'        => $this->session->userdata('user_id'),
-            'book_to'        => $this->input->post('book_user_id'),
-            'book_date_from' => json_encode($book_date_from),
-            'book_date_to'   => json_encode($book_date_to),
-            'pet_list'       => json_encode($pet_list),
-            'user_type'      => $this->input->post('user_type'),
-            'message'        => $this->input->post('message'),
-            'book_status'    => 1,
-            'is_notify'      => 1
-        );
-
-        $res = $this->db->insert('sh_book', $data);
-        return ($res) ? 1 : 0;
-    }
-
-    public function update_book_pet_user($bid){
-        $book_date_from[] = $this->input->post('date_from');
-        $book_date_from[] = $this->input->post('time_start');
-        $book_date_to[]   = $this->input->post('date_to');
-        $book_date_to[]   = $this->input->post('time_end');
-        foreach ($this->input->post('pet_list') as $k => $v) {
-           $pet_list[] = $v;
-        }
-		$data = array(
-            'book_date_from' => json_encode($book_date_from),
-            'book_date_to'   => json_encode($book_date_to),
-            'pet_list'       => json_encode($pet_list),
-            'message'        => $this->input->post('message')
-        );
-        $this->db->where('book_id', $bid);
-        $res = $this->db->update('sh_book', $data);
-        return ($res) ? 1 : 0;
-    }
-
     public function booking_approvals($bid, $status){
         $data = ($status==4) ? array('book_status' => $status, 'is_notify' => 3) : array('book_status' => $status);
         $this->db->where('book_id', $bid);
         $res = $this->db->update('sh_book', $data);
-        return ($res) ? 1 : 0;
-    }
-
-    public function re_book_user($bid){
-        $this->db->set('book_status', 1);
-        $this->db->where('book_id', $bid);
-        $res = $this->db->update('sh_book');
         return ($res) ? 1 : 0;
     }
 
@@ -198,6 +124,10 @@ class Booking_model extends CI_Model {
         $res = $this->db->update('sh_book');
         return ($res) ? 1 : 0;
     }
+
+    /* Close New Booking steps ================================================================*/
+
+    
 
     public function getNearUsers($lat, $lng){
         $uid = $this->session->userdata('user_id');
@@ -294,6 +224,8 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    /* Working and Important Formula ================================================================*/
+
     // calculate geographical proximity
     public function mathGeoProximity( $latitude, $longitude, $radius){
         // $radius = $miles ? $radius : ($radius * 0.621371192);
@@ -327,5 +259,8 @@ class Booking_model extends CI_Model {
 
         return ($miles ? ($km * 0.621371192) : $km);
     }
+
+    /* Close Working and Important Formula ==========================================================*/
+
     
 }

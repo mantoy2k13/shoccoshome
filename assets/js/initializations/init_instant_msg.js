@@ -28,3 +28,31 @@ function sendMessage(type){ // 1 Write, 2 Reply,
         }); 
     });
 }
+
+function editMessage(){
+    swal({
+        title: "Update Message?",
+        text: "Click save to update and Cancel to close.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Update!",
+        closeOnConfirm: false,
+        confirmButtonColor: "#f77506",
+        showLoaderOnConfirm: true
+    },
+    function(){
+        $.ajax({
+            url: base_url + "mail/update_message",
+            type: "POST",
+            data: $('#readForm').serialize(),
+            success: function(res){
+                if(res==1){
+                    $('#readMsg').modal('hide'); 
+                    swal('Message Updated!', 'Your message was successfully updated.', 'success');
+                } else{
+                    swal('Failed!', 'A problem occured please try again.', 'error');
+                }
+            }
+        }); 
+    });
+}

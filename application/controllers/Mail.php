@@ -103,19 +103,13 @@ class Mail extends CI_Controller {
 		else { redirect('home/login'); }
 	}
 	
-	public function update_message($mid)
+	public function update_message()
 	{
 		if ($this->session->userdata('user_email'))
 		{
 			if($this->input->post()){
-                $res = $this->Mail_model->update_message($mid);
-                if($res){
-					$this->session->set_flashdata('mail_msg', 'Updated');
-                    redirect('mail/sent_messages#messages');
-                } else{
-					$this->session->set_flashdata('mail_msg', 'Error');
-                    redirect('mail/sent_messages#messages');
-                }
+                $res = $this->Mail_model->update_message($this->input->post('mail_id'));
+                echo $res ? 1 : 0;
             }
 		}
 		else { redirect('home/login'); }

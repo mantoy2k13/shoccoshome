@@ -62,7 +62,7 @@ class Pet extends CI_Controller{
 		if ($this->session->userdata('user_email')){
             $pet_id = $this->uri->segment(3);
             $data['pd'] = ($pet_id) ? $this->Pet_model->get_single_pet_data($pet_id) : null;
-			$user_email  = $this->session->userdata('user_email');
+			$user_email = $this->session->userdata('user_email');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['all_pictures'] = $this->Pictures_model->get_all_pictures();
 			$data['is_page'] = 'add_pet';

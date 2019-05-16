@@ -1,26 +1,26 @@
-$(document).ready(function(){
-    var alertMsg = $('#getUplAlert').val();
-    if(alertMsg!=0){
-        switch(alertMsg){
-            case 'Added':
-                var title = "Uploaded!";
-                var msg   = "All images was successfully uploaded!";
-                var type  = 'success';
-            break;
-            case 'Error':
-                var title = "Error!";
-                var msg   = "There was a problem uploading your images. Please try again!";
-                var type  = 'error';
-            break;
-        }
+// $(document).ready(function(){
+//     var alertMsg = $('#getUplAlert').val();
+//     if(alertMsg!=0){
+//         switch(alertMsg){
+//             case 'Added':
+//                 var title = "Uploaded!";
+//                 var msg   = "All images was successfully uploaded!";
+//                 var type  = 'success';
+//             break;
+//             case 'Error':
+//                 var title = "Error!";
+//                 var msg   = "There was a problem uploading your images. Please try again!";
+//                 var type  = 'error';
+//             break;
+//         }
 
-        getUplAlert(title, msg, type);
-    }
-});
+//         getUplAlert(title, msg, type);
+//     }
+// });
 
-function getUplAlert(title, msg, type){
-    swal(title, msg, type);
-}
+// function getUplAlert(title, msg, type){
+//     swal(title, msg, type);
+// }
 
 var selectAll = (type) => {
     if(type==1){

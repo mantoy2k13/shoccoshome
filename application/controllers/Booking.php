@@ -24,7 +24,7 @@ class Booking extends CI_Controller {
             $uid  = $this->session->userdata('user_id');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']    = 'select_booking';
-            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['bio']        = $this->Account_model->get_user_info($uid);
             $this->load->view('booking/booking_steps/select_booking', $data);
         }
         else { redirect('home/login'); }
@@ -37,7 +37,7 @@ class Booking extends CI_Controller {
             $uid  = $this->session->userdata('user_id');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']    = 'become_a_host';
-            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['bio']        = $this->Account_model->get_user_info($uid);
             $data['categories'] = $this->Pet_model->get_all_pet_cat();
             $this->load->view('booking/booking_steps/become_a_host', $data);
         }
@@ -51,7 +51,7 @@ class Booking extends CI_Controller {
             $uid  = $this->session->userdata('user_id');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']    = 'become_a_guest';
-            $data['bio']        = $this->Account_model->view_bio($uid);
+            $data['bio']        = $this->Account_model->get_user_info($uid);
             $data['categories'] = $this->Pet_model->get_all_pet_cat();
             $data['my_pets']  = $this->Account_model->get_my_pets($uid);
             $this->load->view('booking/booking_steps/become_a_guest', $data);
@@ -66,7 +66,7 @@ class Booking extends CI_Controller {
             $my_user_id             = $this->session->userdata('user_id');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']        = 'choose_user_calendar';
-            $data['bio']            = $this->Account_model->view_bio($my_user_id);
+            $data['bio']            = $this->Account_model->get_user_info($my_user_id);
             $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $this->load->view('booking/booking_steps/choose_user_calendar', $data);
         }
@@ -102,7 +102,7 @@ class Booking extends CI_Controller {
             $user_email             = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']        = 'book_user';
-            $data['bio']            = $this->Account_model->view_bio($uid);
+            $data['bio']            = $this->Account_model->get_user_info($uid);
             $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $check_booking          = $this->Booking_model->check_booking($my_user_id, $uid);
             $data['book']           = $check_booking ? $this->Booking_model->get_book_info($check_booking['book_id']) : "";
@@ -129,7 +129,7 @@ class Booking extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']        = 'booking_summary';
             $data['book']           = $this->Booking_model->get_book_info($book_id);
-            $data['bio']            = $this->Account_model->view_bio($book_to);
+            $data['bio']            = $this->Account_model->get_user_info($book_to);
             $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $pet_owner              = ($book_type==2) ? $book_to : $my_user_id;
             $data['my_pets']        = $this->Account_model->get_my_pets($pet_owner);
@@ -162,7 +162,7 @@ class Booking extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']        = 'booking_info';
             $data['book']           = $this->Booking_model->get_booking_info($book_id, $book_type);
-            $data['bio']            = $this->Account_model->view_bio($uid);
+            $data['bio']            = $this->Account_model->get_user_info($uid);
             $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $pet_owner              = ($book_type==2) ? $uid : $my_user_id;
             $data['my_pets']        = $this->Account_model->get_my_pets($pet_owner);
@@ -178,7 +178,7 @@ class Booking extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']        = 'booking_info';
             $data['book']           = $this->Booking_model->get_booking_info($book_id, $book_type);
-            $data['bio']            = $this->Account_model->view_bio($uid);
+            $data['bio']            = $this->Account_model->get_user_info($uid);
             $data['categories']     = $this->Pet_model->get_all_pet_cat();
             $pet_owner              = ($user_type==1) ? $my_user_id : $uid;
             $data['my_pets']        = $this->Account_model->get_my_pets($pet_owner);
@@ -236,27 +236,11 @@ class Booking extends CI_Controller {
             $user_email       = $this->session->userdata('user_email');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']  = 'book_user_pets';
-            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['view_bio'] = $this->Account_model->get_user_info($uid);
             $data['user_id'] = $uid;
             $this->load->view('booking/book_user_pets', $data);
         }
         else { redirect('home/login'); }
-    }
-    
-    public function book_pet_user()
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->book_pet_user();
-        }
-        else{ echo 0;}
-    }
-
-    public function update_book_pet_user($bid)
-	{
-		if($this->session->userdata('user_email')){
-            echo $this->Booking_model->update_book_pet_user($bid);
-        }
-        else{ echo 0;}
     }
 
     public function get_booking_info($bid,$type)

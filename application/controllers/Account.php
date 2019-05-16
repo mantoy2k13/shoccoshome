@@ -7,6 +7,7 @@ class Account extends CI_Controller {
         parent::__construct();
     }
 
+/* Account Use Codes */
     public function bio()
 	{
         if ($this->session->userdata('user_email')){ 
@@ -14,7 +15,7 @@ class Account extends CI_Controller {
             $uid  = $this->session->userdata('user_id');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page'] = 'bio';
-            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['view_bio'] = $this->Account_model->get_user_info($uid);
             $data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
             $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
             $data['user_id'] = $uid;
@@ -22,8 +23,28 @@ class Account extends CI_Controller {
         }
 		else { redirect('home/login'); }
     }
-
+    
     public function account_update(){
+        if ($this->session->userdata('user_email'))
+		{
+			if($this->input->post()){
+                $res = $this->Account_model->update_profile_info();
+                echo ($res) ? 1 : 0;
+            }         
+		}
+		else { redirect('home/login'); }
+    }
+
+    public function check_email(){
+        if ($this->session->userdata('user_email'))
+		{
+            $res = $this->Account_model->check_email($this->input->post('newEmail'));       
+            echo ($res) ? 1 : 0;
+		}
+		else { redirect('home/login'); }
+    }
+
+    public function account_update2(){
         if ($this->session->userdata('user_email'))
 		{
             if($this->input->post()){   
@@ -79,8 +100,8 @@ class Account extends CI_Controller {
 		{
 			$user_email  = $this->session->userdata('user_email');
             $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data["user_info"] = $this->Account_model->get_user_info();
-			$data['is_page'] = 'account';
+            $data["user_info"]      = $this->Account_model->get_user_info($this->session->userdata('user_id'));
+			$data['is_page']        = 'account';
             $this->load->view('account/account', $data);          
 		}
 		else { redirect('home/login'); }
@@ -91,9 +112,9 @@ class Account extends CI_Controller {
             $user_email       = $this->session->userdata('user_email');
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']  = 'view_bio';
-            $data['view_bio'] = $this->Account_model->view_bio($uid);
+            $data['view_bio'] = $this->Account_model->get_user_info($uid);
             $data['my_pets']  = $this->Account_model->get_my_pets($this->session->userdata('user_id'));
-            $data['user_id'] = $uid;
+            $data['user_id']  = $uid;
             $this->load->view('account/view_bio', $data);
         }
 		else { redirect('home/login'); }
@@ -101,7 +122,7 @@ class Account extends CI_Controller {
 
     public function get_user_info($uid){
         if($this->session->userdata('user_email')){
-            $user_data = $this->Account_model->get_user($uid);
+            $user_data = $this->Account_model->get_user_info($uid);
             $get_cat   = $this->Pet_model->get_all_pet_cat();
             $cats      = json_decode($user_data['cat_list']);
             $c = "";
@@ -153,7 +174,6 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-/* Account Use Codes */
     public function set_my_dates(){
         if($this->session->userdata('user_email')){
             $book_avail_from = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_from').' '.$this->input->post('book_time_from')));
@@ -164,13 +184,6 @@ class Account extends CI_Controller {
         else{ echo false;}
     }
 
-    public function need_sitter_set_time(){
-        if($this->session->userdata('user_email')){
-            echo $this->Account_model->need_sitter_set_time();
-        }
-        else{ echo false;}
-    }
-    
     public function unset_dates($t){
 		if ($this->session->userdata('user_email')){ 
             echo $this->Account_model->unset_dates($t);
@@ -194,7 +207,6 @@ class Account extends CI_Controller {
         }
         else{ echo false;}
     }
-
 
     public function send_password_recovery(){
         if($this->input->post('email')){

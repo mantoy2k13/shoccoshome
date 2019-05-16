@@ -22,8 +22,6 @@
 			<?php $this->load->view('common/left-nav');?>
             <!-- Main Content -->
             <div class="col-md-9 m-t-10 p-l-0">
-                <?php $bPage = $this->uri->segment(3); ?> 
-                <?php $cntMgb = $this->Booking_model->count_mgb(); $cntba = $this->Booking_model->count_ba();?>
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">

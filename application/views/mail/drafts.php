@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <a href="javascript:;" class="btn btn-rounded btn-sm text-white bg-orange-l pull-left" onclick=writeMsg(<?=($my_friends) ? 1 : 0; ?>)><i class="fa fa-plus"></i> Compose</a>
-                            <a href="<?=base_url()?>mail/drafts" class="btn btn-circle btn-sm text-white bg-black-l pull-right refreshBtn"><i class="fa fa-redo-alt"></i></a>
+                            <a href="<?=base_url()?>mail/drafts" title="Refresh Page" class="btn btn-circle btn-sm text-white bg-black-l pull-right refreshBtn"><i class="fa fa-redo-alt"></i></a>
                         </div>
                     </div>
                 </div>

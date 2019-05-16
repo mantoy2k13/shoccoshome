@@ -30,12 +30,8 @@
                     <div class="col-md-3 text-center">
                         <form role="form" method="post" enctype="multipart/form-data" id="imgForm">
                             <div class="acc-img">
-                                    <?php  
-                                    if($user_img) { ?>
-                                        <img id="img-profile" src="<?=base_url();?>assets/img/pictures/usr<?=$id;?>/<?=$user_img;?>" alt="Profile Image">
-                                    <?php }else{ ?>
-                                        <img id="img-profile" src="<?=base_url();?>assets/img/pictures/default.png" alt="Default Profile Image">
-                                    <?php } ?>
+                                <?php $imgUrl = ($user_img) ? 'usr'.$id.'/'.$user_img : 'default.png'; ?>
+                                <img id="img-profile" src="<?=base_url();?>assets/img/pictures/<?=$imgUrl;?>" alt="Default Profile Image" class="zoomable">
                                 <input type="file" name="user_img" class="input-img" id="input-img">
                             </div>
                             <span class="btn bg-orange text-white btn-sm dropdown-toggle m-t-10" id="f-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-image"></i> Click to choose image</span>
@@ -48,7 +44,7 @@
                         </form>
                     </div>
                     <div class="col-md-9">
-                        <p class="f-25 b-700 text-orange-d">Account</p>
+                        <p class="f-25 b-700 text-orange-d">Account Settings</p>
                         <ul class="nav nav-tabs">
                             <li class="active nav1" onclick="navTabs(1)"><a data-toggle="tab" href="#account">Basic Info</a></li>
                             <?php if(!$this->session->userdata('is_social')){ ?>
@@ -58,24 +54,24 @@
 
                         <div class="tab-content">
                             <div id="account" class="tab-pane fade in active show">
-                                <form action="<?=base_url();?>account/account_update" role="form" method="post" enctype="multipart/form-data" id="accForm">
+                                <form action="<?=base_url();?>account/account_update" role="form" method="post" id="accForm" onkeyup="errClear()">
+                                    <div id="pass-err-msg2"> </div>
                                     <div class="form-group row m-t-20">
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Fullname</label>
-                                            <input type="text" value="<?= $fullname ? $fullname : '' ?>" name="fullname" class="form-control" placeholder="Fullname" required>
-                                            <!-- Images -->
-                                            <input type="hidden" name="img_data" id="img_data">
-                                            <input type="hidden" value="<?=$user_img;?>" name="prof_old_img">
+                                            <input type="text" value="<?=$fullname?>" name="fullname" class="form-control" placeholder="Fullname" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Occupation</label>
-                                            <input type="text" value="<?= $occupation ? $occupation : '' ?>" name="occupation" class="form-control" placeholder="Occupation" required>
+                                            <input type="text" value="<?=$occupation ? $occupation : '' ?>" name="occupation" class="form-control" placeholder="Occupation" required>
                                         </div>
                                     </div>   
                                     <div class="form-group row">
                                         <div class="col-md-12">
                                             <label for="" class="m-b-0">Email Address</label>
-                                            <input type="text" value="<?= $email ? $email : '' ?>" name="email" class="form-control" placeholder="Email Address" required>
+                                            <input onkeyup="checkEmail()" type="text" value="<?=$email;?>" name="email" id="newEmail" class="form-control" placeholder="Email Address" required>
+                                            <input id="oldEmail" value="<?=$email;?>" type="hidden">
+                                            <div id="chk-email-msg"></div>
                                         </div>
                                     </div>                   
                                     <div class="form-group row" id="target_address">
@@ -103,6 +99,22 @@
                                             <input id="user_lng" name="user_lng" type="hidden" value="<?=$user_lng;?>">
                                         </div>
                                     </div>
+                                    <div class="form-group row" id="target_address">
+                                        <div class="col-md-6">
+                                            <label for="" class="m-b-0">Do you smoke?</label>
+                                            <select class="form-control" id="is_smoker" name="is_smoker" required>
+                                                <option value="1" <?=$is_smoker=='1' ? 'selected' : ''?>>Yes</option>
+                                                <option value="0" <?=$is_smoker=='0' ? 'selected' : ''?>>No</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="" class="m-b-0">I'm living in:</label>
+                                            <select class="form-control" id="living_in" name="living_in" required>
+                                                <option value="1" <?=$living_in=='1' ? 'selected' : ''?>>a House</option>
+                                                <option value="2" <?=$living_in=='2' ? 'selected' : ''?>>an Apartment</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     
                                     <div class="form-group row">
                                         <div class="col-md-12">
@@ -112,14 +124,14 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-center">
-                                            <button onclick="updateProfile()" type="button" class="btn bg-orange sub-btn">Save</button>
+                                            <button onclick="updateProfile()" type="button" class="btn bg-orange font-san-serif sub-btn" id="accSaveBtn"><i class="fa fa-save"></i> Save Changes</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <?php if(!$this->session->userdata('is_social')){ ?>
                             <div id="change-acc" class="tab-pane fade">
-                                <form action="<?=base_url();?>account/change_password" role="form" id="formChangePass" method="post" enctype="multipart/form-data" onkeypress="errClear()">
+                                <form action="<?=base_url();?>account/change_password" role="form" id="formChangePass" method="post" enctype="multipart/form-data" onkeyup="errClear()">
                                     <div id="pass-err-msg"> </div>
                                     <div class="form-group row m-t-20">
                                         <div class="col-md-12">
@@ -141,7 +153,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-12 text-center">
-                                            <button type="button" class="btn bg-orange sub-btn" onclick="checkPass()"><i class="fa fa-pen"></i> Change Password</button>
+                                            <button type="button" class="btn bg-orange font-san-serif sub-btn" onclick="checkPass()"><i class="fa fa-pen"></i> Save Password</button>
                                         </div>
                                     </div>
                                 </form>
