@@ -353,7 +353,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button onclick="" type="button" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
+                                    <button onclick="addNewPet()" type="button" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
                                 </div>
                             </div>
                         </form>

@@ -72,6 +72,14 @@ class Pet extends CI_Controller{
 		}
     }
 
+    public function add_this_pet(){
+        if($this->input->post()){
+            var_dump($this->input->post());
+        } else{
+            redirect('pet/add_pet');
+        }
+    }
+
     public function add_pet(){
         if($this->input->post()){
             $pid = $this->uri->segment(3);

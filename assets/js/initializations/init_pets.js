@@ -301,7 +301,7 @@ var addToPictures = (uid)=>{
 
 function addNewPet(){
     $.ajax({
-        url: base_url+'pet/add_new_pet',
+        url: base_url+'pet/add_this_pet',
         type: 'POST',
         cache: false,
         data: $('#addPetForm').serialize(),
