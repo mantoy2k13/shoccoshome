@@ -75,7 +75,6 @@ var delImgPet = (pet_id, imgName, e) => {
             type: 'post',
             data: {imgName: imgName},
             success: function(res){
-                console.log(res);
                 if(res==1){
                     $(e).parent().remove();
                     var img_uploaded = $('.img_uploaded').length;
@@ -98,11 +97,9 @@ var delImgPet = (pet_id, imgName, e) => {
 }
 
 $(document).on('change', '#cat_id', function(){
-    var categories_data = $(this).val();
+    var cat_id = $(this).val();
     $.ajax({
-        url: base_url+'pet/categories_wise_breed_data',
-        type: "POST",
-        data: {categories:categories_data},
+        url: base_url+'pet/get_pet_breeds/'+cat_id,
         success: function(data){
             $("#breed_id").html(data);
         }
@@ -117,7 +114,8 @@ var delPet = (pet_id)=>{
         showCancelButton: true,
         confirmButtonText: "Yes, delete it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#e11641"
+        confirmButtonColor: "#e11641",
+        showLoaderOnConfirm: true
     },
     ()=>{
         $.ajax({
@@ -128,10 +126,8 @@ var delPet = (pet_id)=>{
                     var cntPets = $('.myPets').length;
                     if(cntPets==0){
                         $('#emptyPets').html(''+
-                            '<div class="card bg-grey friend-card">'+
-                                '<div class="card-body">'+
-                                    '<p><b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="'+base_url+'pet/add_new_pet">here</a> to add your pet.</p>'+
-                                '</div>'+
+                            '<div class="alert alert-info f-15">'+
+                                '<b><i class="fa fa-check"></i> Empty!</b> You have no pets added. Click <a href="'+base_url+'pet/add_new_pet">here</a> to add your pet.'+
                             '</div>'
                         );
                     }
@@ -152,7 +148,8 @@ var setPrimary = (pet_id, img_name)=>{
         showCancelButton: true,
         confirmButtonText: "Yes, set it!",
         closeOnConfirm: false,
-        confirmButtonColor: "#2162e7"
+        confirmButtonColor: "#2162e7",
+        showLoaderOnConfirm: true
     },
     function(){
         $.ajax({
@@ -259,7 +256,6 @@ var remVaccInfo = (num,pet_id,vacc,vacc_date,e) => {
             cache: false,
             data: { vacc: vacc, vacc_date: vacc_date },
             success: (res)=>{
-                console.log(res);
                 if(res==1){
                     $(e).parent().remove();
                     swal('Done!', "1 vaccination removed successfully.", 'success');
@@ -299,14 +295,68 @@ var addToPictures = (uid)=>{
     }
 }
 
-function addNewPet(){
-    $.ajax({
-        url: base_url+'pet/add_this_pet',
-        type: 'POST',
-        cache: false,
-        data: $('#addPetForm').serialize(),
-        success: (res)=>{
-            console.log(res);
-        }
-    });
+function addNewPet(pet_id){
+    var cat_id   = $('#cat_id');
+    var breed_id = $('#breed_id');
+    var color_id = $('#color_id');
+    var img_uploaded = $('.img_uploaded').length;
+    if(!cat_id.val()){
+        $('.petErrorMsg').html(setErrorMsg('Please select category name.'));
+        cat_id.focus();
+    } else if(!breed_id.val()){
+        $('.petErrorMsg').html(setErrorMsg('Please select breed name.'));
+        breed_id.focus();
+    } else if(!color_id.val()){
+        $('.petErrorMsg').html(setErrorMsg('Please select pet color.'));
+        color_id.focus();
+    } else if(img_uploaded==0){
+        $('.petErrorImg').html(setErrorMsg('Please upload or select atleast 1 pet image.'));
+        $(".petErrorImg").attr("tabindex",-1).focus();
+    } else{
+        swal({
+            title: "Save this pet?",
+            text: "Make sure to check all fields before saving, continue?.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, continue!",
+            closeOnConfirm: false,
+            confirmButtonColor: "#e11641",
+            showLoaderOnConfirm: true,
+        },
+        function(){
+            $.ajax({
+                url: base_url+'pet/add_this_pet/'+pet_id,
+                type: 'POST',
+                cache: false,
+                data: $('#addPetForm').serialize(),
+                success: (res)=>{
+                    if(res==1){
+                        swal({
+                            title: "Pet Saved!",
+                            text: "Your pet was successfully saved. Click ok to view all pets.",
+                            type: "success",
+                        },
+                        function(){ window.location.href = base_url+'pet/my_pets'; });
+                    } else{
+                        swal('Oops!', 'A problem occured. Please refresh your page and try again.', 'error');
+                    }   
+                }
+            });
+        });
+    }
+}
+
+function setErrorMsg(msg){
+    var setMsg = '';
+    setMsg += '<div class="alert alert-danger f-15 alert-dismissible m-t-10" role="alert">';
+    setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
+    setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+    setMsg += '<span aria-hidden="true">&times;</span>';
+    setMsg += '</button>';
+    setMsg += '</div>';
+    return setMsg;
+}
+
+function clearErrMsg(){
+    $('.petErrorMsg').html('');
 }

@@ -21,30 +21,20 @@ class Album extends CI_Controller {
 			$data['all_albums'] = $this->Album_model->get_all_albums($user_id, $data["per_page"],$page);
 			$this->load->view('pictures/albums', $data);
 		}
-		else
-		{
-			redirect('home/login');
-		}
+		else { redirect('home/login'); }
 	}
 
-	public function add_album(){
-	
+	public function save_album(){
 		if ($this->session->userdata('user_email'))
 		{
-				$insert_album = $this->Album_model->add_albums();
-				if ($insert_album) {
-					$this->session->set_flashdata('album_msg', 'Added');
-					redirect('album/albums');
-				}
-				else {
-					$this->session->set_flashdata('album_msg', 'Error');
-					redirect('album/albums');
-				}
+			if($this->input->post()){
+				$album_id = $this->input->post('album_id');
+				$res = $this->Album_model->save_album($album_id);
+				echo $res ? 1 : 0;
+			}
+			else{ echo 0; }
 		}
-		else
-		{
-			redirect('home/login');
-		}
+		else { redirect('home/login'); }
 	}
 
 	public function update_album($album_id){
@@ -62,9 +52,7 @@ class Album extends CI_Controller {
 				redirect('album/albums');
 			}
 		}
-		else{
-			redirect('home/login');
-		}
+		else { redirect('home/login'); }
 	}
 
 	public function delete_album($album_id){
@@ -72,17 +60,13 @@ class Album extends CI_Controller {
 			$res = $this->Album_model->delete_album($album_id);
 			echo ($res) ? 1 : 0;
 		}
-		else{
-			redirect('home/login');
-		}
+		else { redirect('home/login'); }
 	}
-	public function getalbum(){
+	public function get_album_details($album_id){
 		if($this->session->userdata('user_email')){
-			$this->Album_model->get_album();
+			echo json_encode($this->Album_model->get_album_details($album_id));
 		}
-		else{
-			redirect('home/login');
-		}			
+		else { redirect('home/login'); }			
 	}
 
 	public function view_album($album_id){
@@ -103,18 +87,14 @@ class Album extends CI_Controller {
 			$this->load->view('pictures/view_album', $data);
 			
 		}
-		else{
-			redirect('home/login');
-		}			
+		else { redirect('home/login'); }			
 	}
 
 	public function add_photos_to_album($album_id){
 		if($this->session->userdata('user_email')){
 			$res = $this->Album_model->add_photos_to_album($album_id);
 		}
-		else{
-			redirect('home/login');
-		}			
+		else { redirect('home/login'); }			
 	}
 
 }

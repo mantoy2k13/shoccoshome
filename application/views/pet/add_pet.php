@@ -33,7 +33,7 @@
            ?>
            <?php $my_user_id = $this->session->userdata('user_id'); ?>
           <!-- Main Content -->
-		  <div class="col-md-9 m-t-10 p-l-0 p-details">
+		<div class="col-md-9 m-t-10 p-l-0 p-details">
 			<div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
 					<span class="b-700 text-blue"><?=$formTxt; ?></span>
@@ -49,19 +49,21 @@
                             <strong><i class="fa fa-times"></i> Oops!</strong> You can not add your pets if profile is not completed. Adding of pets needs your profile address. Click <a href="<?=base_url()?>account/account">here</a> to update your profile now.
                         </div>
                     <?php } else { ?>
-                        <form id="addPetForm" action="<?=base_url().$formUrl;?>" method="post" enctype="multipart/form-data">
+                        <form id="addPetForm" action="javascript:;" method="post" onchange="clearErrMsg()">
                             <!-- Pet Details -->
+                            <input name="postType" value="<?=$postType; ?>" type="hidden">
                             <div class="row form-group">
-                                <div class="col-md-12 text-blue f-20 b-700 m-t-20">Pet Details</div>
+                                <div class="col-md-12 text-blue f-20 b-700 m-t-20">Pet Details </div>
+                                <div class="col-md-12 petErrorMsg"></div>
                                 <div class="col-md-4">
-                                    <label class="f-15 text-black">Pet Name</label>
+                                    <label class="f-15 text-black">Pet Name <span class="text-danger">*</span></label>
                                     <input onkeyup="checkPetName()" required id="petName" name="pet_name" value="<?=($pd) ? $pd['pet_name'] : ''; ?>" type="text" class="form-control" placeholder="Pet Name">
                                     <input id="oldName" value="<?=($pd) ? $pd['pet_name'] : ''; ?>" type="hidden">
                                     <div id="chk-pname-msg"></div>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label class="f-15 text-black">Category</label>
+                                    <label class="f-15 text-black">Category <span class="text-danger">*</span></label>
                                     <select name="cat_id" id="cat_id" class="form-control" required>
                                         <option value="">Select Category</option>
                                         <?php foreach($this->Pet_model->get_all_pet_cat() as $cat){ extract($cat); ?>
@@ -71,7 +73,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label class="f-15 text-black">Breed</label>
+                                    <label class="f-15 text-black">Breed <span class="text-danger">*</span></label>
                                     <?php $bName = ($pd) ? $this->Pet_model->get_breed_name($pd['breed_id']) : ''; ?>
                                     <select name="breed_id" id="breed_id" class="form-control" required>
                                         <option value="<?=($pd) ? $pd['breed_id'] : ''; ?>"><?=($pd) ? $bName['breed_name'] : 'Select Breed';?></option>
@@ -89,8 +91,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="f-15 text-black">Color</label>
-                                    <select name="color_id" class="form-control" required>
+                                    <label class="f-15 text-black">Color <span class="text-danger">*</span></label>
+                                    <select id="color_id" name="color_id" class="form-control" required>
                                         <option value="">Select Color</option>
                                         <?php foreach($this->Pet_model->get_all_pet_color() as $color){ extract($color); ?>
                                             <option value="<?=$color_id;?>" <?=($pd) ? (($pd['color_id']==$color_id) ? 'selected' : '') : ''; ?>><?=$color_name;?></option>
@@ -299,8 +301,9 @@
                                 </div>
                             </div>
                             <!-- Upload Pets Images -->
-                            <div class="row form-group">
+                            <div class="row form-group" id="uploadPetImg">
                                 <div class="col-md-12 text-blue f-20 b-700 m-t-20">Choose pet images</div>
+                                <div class="col-md-12 petErrorImg"></div>
                                 <div class="col-md-12 text-center">
                                     <a href="javascript:;" class="btn btn-success" data-toggle="modal" data-target="#selPics"><i class="fa fa-image"></i> Choose from photos</a>
                                     <span class="or">- or -</span>
@@ -353,7 +356,7 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-md-12 text-center">
-                                    <button onclick="addNewPet()" type="button" id="addPetBtn" class="btn bg-orange sub-btn" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
+                                    <button onclick="addNewPet(<?=($pd['pet_id'])?$pd['pet_id']:'';?>)" type="button" id="addPetBtn" class="btn bg-orange sub-btn font-san-serif" <?=($pd) ? '' : 'disabled'; ?>><i class="fa fa-save"></i> <?= $btnText; ?></button>
                                 </div>
                             </div>
                         </form>
@@ -362,7 +365,7 @@
 			</div>
           </div>
           <!-- Close Main Content -->
-	  </div>
+	    </div>
     </section>
 
     <!-- Select from pictures -->  

@@ -127,7 +127,7 @@
                     <p class="modal-title f-20 text-black"><i class="fa fa-image"></i> Choose from photos</p>
                 </div>
                 <div class="modal-body">
-                    <form action="<?=base_url();?>pictures/addPhotoAlbum/<?=$view_album['album_id'];?>" id="addPhotoAlbumForm" method="POST">
+                    <form action="<?=base_url();?>pictures/addPhotoAlbum/<?=$view_album['album_id'];?>" id="addPhotoForm" method="POST">
                         <div class="row">
                             <?php if($get_img_no_album){ ?>
                                 <?php foreach($get_img_no_album as $img){ extract($img); ?>
@@ -154,7 +154,7 @@
                             <?php } ?>
                             <?php if($get_img_no_album){ ?>
                                 <div class="col-md-12 text-center">
-                                    <button type="submit" class="btn bg-orange sub-btn"><i class="fa fa-save"></i> Add to Albums</button>
+                                    <button onclick="addPhotoAlbum(<?=$view_album['album_id'];?>)" type="button" class="btn bg-orange sub-btn"><i class="fa fa-save"></i> Add to Albums</button>
                                 </div>
                             <?php } ?>
                         </div>

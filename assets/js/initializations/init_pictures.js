@@ -330,3 +330,64 @@ var setCoverPhoto = (img_name)=>{
         }); 
     });
 }
+
+var addAllPhotoAlbum = (type, album_id)=>{
+    console.log(type)
+    var img_uploaded = $('.img_uploaded').length;
+    if(img_uploaded>0){
+        swal({
+            title: "Add photos?",
+            text: "All uploaded images will be added.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, add it!",
+            closeOnConfirm: false,
+            confirmButtonColor: "#f77506",
+            showLoaderOnConfirm: true
+        },
+        function(){
+            $.ajax({
+                url: base_url+'pictures/add_all_photos/'+type+'/'+album_id,
+                type: 'POST',
+                data: $('#addFormPhotos').serialize(),
+                success: (res)=>{
+                    if(res==1){
+                        swal({
+                            title: "Photos Saved!",
+                            text: "Added all photos successfully. Click ok to refresh.",
+                            type: "success",
+                        },
+                        function(){ 
+                            if(type==1){
+                                window.location.href = base_url+'pictures/pictures'; 
+                            }else{
+                                window.location.href = base_url+'album/view_album/'+album_id; 
+                            }
+                            
+                        });
+                    } else{
+                        swal('Oops!', 'A problem occured. Please refresh your page and try again.', 'error');
+                    }   
+                }
+            });
+        });
+    } else{
+        $('.photoErrorImg').html(setErrorPhoto('Please upload or select atleast 1 pet image.'));
+        $(".photoErrorImg").attr("tabindex",-1).focus();
+    }
+}
+
+function setErrorPhoto(msg){
+    var setMsg = '';
+    setMsg += '<div class="alert alert-danger f-15 alert-dismissible m-t-10" role="alert">';
+    setMsg += '<strong><i class="fa fa-times"></i> Oops!</strong> '+msg+'.';
+    setMsg += '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+    setMsg += '<span aria-hidden="true">&times;</span>';
+    setMsg += '</button>';
+    setMsg += '</div>';
+    return setMsg;
+}
+
+function clearErrPhoto(){
+    $('.photoErrorMsg').html('');
+}

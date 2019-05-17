@@ -4,14 +4,6 @@ class Pet_model extends CI_model{
     function __construct(){
         parent::__construct();
     }
-
-    public function add_pet2($data){
-		$this->db->trans_start();
-		$this->db->insert('sh_pets', $data);
-		$insert_id = $this->db->insert_id();
-		$this->db->trans_complete();
-		return $insert_id;
-    }
     
     public function add_pet($postType,$pid){
         foreach($this->input->post('vaccination') as $k=>$v){ $vacc[] = $v; }
@@ -65,8 +57,7 @@ class Pet_model extends CI_model{
 
     public function insert_pet_img($postType,$pet_id){
 		$uid         = $this->session->userdata('user_id');
-        $target_path = './assets/img/pictures/';
-
+		$target_path = './assets/img/pictures/';
         if (!is_dir('./assets/img/pictures/usr'.$uid."/")) {
             mkdir('./assets/img/pictures/usr'.$uid."/");
             $target_path = './assets/img/pictures/usr'.$uid."/";
@@ -111,17 +102,6 @@ class Pet_model extends CI_model{
         return ($query->num_rows() > 0) ? true : false;
     }
 
-	// user id wise
- 	public function get_pet_data() {
-        $id = $this->session->userdata('user_id');
-        $this->db->select('*')->from('sh_pets a');
-		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
-        $this->db->join('sh_breeds c', 'c.breed_id=a.breed_id', 'left');
-		$this->db->where('a.user_id', $id);
-		$this->db->order_by("a.pet_id", "desc");
-		return $this->db->get()->result_array();
-	}
-	
 	public function get_vacc($pet_id) {
         $this->db->select('vaccination, vaccination_date')->from('sh_pets');
 		$this->db->where('pet_id', $pet_id);
@@ -152,15 +132,6 @@ class Pet_model extends CI_model{
 		$this->db->where('pet_id', $id);
 		return$this->db->get()->row_array();
 	}
-		
-	//update pets table
-	public function updatepetdata($pet_up){
-		$this->db->set($pet_up);
-		$this->db->where('pet_id',$pet_up['pet_id']);
-		$data = $this->db->update('sh_pets');
-		return $data;
-	}
-
 
 	//update pets delete iamge table
 	public function update_pet_img($pet_id, $n_img){
@@ -171,7 +142,6 @@ class Pet_model extends CI_model{
 	}
 	
 	// get all pet categories 
-
 	public function get_all_pet_cat(){
 		$this->db->select('*')->from('sh_category');
 		$this->db->order_by("cat_name", "asc");
@@ -179,14 +149,12 @@ class Pet_model extends CI_model{
 	}
 	
 	// get all pet breeds 
-
 	public function get_all_pet_breed(){
 		$this->db->select('*')->from('sh_breeds');
 		$this->db->order_by("breed_name", "asc");
 		$query = $this->db->get();
 		return $query->result();
 	}
-
 
 	public function get_breed_name($pid){
 		$this->db->select('breed_name')->from('sh_breeds');
@@ -201,27 +169,13 @@ class Pet_model extends CI_model{
 		return $this->db->get()->result_array();
 	}
 
-	public function userwisecatlist($data){
-		$this->db->select('COUNT(a.cat_id) as cat_count,cat_name,user_id');
-		$this->db->from('sh_pets a');
-		$this->db->join('sh_category b', 'b.cat_id=a.cat_id', 'left');
-		$this->db->where('a.user_id', $data);
-		$this->db->group_by('a.cat_id');
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 // breed data get pet category wise
-	public function breed_data_dependancy_cat($id) {
-		$this->db->select('*');
-		$this->db->from('sh_breeds');
-		$this->db->where('cat_id', $id);
-		$query = $this->db->get();
-		return $query->result();
+	public function get_pet_breeds($id) {
+		$this->db->select('*')->from('sh_breeds')->where('cat_id', $id);
+		return $this->db->get()->result_array();
 	}
 	
 	// delete my pet
-
 	public function delete_pet($id){
 		$this->db->where('pet_id', $id);
 		$res = $this->db->delete('sh_pets');

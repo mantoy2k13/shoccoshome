@@ -213,20 +213,6 @@
 								</div>
 							</div>
 							<div id='petCalendar'></div>
-							<?php if($user_id == $this->session->userdata('user_id')){ ?>
-								<div class="row">
-									<div class="col-md-12 m-t-20">
-										<a href="<?=base_url();?>booking/booking_set_dates" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Edit schedule</a>
-									</div>
-								</div>
-							<?php } ?>
-							<?php if($ndf&&$ndt&&$user_id != $this->session->userdata('user_id')){ ?>
-								<div class="row">
-									<div class="col-md-12 m-t-20">
-										<a href="<?=base_url();?>booking/book_user_pets/<?=$user_id;?>" class="btn bg-orange text-white col-md-12"><i class="fa fa-paw"></i> Book Pet</a>
-									</div>
-								</div>
-							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -234,7 +220,7 @@
           </div>	
           <!-- Close Main Content -->
 	  </div>
-	  <?php } ?>
+	  <?php } ?>	
     </section>
 
     <!-- Footer -->

@@ -7,13 +7,18 @@ class Album_model extends CI_Model {
 		parent::__construct();
 	}
 	
-	public function add_albums(){
-		$albumdata = array(
-			'user_id'=> $this->input->post('user_id'),
-			'album_name'=>$this->input->post('album_name'),
-			'album_desc'=>$this->input->post('album_desc')
+	public function save_album($album_id){
+		$data = array(
+			'user_id'	 => $this->session->userdata('user_id'),
+			'album_name' =>$this->input->post('album_name'),
+			'album_desc' =>$this->input->post('album_desc')
 		);
-		$result = $this->db->insert('sh_albums', $albumdata);
+		if($album_id){
+			$this->db->where('album_id', $album_id);
+			$result = $this->db->update('sh_albums', $data);
+		} else{
+			$result = $this->db->insert('sh_albums', $data);
+		}
 		return ($result) ? true : false;
 	}
 
@@ -25,7 +30,7 @@ class Album_model extends CI_Model {
 		return $this->db->get()->result_array();
 	}
 
-	public function update_album($album_id,$data){
+	public function update_album($album_id, $data){
 		$this->db->where('album_id', $album_id);
         $res = $this->db->update('sh_albums', $data);
         return ($res) ? true : false;
@@ -42,15 +47,9 @@ class Album_model extends CI_Model {
 		} return false;
 	}
 
-	public function get_album(){
-		if(isset($_POST["album_id"])){
-			$album_id = $_POST['album_id'];
-			$this->db->select('*');
-			$this->db->from('sh_albums');
-			$this->db->where('album_id', $album_id);
-			$query = $this->db->get();
-			echo json_encode($query->result());
-		}
+	public function get_album_details($album_id){
+		$this->db->select('*')->from('sh_albums')->where('album_id', $album_id);
+		return $this->db->get()->row_array();
 	}
 
 	public function view_album($album_id) {

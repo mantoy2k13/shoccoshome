@@ -55,28 +55,12 @@ class Pictures extends CI_Controller {
 				}
 				foreach( $_POST[ 'pet_images' ] as $k=>$v ){
 					$imgName = 'p'.$uid.'_'.uniqid().".jpg"; 
-					$data = explode(',', $v);
+					$data 	 = explode(',', $v);
 					$decoded = base64_decode($data[1]);
-					$status =file_put_contents($target_path.$imgName,$decoded); 
-					if($status){
-						$res = $this->Pictures_model->insert_images($imgName,$uid,$album_id);
-					}else{
-						$this->session->set_flashdata('upl_msg', 'Error');
-						if($type==1) { clearstatcache(); redirect('pictures/add_photos'); }
-						else{ clearstatcache(); redirect('album/view_album/'.$album_id); }
-						
-					}
+					file_put_contents($target_path.$imgName,$decoded); 
+					$res = $this->Pictures_model->insert_images($imgName,$uid,$album_id);
 				}
-
-				if($res){
-					$this->session->set_flashdata('upl_msg', 'Added');
-					if($type==1) { redirect('pictures/pictures'); }
-					else{ redirect('album/view_album/'.$album_id); }
-				} else{
-					$this->session->set_flashdata('upl_msg', 'Error');
-					if($type==1) { redirect('pictures/add_photos'); }
-					else{ redirect('album/view_album/'.$album_id); }
-				}
+				echo ($res) ? 1 : 0;
 			}
 		}
 		else { redirect('home/login'); }
@@ -125,13 +109,7 @@ class Pictures extends CI_Controller {
 				foreach($this->input->post('imgs_id') as $k => $imgID){
 					$res = $this->Pictures_model->update_img_album($imgID, $album_id);
 				}
-				if($res){
-					$this->session->set_flashdata('upl_msg', 'Added');
-					redirect('album/view_album/'.$album_id);
-				} else{
-					$this->session->set_flashdata('upl_msg', 'Error');
-					redirect('album/view_album/'.$album_id);
-				}
+				echo ($res) ? 1 : 0;
 			}
         }
         else { redirect('home/login'); }

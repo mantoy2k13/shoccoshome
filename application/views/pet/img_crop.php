@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="img-container">
-                            <img id="imgToCrop" src="<?=base_url();?>assets/img/s1.jpg" alt="Image Crop">
+                            <img id="imgToCrop" alt="Result Image" src="<?=base_url();?>assets/img/image-icon.png">
                             <input type="hidden" id="imgID">
                             <input type="hidden" id="imgValue">
                         </div>

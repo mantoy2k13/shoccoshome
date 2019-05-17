@@ -74,7 +74,15 @@ class Pet extends CI_Controller{
 
     public function add_this_pet(){
         if($this->input->post()){
-            var_dump($this->input->post());
+            $pid = $this->uri->segment(3);
+            $postType = $this->input->post('postType');
+            $pet_id = $this->Pet_model->add_pet($postType, $pid);
+            if($pet_id){
+                $img_res = $this->Pet_model->insert_pet_img($postType, $pet_id);
+                echo 1;
+            } else {
+                echo 0;
+            }
         } else{
             redirect('pet/add_pet');
         }
@@ -147,31 +155,18 @@ class Pet extends CI_Controller{
         }
     }
 
-    public function categories_wise_breed_data(){
-        if($this->input->post('categories')){
-            $categories_id = $this->input->post('categories');
-            $breeddata = $this->Pet_model->breed_data_dependancy_cat($categories_id);
-            $allbreeddata = '<option value="">Select Breed</option>'; 
-            foreach($breeddata as $breedlist){
-                $allbreeddata = $allbreeddata . '<option value="'. $breedlist->breed_id .'">'.$breedlist->breed_name.'</option>'; 
-            }		
-            echo $allbreeddata;	
+    public function get_pet_breeds(){
+        $cat_id = $this->uri->segment(3);
+        if($cat_id){
+            $cat_data = $this->Pet_model->get_pet_breeds($cat_id);
+            $breed_data = '<option value="">Select Breed</option>'; 
+            foreach($cat_data as $cat){ extract($cat);
+                $breed_data .= '<option value="'. $breed_id .'">'.$breed_name.'</option>'; 
+            } echo($breed_data);
         }
+        else{ echo '<option value="">Select Breed</option>'; }
     }
 
-    public function get_breeds($cat_id){
-        if($cat_id){
-            $breeddata = $this->Pet_model->breed_data_dependancy_cat($cat_id);
-            $allbreeddata = '<option value="">Select Breed</option>'; 
-            foreach($breeddata as $breedlist){
-                $allbreeddata = $allbreeddata . '<option value="'. $breedlist->breed_id .'">'.$breedlist->breed_name.'</option>'; 
-            }		
-            echo $allbreeddata;	
-        } else{
-            echo '<option value="">-</option>';
-        }
-    }
-	
     public function delete_pet($pet_id){
         if($pet_id){
             $res = $this->Pet_model->delete_pet($pet_id);

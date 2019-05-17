@@ -25,7 +25,6 @@
 		  <div class="col-md-9 m-t-10 p-l-0">
                 <div class="pic-head bg-greyish">                
                     <div class="row">
-                        <input type="hidden" value="<?=(isset($_SESSION['upl_msg'])) ? $_SESSION['upl_msg'] : '0';?>" id="getUplAlert">
                         <?php $album = $this->Album_model->view_album($album_id);?>
                         <div class="col-md-12">
                             <i class="fa fa-image f-25 text-blue"></i> <?=($type==1) ? 'Add Photos' : 'Add photos to "'.$album['album_name'].'"';?>
@@ -36,10 +35,12 @@
                             <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14">Albums</a>
                         </div>
                     </div>
-                    <form action="<?=base_url();?>pictures/add_all_photos/<?=$type?>/<?=$album_id?>" method="POST" enctype="multipart/form-data">
+                    <!-- <form action="<?=base_url();?>pictures/add_all_photos/<?=$type?>/<?=$album_id?>" method="POST"> -->
+                    <form action="javascript:;" id="addFormPhotos">
                         <!-- Upload Pets Images -->
                         <div class="row form-group">
-                            <div class="col-md-12 m-t-20">
+                            <div class="col-md-12 photoErrorImg m-t-20"></div>
+                            <div class="col-md-12 m-t-10">
                                 <div class="card">
                                     <div class="card-body drop-images text-center">
                                         <p><i class="fa fa-cloud-download-alt fa-3x text-orange"></i></p>
@@ -64,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 text-center">
-                                <button type="submit" id="saveImgBtn" class="btn bg-orange sub-btn" disabled><i class="fa fa-save"></i> Save images</button>
+                                <button onclick="addAllPhotoAlbum(<?=$type.','.$album_id?>)" type="button" class="btn bg-orange sub-btn font-san-serif"><i class="fa fa-save"></i> Save images</button>
                             </div>
                         </div>
                     </form>

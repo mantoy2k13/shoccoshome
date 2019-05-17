@@ -55,7 +55,7 @@
                                         <p class="text-desc"><?= $description; ?></p>
                                         <p class="b-700 m-t-10 f-14">Category: <span class="b-700 text-black"><?= $cat_name; ?></span></p>
                                         <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?= $breed_name; ?> </span></p>
-                                        <p class="b-700 f-14">Added: <span class="b-700 badge badge-info"><?=$this->Account_model->relative_date(strtotime($date_added)); ?> </span></p>
+                                        <p class="b-700 f-14">Added: <span class="b-700 badge badge-info font-san-serif"><?=$this->Account_model->relative_date(strtotime($date_added)); ?> </span></p>
                                     </div>
                                 </div>
                             </div>
@@ -68,12 +68,12 @@
                         <?php } ?>
                     </div>
                     <div class="row m-t-20">
-                            <div class="col-md-12">
-                                <nav class="text-center">
-                                    <?=$links;?>
-                                </nav>
-                            </div>
+                        <div class="col-md-12">
+                            <nav class="text-center">
+                                <?=$links;?>
+                            </nav>
                         </div>
+                    </div>
                 </div>
 			</div>
           </div>

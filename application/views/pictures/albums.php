@@ -32,7 +32,7 @@
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>pictures/pictures" class="p-nav b-700 f-14">All Photos</a>
                             <a href="<?=base_url();?>album/albums" class="p-nav b-700 f-14 active">Albums</a>
-                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right text-white"  onClick="add_album()"><i class="fa fa-plus"></i> Create Album</a>
+                            <a href="javascript:;" class="btn bg-orange-l btn-xs pull-right text-white"  onclick="add_album()"><i class="fa fa-plus"></i> Create Album</a>
                         </div>
                     </div>
                 </div>
@@ -46,22 +46,19 @@
                                         <?php $getImg = $this->Album_model->get_single_image($album_id);?>
                                         <a href="javascript:;">
                                             <div class="gal-img">
-                                                <?php if($getImg){ ?>
-                                                    <img src="<?=base_url();?>assets/img/pictures/usr<?=$getImg['user_id'];?>/<?=$getImg['img_name'];?>" style="width:100%" alt="Picture">
-                                                <?php } else{ ?>
-                                                    <img src="<?=base_url();?>assets/img/image-icon.png" style="width:100%" alt="Picture">
-                                                <?php } ?>
+                                                <?php $imgUrl = ($getImg) ? 'pictures/usr'.$getImg['user_id'].'/'.$getImg['img_name'] : 'image-icon.png'; ?>
+                                                <img src="<?=base_url();?>assets/img/<?=$imgUrl?>" style="width:100%" alt="Picture">
                                             </div>
                                         </a>
                                         <p class="m-t-10 m-b-0 f-15 b-700 text-center text-black"><?=$album_name;?> (<?=$this->Album_model->count_images($album_id);?>)</p>
                                         <p class="m-b-0 f-12 text-center album-desc"><?=($album_desc) ? $album_desc : "No Desription.";?></p>
                                     </div>
-                                    <a href="javascript:;" id="<?=$album_id?>" class="update_album">
+                                    <a onclick="update_album(<?=$album_id?>)" href="javascript:;">
                                         <span class="cust-mod-edit" data-toggle="tooltip" data-html="true" data-placement="left" title="Edit Album">
                                             <i class="fa fa-pen text-white"></i>
                                         </span>
                                     </a>
-                                    <a href="javascript:;" id="<?=$album_id?>" onclick="delete_album(<?= $album_id?>)">
+                                    <a href="javascript:;" onclick="delete_album(<?= $album_id?>)">
                                         <span class="cust-mod-close rmImg" title="Remove Album"  data-toggle="tooltip" data-placement="left" data-html="true"><i class="fa fa-times text-white"></i></span>
                                     </a>
                                 </div>
