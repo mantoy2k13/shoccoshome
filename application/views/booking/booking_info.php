@@ -143,7 +143,7 @@
                                                         <a href="<?=base_url();?>booking/book_user/<?=(($book_type==1) ? 2 : 1).'/'.$book['book_to'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit booking</a>
                                                     <?php } ?>
                                                     <?php if($book['book_status']==4){ ?>
-                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,5)" class="btn btn-success btn-sm" href="javascript:;">Complete Booking</a>
+                                                        <a onclick="bookAppr(<?=$book['book_id'];?>,5)" class="btn btn-success btn-sm" href="javascript:;"><i class="fa fa-check"></i> Complete Booking</a>
                                                         <a href="<?=base_url();?>booking/book_user/<?=(($book_type==1) ? 2 : 1).'/'.$book['book_to'];?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit booking</a>
                                                         
                                                     <?php } ?>

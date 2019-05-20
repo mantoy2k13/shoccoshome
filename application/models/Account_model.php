@@ -70,7 +70,7 @@ class Account_model extends CI_Model {
     }
 
     public function get_my_pets($uid){
-        $this->db->select('sh_pets.pet_name, sh_pets.pet_id, sh_pets.primary_pic, sh_category.cat_name, sh_breeds.breed_name, sh_pets.description, sh_pets.isAvailable, sh_pets.user_id')->from('sh_pets');
+        $this->db->select('sh_pets.pet_name, sh_pets.pet_id, sh_pets.primary_pic, sh_category.cat_name, sh_breeds.breed_name, sh_pets.description, sh_pets.user_id')->from('sh_pets');
         $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
         $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
         $this->db->where('sh_pets.user_id',$uid);
@@ -208,15 +208,5 @@ class Account_model extends CI_Model {
     }
 
     /* Close Working Codes ================================================================*/
-
-    public function get_my_pets_to_sit($uid){
-        $this->db->select('*')->from('sh_pets');
-        $this->db->join('sh_category', 'sh_category.cat_id=sh_pets.cat_id', 'left');
-        $this->db->join('sh_breeds',   'sh_breeds.breed_id=sh_pets.breed_id', 'left');
-        $this->db->where('user_id', $uid);
-        $this->db->where('isAvailable',true);
-        return $this->db->get()->result_array();
-    }
-
     
 }

@@ -130,7 +130,6 @@
                                                             <p class="text-blue f-20 b-700"><a href="<?=base_url();?>pet/pet_details/<?=$pet_id;?>"><?=$pet_name;?></a> </p>
                                                             <p class="f-15 text-black"><?=$description;?></p>
                                                             <p class="b-700 f-14">Breed: <span class="b-700 text-black"><?=$breed_name;?> (<?=$cat_name;?>)</span></p>
-                                                            <span class="badge bg-orange text-white f-12 pull-right"><?=($isAvailable ==1)? 'Need Sitter': '';?></span>
                                                         </div>
                                                     </div>
                                                 </div>

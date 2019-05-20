@@ -190,23 +190,6 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-12">
-							<?php 
-								$ndf = json_decode($ns_date_from);
-								$ndt = json_decode($ns_date_to);
-								$today = date('Y-m-d');
-								if($ndf&&$ndt){
-									$get_date_from = $ndf[0]; 
-									$date_from = ($get_date_from < $today) ? $today : $get_date_from;
-									$get_date_to = $ndt[0];
-									$date_to = date('Y-m-d', strtotime($get_date_to . ' +1 day')); 
-								}else{
-									$date_from=''; $date_to='';
-								}
-							?>	
-
-							<input type="hidden" id="ndf" value="<?=$date_from;?>">
-							<input type="hidden" id="ndt" value="<?=$date_to;?>">
-							<input type="hidden" id="curr_date" value="<?=$today;?>">
 							<div class="row">
 								<div class="col-md-12">
 									<p class="f-20 b-700 text-orange-d">My pet schedule for sitter</p>

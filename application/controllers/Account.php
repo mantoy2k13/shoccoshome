@@ -124,14 +124,14 @@ class Account extends CI_Controller {
         if($this->session->userdata('user_email')){
             $user_data = $this->Account_model->get_user_info($uid);
             $get_cat   = $this->Pet_model->get_all_pet_cat();
-            $cats      = json_decode($user_data['cat_list']);
+            $cats      = json_decode($user_data[0]['cat_list']);
             $c = "";
             foreach($get_cat as $cat){
                 if(in_array($cat['cat_id'], $cats)){
                     $c .= $cat['cat_name'].', ';
                 }
             } $my_cat = array('my_cat'=>$c);
-            $data = $user_data + $my_cat;
+            $data = $user_data[0] + $my_cat;
             echo ($data) ? json_encode($data) : 0;
         }
         else{ echo false;}

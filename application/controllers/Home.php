@@ -63,14 +63,43 @@ class Home extends CI_Controller {
 
 	public function homepage(){
 		if ($this->session->userdata('user_email')){
-			$uid  = $this->session->userdata('user_id');
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data["get_all_users_data"]=$this->Auth_model->get_all_users_data();
-			$data['is_page'] = 'homepage';
-			$data['view_bio'] = $this->Account_model->get_user_info($uid);
-			$data['get_my_pets_to_sit'] = $this->Account_model->get_my_pets_to_sit($uid);
+			$uid  						= $this->session->userdata('user_id');
+			$user_email 				= $this->session->userdata('user_email');
+			$data["user_logindata"] 	= $this->Auth_model->fetchuserlogindata($user_email);
+			$data["get_all_users_data"] = $this->Auth_model->get_all_users_data();
+			$data['is_page'] 			= 'homepage';
+			$data['view_bio'] 			= $this->Account_model->get_user_info($uid);
 			$this->load->view('homepage/homepage', $data);
+		}
+		else{
+			redirect('home/login');
+		}
+	}
+
+	public function my_calendar(){
+		if ($this->session->userdata('user_email')){
+			$uid  						= $this->session->userdata('user_id');
+			$user_email 				= $this->session->userdata('user_email');
+			$data["user_logindata"] 	= $this->Auth_model->fetchuserlogindata($user_email);
+			$data["get_all_users_data"] = $this->Auth_model->get_all_users_data();
+			$data['is_page'] 			= 'my_calendar';
+			$data['view_bio'] 			= $this->Account_model->get_user_info($uid);
+			$this->load->view('homepage/my_calendar', $data);
+		}
+		else{
+			redirect('home/login');
+		}
+	}
+
+	public function my_map(){
+		if ($this->session->userdata('user_email')){
+			$uid  						= $this->session->userdata('user_id');
+			$user_email 				= $this->session->userdata('user_email');
+			$data["user_logindata"] 	= $this->Auth_model->fetchuserlogindata($user_email);
+			$data["get_all_users_data"] = $this->Auth_model->get_all_users_data();
+			$data['is_page'] 			= 'my_map';
+			$data['view_bio'] 			= $this->Account_model->get_user_info($uid);
+			$this->load->view('homepage/my_map', $data);
 		}
 		else{
 			redirect('home/login');

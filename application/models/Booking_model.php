@@ -154,21 +154,6 @@ class Booking_model extends CI_Model {
         return $this->db->get()->num_rows();
     }
 
-    public function get_my_avail_pets($uid){
-		$this->db->select('*')->from('sh_pets');
-        $this->db->where('isAvailable', true);
-        $this->db->where('user_id', $uid);
-        return $this->db->get()->num_rows();   
-    }
-    
-    public function get_avail_pets_date($uid){
-		$this->db->select('*')->from('sh_pets');
-        $this->db->where('isAvailable', true);
-        $this->db->where('user_id', $uid);
-        $this->db->limit(1);
-        return $this->db->get()->row_array();   
-	}
-
     public function getNearPeople(){
         $limit        = $_SESSION['per_page'];
         $start        = $_SESSION['page'];
