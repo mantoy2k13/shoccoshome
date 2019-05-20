@@ -126,4 +126,5 @@ class Home extends CI_Controller {
 	public function forgot_password(){
 		$this->load->view('frontpage/forgot_password');
 	}
+
 }
