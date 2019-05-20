@@ -125,8 +125,35 @@ class Booking_model extends CI_Model {
         return ($res) ? 1 : 0;
     }
 
-    /* Close New Booking steps ================================================================*/
+    public function get_all_available_user(){
+        $uid = $this->session->userdata('user_id');
+        $length_value = (isset($_SESSION['length_value'])) ? $_SESSION['length_value'] : 50;
+        $length_type  = (isset($_SESSION['length_type'])) ? $_SESSION['length_type'] : 'km';
+        $lat = isset($_SESSION['cur_lat']) ? $_SESSION['cur_lat'] : $this->input->post('cur_lat');
+        $lng = isset($_SESSION['cur_lng']) ? $_SESSION['cur_lng'] : $this->input->post('cur_lng');
+        if($length_type=='km'){
+            $radiusKm  = ((int) $length_value); 
+        }
 
+        if($length_type=='mi'){
+            $radiusKm  = ((int) $length_value)  * 0.621371192; 
+        }
+
+        if($length_type=='m'){
+            $radiusKm  = ((int) $length_value)  * 0.001; 
+        }
+        $current_date = date('Y-m-d');
+
+        $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+        $this->db->select('*')->from('sh_users');
+        $this->db->where('user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+        $this->db->where('user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+        $this->db->where('STR_TO_DATE(book_avail_from, "%Y-%m-%d") >=', $current_date);
+        $this->db->where('isAvail', true);
+        return $this->db->get()->result_array();
+    }
+
+    /* Close New Booking steps ================================================================*/
     
 
     public function getNearUsers($lat, $lng){
@@ -208,6 +235,8 @@ class Booking_model extends CI_Model {
         $this->db->where('book_type', $this->input->post('book_type'));
         return $this->db->get()->result_array();
     }
+
+    
 
     /* Working and Important Formula ================================================================*/
 

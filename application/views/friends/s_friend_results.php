@@ -26,7 +26,7 @@
             <div class="m-header bg-orange-l">
                 <div class="row">
                     <div class="col-md-12">
-                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"> Search results for "<i><?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : '';?></i> "</span>
+                        <span class="btn btn-circle f-20 btn-sm text-white pull-left"><i class="fa fa-search"></i> Search results for "<i><?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : '';?></i> "</span>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                     </div>
                <?php } else{ ?>
                     <div class="col-md-12 f-list-wrap">
-                        <div class="alert alert-info">
+                        <div class="alert alert-info f-15">
                             <strong><i class="fa fa-check"></i> Empty!</strong> No results found for name <i>"<?=isset($_SESSION['friend_keywords']) ? $_SESSION['friend_keywords'] : '';?>"</i>.
                         </div>
                     </div>

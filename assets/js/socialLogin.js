@@ -45,7 +45,7 @@ var checEmailExist = ()=>{
             data: { email: response.email, fullname: response.name, socID: response.id },
             success: (res)=>{
                 if(res==1){
-                   window.location.href = base_url+"home/homepage";
+                   window.location.href = base_url+"home/my_calendar";
                 } else{
                     alert('There was a problem logging you in. Please try again.')
                 }
@@ -63,7 +63,7 @@ function onSignIn(googleUser) {
         data: { email: profile.getEmail(), fullname: profile.getName(), imgURL: profile.getImageUrl() },
         success: (res)=>{
             if(res==1){
-               window.location.href = base_url+"home/homepage";
+               window.location.href = base_url+"home/my_calendar";
             } else{
                 alert('There was a problem logging you in. Please try again.')
             }

@@ -82,7 +82,7 @@
                     </div>                       
                 <?php } } else {?>
                     <div class="col-md-12">
-                        <div class="alert alert-info m-t-20">
+                        <div class="alert alert-info m-t-10 f-15">
                             <strong><i class="fa fa-check"></i> Empty!</strong> You have no friends added.</i>.
                         </div>
                     </div>

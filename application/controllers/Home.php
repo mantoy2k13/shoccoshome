@@ -91,6 +91,44 @@ class Home extends CI_Controller {
 		}
 	}
 
+	public function set_radius_length(){
+		if ($this->session->userdata('user_email')){
+			if($this->input->post()){
+				$_SESSION['length_value'] = $this->input->post('length_value');
+				$_SESSION['length_type']  = $this->input->post('length_type');
+				redirect('home/'.$this->input->post('my_link'));
+			} else{
+				redirect('home/'.$this->input->post('my_link'));
+			}
+		}
+		else{
+			redirect('home/login');
+		}
+	}
+
+	public function get_all_available_user()
+	{
+		if($this->session->userdata('user_email')){
+            $get_all_available_user = $this->Booking_model->get_all_available_user();
+            if($get_all_available_user){
+                foreach($get_all_available_user as $p){
+                    $book_type = ($p['book_type']==1) ? ' (HOST)' : ' (GUEST)';
+                    $color = ($p['book_type']==2) ? '#fa5637' : '#2f59f3';
+                    $title = $p['fullname'].$book_type;
+                    $start = date('Y-m-d', strtotime($p['book_avail_from']));
+                    $end   = date('Y-m-d', strtotime($p['book_avail_to'].' +1 day'));
+                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
+                    $user_dates[] = $data;
+                }
+            } else{
+                $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
+                $user_dates[] = $data;
+            }
+            echo json_encode($user_dates);
+        }
+        else{ echo 0;}
+    }
+
 	public function my_map(){
 		if ($this->session->userdata('user_email')){
 			$uid  						= $this->session->userdata('user_id');
@@ -117,6 +155,7 @@ class Home extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
 			$data['is_page'] = 'people_near_me';
 			$data['view_bio'] = $this->Account_model->get_user_info($uid);
+
 			$data['base_url'] = base_url().'home/people_near_me';
 			$data['total_rows'] = $this->Booking_model->getCountNearPeople();
 			$data['per_page'] = 20;

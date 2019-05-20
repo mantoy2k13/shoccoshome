@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2019 at 09:18 AM
+-- Generation Time: May 20, 2019 at 11:21 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -45,17 +45,26 @@ CREATE TABLE `sh_albums` (
 
 CREATE TABLE `sh_book` (
   `book_id` int(11) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `book_user_id` int(255) NOT NULL,
-  `book_date_from` text COLLATE utf8_unicode_ci NOT NULL,
-  `book_date_to` text COLLATE utf8_unicode_ci NOT NULL,
+  `book_by` int(255) NOT NULL,
+  `book_to` int(255) NOT NULL,
+  `book_date_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `book_date_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pet_list` text COLLATE utf8_unicode_ci NOT NULL,
-  `message` text COLLATE utf8_unicode_ci NOT NULL,
+  `short_message` text COLLATE utf8_unicode_ci NOT NULL,
   `book_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '1 Pending, 2 Canceled, 3 Not Approve, 4 Approve, 5 Complete',
-  `user_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '1 Host, 2 Guest',
   `is_notify` int(10) NOT NULL COMMENT '1 Host notified, 2 Host notified done, 3 Guest notified, 4 Guest notified done',
   `book_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sh_book`
+--
+
+INSERT INTO `sh_book` (`book_id`, `book_by`, `book_to`, `book_date_from`, `book_date_to`, `pet_list`, `short_message`, `book_status`, `user_type`, `is_notify`, `book_date`) VALUES
+(1, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'Can you book my pets? thanks', '5', '2', 4, '2019-05-20 03:35:26'),
+(2, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'awe', '5', '2', 4, '2019-05-20 06:30:58'),
+(3, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'Hello!', '3', '2', 2, '2019-05-20 09:09:48');
 
 -- --------------------------------------------------------
 
@@ -677,6 +686,14 @@ CREATE TABLE `sh_friends` (
   `friend_since` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `sh_friends`
+--
+
+INSERT INTO `sh_friends` (`f_id`, `user_id`, `friend_id`, `friend_since`) VALUES
+(1, 1, 2, '2019-05-20 09:10:20'),
+(2, 2, 1, '2019-05-20 09:10:20');
+
 -- --------------------------------------------------------
 
 --
@@ -704,6 +721,16 @@ CREATE TABLE `sh_images` (
   `date_upload` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `sh_images`
+--
+
+INSERT INTO `sh_images` (`img_id`, `img_name`, `user_id`, `album_id`, `date_upload`) VALUES
+(1, 'p_5ce21944e697f.jpg', 1, 0, '2019-05-20 03:04:36'),
+(2, 'p1_5ce219891bd82.jpg', 1, 0, '2019-05-20 03:05:45'),
+(3, 'p1_5ce2198926f7a.jpg', 1, 0, '2019-05-20 03:05:45'),
+(4, 'p_5ce21b8f9c4de.jpg', 2, 0, '2019-05-20 03:14:23');
+
 -- --------------------------------------------------------
 
 --
@@ -725,6 +752,16 @@ CREATE TABLE `sh_mail` (
   `del_by_mailto` tinyint(1) NOT NULL,
   `date_send` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sh_mail`
+--
+
+INSERT INTO `sh_mail` (`mail_id`, `user_id`, `mail_to`, `subject`, `message`, `is_read`, `notify`, `drft_by_uid`, `drft_by_mailto`, `parent_id`, `del_by_uid`, `del_by_mailto`, `date_send`) VALUES
+(1, 1, 2, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-20 03:39:24'),
+(2, 2, 1, 'Booking Request Approved', 'Yea we can talk about this!', 1, 1, 0, 0, 1, 0, 0, '2019-05-20 03:40:08'),
+(3, 1, 2, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 1, 0, 0, 0, '2019-05-20 06:31:45'),
+(4, 1, 2, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-20 09:10:32');
 
 -- --------------------------------------------------------
 
@@ -768,11 +805,15 @@ CREATE TABLE `sh_pets` (
   `other_info` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `contact_info` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `alt_contact_info` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ns_date_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ns_date_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `isAvailable` tinyint(1) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sh_pets`
+--
+
+INSERT INTO `sh_pets` (`pet_id`, `user_id`, `pet_name`, `pet_images`, `cat_id`, `breed_id`, `tags`, `gender`, `color_id`, `height`, `weight`, `dob`, `fav_food`, `skills`, `vet_clinic`, `located`, `adoptable`, `health_issues`, `medications`, `description`, `complete_address`, `zip_code`, `vaccination`, `vaccination_date`, `primary_pic`, `activate_notice`, `notice_title`, `chip_no`, `collar_tag`, `reward`, `lost_location`, `lost_date`, `other_info`, `contact_info`, `alt_contact_info`, `date_added`) VALUES
+(1, 1, 'Becky G Akita', '[\"p1_5ce219891bd82.jpg\",\"p1_5ce2198926f7a.jpg\"]', 3, 86, 'Et ducimus nemo qua', 'Male (neutered)', 29, '12', '12', '2019-05-20', 'Quos ducimus deleni', 'Excepteur non sint m', 'Non libero ipsum qui', 'At Home', 'Yes', '', '', '', 'Colonnade Supermarket, Colon Street, Cebu City, Cebu, Philippines', 6000, '[\"Parvovirus (CPV)\",\"Rabies\"]', '[\"2019-05-20\",\"2019-05-20\"]', 'p1_5ce2198926f7a.jpg', 'No', '', '', '', '', '', '0000-00-00', '', '', '', '2019-05-20 03:05:45');
 
 -- --------------------------------------------------------
 
@@ -798,9 +839,24 @@ CREATE TABLE `sh_users` (
   `cover_pos` varchar(255) NOT NULL,
   `sitter_availability` text NOT NULL,
   `isAvail` tinyint(1) NOT NULL,
+  `book_avail_from` varchar(255) NOT NULL,
+  `book_avail_to` varchar(255) NOT NULL,
+  `book_type` int(10) NOT NULL COMMENT '1 Host, 2 Guest',
+  `book_note` text NOT NULL,
+  `cat_list` text NOT NULL,
+  `is_smoker` tinyint(1) NOT NULL COMMENT '1 Yes, 0 No',
+  `living_in` int(10) NOT NULL COMMENT '1 House, 2 Apartment',
   `is_complete` tinyint(1) NOT NULL COMMENT '0 Not Complete, 1 Complete, 2 CompleteLater',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sh_users`
+--
+
+INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `complete_address`, `zip_code`, `user_lat`, `user_lng`, `bio`, `user_img`, `cover_photo`, `cover_pos`, `sitter_availability`, `isAvail`, `book_avail_from`, `book_avail_to`, `book_type`, `book_note`, `cat_list`, `is_smoker`, `living_in`, `is_complete`, `date_created`) VALUES
+(1, 'Easton Curry', 'Business Man', 'easton@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', 'Colonnade Supermarket, Colon Street, Cebu City, Cebu, Philippines', '6000', 10.29673680000000, '123.89998360000004', 'I\'m a lovable person.', 'p_5ce21944e697f.jpg', '', '', '', 1, '2019-05-20 00:12:00', '2019-05-20 00:21:00', 2, 'Nope', '[\"3\"]', 0, 1, 1, '2019-05-20 03:02:54'),
+(2, 'Alicia Smith', 'Beauty Expert', 'alicia@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', 'Canduman Road, Mandaue City, Cebu, Philippines', '6014', 10.36770920000000, '123.93358779999994', 'I\'m beautiful expert!', 'p_5ce21b8f9c4de.jpg', '', '', '', 1, '2019-05-20 00:12:00', '2019-05-20 00:21:00', 1, 'Noted!', '[\"3\"]', 0, 1, 1, '2019-05-20 03:13:16');
 
 --
 -- Indexes for dumped tables
@@ -886,7 +942,7 @@ ALTER TABLE `sh_albums`
 -- AUTO_INCREMENT for table `sh_book`
 --
 ALTER TABLE `sh_book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sh_breeds`
@@ -910,37 +966,37 @@ ALTER TABLE `sh_color`
 -- AUTO_INCREMENT for table `sh_friends`
 --
 ALTER TABLE `sh_friends`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sh_friend_request`
 --
 ALTER TABLE `sh_friend_request`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sh_images`
 --
 ALTER TABLE `sh_images`
-  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sh_mail`
 --
 ALTER TABLE `sh_mail`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sh_pets`
 --
 ALTER TABLE `sh_pets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sh_users`
 --
 ALTER TABLE `sh_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

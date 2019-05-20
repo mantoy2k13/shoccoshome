@@ -227,95 +227,10 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-/* Close New Booking steps */
-
-
-/* Clarifications */
-    public function book_user_pets($uid){
-        if ($this->session->userdata('user_email')){ 
-            $user_email       = $this->session->userdata('user_email');
-            $data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-            $data['is_page']  = 'book_user_pets';
-            $data['view_bio'] = $this->Account_model->get_user_info($uid);
-            $data['user_id'] = $uid;
-            $this->load->view('booking/book_user_pets', $data);
-        }
-        else { redirect('home/login'); }
-    }
-
-    public function get_booking_info($bid,$type)
-	{
-		if($this->session->userdata('user_email')){
-            echo json_encode($this->Booking_model->get_booking_info($bid,$type));
-        }
-        else{ echo 0;}
-    }
-
     public function getNearUsers()
 	{
 		if($this->session->userdata('user_email')){
-            echo json_encode($this->Booking_model->getNearPeople());
-        }
-        else{ echo 0;}
-    }
-
-    public function getNearUsers2()
-	{
-		if($this->session->userdata('user_email')){
-            $nearPeople = $this->Booking_model->getNearPeople();
-            $i=0;
-            if($nearPeople){
-                foreach($nearPeople as $p){
-                    if($p['sitter_availability'] && $p['isAvail']){
-                        $dates = json_decode($p['sitter_availability']);
-                        $title = $p['fullname'].' (Host)';
-                        $start = $dates[0];
-                        $end   = date('Y-m-d', strtotime($dates[1] . ' +1 day'));
-                        $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end);
-                        $user_dates[] = $data;
-
-                        $r = $this->Booking_model->get_avail_pets_date($p['id']);
-                        $title = $p['fullname'].' (Guest)';
-                        $ndf = json_decode($r['ns_date_from']); 
-                        $ndt = json_decode($r['ns_date_to']); 
-                        $start = $ndf[0];
-                        $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
-                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end,'color'=>'#376afa');
-                        $user_dates[] = $datas;
-                    }
-
-                    if(!$p['sitter_availability'] && $p['isAvail']){
-                        $r = $this->Booking_model->get_avail_pets_date($p['id']);
-                        $title = $p['fullname'].' (Guest)';
-                        $ndf = json_decode($r['ns_date_from']); 
-                        $ndt = json_decode($r['ns_date_to']); 
-                        $start = $ndf[0];
-                        $end   = date('Y-m-d', strtotime($ndt[0] . ' +1 day'));
-                        $datas  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end,'color'=>'#376afa');
-                        $user_dates[] = $datas;
-                    }
-
-                    $i++;
-                }
-            } else{
-                $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
-                $user_dates[] = $data;
-            }
-            echo json_encode($user_dates);
-        }
-        else{ echo 0;}
-    }
-
-    public function setMyLocation()
-	{
-		if($this->session->userdata('user_email')){
-            $lat = $this->input->post('lat');
-            $lng = $this->input->post('lng');
-            $_SESSION['cur_lat'] = $lat;
-            $_SESSION['cur_lng'] = $lng;
-            $_SESSION['length_value'] = 50;
-            $_SESSION['length'] = 'km';
-            echo 'home/people_near_me';
+            echo json_encode($this->Booking_model->get_all_available_user());
         }
         else{ echo 0;}
     }
@@ -328,6 +243,6 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
-/* Close Clarifications */
+    /* Close New Booking steps */
 
 }

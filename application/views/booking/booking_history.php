@@ -52,7 +52,7 @@
                             <table class="table table-hover m-t-20" id="datatable">
                                 <thead>
                                     <tr>
-                                        <th>Book ID <?=$is_page;?></th>
+                                        <th>Book ID</th>
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th class="text-center">Address</th>

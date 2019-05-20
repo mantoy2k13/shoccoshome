@@ -297,32 +297,6 @@ var setCoverPhoto = (img_name)=>{
      });
  }
 
- 
-function getNearPeople(){
-    $('#mLoader').html('<div class="loading"> Loading..</div>');
-    navigator.geolocation.getCurrentPosition(
-        function(position){ // success cb
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
-            $.ajax({
-                url: base_url+'booking/setMyLocation',
-                type: "POST",
-                data: {lat: lat, lng: lng},
-                success: (res)=>{
-                    if(res){
-                        window.location.href = base_url+res;
-                    } else{
-                        alert('Failed to get location')
-                    }
-                }
-            }); 
-        },
-        function(){ 
-            alert('Failed to get location');
-        }
-    );
-}
-
 // Cover Photo Repositioning
 $(document).ready(function () {
     var img = $('.coverContainer img.cover-photo-custom');

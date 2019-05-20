@@ -25,7 +25,7 @@
 		  <div class="col-md-9 m-t-10 p-l-0 p-details">
             <div class="panel panel-default bg-gray">
 				<div class="panel-heading pointed">
-					<span class="b-700 text-blue">Search pet results...</span>
+					<span class="b-700 text-blue"><i class="fa fa-search"></i> Search pet results...</span>
 				</div>			
 				<div class="panel-body">
                     <div class="row f-list-wrap">
@@ -55,8 +55,8 @@
                                 </div>
                             </div>
                         <?php } } else {?>
-                            <div class="col-md-12 m-t-20">
-                                <div class="alert alert-info">
+                            <div class="col-md-12 m-t-10">
+                                <div class="alert alert-info f-15">
                                     <strong><i class="fa fa-check"></i> Empty!</strong> There are no pets matches your search.</i>.
                                 </div>
                             </div>

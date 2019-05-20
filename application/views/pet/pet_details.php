@@ -209,7 +209,6 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
 	<script src="<?=base_url();?>assets/js/initializations/init_pet_sched.js"></script>
-
   </body>
 
 </html>

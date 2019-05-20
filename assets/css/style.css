@@ -1010,7 +1010,7 @@ section.map-section {
     padding: 50px 0 0 0;
 }
 
-div#map {
+div.custMap {
     border-top: 5px solid #ff9b28;
     border-bottom: 5px solid #ff9b28;
     width: 100%;
@@ -1065,6 +1065,10 @@ div#map {
 
 .m-t-20 {
     margin-top: 20px;
+}
+
+.m-t-30 {
+    margin-top: 30px;
 }
 
 .text-black{
@@ -1762,6 +1766,12 @@ span.btmleft_set_cver {
 .gm-style-iw {
     width: 300px; 
     text-align: center;
+}
+
+span.badge.float-badge {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
 }
 
 /* Close Map cards */

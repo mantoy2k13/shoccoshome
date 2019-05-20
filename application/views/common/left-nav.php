@@ -4,9 +4,9 @@
 <div class="col-md-3 m-t-10 p-r-0">
     <div class="left-menu">
         <p class="m-b-5">Menus</p>
-        <a href="<?=base_url();?>home/homepage" class="btn left-menu-btn <?=($is_page=="homepagea") ? "active" : ''; ?>"><i class="fa fa-newspaper f-25 text-blue"></i> My Newsfeeds</a>
-        <a href="<?=base_url();?>home/homepage" class="btn left-menu-btn <?=($is_page=="homepagea") ? "active" : ''; ?>"><i class="fa fa-calendar-alt f-25 text-blue"></i> My Calendar</a>
-        <a href="<?=base_url();?>home/homepage" class="btn left-menu-btn <?=($is_page=="homepagea") ? "active" : ''; ?>"><i class="fa fa-map-marker f-25 text-blue"></i> My Map</a>
+        <a href="javascript:;" class="btn left-menu-btn <?=($is_page=="my_newsfeeds") ? "active" : ''; ?>"><i class="fa fa-newspaper f-25 text-blue"></i> My Newsfeeds</a>
+        <a href="<?=base_url();?>home/my_calendar" class="btn left-menu-btn <?=($is_page=="my_calendar") ? "active" : ''; ?>"><i class="fa fa-calendar-alt f-25 text-blue"></i> My Calendar</a>
+        <a href="<?=base_url();?>home/my_map" class="btn left-menu-btn <?=($is_page=="my_map") ? "active" : ''; ?>"><i class="fa fa-map-marker f-25 text-blue"></i> My Map</a>
         
         <?php if($is_page=="mail" || $is_page=="sents" || $is_page=="drafts"){?>
             <p class="m-b-5 m-t-10">My Mail</p>

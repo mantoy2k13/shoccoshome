@@ -26,7 +26,7 @@
                     <div class="m-header bg-orange-l">
                         <div class="row">
                             <div class="col-md-12">
-                                <span class="btn btn-circle f-20 btn-sm text-white pull-left"><i class="fa fa-calendar-alt"></i> My Calendar</span>
+                                <span class="btn btn-circle f-20 btn-sm text-white pull-left"><i class="fa fa-map-marker"></i> My Map</span>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                                 <div class="col-md-12">
                                     <form action="<?=base_url();?>home/set_radius_length" method="POST">
                                         <div class="row">
-                                        <input type="hidden" name="my_link" value="my_calendar">
+                                        <input type="hidden" name="my_link" value="my_map">
                                             <div class="col-lg-4 col-md-12">
                                                 <label class="text-black m-b-0 f-15">Radius Value:</label>
                                                 <input name="length_value" value="<?=(isset($_SESSION['length_value'])) ? $_SESSION['length_value'] : '50'; ?>" type="text" class="form-control f-15 decimalOnly" placeholder="Length Value" required/>
@@ -63,13 +63,13 @@
                             <div class="cus-card">
                                 <div class="row">
                                     <div class="cus-card-header col-md-12">
-                                        <i class="fa fa-calendar-alt"></i> All user schedules based on radius
+                                        <i class="fa fa-calendar-alt"></i> All user locations based on radius
                                     </div>
                                 </div>
                                 
                                 <div class="cus-card-body">
                                     <div class="row">
-                                        <div id="my_calendar"></div>
+                                        <div id="my_map" class="custMap" style="height:800px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('booking/booking_steps/booking_info');?>
-    <script src="<?=base_url();?>assets/js/initializations/init_my_calendar.js"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_my_maps.js"></script>
   </body>
 
 </html>

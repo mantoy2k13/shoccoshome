@@ -61,4 +61,3 @@
 <?php } ?>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
-<!-- <h1><?=$is_page;?></h1> -->

@@ -36,7 +36,7 @@ class Auth extends CI_Controller{
                     unset($_SESSION['is_in_book']);
                     redirect('booking/booking_as_host');
                 } else{
-                    redirect('home/homepage');
+                    redirect('home/my_calendar');
                 }
 				
 			} else{ 
