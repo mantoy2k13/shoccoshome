@@ -1,0 +1,635 @@
+@media only screen and (max-width: 1308px){
+    /* .btn-menu {
+        width: 11%;
+    } */
+}
+
+@media only screen and (max-width: 1201px){
+    
+    .cust-slider-img{
+        max-width: max-content;
+        max-height: max-content;
+        max-width: -moz-fit-content;
+        max-height: -moz-fit-content;
+        width: auto;
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 1180px){
+    .on-off-menu .col-md-8, .on-off-menu .col-md-4 {
+        text-align: center;
+        max-width: 100% !important;
+        display: block !important;
+        flex: 100%;
+    }
+
+    .u-pet-img {
+        height: 115px;
+    }
+    td.text-center {
+        width: 211px;
+    }
+}
+
+
+@media only screen and (max-width: 1060px){
+    /* .friend-img {
+        width: 120px;
+        height: 120px;
+    } */
+
+    .fc-center h2 {
+        padding: 0px 100px !important;
+    }
+
+    .cal-badge {
+        padding: 8px !important;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .usrImgCol {
+        width: 48%;
+    }
+}
+
+@media only screen and (max-width: 1026px){
+    a.viewAllImg {
+        padding: 40px 0;
+    }
+}
+@media only screen and (max-width: 1021px){
+    .btn-menu {
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+
+    .left-menu {
+        margin: 0;
+    }
+
+    .row.f-list-wrap .col-md-6{
+        width: 100%;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .btn-nav {
+        text-align: left;
+    }
+
+    .acc-img {
+        width: 140px;
+        height: 140px;
+    }
+
+    i.fa.upload-icon {
+        left: 45px;
+        font-size: 50px;
+    }
+
+    .cust-mod-edit-prof {
+        top: 109px;
+    }
+
+    .modal-xxl {
+        max-width: 100%;
+        margin: 20px 10px;
+    }
+
+    .table-resp-custom.m-t-10 {
+        overflow-x: auto;
+    }
+
+    p.text-head {
+        width: auto;
+    }
+
+    .card p{
+        float: left;
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    .nav-brand img {
+        margin: 0 auto;
+    }
+
+    .h-nav{
+        display: inherit;
+    }
+
+    .nav-brand img {
+        max-width: 150px;
+    }
+
+    .footer .container {
+        max-width: 1000px;
+    }
+
+    a.nav-link.py-3.px-0.px-lg-3.rounded {
+        padding: 15px !important;
+    }
+
+    .u-pet-img {
+        height: 100px;
+    }
+
+    #showCropWindow .modal-dialog.modal-xl {
+        max-width: 95%;
+    }
+
+    .carousel-inner.carousel-inner300 {
+        height: 200px;
+    }
+    
+    .pet-details-img.carousel-item.active.c-img-wrapper.pet-slider {
+        height: 200px;
+    }
+
+    .msg-quote, .msg-quote label{
+        text-align: left;
+        float: none;
+    }
+
+    .msg-quote p.date {
+        float: none;
+        margin-right: 0 !important;
+    }
+
+    .mail-user p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .col-xs-8r,
+    .col-sm-8r,
+    .col-md-8r,
+    .col-lg-8r {
+        width: 25%;
+    }
+    .col-md-3.resfx {
+        display: block;
+        padding: 10px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .coverContainer {
+        height: 372px;
+        top: 84px;
+    }
+
+    p.covertxt {
+        width: 400px;
+    }
+ 
+}
+
+@media only screen and (max-width: 900px){
+    .profile-big {
+        width: 200px;
+        height: 200px;
+        top: 275px;
+        left: 20px;
+    }
+
+    .col-md-3.img_uploaded {
+        max-width: 40%;
+        flex: 100%;
+        margin: 5px auto;
+    }
+
+    .u-pet-img {
+        height: 130px;
+    }
+
+    .bio-pet-grp .col-md-6 {
+        max-width: 100%;
+        flex: 100%;
+    }
+
+    .userImages {
+        height: 80px;
+    }
+
+    .userImagesBig {
+        height: 168px;
+    }
+
+    a.viewAllImg {
+        padding: 23px 0;
+    }
+}
+
+@media only screen and (max-width: 830px){
+    .acc-img {
+        width: 110px;
+        height: 110px;
+    }
+
+    i.fa.upload-icon {
+        left: 30px;
+        top: 30px;
+    }
+
+    .cust-mod-edit-prof {
+        top: 79px;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .profile-big {
+        width: 150px;
+        height: 150px;
+        top: 200px;
+        left: 20px;
+    }
+
+    .btn.banner-btn, button.btn.banner-btn-sm {
+        top: 100px;
+        bottom: unset;
+    }
+
+    header.masthead {
+        height: 330px;
+    }
+
+    .btn.banner-btn,  button.btn.banner-btn-sm{
+        font-size: 14px;
+    }
+
+    .footer .text-left {
+        text-align: center !important;
+        margin-bottom: 35px;
+    }
+
+    .panel-heading::after {
+        right: 0;
+        left: 85px;
+    }
+
+    .mail-user {
+        border-right: 0;
+    }
+
+    .acc-img {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
+    i.fa.upload-icon {
+        left: 50px;
+        top: 50px;
+    }
+
+    .cust-mod-edit-prof {
+        top: 120px;
+    }
+
+    p.upload-text {
+        text-align: center;
+    }
+
+    .carousel-inner.carousel-inner300 {
+        height: 350px;
+    }
+    
+    .pet-details-img.carousel-item.active.c-img-wrapper.pet-slider {
+        height: 350px;
+    }
+
+    p.b-700.f-14.m-t-20 {
+        margin-top: 41px;
+        float: left;
+    }
+
+    .bio-wrapper-info {
+        text-align: center;
+    }
+    
+    .bio-wrapper-info .bio-img{
+        margin: 0 auto;
+        float: none;
+    }
+
+    .bio-pet-grp {
+        text-align: left;
+    }
+
+    .bio-pet-grp .col-md-6 {
+        max-width: 50%;
+    }
+
+    .bio-head p {
+        width: 100%;
+        text-align: center;
+        float: left;
+    }
+
+    .bio-head {
+        margin-top: 15px;
+    }
+
+    .bio-head a.btn {
+        float: none;
+        margin-top: 10px;
+    }
+
+    .userImages {
+        height: 150px;
+    }
+
+    .userImagesBig {
+        height: 250px;
+        margin-bottom: 10px;
+    }
+
+    a.viewAllImg {
+        padding: 55px 0;
+        right: 0;
+    }
+
+    .usrImgCol {
+        width: 49%;
+    }
+
+    .card.bg-grey.friend-card {
+        height: auto;
+    }
+
+    p.b-700.f-14.m-t-20 {
+        width: 100%;
+    }
+
+    .friend-img.bio {
+        height: 100px;
+        width: 100%;
+    }
+
+    p.covertxt {
+        width: 290px;
+        top: 34%;
+        font-size: 15px;
+    }
+
+}
+
+@media only screen and (max-width: 610px){
+    p.covertxt {
+        top: 43%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .profile-big {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+
+    button.btn.banner-btn-sm {
+        bottom: unset;
+        top: 100px;
+    }
+}
+
+@media only screen and (max-width: 575px){
+    div.dataTables_filter, #datatable_length {
+        float: none !important;
+    }
+    .coverContainer {
+        height: 250px;
+        top: 86px;
+    }
+}
+
+@media only screen and (max-width: 565px){
+    .btn-nav {
+        text-align: right;
+    }
+    .bio-pet-grp .col-md-6 {
+        max-width: 100%;
+    }
+
+    .col-xs-8r, .col-sm-8r, .col-md-8r, .col-lg-8r {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 541px){
+    a.p-nav {
+        margin-right: 0;
+    }
+
+    .u-pet-img {
+        height: 100px;
+    }
+
+    .gm-style-iw {
+        width: auto; 
+    }
+
+}
+
+@media only screen and (max-width: 490px){
+    .coverContainer {
+        height: 280px;
+        top: 85px;
+    }
+}
+
+@media only screen and (max-width: 430px){
+    .nav-brand img {
+        max-width: 140px;
+        top: 8px;
+    }
+
+    .btn-menu {
+        width: 100%;
+    }
+
+    .home-menu.btn-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    .friend-img {
+        width: 115px;
+        height: 115px;
+    }
+
+    .bio-img {
+        margin: 0 auto;
+    }
+
+    .bio-wrapper-info{
+        text-align: center;
+    }
+
+    .col-md-3.img_uploaded {
+        max-width: 100%;
+    }
+
+    .u-pet-img {
+        height: 140px;
+    }
+
+    .userImages {
+        height: 150px;
+    }
+
+    .userImagesBig {
+        height: 150px;
+        margin-bottom: 10px;
+    }
+
+    a.viewAllImg {
+        padding: 55px 0;
+        right: 0;
+    }
+
+    .usrImgCol {
+        width: 100%;
+    }
+
+    .friend-img {
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .card p {
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 370px){
+    .pic-head.bg-greyish a {
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 5px;
+        width: 100%;
+        float: none !important;
+    }
+
+    .pic-head.bg-greyish{
+        text-align: center;
+    }
+
+    .pic-head.bg-greyish a.refreshBtn {
+        border-radius: 25px;
+    }
+
+    .coverContainer {
+        height: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .carousel-inner.carousel-inner300 {
+        height: 250px;
+    }
+    
+    .pet-details-img.carousel-item.active.c-img-wrapper.pet-slider {
+        height: 250px;
+    }
+}
+
+@media only screen and (max-width: 375px){
+    .carousel-inner.carousel-inner300 {
+        height: 190px;
+    }
+    
+    .pet-details-img.carousel-item.active.c-img-wrapper.pet-slider {
+        height: 190px;
+    }
+     .friend-img.bio {
+        max-width: 100%;
+    }
+    p.text-head {
+        float:left;
+    }
+
+    p.b-700.f-14.m-t-20 {
+    margin-top: 23px;
+    float: left;
+    }
+}
+
+@media only screen and (max-width: 425px){
+     .friend-img.bio {
+        max-width: 100%;
+    }
+    p.text-head {
+        float:left;
+    }
+    
+    p.b-700.f-14.m-t-20 {
+    margin-top: 41px;
+    float: left;
+    }
+}
+
+@media only screen and (max-width: 1024px){
+    .card.bg-grey.friend-card {
+        width:100%;
+        height: auto;
+    }
+    p.text-head {
+        float: left;
+    }
+    
+    p.b-700.f-14.m-t-20 {
+        float: left;
+    }
+    span.carousel-control-next-icon {
+        display: none;
+    }
+    span.carousel-control-prev-icon {
+        display:none;
+    }
+}
+
+@media only screen and (max-width: 1326px){
+    .card.bg-grey.friend-card {
+        width:100%;
+        height: auto;
+    }
+	 
+    p.text-head {
+       /* float: left; */
+    }
+	 
+    
+    p.b-700.f-14.m-t-20 {
+        float: left;
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    p.f-20.b-700.text-orange-d.m-b-0 {
+        font-size: 14px;
+        margin-top:20px;
+    }
+}
+@media only screen and (max-width: 900px){
+    p.f-20.b-700.text-orange-d.m-b-0 {
+        font-size: 14px;
+        margin-top:20px;
+    }
+}
+@media only screen and (max-width: 1199px){
+    td.text-center:last-child {
+        width: 100%;
+    }
+}
+
