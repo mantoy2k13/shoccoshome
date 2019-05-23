@@ -25,7 +25,7 @@
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a host
+                            <i class="fa fa-book f-25 text-blue "></i> Booking
                         </div>
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14 active">Become a Host</a>
@@ -36,14 +36,14 @@
                 </div>
                 <div class="row">
                     <!-- Breadcrumbs -->
-                    <?php $this->load->view('booking/booking_steps/breadcrumbs');?>
+                    <!-- <?php $this->load->view('booking/booking_steps/breadcrumbs');?> -->
                     <div class="col-lg-12 col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Step 1: Set your dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
+                                        <i class="fa fa-calendar-alt"></i> Become a Host: Set your dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill q            up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
                                         <form onchange="$('.setTimeMsg').html('');">
