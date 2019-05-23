@@ -122,14 +122,25 @@ class Account extends CI_Controller {
     public function get_user_info($uid){
         if($this->session->userdata('user_email')){
             $user_data = $this->Account_model->get_user_info($uid);
+            $book_type = $user_data[0]['book_type'];
             $get_cat   = $this->Pet_model->get_all_pet_cat();
+            $my_pets   = $this->Account_model->get_my_pets($uid);
             $cats      = json_decode($user_data[0]['cat_list']);
             $c = "";
-            foreach($get_cat as $cat){
-                if(in_array($cat['cat_id'], $cats)){
-                    $c .= $cat['cat_name'].', ';
-                }
-            } $my_cat = array('my_cat'=>$c);
+            if($book_type==1){
+                foreach($get_cat as $cat){
+                    if(in_array($cat['cat_id'], $cats)){
+                        $c .= $cat['cat_name'].', ';
+                    }
+                } $my_cat = array('my_cat'=>$c);
+            } else{
+                foreach($my_pets as $pet){
+                    if(in_array($pet['pet_id'], $cats)){
+                        $c .= $pet['pet_name'].' ('.$pet['cat_name'].'), ';
+                    }
+                } $my_cat = array('my_cat'=>$c);
+            }
+            
             $data = $user_data[0] + $my_cat;
             echo ($data) ? json_encode($data) : 0;
         }

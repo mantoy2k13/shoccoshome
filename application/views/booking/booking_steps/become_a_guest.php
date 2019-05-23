@@ -25,7 +25,7 @@
                 <div class="pic-head bg-greyish">                
                     <div class="row">
                         <div class="col-md-12 text-black">
-                            <i class="fa fa-book f-25 text-blue "></i> Booking: Become a guest
+                            <i class="fa fa-book f-25 text-blue "></i> Booking
                         </div>
                         <div class="col-md-12 m-t-10">
                             <a href="<?=base_url();?>booking/become_a_host" class="p-nav b-700 f-14">Become a Host</a>
@@ -36,13 +36,13 @@
                 </div>
                 <div class="row">
                     <!-- Breadcrumbs -->
-                    <?php $this->load->view('booking/booking_steps/breadcrumbs');?>
+                    <!-- <?php $this->load->view('booking/booking_steps/breadcrumbs');?> -->
                     <div class="col-lg-12 col-md-12">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Step 1: Set your dates  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates."></i>
+                                        <i class="fa fa-calendar-alt"></i> Become a Guest: Set your dates  <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates."></i>
                                         <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
@@ -74,11 +74,13 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
-                                                    <label for="pet_cat" class="f-15">What pet category do you have?</label><br />
-                                                    <?php $cat_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
-                                                    <select name="pet_cat[]" class="multipleSelect form-control petCat" multiple id="pet_cat_list">
-                                                        <?php foreach($categories as $cat){ extract($cat); ?>
-                                                            <option value="<?=$cat_id;?>" <?=in_array($cat_id, $cat_list) ? 'selected' : '';?>><?=($cat_name) ? $cat_name : "No Name";?></option>
+                                                    <label for="pet_list">Choose your pet from your list. <a href="<?=base_url();?>pet/add_new_pet">Click here</a> to add new pets.</label>
+                                                    <?php $pet_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
+                                                    <select name="pet_list[]" class="multipleSelect form-control petList" multiple required id="pet_cat_list">
+                                                        <?php if($my_pets){ foreach($my_pets as $pets){ extract($pets); ?>
+                                                            <option value="<?=$pet_id;?>" <?=in_array($pet_id, $pet_list) ? 'selected' : '';?>><?=$pet_name;?> (<?=$cat_name ;?>)</option>
+                                                        <?php } } else { ?>
+                                                            <option value="" selected>You have no pets added.</option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>
@@ -89,8 +91,9 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 text-center">
-                                                    <button type="button" onclick="checkDateTime(1)" class="btn btn-success"><i class="fa fa-check"></i> Save and Next</button>
-                                                    <?php if($bio[0]['isAvail']){?>
+                                                    <?php if($my_pets){ ?>
+                                                        <button type="button" onclick="checkDateTime(1)" class="btn btn-success"><i class="fa fa-check"></i> Save and Next</button>
+                                                    <?php } if($bio[0]['isAvail']){?>
                                                         <button type="button" onclick="unsetDates(1)" class="btn btn-info"><i class="fa fa-history"></i> Unset Dates</button>
                                                     <?php } ?>
                                                 </div>
@@ -102,7 +105,6 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
             <!-- Close Main Content -->
 		</div>
@@ -111,6 +113,6 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
-  </body>
+</body>
 
 </html>

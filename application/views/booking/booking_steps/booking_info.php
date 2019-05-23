@@ -13,17 +13,18 @@
                             <div class="userImages">
                                 <img class="zoomable" id="user_img_info">
                             </div>
+                            <p class="f-15 text-black-l font-san-serif" id="book_type_info"></p>
                         </div>
                         <div class="col-md-8 bio-head text-left">
                             <p class="f-30 b-700 m-b-0 text-orange-d" id="fullname_info"></p>
                             <p class="f-15 text-black-l m-b-0" id="address_info"></p>
                             <p class="f-15 text-black-l m-b-0 font-san-serif" id="schedule_info"></p>
-                            <p class="f-15 text-black-l font-san-serif" id="book_type_info"></p>
+                            
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <label for="time_end">I can watch this pets: </label>
+                            <label for="cat_list_info" id="cat-text">I can watch this pets: </label>
                             <input type="text" disabled class="form-control" placeholder="Pet Categories" id="cat_list_info">
                         </div>
                         <div class="col-lg-12 m-t-10 book_note_wrapper"></div>

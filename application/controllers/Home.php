@@ -61,15 +61,15 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function homepage(){
+	public function my_newsfeeds(){
 		if ($this->session->userdata('user_email')){
 			$uid  						= $this->session->userdata('user_id');
 			$user_email 				= $this->session->userdata('user_email');
 			$data["user_logindata"] 	= $this->Auth_model->fetchuserlogindata($user_email);
 			$data["get_all_users_data"] = $this->Auth_model->get_all_users_data();
-			$data['is_page'] 			= 'homepage';
+			$data['is_page'] 			= 'my_newsfeeds';
 			$data['view_bio'] 			= $this->Account_model->get_user_info($uid);
-			$this->load->view('homepage/homepage', $data);
+			$this->load->view('homepage/my_newsfeeds', $data);
 		}
 		else{
 			redirect('home/login');
@@ -138,35 +138,6 @@ class Home extends CI_Controller {
 			$data['is_page'] 			= 'my_map';
 			$data['view_bio'] 			= $this->Account_model->get_user_info($uid);
 			$this->load->view('homepage/my_map', $data);
-		}
-		else{
-			redirect('home/login');
-		}
-	}
-
-	public function people_near_me(){
-		if ($this->session->userdata('user_email')){
-			if($this->input->post()){
-				$_SESSION['length_value'] = $this->input->post('length_value');
-				$_SESSION['length'] = $this->input->post('length');
-			}
-			$uid  = $this->session->userdata('user_id');
-			$user_email  = $this->session->userdata('user_email');
-			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
-			$data['is_page'] = 'people_near_me';
-			$data['view_bio'] = $this->Account_model->get_user_info($uid);
-
-			$data['base_url'] = base_url().'home/people_near_me';
-			$data['total_rows'] = $this->Booking_model->getCountNearPeople();
-			$data['per_page'] = 20;
-			$data["uri_segment"] = 3;
-			$this->pagination->initialize($data);
-			$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-			$data["links"] = $this->pagination->create_links();
-			$_SESSION['per_page'] = $data["per_page"];
-			$_SESSION['page'] 	  = $page;
-			$data['getNearPeople'] = $this->Booking_model->getNearPeople();
-			$this->load->view('homepage/people_near_me', $data);
 		}
 		else{
 			redirect('home/login');

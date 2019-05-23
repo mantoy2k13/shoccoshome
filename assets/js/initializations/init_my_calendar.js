@@ -41,11 +41,13 @@ function viewUser(uid){
             if(res!=0){
                 var usrImg = (res['user_img']!="") ? base_url+'assets/img/pictures/usr'+res['id']+'/'+res['user_img'] : base_url+'assets/img/pictures/default.png';
                 var sched = '<span class="badge badge-success">'+dateFormat(new Date(res['book_avail_from']), "dd mmm yyyy, hh:MM TT")+'</span> - <span class="badge badge-success">'+dateFormat(new Date(res['book_avail_to']), "dd mmm yyyy, hh:MM TT")+'</span>';
-                var book_type = (res['book_type']==1) ? '<span class="badge badge-primary">HOST</span>' : '<span class="badge bg-orange text-white">GUEST</span>';
+                var book_type = (res['book_type']==1) ? '<span class="float-badge badge badge-primary" style="left: 15px;">HOST</span>' : '<span class="float-badge badge bg-orange text-white" style="left: 15px;">GUEST</span>';
+                var book_txt = (res['book_type']==1) ? 'I can watch this pets' : 'These are my pets.';
                 var smoke_info = (res['is_smoker']==1) ? '<span class="badge badge-danger"><i class="fa fa-ban"></i> Smoker</span>' : '<span class="badge badge-success"><i class="fa fa-check"></i> Non Smoker</span>';
                 var living = (res['living_in']==1) ? 'the house' : 'an apartment';
 
                 $('#user_img_info').attr('src', usrImg);
+                $('#cat-text').html(book_txt);
                 $('#fullname_info').html(res['fullname']);
                 $('#address_info').html(res['complete_address'])
                 $('#schedule_info').html(sched);

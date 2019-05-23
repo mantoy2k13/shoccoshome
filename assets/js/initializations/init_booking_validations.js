@@ -36,9 +36,9 @@ var checkDateTime = (type)=>{
                     book_note:       book_note
                 },
                 success: (res)=>{
-                    console.log(res)
                     if(res==1){
-                        location.href = base_url+'booking/choose_user_calendar/'+type;
+                        swal({title: "Dates Posted!", text: "Your date was successfully posted. Click ok to view.", type: "success"},
+                        function(){ location.href = base_url+'home/my_calendar/'; });
                     } else{
                         swal('Failed!', 'A problem occured please try again.', 'error');
                     }

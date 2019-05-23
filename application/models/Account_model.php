@@ -66,6 +66,8 @@ class Account_model extends CI_Model {
 
     public function get_user_info($uid){
         $this->db->select('*')->from('sh_users')->where('id', $uid);
+        $this->db->order_by('book_type', 'ASC');
+        $this->db->order_by('fullname', 'ASC');
         return $this->db->get()->result_array();
     }
 
