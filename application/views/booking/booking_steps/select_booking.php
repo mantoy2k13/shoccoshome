@@ -34,7 +34,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- Breadcrumbs -->
                     <div class="col-lg-12 col-md-12">
                         <div class="row">
                         <div class="col-md-12 text-center m-t-10">

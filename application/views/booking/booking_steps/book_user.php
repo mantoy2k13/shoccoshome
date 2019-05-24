@@ -37,8 +37,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!-- Breadcrumbs -->
-                    <!-- <?php $this->load->view('booking/booking_steps/breadcrumbs');?> -->
                     <div class="col-lg-12 col-md-12">
                         <div class="row">
                             <div class="col-lg-6 col-md-12">
