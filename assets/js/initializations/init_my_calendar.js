@@ -8,6 +8,7 @@ navigator.geolocation.getCurrentPosition(
             dataType: 'JSON',
             data: {cur_lat: cur_lat, cur_lng: cur_lng},
             success: (res)=>{
+                console.log(res);
                 var calendarEl = document.getElementById('my_calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     header: {

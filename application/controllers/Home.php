@@ -112,13 +112,16 @@ class Home extends CI_Controller {
             $get_all_available_user = $this->Booking_model->get_all_available_user();
             if($get_all_available_user){
                 foreach($get_all_available_user as $p){
-                    $book_type = ($p['book_type']==1) ? ' (HOST)' : ' (GUEST)';
-                    $color = ($p['book_type']==2) ? '#fa5637' : '#2f59f3';
-                    $title = $p['fullname'].$book_type;
-                    $start = date('Y-m-d', strtotime($p['book_avail_from']));
-                    $end   = date('Y-m-d', strtotime($p['book_avail_to'].' +1 day'));
-                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
-                    $user_dates[] = $data;
+					$book_type = ($p['book_type']==1) ? $p['fullname'].' (HOST)' : $p['fullname'].' (GUEST)';
+					$getDates = $this->getDatesFromRange($p['book_avail_from'], $p['book_avail_to']);
+					foreach($getDates as $d){
+						$title = $book_type;
+						$color = ($p['book_type']==2) ? '#fa5637' : '#2f59f3';
+						$start = date('Y-m-d', strtotime($d));
+						$end   = date('Y-m-d', strtotime($d.' +1 day'));
+						$data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
+						$user_dates[] = $data;
+					}
                 }
             } else{
                 $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
@@ -127,7 +130,19 @@ class Home extends CI_Controller {
             echo json_encode($user_dates);
         }
         else{ echo 0;}
-    }
+	}
+	
+	function getDatesFromRange($start, $end, $format = 'Y-m-d'){
+		$array = array();
+		$interval = new DateInterval('P1D');
+		$realEnd = new DateTime($end);
+		// $realEnd->add($interval);
+		$period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+		foreach($period as $date){
+			$array[] = $date->format($format);
+		}
+		return $array;
+	}
 
 	public function my_map(){
 		if ($this->session->userdata('user_email')){
@@ -144,7 +159,7 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function login(){	
+	public function login(){
 		if ($this->session->userdata('user_email')){
 			redirect(base_url());
 		}
@@ -157,9 +172,7 @@ class Home extends CI_Controller {
 		if ($this->session->userdata('user_email')){
 			redirect(base_url());
 		}
-		else{
-			$this->load->view('frontpage/register');
-		}
+		else{ $this->load->view('frontpage/register'); }
 	}
 
 	public function forgot_password(){
