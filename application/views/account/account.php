@@ -76,8 +76,8 @@
                                     </div>                   
                                     <div class="form-group row" id="target_address">
                                         <div class="col-md-6">
-                                            <label for="" class="m-b-0">Mobile</label>
-                                            <input type="text" value="<?= $mobile_number ? $mobile_number : '' ?>" name="mobile_number" class="form-control" placeholder="Mobile" required onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));">
+                                            <label for="" class="m-b-0">Mobile : <span class="text-success country"></span></label>
+                                            <input type="tel" value="<?= $mobile_number ? $mobile_number : '' ?>" name="mobile_number" class="form-control tel" pattern="\d*" x-autocompletetype="tel" placeholder="Mobile Phone Number" autofocus>
                                         </div>
                                         <div class="col-md-6">
                                             <label for="" class="m-b-0">Gender</label>
@@ -198,7 +198,10 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=places" type="text/javascript"></script>
+   
     <script src="<?=base_url();?>assets/js/initializations/init_prof_add.js"></script>
+    <script src="<?=base_url();?>assets/vendor/phone-code/jquery.caret.js"></script>
+    <script src="<?=base_url();?>assets/vendor/phone-code/jquery.mobilePhoneNumber.js"></script>
   </body>
 
 </html>
