@@ -95,34 +95,35 @@
                                             <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." value="<?=$complete_address;?>" required>
                                         </div>
                                     </div>
+                                    <?php $decAdd = ($en_address) ? json_decode($en_address) : []; ?>
                                     <div class="form-group row">
                                         <div class="col-md-4">
                                             <label class="m-b-0">Street #</label>
-                                            <input id="street_number" name="zip_code" type="text" class="form-control" placeholder="Street Number" value="<?=$zip_code;?>"  disabled>
+                                            <input id="street_number" name="street_number" type="text" class="form-control" placeholder="Street Number" value="<?=($decAdd) ? $decAdd->street_number : '';?>"  disabled>
                                         </div>
                                         <div class="col-md-8">
                                             <label class="m-b-0">Street Address</label>
-                                            <input id="route" name="street_address" type="text" class="form-control" placeholder="Street Address" value="<?=$zip_code;?>"  disabled>
+                                            <input id="route" name="street_address" type="text" class="form-control" placeholder="Street Address" value="<?=($decAdd) ? $decAdd->street_address : '';?>"  disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label class="m-b-0">City</label>
-                                            <input id="locality" name="city" type="text" class="form-control" placeholder="City" value="<?=$zip_code;?>"  disabled>
+                                            <input id="locality" name="city" type="text" class="form-control" placeholder="City" value="<?=($decAdd) ? $decAdd->city : '';?>"  disabled>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="m-b-0">State</label>
-                                            <input id="administrative_area_level_1" name="state" type="text" class="form-control" placeholder="State" value="<?=$zip_code;?>"  disabled>
+                                            <input id="administrative_area_level_1" name="state" type="text" class="form-control" placeholder="State" value="<?=($decAdd) ? $decAdd->state : '';?>"  disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label class="m-b-0">Country</label>
-                                            <input id="country" name="zip_code" type="text" class="form-control" placeholder="Country" value="<?=$zip_code;?>" disabled>
+                                            <input id="country" name="country" type="text" class="form-control" placeholder="Country" value="<?=($decAdd) ? $decAdd->country : '';?>" disabled>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="m-b-0">Zipcode</label>
-                                            <input id="postal_code" name="zip_code" type="text" class="form-control" placeholder="Zip/Postal Code" value="<?=$zip_code;?>" disabled>
+                                            <input id="postal_code" name="zip_code" type="text" class="form-control" placeholder="Zip/Postal Code" value="<?=($decAdd) ? $decAdd->zip_code : '';?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row" id="target_address">

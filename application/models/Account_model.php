@@ -16,8 +16,16 @@ class Account_model extends CI_Model {
 /* Working Codes ================================================================*/
 
     public function update_profile_info(){
-        $uid   = $this->session->userdata('user_id');
-        $email = $this->input->post('email');
+        $uid    = $this->session->userdata('user_id');
+        $email  = $this->input->post('email');
+        $en_add = array(
+            'street_number'  => $this->input->post('street_number'),
+            'street_address' => $this->input->post('street_address'),
+            'city'           => $this->input->post('city'),
+            'state'          => $this->input->post('state'),
+            'country'        => $this->input->post('country'),
+            'zip_code'       => $this->input->post('zip_code'),
+        );
         $data = array(
             'fullname'         => $this->input->post('fullname'),
             'email'            => $email,
@@ -32,6 +40,7 @@ class Account_model extends CI_Model {
             'living_in'        => $this->input->post('living_in'),
             'bio'              => $this->input->post('bio'),
             'is_complete'      => 1,
+            'en_address'       => json_encode($en_add)
         );
         $this->db->where('id', $uid);
         $res = $this->db->update('sh_users', $data);

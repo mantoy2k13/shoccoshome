@@ -1,13 +1,12 @@
 var checkDateTime = (type)=>{
-    console.log($('#bec_guest_form').serialize())
     var curr_date       = $('#curr_date').val();
     var book_avail_from = $('#book_avail_from').val();
     var book_avail_to   = $('#book_avail_to').val();
     var book_time_from  = $('#book_time_from').val();
     var book_time_to    = $('#book_time_to').val();
     var pet_cat_list    = $('#pet_cat_list').val();
-    var book_link       = (type==1) ? $('#bec_guest_form').serialize() : $('#bec_host_form').serialize();
-    
+    var book_data       = (type==1) ? $('#bec_guest_form').serialize() : $('#bec_host_form').serialize();
+
     if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_cat_list.length!=0){
         var date_today      = new Date(curr_date);
         var given_date_from = new Date(book_avail_from);
@@ -26,7 +25,7 @@ var checkDateTime = (type)=>{
             $.ajax({
                 url: base_url+'account/set_my_dates',
                 method: 'POST',
-                data: book_link,
+                data: book_data,
                 success: (res)=>{
                     if(res==1){
                         swal({title: "Dates Posted!", text: "Your date was successfully posted. Click ok to view.", type: "success"},
