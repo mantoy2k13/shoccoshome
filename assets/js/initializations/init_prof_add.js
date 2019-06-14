@@ -1,4 +1,9 @@
 var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
     postal_code: 'short_name'
 };
 function initialize() {
@@ -12,12 +17,16 @@ function initialize() {
             document.getElementById(component).value = '';
             document.getElementById(component).disabled = false;
         }
-
+        // console.log('Address Comps')
+        // console.log(place.address_components);
         for (var i = 0; i < place.address_components.length; i++) {
             var addressType = place.address_components[i].types[0];
+            console.log('Address Loops')
+            console.log(place.address_components[i][componentForm[addressType]])
             if (componentForm[addressType]) {
-            var val = place.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType).value = val;
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+                $('#'+addressType).removeAttr('disabled');
             }
         }
 

@@ -77,7 +77,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Hi! Welcome to Shocco's Home!</h5>
+                    <h5 class="modal-title font-baloo" id="exampleModalLongTitle">Hi! Welcome to Shocco's Home!</h5>
                 </div>
                 <div class="modal-body">
                         You can not add your pets if profile is not completed. Adding of pets needs your profile address. Do you want to update your profile now? <br>

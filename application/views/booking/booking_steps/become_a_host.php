@@ -41,15 +41,23 @@
                                 <div class="cus-card">
                                     <div class="cus-card-header">
                                         <i class="fa fa-calendar-alt"></i> Become a Host: Set your dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
-                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill q            up all fields below and click Save Dates.</p>
+                                        <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
-                                        <form onchange="$('.setTimeMsg').html('');">
+                                        <form id="bec_host_form" onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
-                                            <input type="hidden" id="curr_date" value="<?=$today;?>">
-                                            <input type="hidden" id="book_type" value="1">
-                                            <input type="hidden" id="isAvail" value="<?=$bio[0]['isAvail'];?>">
+                                            <input type="hidden" id="curr_date" name="curr_date" value="<?=$today;?>">
+                                            <input type="hidden" id="book_type" name="book_type" value="1">
+                                            <input type="hidden" id="isAvail"   name="isAvail"   value="<?=$bio[0]['isAvail'];?>">
+                                            <div class="form-group row">
+                                                <input id="user_lat" name="user_lat" type="hidden">
+                                                <input id="user_lng" name="user_lng" type="hidden">
+                                                <div class="col-md-12">
+                                                    <label for="" class="m-b-0">Enter your location here <span class="text-danger">*</span></label>
+                                                    <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." required>
+                                                </div>
+                                            </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
                                                     <label for="book_avail_from">Date From: </label>
@@ -72,9 +80,9 @@
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
-                                                    <label for="pet_cat" class="f-15">What kind of pet do you like?</label><br />
+                                                    <label for="pet_cat_list" class="f-15">What kind of pet do you like?</label><br />
                                                     <?php $cat_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
-                                                    <select name="pet_cat[]" class="multipleSelect form-control petCat" multiple id="pet_cat_list">
+                                                    <select name="pet_cat_list[]" class="multipleSelect form-control petCat" multiple id="pet_cat_list">
                                                         <?php foreach($categories as $cat){ extract($cat); ?>
                                                             <option value="<?=$cat_id;?>" <?=in_array($cat_id, $cat_list) ? 'selected' : '';?>><?=($cat_name) ? $cat_name : "No Name";?></option>
                                                         <?php } ?>
@@ -109,6 +117,8 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=places" type="text/javascript"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_prof_add.js"></script>
   </body>
 
 </html>

@@ -58,7 +58,7 @@
                                     <div id="pass-err-msg2"> </div>
                                     <div class="form-group row m-t-20">
                                         <div class="col-md-6">
-                                            <label for="" class="m-b-0">Fullname</label>
+                                            <label for="" class="m-b-0">Fullname <span class="text-danger">*</span></label>
                                             <input type="text" value="<?=$fullname?>" name="fullname" class="form-control" placeholder="Fullname" required>
                                         </div>
                                         <div class="col-md-6">
@@ -68,7 +68,7 @@
                                     </div>   
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <label for="" class="m-b-0">Email Address</label>
+                                            <label for="" class="m-b-0">Email Address <span class="text-danger">*</span></label>
                                             <input onkeyup="checkEmail()" type="text" value="<?=$email;?>" name="email" id="newEmail" class="form-control" placeholder="Email Address" required>
                                             <input id="oldEmail" value="<?=$email;?>" type="hidden">
                                             <div id="chk-email-msg"></div>
@@ -88,15 +88,41 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-md-8">
-                                            <label for="" class="m-b-0">Complete Address</label>
-                                            <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address.." value="<?=$complete_address;?>" required>
+                                        <input id="user_lat" name="user_lat" type="hidden" value="<?=$user_lat;?>">
+                                        <input id="user_lng" name="user_lng" type="hidden" value="<?=$user_lng;?>">
+                                        <div class="col-md-12">
+                                            <label for="" class="m-b-0">Enter your address and click the suggestions below <span class="text-danger">*</span></label>
+                                            <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." value="<?=$complete_address;?>" required>
                                         </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <div class="col-md-4">
-                                            <label class="m-b-0">Zip/Postal Code</label>
-                                            <input id="postal_code" name="zip_code" type="text" class="form-control" placeholder="Zip/Postal Code" value="<?=$zip_code;?>" required>
-                                            <input id="user_lat" name="user_lat" type="hidden" value="<?=$user_lat;?>">
-                                            <input id="user_lng" name="user_lng" type="hidden" value="<?=$user_lng;?>">
+                                            <label class="m-b-0">Street #</label>
+                                            <input id="street_number" name="zip_code" type="text" class="form-control" placeholder="Street Number" value="<?=$zip_code;?>"  disabled>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label class="m-b-0">Street Address</label>
+                                            <input id="route" name="street_address" type="text" class="form-control" placeholder="Street Address" value="<?=$zip_code;?>"  disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label class="m-b-0">City</label>
+                                            <input id="locality" name="city" type="text" class="form-control" placeholder="City" value="<?=$zip_code;?>"  disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="m-b-0">State</label>
+                                            <input id="administrative_area_level_1" name="state" type="text" class="form-control" placeholder="State" value="<?=$zip_code;?>"  disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label class="m-b-0">Country</label>
+                                            <input id="country" name="zip_code" type="text" class="form-control" placeholder="Country" value="<?=$zip_code;?>" disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="m-b-0">Zipcode</label>
+                                            <input id="postal_code" name="zip_code" type="text" class="form-control" placeholder="Zip/Postal Code" value="<?=$zip_code;?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row" id="target_address">

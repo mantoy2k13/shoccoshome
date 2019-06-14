@@ -34,37 +34,45 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="row">
-                        <div class="col-md-12 text-center m-t-10">
-                            <p class="text-blue f-30">What do you like to become?</p>
-                        </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="cus-card text-center">
-                                    <div class="cus-card-header">
-                                        <p class="f-30 m-b-0"><i class="fa fa-paw"></i> Become a Guest  </p>
+                    <?php $is_complete = $this->Account_model->is_complete();?>
+                    <?php if($is_complete['is_complete'] == 1){ ?>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row">
+                            <div class="col-md-12 text-center m-t-10">
+                                <p class="text-blue f-30">What do you like to become?</p>
+                            </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="cus-card text-center">
+                                        <div class="cus-card-header">
+                                            <p class="f-30 m-b-0"><i class="fa fa-paw"></i> Become a Guest  </p>
+                                        </div>
+                                        <div class="cus-card-body">
+                                            <p class="f-20 text-blue">I want somebody to watch my pets</p>
+                                            <a href="<?=base_url();?>booking/become_a_guest" class="btn bg-orange text-white"><i class="fa fa-check"></i> I want to become a guest</a>
+                                        </div>
                                     </div>
-                                    <div class="cus-card-body">
-                                        <p class="f-20 text-blue">I want somebody to watch my pets</p>
-                                        <a href="<?=base_url();?>booking/become_a_guest" class="btn bg-orange text-white"><i class="fa fa-check"></i> I want to become a guest</a>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="cus-card text-center">
+                                        <div class="cus-card-header">
+                                            <p class="f-30 m-b-0" ><i class="fa fa-user"></i> Become a Host  </p>
+                                        </div>
+                                        <div class="cus-card-body">
+                                            <p class="f-20 text-blue">I want to watch someone's pets</p>
+                                            <a href="<?=base_url();?>booking/become_a_host" class="btn bg-orange text-white"><i class="fa fa-check"></i> I want to become a host</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="cus-card text-center">
-                                    <div class="cus-card-header">
-                                        <p class="f-30 m-b-0" ><i class="fa fa-user"></i> Become a Host  </p>
-                                    </div>
-                                    <div class="cus-card-body">
-                                        <p class="f-20 text-blue">I want to watch someone's pets</p>
-                                        <a href="<?=base_url();?>booking/become_a_host" class="btn bg-orange text-white"><i class="fa fa-check"></i> I want to become a host</a>
-                                    </div>
-                                </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="alert alert-warning f-15 m-t-20" role="alert">
+                                <strong><i class="fa fa-times"></i> Oops!</strong> Please update your profile address <a href="<?=base_url()?>account/account">here</a> in order to book.
                             </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
-                
             </div>
             <!-- Close Main Content -->
 		</div>

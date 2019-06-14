@@ -1,12 +1,12 @@
 var checkDateTime = (type)=>{
+    console.log($('#bec_guest_form').serialize())
     var curr_date       = $('#curr_date').val();
     var book_avail_from = $('#book_avail_from').val();
     var book_avail_to   = $('#book_avail_to').val();
     var book_time_from  = $('#book_time_from').val();
     var book_time_to    = $('#book_time_to').val();
     var pet_cat_list    = $('#pet_cat_list').val();
-    var book_note       = $('#book_note').val();
-    var book_type       = $('#book_type').val();
+    var book_link       = (type==1) ? $('#bec_guest_form').serialize() : $('#bec_host_form').serialize();
     
     if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_cat_list.length!=0){
         var date_today      = new Date(curr_date);
@@ -26,15 +26,7 @@ var checkDateTime = (type)=>{
             $.ajax({
                 url: base_url+'account/set_my_dates',
                 method: 'POST',
-                data: { 
-                    book_avail_from: book_avail_from, 
-                    book_avail_to:   book_avail_to,
-                    book_time_from:  book_time_from, 
-                    book_time_to:    book_time_to,
-                    pet_cat_list:    pet_cat_list,
-                    book_type:       book_type,
-                    book_note:       book_note
-                },
+                data: book_link,
                 success: (res)=>{
                     if(res==1){
                         swal({title: "Dates Posted!", text: "Your date was successfully posted. Click ok to view.", type: "success"},
@@ -212,3 +204,29 @@ function setMsg(msg){
     setMsg += '</div>';
     return setMsg;
 }
+
+var componentForm = {
+    postal_code: 'short_name'
+};
+function initialize() {
+    var complete_address = document.getElementById('complete_address');
+    var autocomplete = new google.maps.places.Autocomplete(complete_address);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        document.getElementById('user_lat').value = place.geometry.location.lat();
+        document.getElementById('user_lng').value = place.geometry.location.lng();
+        for (var component in componentForm) {
+            document.getElementById(component).value = '';
+            document.getElementById(component).disabled = false;
+        }
+        for (var i = 0; i < place.address_components.length; i++) {
+            var addressType = place.address_components[i].types[0];
+            if (componentForm[addressType]) {
+                var val = place.address_components[i][componentForm[addressType]];
+                document.getElementById(addressType).value = val;
+            }
+        }
+
+    });
+}
+google.maps.event.addDomListener(window, 'load', initialize); 

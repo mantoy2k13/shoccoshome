@@ -44,12 +44,20 @@
                                         <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a guest. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
-                                        <form onchange="$('.setTimeMsg').html('');">
+                                        <form id="bec_guest_form" onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" value="<?=$today;?>">
                                             <input type="hidden" id="book_type" value="2">
                                             <input type="hidden" id="isAvail" value="<?=$bio[0]['isAvail'];?>">
+                                            <div class="form-group row">
+                                                <input id="user_lat" name="user_lat" type="hidden">
+                                                <input id="user_lng" name="user_lng" type="hidden">
+                                                <div class="col-md-12">
+                                                    <label for="" class="m-b-0">Enter your location here <span class="text-danger">*</span></label>
+                                                    <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." required>
+                                                </div>
+                                            </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
                                                     <label for="book_avail_from">Date From: </label>
@@ -74,7 +82,7 @@
                                                 <div class="col-md-12 m-t-10">
                                                     <label for="pet_list">Choose your pet from your list. <a href="<?=base_url();?>pet/add_new_pet">Click here</a> to add new pets.</label>
                                                     <?php $pet_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
-                                                    <select name="pet_list[]" class="multipleSelect form-control petList" multiple required id="pet_cat_list">
+                                                    <select name="pet_cat_list[]" class="multipleSelect form-control petList" multiple required id="pet_cat_list">
                                                         <?php if($my_pets){ foreach($my_pets as $pets){ extract($pets); ?>
                                                             <option value="<?=$pet_id;?>" <?=in_array($pet_id, $pet_list) ? 'selected' : '';?>><?=$pet_name;?> (<?=$cat_name ;?>)</option>
                                                         <?php } } else { ?>
@@ -111,6 +119,9 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <script src="<?=base_url();?>assets/js/initializations/init_booking_validations.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=places" type="text/javascript"></script>
+    <script src="<?=base_url();?>assets/js/initializations/init_prof_add.js"></script>
+
 </body>
 
 </html>
