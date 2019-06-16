@@ -53,6 +53,7 @@
                                             <div class="col-lg-4 col-md-12">
                                                 <label class="text-black m-b-0 f-15">Apply Changes:</label>
                                                 <button type="submit" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Change Radius</button>
+                                                <button type="button" class="nani btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Change</button>
                                             </div>
                                         </div>
                                     </form>

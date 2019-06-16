@@ -96,6 +96,33 @@ class Booking extends CI_Controller {
         else{ echo 0;}
     }
 
+    public function get_user_dates()
+	{
+		if($this->session->userdata('user_email')){
+            
+            $get_user_dates = $this->Booking_model->get_user_dates();
+            foreach($get_user_dates as $g){
+                $guest=0; $host=0;
+                $avail_users = $this->Booking_model->get_avail_users($g['avail_date_from']);
+                foreach($avail_users as $a){
+                    $guest += ($a['book_type']==2) ? 1 : 0;
+                    $host  += ($a['book_type']==1) ? 1 : 0;
+                }
+
+                for($i=1; $i<=2; $i++){
+                    $color = ($i==2) ? '#fa5637' : '#2f59f3';
+                    $title = ($i==1) ? 'HOST '.$host : 'GUEST '.$guest;
+                    $start = date('Y-m-d', strtotime($g['avail_date_from']));
+                    $end   = date('Y-m-d', strtotime($g['avail_date_from'].' +1 day'));
+                    $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
+                    $user_dates[] = $data;
+                }
+            }
+            echo json_encode($user_dates);
+        }
+        else{ echo 0;}
+    }
+
     public function book_user($book_type, $uid){ // Step 3
 		if ($this->session->userdata('user_email')){ 
             $my_user_id             = $this->session->userdata('user_id');

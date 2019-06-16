@@ -1,14 +1,20 @@
+ $(document).on('click', '.fc-day', function() { 
+    //  alert($(this).attr("data-date")); 
+    $(this).css("background", '#67dbff');
+    $('.fc-day').removeAttr("style");
+    $(this).attr("style", 'background: #67dbff !important');
+});
+
 navigator.geolocation.getCurrentPosition(
     function(position){ 
         var cur_lat         = position.coords.latitude;
         var cur_lng         = position.coords.longitude;
         $.ajax({
-            url: base_url+'home/get_all_available_user',
+            url: base_url+'booking/get_user_dates',
             type: "POST",
             dataType: 'JSON',
             data: {cur_lat: cur_lat, cur_lng: cur_lng},
             success: (res)=>{
-                console.log(res);
                 var calendarEl = document.getElementById('my_calendar');
                 var calendar = new FullCalendar.Calendar(calendarEl, {
                     header: {
@@ -16,13 +22,14 @@ navigator.geolocation.getCurrentPosition(
                         center: 'title',
                         right: 'prev,next today'
                     },
-                    navLinks: true, 
+                    navLinks: false, 
                     editable: false,
                     eventLimit: true, 
                     events: res,
                     eventClick: function(calEvent) {
                         viewUser(calEvent['event']['id'])
                     },
+                    
                 });
                 calendar.render();
             }
@@ -75,3 +82,4 @@ function viewUser(uid){
         }
     });
 }
+

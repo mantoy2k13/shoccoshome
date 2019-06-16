@@ -171,21 +171,57 @@ class Account_model extends CI_Model {
 
     public function set_my_dates($book_avail_from, $book_avail_to){
         $uid = $this->session->userdata('user_id');
+        // foreach($this->input->post('pet_cat_list') as $cat_id){
+        //     $cat_list[] = $cat_id;
+        // }
+        // $data = array(
+        //     'book_avail_from' => $book_avail_from,
+        //     'book_avail_to'   => $book_avail_to,
+        //     'cat_list'        => json_encode($cat_list),
+        //     'book_type'       => $this->input->post('book_type'),
+        //     'book_note'       => $this->input->post('book_note'),
+        //     'isAvail'         => true,
+        // );
+        // $this->db->where('id', $uid);
+        // $res = $this->db->update('sh_users', $data);
+        // return ($res) ? true : false;
+        $this->db->where('user_id', $uid);
+        $this->db->delete('sh_user_avail');
+
         foreach($this->input->post('pet_cat_list') as $cat_id){
             $cat_list[] = $cat_id;
         }
-        $data = array(
-            'book_avail_from' => $book_avail_from,
-            'book_avail_to'   => $book_avail_to,
-            'cat_list'        => json_encode($cat_list),
-            'book_type'       => $this->input->post('book_type'),
-            'book_note'       => $this->input->post('book_note'),
-            'isAvail'         => true,
-        );
-        $this->db->where('id', $uid);
-        $res = $this->db->update('sh_users', $data);
+
+        // var_dump($book_avail_from);
+        // var_dump($book_avail_to);
+        // exit;
+
+        $getDates = $this->getDatesFromRange($book_avail_from, $book_avail_to);
+        foreach($getDates as $d){    
+            $data = array(
+                'user_id' => $uid,
+                'avail_date_from' => $d,
+                'avail_date_to'   => $d,
+                'petcat_list'     => json_encode($cat_list),
+                'book_type'       => $this->input->post('book_type'),
+                'book_note'       => $this->input->post('book_note')
+            );
+            $res = $this->db->insert('sh_user_avail', $data);                        
+        }
         return ($res) ? true : false;
     }
+
+    function getDatesFromRange($start, $end, $format = 'Y-m-d'){
+		$array = array();
+		$interval = new DateInterval('P1D');
+		$realEnd = new DateTime($end);
+		$realEnd->add($interval);
+		$period = new DatePeriod(new DateTime($start), $interval, $realEnd);
+		foreach($period as $date){
+			$array[] = $date->format($format);
+		}
+		return $array;
+	}
 
     public function get_users_images($user_id, $limit){
         $this->db->select('*')->from('sh_images');

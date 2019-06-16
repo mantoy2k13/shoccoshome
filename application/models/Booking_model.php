@@ -236,6 +236,23 @@ class Booking_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_user_dates(){
+        $this->db->select('avail_date_from, COUNT(avail_date_from) as total_date_from');
+        $this->db->group_by('avail_date_from');
+        return $this->db->get('sh_user_avail')->result_array();
+    }
+
+    public function get_avail_users($date){
+        // $this->db->select('user_id,book_type, COUNT(book_type) as total_user');
+        // $this->db->group_by('book_type');
+        // $this->db->where('avail_date_from', $date);
+        // return $this->db->get('sh_user_avail')->result_array();
+
+        $this->db->select('user_id, book_type')->from('sh_user_avail');
+        $this->db->where('avail_date_from', $date);
+        return $this->db->get()->result_array();
+    }
+
     
 
     /* Working and Important Formula ================================================================*/

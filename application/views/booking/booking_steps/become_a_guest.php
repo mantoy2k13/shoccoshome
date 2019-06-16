@@ -47,9 +47,9 @@
                                         <form id="bec_guest_form" onchange="$('.setTimeMsg').html('');">
                                             <div class="row m-t-10"><div class="col-md-12 setTimeMsg"></div></div>
                                             <?php $today = date('Y-m-d'); ?>
-                                            <input type="hidden" id="curr_date" value="<?=$today;?>">
-                                            <input type="hidden" id="book_type" value="2">
-                                            <input type="hidden" id="isAvail" value="<?=$bio[0]['isAvail'];?>">
+                                            <input type="hidden" id="curr_date" name="curr_date" value="<?=$today;?>">
+                                            <input type="hidden" id="book_type" name="book_type" value="2">
+                                            <input type="hidden" id="isAvail"   name="isAvail"   value="<?=$bio[0]['isAvail'];?>">
                                             <div class="form-group row">
                                                 <input id="user_lat" name="user_lat" type="hidden">
                                                 <input id="user_lng" name="user_lng" type="hidden">
