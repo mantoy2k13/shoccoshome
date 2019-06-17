@@ -32,7 +32,7 @@
                     </div>
                     <!-- My Booking Request Summary -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <form action="<?=base_url();?>home/set_radius_length" method="POST">
@@ -53,18 +53,25 @@
                                             <div class="col-lg-4 col-md-12">
                                                 <label class="text-black m-b-0 f-15">Apply Changes:</label>
                                                 <button type="submit" class="btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Change Radius</button>
-                                                <button type="button" class="nani btn bg-orange text-white col-md-12"><i class="fa fa-edit"></i> Change</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+                        <?php if(!$this->Booking_model->get_user_info($this->session->userdata('user_id'))['zip_code']){ ?>
+                            <div class="col-md-12">
+                                <div class="alert alert-warning f-15">
+                                    <b><i class="fa fa-times"></i> Oops!</b> You have no address set. Click <a href="<?=base_url();?>account/account">here</a> to set your address.
+                                </div>
+                            </div>
+                        <?php } ?>
                         <div class="col-md-12">
                             <div class="cus-card">
                                 <div class="row">
                                     <div class="cus-card-header col-md-12">
                                         <i class="fa fa-calendar-alt"></i> All user schedules based on radius
+                                        <button type="button" onclick="changeSettings()" class="btn bg-orange btn-sm pull-right text-white"><i class="fa fa-edit"></i> Change Radius and Location</button>
                                     </div>
                                 </div>
                                 
@@ -82,7 +89,23 @@
     <!-- Footer -->
     <?php $this->load->view('common/footer');?>
     <?php $this->load->view('booking/booking_steps/booking_info');?>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=places" type="text/javascript"></script>
     <script src="<?=base_url();?>assets/js/initializations/init_my_calendar.js"></script>
+    
+    <script>
+        $(document).on('show.bs.modal', '.modal', function () {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        });
+        $(document).ready(function() {
+            $('#datatable').DataTable( {
+                select: true
+            } );
+        } );
+    </script>
   </body>
 
 </html>

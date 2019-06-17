@@ -1,44 +1,144 @@
- $(document).on('click', '.fc-day', function() { 
-    //  alert($(this).attr("data-date")); 
-    $(this).css("background", '#67dbff');
-    $('.fc-day').removeAttr("style");
-    $(this).attr("style", 'background: #67dbff !important');
+$(document).ready(function() {
+    getAllAvailableUsers();
 });
 
-navigator.geolocation.getCurrentPosition(
-    function(position){ 
-        var cur_lat         = position.coords.latitude;
-        var cur_lng         = position.coords.longitude;
-        $.ajax({
-            url: base_url+'booking/get_user_dates',
-            type: "POST",
-            dataType: 'JSON',
-            data: {cur_lat: cur_lat, cur_lng: cur_lng},
-            success: (res)=>{
-                var calendarEl = document.getElementById('my_calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    header: {
-                        left: 'month',
-                        center: 'title',
-                        right: 'prev,next today'
-                    },
-                    navLinks: false, 
-                    editable: false,
-                    eventLimit: true, 
-                    events: res,
-                    eventClick: function(calEvent) {
-                        viewUser(calEvent['event']['id'])
-                    },
-                    
+function initialize() {
+    var complete_address = document.getElementById('complete_address');
+    var autocomplete = new google.maps.places.Autocomplete(complete_address);
+    google.maps.event.addListener(autocomplete, 'place_changed', function () {
+        var place = autocomplete.getPlace();
+        document.getElementById('user_lat').value = place.geometry.location.lat();
+        document.getElementById('user_lng').value = place.geometry.location.lng();
+    });
+}
+google.maps.event.addDomListener(window, 'load', initialize); 
+
+$(document).on('click', 'td.fc-day.fc-widget-content', function() { 
+    $('td.fc-day.fc-widget-content').removeAttr("style");
+    $(this).attr("style", 'background: #67dbff !important');
+    date = $(this).attr('data-date');
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
+    $.ajax({
+        url: base_url+'booking/get_users_in_date/1', //Type 1 all, 2 by booktype
+        type: 'POST',
+        data: { date: date }, 
+        success: (res)=>{
+            if(res!=0){
+                $('.view_users_title').html('<i class="fa fa-users"></i> All Users - <span class="text-info">'+dateFormat(new Date(date), "dd mmm yyyy")+'</span>');
+                $('.view_user_dates').html(res);
+                $('#datatable').DataTable();
+                $('#view_users').modal('show');
+                $('#mLoader').html('');
+            } else{
+                $('#mLoader').html('');
+                window.createNotification({
+                    closeOnClick: true,
+                    displayCloseButton: true,
+                    positionClass: "nfc-top-right",
+                    showDuration: 5000,
+                    theme: "info"
+                })({
+                    title: 'No data',
+                    message: "There are no users available."
                 });
-                calendar.render();
             }
-        }); 
-    },
-    function(){ 
-        swal("Location Failed!", "Please allow your browser to know your location by turning it on.", 'warning');
-    }
-);
+        }
+    });
+});
+
+// navigator.geolocation.getCurrentPosition(
+//     function(position){ 
+//         var cur_lat         = position.coords.latitude;
+//         var cur_lng         = position.coords.longitude;
+//         $.ajax({
+//             url: base_url+'booking/get_user_dates',
+//             type: "POST",
+//             dataType: 'JSON',
+//             data: {cur_lat: cur_lat, cur_lng: cur_lng},
+//             success: (res)=>{
+//                 var calendarEl = document.getElementById('my_calendar');
+//                 var calendar = new FullCalendar.Calendar(calendarEl, {
+//                     header: {
+//                         left: 'month',
+//                         center: 'title',
+//                         right: 'prev,next today'
+//                     },
+//                     navLinks: false, 
+//                     editable: false,
+//                     eventLimit: true, 
+//                     events: res,
+//                     eventClick: function(calEvent) {
+//                         get_users(calEvent['event']['id'], calEvent['event']['groupId'])
+//                     },
+//                 });
+//                 calendar.render();
+//             }
+//         }); 
+//     },
+//     function(){ 
+//         swal("Location Failed!", "Please allow your browser to know your location by turning it on.", 'warning');
+//     }
+// );
+
+function changeSettings(){
+    $('#rad-loc-settings').modal('show');
+}
+
+function getAllAvailableUsers(){
+    $.ajax({
+        url: base_url+'booking/get_user_dates',
+        dataType: 'JSON',
+        success: (res)=>{
+            var calendarEl = document.getElementById('my_calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                header: {
+                    left: 'month',
+                    center: 'title',
+                    right: 'prev,next today'
+                },
+                navLinks: false, 
+                editable: false,
+                eventLimit: true, 
+                events: res,
+                eventClick: function(calEvent) {
+                    get_users(calEvent['event']['id'], calEvent['event']['groupId'])
+                },
+            });
+            calendar.render();
+        }
+    }); 
+}
+
+function get_users(book_type, date){
+    $('#mLoader').html('<div class="loading"> Loading..</div>');
+    $.ajax({
+        url: base_url+'booking/get_users_in_date/2', //Type 1 all, 2 by booktype
+        type: 'POST',
+        data: { book_type:book_type, date: date, type: 2 }, 
+        success: (res)=>{
+            if(res!=0){
+                var userType = (book_type==1) ? 'Host' : 'Guest';
+                $('.view_users_title').html('<i class="fa fa-users"></i> All '+userType+' Users - <span class="text-info">'+dateFormat(new Date(date), "dd mmm yyyy")+'</span>');
+                $('.view_user_dates').html(res);
+                $('#datatable').DataTable();
+                $('#view_users').modal('show');
+                $('#mLoader').html('');
+            } else{
+                $('#mLoader').html('');
+                window.createNotification({
+                    closeOnClick: true,
+                    displayCloseButton: true,
+                    positionClass: "nfc-top-right",
+                    showDuration: 5000,
+                    theme: "info"
+                })({
+                    title: 'No data',
+                    message: "There are no users available."
+                });
+            }
+        }
+    });
+}
 
 function viewUser(uid){
     $('#mLoader').html('<div class="loading"> Loading..</div>');
@@ -57,7 +157,7 @@ function viewUser(uid){
                 $('#user_img_info').attr('src', usrImg);
                 $('#cat-text').html(book_txt);
                 $('#fullname_info').html(res['fullname']);
-                $('#address_info').html(res['complete_address'])
+                $('#address_info').html(res['complete_address']);
                 $('#schedule_info').html(sched);
                 $('#book_type_info').html(book_type);
                 $('#cat_list_info').val(res['my_cat']);

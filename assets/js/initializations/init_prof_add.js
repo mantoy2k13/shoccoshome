@@ -29,7 +29,6 @@ function initialize() {
                 $('#'+addressType).removeAttr('disabled');
             }
         }
-
     });
 }
 google.maps.event.addDomListener(window, 'load', initialize); 

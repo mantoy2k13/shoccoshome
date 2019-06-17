@@ -55,9 +55,9 @@
     <script src="<?=base_url();?>assets/vendor/fastselect/fastselect.standalone.js"></script>
 <?php } ?>
 
-<?php if($is_page=='booking_history'){ ?>
+<?php if($is_page=='booking_history' || $is_page=='my_calendar'){ ?>
     <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.min.js"></script>
     <script src="<?=base_url();?>assets/vendor/dataTables/dataTables.js"></script>
 <?php } ?>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKmCY9-diuULK1hyHnDkElDSPT6mbfB7w&libraries=geometry&sensor=false"></script> -->

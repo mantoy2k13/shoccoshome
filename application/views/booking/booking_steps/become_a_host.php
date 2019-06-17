@@ -40,7 +40,7 @@
                             <div class="col-md-12">
                                 <div class="cus-card">
                                     <div class="cus-card-header">
-                                        <i class="fa fa-calendar-alt"></i> Become a Host: Set your dates <i class="fa fa-question-circle pull-right m-t-5 text-info" data-container="body" data-toggle="popover" data-placement="left" title="Enter your available or desired dates as a host. Fill up all fields below and click Save Dates."></i>
+                                        <i class="fa fa-calendar-alt"></i> Become a Host: Set your dates 
                                         <p class="f-12 m-b-0" style="line-height: 15px;">Enter your available or desired dates as a host. Fill up all fields below and click Save Dates.</p>
                                     </div>
                                     <div class="cus-card-body">
@@ -49,39 +49,39 @@
                                             <?php $today = date('Y-m-d'); ?>
                                             <input type="hidden" id="curr_date" name="curr_date" value="<?=$today;?>">
                                             <input type="hidden" id="book_type" name="book_type" value="1">
-                                            <input type="hidden" id="isAvail"   name="isAvail"   value="<?=$bio[0]['isAvail'];?>">
                                             <div class="form-group row">
-                                                <input id="user_lat" name="user_lat" type="hidden">
-                                                <input id="user_lng" name="user_lng" type="hidden">
+                                                <input id="user_lat" name="user_lat" type="hidden" value="<?=$d['avail_user_lat'] ? $d['avail_user_lat'] : '';?>">
+                                                <input id="user_lng" name="user_lng" type="hidden" value="<?=$d['avail_user_lng'] ? $d['avail_user_lng'] : '';?>">
                                                 <div class="col-md-12">
                                                     <label for="" class="m-b-0">Enter your location here <span class="text-danger">*</span></label>
-                                                    <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." required>
+                                                    <input id="complete_address" name="complete_address" type="text" class="form-control" placeholder="Enter your address here.." value="<?=$d['avail_address'] ? $d['avail_address'] : '';?>" required>
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
+                                                <?php $hr = ($d['avail_hrs']) ? json_decode($d['avail_hrs']) : [] ?>
                                                 <div class="col-md-7">
                                                     <label for="book_avail_from">Date From: </label>
-                                                    <input type="date" class="form-control" name="book_avail_from" id="book_avail_from" value="<?=$bio[0]['book_avail_from'] ? date('Y-m-d', strtotime($bio[0]['book_avail_from'])) : '';?>">
+                                                    <input type="date" class="form-control" name="book_avail_from" id="book_avail_from" value="<?=$d['avail_date_from'] ? date('Y-m-d', strtotime($d['avail_date_from'])) : '';?>">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label for="book_time_from">Time From: </label>
-                                                    <input type="time" class="form-control" name="book_time_from" id="book_time_from" value="<?=$bio[0]['book_avail_from'] ? date('H:i', strtotime($bio[0]['book_avail_from'])) : '';?>">
+                                                    <input type="time" class="form-control" name="book_time_from" id="book_time_from" value="<?=$hr ? $hr[0] : '';?>">
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-7">
                                                     <label for="book_avail_to">Date To: </label>
-                                                    <input type="date" class="form-control" name="book_avail_to" id="book_avail_to" value="<?=$bio[0]['book_avail_to'] ? date('Y-m-d', strtotime($bio[0]['book_avail_to'])) : '';?>">
+                                                    <input type="date" class="form-control" name="book_avail_to" id="book_avail_to" value="<?=$d['avail_date_to'] ? date('Y-m-d', strtotime($d['avail_date_to'])) : '';?>">
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label for="book_time_to">Time To: </label>
-                                                    <input type="time" class="form-control" name="book_time_to" id="book_time_to" value="<?=$bio[0]['book_avail_to'] ? date('H:i', strtotime($bio[0]['book_avail_to'])) : '';?>">
+                                                    <input type="time" class="form-control" name="book_time_to" id="book_time_to" value="<?=$hr ? $hr[1] : '';?>">
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 m-t-10">
                                                     <label for="pet_cat_list" class="f-15">What kind of pet do you like?</label><br />
-                                                    <?php $cat_list = ($bio[0]['cat_list']) ? json_decode($bio[0]['cat_list']) : []; ?>
+                                                    <?php $cat_list = ($d['petcat_list']) ? json_decode($d['petcat_list']) : []; ?>
                                                     <select name="pet_cat_list[]" class="multipleSelect form-control petCat" multiple id="pet_cat_list">
                                                         <?php foreach($categories as $cat){ extract($cat); ?>
                                                             <option value="<?=$cat_id;?>" <?=in_array($cat_id, $cat_list) ? 'selected' : '';?>><?=($cat_name) ? $cat_name : "No Name";?></option>
@@ -90,13 +90,13 @@
                                                 </div>
                                                 <div class="col-md-12 m-t-10">
                                                     <label for="book_note">Note/Remarks: </label>
-                                                    <textarea class="form-control" name="book_note" id="book_note" cols="30" rows="3" placeholder="Additional Notes.."><?=$bio[0]['book_note'];?></textarea>
+                                                    <textarea class="form-control" name="book_note" id="book_note" cols="30" rows="3" placeholder="Additional Notes.."><?=$d['book_note'];?></textarea>
                                                 </div>
                                             </div>
                                             <div class="row m-t-10">
                                                 <div class="col-md-12 text-center">
                                                     <button type="button" onclick="checkDateTime(2)" class="btn btn-success"><i class="fa fa-check"></i> Save and Next</button>
-                                                    <?php if($bio[0]['isAvail']){?>
+                                                    <?php if($d['avail_id']){?>
                                                         <button type="button" onclick="unsetDates(1)" class="btn btn-info"><i class="fa fa-history"></i> Unset Dates</button>
                                                     <?php } ?>
                                                 </div>

@@ -75,8 +75,6 @@ class Account_model extends CI_Model {
 
     public function get_user_info($uid){
         $this->db->select('*')->from('sh_users')->where('id', $uid);
-        $this->db->order_by('book_type', 'ASC');
-        $this->db->order_by('fullname', 'ASC');
         return $this->db->get()->result_array();
     }
 
@@ -171,40 +169,26 @@ class Account_model extends CI_Model {
 
     public function set_my_dates($book_avail_from, $book_avail_to){
         $uid = $this->session->userdata('user_id');
-        // foreach($this->input->post('pet_cat_list') as $cat_id){
-        //     $cat_list[] = $cat_id;
-        // }
-        // $data = array(
-        //     'book_avail_from' => $book_avail_from,
-        //     'book_avail_to'   => $book_avail_to,
-        //     'cat_list'        => json_encode($cat_list),
-        //     'book_type'       => $this->input->post('book_type'),
-        //     'book_note'       => $this->input->post('book_note'),
-        //     'isAvail'         => true,
-        // );
-        // $this->db->where('id', $uid);
-        // $res = $this->db->update('sh_users', $data);
-        // return ($res) ? true : false;
         $this->db->where('user_id', $uid);
         $this->db->delete('sh_user_avail');
-
         foreach($this->input->post('pet_cat_list') as $cat_id){
             $cat_list[] = $cat_id;
         }
-
-        // var_dump($book_avail_from);
-        // var_dump($book_avail_to);
-        // exit;
-
         $getDates = $this->getDatesFromRange($book_avail_from, $book_avail_to);
-        foreach($getDates as $d){    
+        $avail_hrs[] = $this->input->post('book_time_from');
+        $avail_hrs[] = $this->input->post('book_time_to');
+        foreach($getDates as $d){
             $data = array(
                 'user_id' => $uid,
                 'avail_date_from' => $d,
                 'avail_date_to'   => $d,
                 'petcat_list'     => json_encode($cat_list),
                 'book_type'       => $this->input->post('book_type'),
-                'book_note'       => $this->input->post('book_note')
+                'book_note'       => $this->input->post('book_note'),
+                'avail_address'   => $this->input->post('complete_address'),
+                'avail_user_lat'  => $this->input->post('user_lat'),
+                'avail_user_lng'  => $this->input->post('user_lng'),
+                'avail_hrs'       => json_encode($avail_hrs),
             );
             $res = $this->db->insert('sh_user_avail', $data);                        
         }
@@ -234,16 +218,8 @@ class Account_model extends CI_Model {
 
     public function unset_dates($t){
         $uid = $this->session->userdata('user_id');
-        $data = array(
-            'book_avail_from' => '',
-            'book_avail_to'   => '',
-            'cat_list'        => '',
-            'book_type'       => '',
-            'book_note'       => '',
-            'isAvail'         => false,
-        );
-        $this->db->where('id', $uid);
-        $res = $this->db->update('sh_users', $data);
+        $this->db->where('user_id', $uid);
+        $res = $this->db->delete('sh_user_avail');
         return ($res) ? true : false;
     }
 

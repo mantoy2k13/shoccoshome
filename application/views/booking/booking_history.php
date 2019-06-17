@@ -71,7 +71,7 @@
                                                     <img class="zoomable" src="<?=base_url();?>assets/img/pictures/<?=$prof_img;?>" alt="Profile Image">
                                                 </div>
                                             </td>
-                                            <td><a href="<?=base_url();?>account/view_bio/<?=$id?>" data-toggle="tooltip" data-placement="right" title="<?=$email;?>"><?=($fullname) ? $fullname : "No Name";?></a> <?=($book_type==1) ? '<span class="badge badge-primary font-san-serif"><i class="fa fa-user"></i> HOST</span>' : '<span class="badge bg-orange text-white font-san-serif"><i class="fa fa-user"></i> GUEST</span>'; ?></td>
+                                            <td><a href="<?=base_url();?>account/view_bio/<?=$id?>" data-toggle="tooltip" data-placement="right" title="<?=$email;?>"><?=($fullname) ? $fullname : "No Name";?></a> <?=($user_type==1) ? '<span class="badge badge-primary font-san-serif"><i class="fa fa-user"></i> HOST</span>' : '<span class="badge bg-orange text-white font-san-serif"><i class="fa fa-user"></i> GUEST</span>'; ?></td>
                                             <td class="text-center"><?=($complete_address&&$zip_code) ? $complete_address.', '.$zip_code : 'No Address'; ?></td>
                                             <td class="text-center font-san-serif">
                                                 <?=($book_status==1) ? '<span class="badge bg-orange text-white"><i class="fa fa-history"></i> Waiting for approval</span>' : ''; ?>
@@ -109,7 +109,7 @@
                                                             <a onclick="bookAppr(<?=$book_id;?>,5)" class="dropdown-item" href="javascript:;">Complete Booking</a>
                                                         <?php } ?>
                                                     <?php } ?>
-                                                    <a href="<?=base_url();?>booking/view_booking_info/<?=$bPage.'/'.$id.'/'.$book_type.'/'.$book_id;?>" target="_blank" class="dropdown-item" >Booking Info</a>
+                                                    <a href="<?=base_url();?>booking/view_booking_info/<?=$bPage.'/'.$id.'/'.$user_type.'/'.$book_id;?>" target="_blank" class="dropdown-item" >Booking Info</a>
                                                     <a onclick="instMsg(<?=$id;?>,'<?=$email;?>')" class="dropdown-item" href="javascript:;">Send Message</a>
                                                 </div>
                                             </td>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2019 at 11:21 AM
+-- Generation Time: Jun 17, 2019 at 04:44 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.2.16
 
@@ -64,7 +64,8 @@ CREATE TABLE `sh_book` (
 INSERT INTO `sh_book` (`book_id`, `book_by`, `book_to`, `book_date_from`, `book_date_to`, `pet_list`, `short_message`, `book_status`, `user_type`, `is_notify`, `book_date`) VALUES
 (1, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'Can you book my pets? thanks', '5', '2', 4, '2019-05-20 03:35:26'),
 (2, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'awe', '5', '2', 4, '2019-05-20 06:30:58'),
-(3, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'Hello!', '3', '2', 2, '2019-05-20 09:09:48');
+(3, 2, 1, '2019-05-20 00:12', '2019-05-20 00:12', '[\"1\"]', 'Hello!', '3', '2', 2, '2019-05-20 09:09:48'),
+(4, 2, 1, '2019-05-23 00:21', '2019-05-23 00:12', '[\"1\"]', 'HellO!', '5', '2', 4, '2019-05-23 11:33:09');
 
 -- --------------------------------------------------------
 
@@ -761,7 +762,8 @@ INSERT INTO `sh_mail` (`mail_id`, `user_id`, `mail_to`, `subject`, `message`, `i
 (1, 1, 2, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-20 03:39:24'),
 (2, 2, 1, 'Booking Request Approved', 'Yea we can talk about this!', 1, 1, 0, 0, 1, 0, 0, '2019-05-20 03:40:08'),
 (3, 1, 2, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 1, 0, 0, 0, '2019-05-20 06:31:45'),
-(4, 1, 2, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-20 09:10:32');
+(4, 1, 2, 'Reason for disapproving', 'Dear Ma\'am/Sir,\r\n\r\nSorry for disapproving your request for now. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-20 09:10:32'),
+(5, 1, 2, 'Booking Request Approved', 'Dear Ma\'am/Sir,\r\n\r\nThank you for booking as a sitter for my pets. ', 1, 1, 0, 0, 0, 0, 0, '2019-05-23 11:34:09');
 
 -- --------------------------------------------------------
 
@@ -829,6 +831,7 @@ CREATE TABLE `sh_users` (
   `password` varchar(250) NOT NULL,
   `mobile_number` varchar(255) NOT NULL,
   `gender` varchar(50) NOT NULL,
+  `en_address` text NOT NULL,
   `complete_address` text NOT NULL,
   `zip_code` varchar(100) NOT NULL,
   `user_lat` double(18,14) NOT NULL,
@@ -837,13 +840,8 @@ CREATE TABLE `sh_users` (
   `user_img` varchar(255) NOT NULL,
   `cover_photo` varchar(255) NOT NULL,
   `cover_pos` varchar(255) NOT NULL,
-  `sitter_availability` text NOT NULL,
   `isAvail` tinyint(1) NOT NULL,
-  `book_avail_from` varchar(255) NOT NULL,
-  `book_avail_to` varchar(255) NOT NULL,
-  `book_type` int(10) NOT NULL COMMENT '1 Host, 2 Guest',
-  `book_note` text NOT NULL,
-  `cat_list` text NOT NULL,
+  `role` int(255) NOT NULL COMMENT '1 Admin, 2 User',
   `is_smoker` tinyint(1) NOT NULL COMMENT '1 Yes, 0 No',
   `living_in` int(10) NOT NULL COMMENT '1 House, 2 Apartment',
   `is_complete` tinyint(1) NOT NULL COMMENT '0 Not Complete, 1 Complete, 2 CompleteLater',
@@ -854,9 +852,44 @@ CREATE TABLE `sh_users` (
 -- Dumping data for table `sh_users`
 --
 
-INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `complete_address`, `zip_code`, `user_lat`, `user_lng`, `bio`, `user_img`, `cover_photo`, `cover_pos`, `sitter_availability`, `isAvail`, `book_avail_from`, `book_avail_to`, `book_type`, `book_note`, `cat_list`, `is_smoker`, `living_in`, `is_complete`, `date_created`) VALUES
-(1, 'Easton Curry', 'Business Man', 'easton@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', 'Colonnade Supermarket, Colon Street, Cebu City, Cebu, Philippines', '6000', 10.29673680000000, '123.89998360000004', 'I\'m a lovable person.', 'p_5ce21944e697f.jpg', '', '', '', 1, '2019-05-20 00:12:00', '2019-05-20 00:21:00', 2, 'Nope', '[\"3\"]', 0, 1, 1, '2019-05-20 03:02:54'),
-(2, 'Alicia Smith', 'Beauty Expert', 'alicia@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', 'Canduman Road, Mandaue City, Cebu, Philippines', '6014', 10.36770920000000, '123.93358779999994', 'I\'m beautiful expert!', 'p_5ce21b8f9c4de.jpg', '', '', '', 1, '2019-05-20 00:12:00', '2019-05-20 00:21:00', 1, 'Noted!', '[\"3\"]', 0, 1, 1, '2019-05-20 03:13:16');
+INSERT INTO `sh_users` (`id`, `fullname`, `occupation`, `email`, `password`, `mobile_number`, `gender`, `en_address`, `complete_address`, `zip_code`, `user_lat`, `user_lng`, `bio`, `user_img`, `cover_photo`, `cover_pos`, `isAvail`, `role`, `is_smoker`, `living_in`, `is_complete`, `date_created`) VALUES
+(1, 'Easton Curry', 'Business Man', 'easton@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', '{\"street_number\":\"12606\",\"street_address\":\"Burbank Boulevard\",\"city\":\"Los Angeles\",\"state\":\"CA\",\"country\":\"United States\",\"zip_code\":\"91607\"}', '12606 Burbank Boulevard, Valley Village, CA, USA', '91607', 34.17182990000000, '-118.40731920000002', 'I\'m a lovable person.', 'p_5ce21944e697f.jpg', '', '', 1, 0, 0, 1, 1, '2019-05-20 03:02:54'),
+(2, 'Alicia Smith', 'Beauty Expert', 'alicia@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', '', 'Canduman Road, Mandaue City, Cebu, Philippines', '6014', 10.36770920000000, '123.93358779999994', 'I\'m beautiful expert!', 'p_5ce21b8f9c4de.jpg', '', '', 1, 0, 0, 1, 1, '2019-05-20 03:13:16'),
+(3, 'Tom 1', 'Developer', 'tom1@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', '', 'Canduman Road, Mandaue City, Cebu, Philippines', '6014', 10.36770920000000, '123.93358779999994', '', '', '', '', 1, 0, 0, 1, 1, '2019-06-03 08:17:56'),
+(4, 'Tom 3', 'Developer', 'tom3@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', '', 'Mandaue City, Cebu, Philippines', '6014', 10.34026230000000, '123.94155180000007', '', '', '', '', 1, 0, 0, 1, 1, '2019-06-03 10:07:05'),
+(5, 'MJ', 'Business Man', 'tom2@gmail.com', '202cb962ac59075b964b07152d234b70', '09198983848', 'Male', '', 'Canduman Road, Mandaue City, Cebu, Philippines', '6014', 10.36770920000000, '123.93358779999994', '', '', '', '', 1, 0, 0, 1, 1, '2019-06-05 12:45:33'),
+(6, '', '', 'mj@gmail.com', '202cb962ac59075b964b07152d234b70', '', '', '', '', '', 0.00000000000000, '0.00000000000000', '', '', '', '', 0, 0, 0, 0, 2, '2019-06-12 11:57:07'),
+(7, 'MJ', 'Fashion', 'maria@gmail.com', '202cb962ac59075b964b07152d234b70', '12334', 'Male', '', '12606 Burbank Boulevard, Valley Village, CA, USA', '91607', 34.17182990000000, '-118.40731920000002', '', '', '', '', 1, 0, 0, 1, 1, '2019-06-14 04:41:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sh_user_avail`
+--
+
+CREATE TABLE `sh_user_avail` (
+  `avail_id` int(11) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `avail_address` text COLLATE utf8_unicode_ci NOT NULL,
+  `avail_user_lat` double(18,14) NOT NULL,
+  `avail_user_lng` double(18,14) NOT NULL,
+  `avail_date_from` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `avail_date_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `avail_hrs` text COLLATE utf8_unicode_ci NOT NULL,
+  `book_type` int(10) NOT NULL,
+  `book_note` text COLLATE utf8_unicode_ci NOT NULL,
+  `petcat_list` text COLLATE utf8_unicode_ci NOT NULL,
+  `set_avail_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sh_user_avail`
+--
+
+INSERT INTO `sh_user_avail` (`avail_id`, `user_id`, `avail_address`, `avail_user_lat`, `avail_user_lng`, `avail_date_from`, `avail_date_to`, `avail_hrs`, `book_type`, `book_note`, `petcat_list`, `set_avail_date`) VALUES
+(29, 2, '12606 Burbank Boulevard, Valley Village, CA, USA', 34.17182990000000, -118.40731920000002, '2019-06-17', '2019-06-17', '[\"12:12\",\"13:01\"]', 1, 'My notes!', '[\"3\",\"4\"]', '2019-06-17 14:23:56'),
+(30, 2, '12606 Burbank Boulevard, Valley Village, CA, USA', 34.17182990000000, -118.40731920000002, '2019-06-18', '2019-06-18', '[\"12:12\",\"13:01\"]', 1, 'My notes!', '[\"3\",\"4\"]', '2019-06-17 14:23:56'),
+(31, 2, '12606 Burbank Boulevard, Valley Village, CA, USA', 34.17182990000000, -118.40731920000002, '2019-06-19', '2019-06-19', '[\"12:12\",\"13:01\"]', 1, 'My notes!', '[\"3\",\"4\"]', '2019-06-17 14:23:56');
 
 --
 -- Indexes for dumped tables
@@ -929,6 +962,12 @@ ALTER TABLE `sh_users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sh_user_avail`
+--
+ALTER TABLE `sh_user_avail`
+  ADD PRIMARY KEY (`avail_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -942,7 +981,7 @@ ALTER TABLE `sh_albums`
 -- AUTO_INCREMENT for table `sh_book`
 --
 ALTER TABLE `sh_book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sh_breeds`
@@ -972,7 +1011,7 @@ ALTER TABLE `sh_friends`
 -- AUTO_INCREMENT for table `sh_friend_request`
 --
 ALTER TABLE `sh_friend_request`
-  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `sh_images`
@@ -984,7 +1023,7 @@ ALTER TABLE `sh_images`
 -- AUTO_INCREMENT for table `sh_mail`
 --
 ALTER TABLE `sh_mail`
-  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `mail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sh_pets`
@@ -996,7 +1035,13 @@ ALTER TABLE `sh_pets`
 -- AUTO_INCREMENT for table `sh_users`
 --
 ALTER TABLE `sh_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `sh_user_avail`
+--
+ALTER TABLE `sh_user_avail`
+  MODIFY `avail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

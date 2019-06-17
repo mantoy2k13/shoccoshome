@@ -5,6 +5,7 @@ var checkDateTime = (type)=>{
     var book_time_from  = $('#book_time_from').val();
     var book_time_to    = $('#book_time_to').val();
     var pet_cat_list    = $('#pet_cat_list').val();
+    var user_lat        = $('#user_lat').val();
     var book_data       = (type==1) ? $('#bec_guest_form').serialize() : $('#bec_host_form').serialize();
 
     if(book_avail_from && book_time_from && book_avail_to && book_time_to && pet_cat_list.length!=0){
@@ -21,6 +22,9 @@ var checkDateTime = (type)=>{
         } else if(given_date_to < given_date_from){
             $('.setTimeMsg').html(setMsg('Date From must be equal or less than the date to'));
             $('#book_avail_to').focus();
+        } else if(!user_lat){
+            $('.setTimeMsg').html(setMsg('Please enter your address and click on the suggestions'));
+            $('#complete_address').focus();
         } else{
             $.ajax({
                 url: base_url+'account/set_my_dates',

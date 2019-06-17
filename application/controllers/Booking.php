@@ -38,6 +38,7 @@ class Booking extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']    = 'become_a_host';
             $data['bio']        = $this->Account_model->get_user_info($uid);
+            $data['d']          = $this->Booking_model->get_avail_dates($uid);
             $data['categories'] = $this->Pet_model->get_all_pet_cat();
             $this->load->view('booking/booking_steps/become_a_host', $data);
         }
@@ -52,6 +53,7 @@ class Booking extends CI_Controller {
 			$data["user_logindata"] = $this->Auth_model->fetchuserlogindata($user_email);
             $data['is_page']    = 'become_a_guest';
             $data['bio']        = $this->Account_model->get_user_info($uid);
+            $data['d']          = $this->Booking_model->get_avail_dates($uid);
             $data['categories'] = $this->Pet_model->get_all_pet_cat();
             $data['my_pets']  = $this->Account_model->get_my_pets($uid);
             $this->load->view('booking/booking_steps/become_a_guest', $data);
@@ -84,7 +86,7 @@ class Booking extends CI_Controller {
                     $title = $p['fullname'].$book_type;
                     $start = date('Y-m-d', strtotime($p['book_avail_from']));
                     $end   = date('Y-m-d', strtotime($p['book_avail_to'].' +1 day'));
-                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
+                    $data  = array('id'=>$p['id'],'title'=>$title,'start'=>$start,'end'=> $end,'color'=>$color);
                     $user_dates[] = $data;
                 }
             } else{
@@ -99,26 +101,67 @@ class Booking extends CI_Controller {
     public function get_user_dates()
 	{
 		if($this->session->userdata('user_email')){
-            
             $get_user_dates = $this->Booking_model->get_user_dates();
-            foreach($get_user_dates as $g){
-                $guest=0; $host=0;
-                $avail_users = $this->Booking_model->get_avail_users($g['avail_date_from']);
-                foreach($avail_users as $a){
-                    $guest += ($a['book_type']==2) ? 1 : 0;
-                    $host  += ($a['book_type']==1) ? 1 : 0;
-                }
+            if($get_user_dates){
+                foreach($get_user_dates as $g){
+                    $guest=0; $host=0;
+                    $avail_users = $this->Booking_model->get_avail_users($g['avail_date_from']);
+                    foreach($avail_users as $a){
+                        $guest += ($a['book_type']==2) ? 1 : 0;
+                        $host  += ($a['book_type']==1) ? 1 : 0;
+                    }
 
-                for($i=1; $i<=2; $i++){
-                    $color = ($i==2) ? '#fa5637' : '#2f59f3';
-                    $title = ($i==1) ? 'HOST '.$host : 'GUEST '.$guest;
-                    $start = date('Y-m-d', strtotime($g['avail_date_from']));
-                    $end   = date('Y-m-d', strtotime($g['avail_date_from'].' +1 day'));
-                    $data  = array('id'=>$i,'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
-                    $user_dates[] = $data;
+                    for($i=1; $i<=2; $i++){
+                        $color = ($i==2) ? '#fa5637' : '#2f59f3';
+                        $title = ($i==1) ? 'HOST '.$host : 'GUEST '.$guest;
+                        $start = date('Y-m-d', strtotime($g['avail_date_from']));
+                        $end   = date('Y-m-d', strtotime($g['avail_date_from'].' +1 day'));
+                        $data  = array('id'=>$i,'groupId'=>$start,'title'=>$title,'start'=>$start,'end'=> $end, 'color' => $color);
+                        $user_dates[] = $data;
+                    }
                 }
+            } else{
+                $data  = array('id'=>0,'title'=>'','start'=>'','end'=> '');
+                $user_dates[] = $data;
             }
             echo json_encode($user_dates);
+        }
+        else{ echo 0;}
+    }
+
+    public function get_users_in_date($type){
+		if($this->session->userdata('user_email')){
+            $get_users_in_date = $this->Booking_model->get_users_in_date($type);
+            if($get_users_in_date){
+                $tblData = '';
+                $tblData .= '<table class="table table-hover m-t-20" id="datatable"><thead><tr>';
+                $tblData .= '<th class="text-center"><i class="fa fa-image"></i></th>';
+                $tblData .= '<th>Name</th>';
+                $tblData .= '<th>Address</th>';
+                $tblData .= '<th>Action</th>';
+                $tblData .= '</tr></thead><tbody id="users_in_date">';
+                foreach($get_users_in_date as $d){
+                    $prof_img = ($d['user_img']) ? 'usr'.$d['id'].'/'.$d['user_img'] : 'default.png';
+                    $fullname = ($d['fullname']) ? $d['fullname'] : 'No Name';
+                    $btype = ($d['book_type']==1) ? '<span class="badge badge-primary font-san-serif"><i class="fa fa-user"></i> HOST</span>' : '<span class="badge bg-orange text-white font-san-serif"><i class="fa fa-user"></i> GUEST</span>';
+                    $tblData .= '<tr>';
+                    $tblData .=     '<td class="text-center">';
+                    $tblData .=        '<div class="profile-img">';
+                    $tblData .=            '<img class="zoomable" src="'.base_url().'assets/img/pictures/'.$prof_img.'" alt="Profile Image" style="cursor: pointer;">';
+                    $tblData .=        '</div>';
+                    $tblData .=     '</td>';
+                    $tblData .=     '<td>';
+                    $tblData .=         '<a href="'.base_url().'account/view_bio/'.$d['id'].'" target="_blank" title="'.$d['email'].'">'.$fullname.'</a> '.$btype;
+                    $tblData .=     '</td>';
+                    $tblData .=     '<td class="text-center">'.$d['complete_address'].', '.$d['zip_code'].'</td>';
+                    $tblData .=     '<td class="text-center">';
+                    $tblData .=         '<a href="javascript:;" onclick="viewUser('.$d['id'].')" class="btn btn-info btn-xs">View Info</a>';
+                    $tblData .=     '</td>';
+                    $tblData .= '</tr>';
+                }
+                $tblData .=   '</tbody></table>';
+                echo $tblData;
+            } else{ echo 0; }
         }
         else{ echo 0;}
     }

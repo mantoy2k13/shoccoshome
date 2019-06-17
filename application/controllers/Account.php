@@ -186,9 +186,6 @@ class Account extends CI_Controller {
 
     public function set_my_dates(){
         if($this->session->userdata('user_email')){
-            // $book_avail_from = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_from').' '.$this->input->post('book_time_from')));
-            // $book_avail_to = date ("Y-m-d H:i:s", strtotime($this->input->post('book_avail_to').' '.$this->input->post('book_time_to')));
-            // $res = $this->Account_model->set_my_dates($book_avail_from, $book_avail_to);
             $book_avail_from = date ("Y-m-d", strtotime($this->input->post('book_avail_from').' '.$this->input->post('book_time_from')));
             $book_avail_to = date ("Y-m-d", strtotime($this->input->post('book_avail_to').' '.$this->input->post('book_time_to')));
             $res = $this->Account_model->set_my_dates($book_avail_from, $book_avail_to);

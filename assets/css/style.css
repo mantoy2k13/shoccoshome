@@ -1619,6 +1619,10 @@ span.navBadge {
     right: -2px;
 }
 
+.pac-container.pac-logo {
+    z-index: 9999;
+}
+
 /*Daryl code*/
 
 div.prof-desc {

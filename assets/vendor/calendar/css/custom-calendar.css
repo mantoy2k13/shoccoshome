@@ -77,3 +77,20 @@ button.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right
     margin: 1px 0px;
     border-radius: 0;
 }
+
+td.fc-day.fc-widget-content{
+    cursor: pointer;
+}
+
+td.fc-day.fc-widget-content:hover{
+    background: #67dbff !important;
+}
+
+.modal-backdrop
+{
+    opacity:0.5 !important;
+}
+
+.modal-backdrop.in {
+    opacity: 0.9;
+}

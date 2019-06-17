@@ -237,23 +237,66 @@ class Booking_model extends CI_Model {
     }
 
     public function get_user_dates(){
-        $this->db->select('avail_date_from, COUNT(avail_date_from) as total_date_from');
+        $uid = $this->session->userdata('user_id');
+        $loc = $this->get_avail_dates($uid);
+        if($loc){
+            $lat = isset($_SESSION['set_lat']) ? $_SESSION['set_lat'] : $loc['avail_user_lat'];
+            $lng = isset($_SESSION['set_lng']) ? $_SESSION['set_lng'] : $loc['avail_user_lng'];
+            $radiusKm  = 50; 
+            $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+            $this->db->select('avail_date_from, COUNT(avail_date_from) as total_date_from');
+            $this->db->where('STR_TO_DATE(avail_date_from, "%Y-%m-%d") >=', date('Y-m-d'));
+            $this->db->where('avail_user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+            $this->db->where('avail_user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+            $this->db->group_by('avail_date_from');
+            return $this->db->get('sh_user_avail')->result_array();
+        } else{
+            $myLoc = $this->get_user_info($uid);
+            if($myLoc){
+                $lat = isset($_SESSION['set_lat']) ? $_SESSION['set_lat'] : $myLoc['user_lat'];
+                $lng = isset($_SESSION['set_lng']) ? $_SESSION['set_lng'] : $myLoc['user_lng'];
+                $radiusKm  = 50; 
+                $proximity = $this->mathGeoProximity($lat, $lng, $radiusKm);
+                $this->db->select('avail_date_from, COUNT(avail_date_from) as total_date_from');
+                $this->db->where('STR_TO_DATE(avail_date_from, "%Y-%m-%d") >=', date('Y-m-d'));
+                $this->db->where('avail_user_lat BETWEEN "'. number_format($proximity['latitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['latitudeMax'], 12, '.', '').'"');
+                $this->db->where('avail_user_lng BETWEEN "'. number_format($proximity['longitudeMin'], 12, '.', ''). '" and "'. number_format($proximity['longitudeMax'], 12, '.', '').'"');
+                $this->db->group_by('avail_date_from');
+                return $this->db->get('sh_user_avail')->result_array();
+            } else{
+                return false;
+            }
+        }
+    }
+
+    public function get_user_info($uid){
+        $this->db->select('user_lat, user_lng, complete_address, zip_code')->from('sh_users')->where('id', $uid);
+        return $this->db->get()->row_array();
+    }
+
+    public function get_avail_dates($uid){
+        $this->db->select('*')->from('sh_user_avail');
+        $this->db->where('user_id', $uid);
         $this->db->group_by('avail_date_from');
-        return $this->db->get('sh_user_avail')->result_array();
+        return $this->db->get()->row_array();
     }
 
     public function get_avail_users($date){
-        // $this->db->select('user_id,book_type, COUNT(book_type) as total_user');
-        // $this->db->group_by('book_type');
-        // $this->db->where('avail_date_from', $date);
-        // return $this->db->get('sh_user_avail')->result_array();
-
         $this->db->select('user_id, book_type')->from('sh_user_avail');
         $this->db->where('avail_date_from', $date);
         return $this->db->get()->result_array();
     }
 
-    
+    public function get_users_in_date($type){
+        $this->db->select('*')->from('sh_user_avail');
+        $this->db->join('sh_users', 'sh_users.id=sh_user_avail.user_id', 'left');
+        if($type==2){
+           $this->db->where('sh_user_avail.book_type', $this->input->post('book_type')); 
+        }
+        $this->db->where('sh_user_avail.avail_date_from', $this->input->post('date'));
+        $this->db->order_by('sh_user_avail.book_type', 'asc');
+        return $this->db->get()->result_array();
+    }
 
     /* Working and Important Formula ================================================================*/
 
